@@ -8,24 +8,18 @@ const Container = styled.div`
  display : ${props => props.open ? "block" : "none"};
 `
 
-const Close = styled.div`
-color : darkgray;
-font-size : 24px;
-cursor : pointer ;
-position : absolute;
-top : 30px;
-right : 30px;
-`
-
 const Jumbo = styled.div`
+//background: url(/map.svg);
+background: linear-gradient(rgba(50,54,67,0.8), rgba(50,54,67,0.8)), url(/map.svg);
+box-shadow : 0 0 8px 0 #303339;
 width : 100%;
-height : 20%;
+height : 22%;
 margin : 0 auto;
 padding : 20px;
 `
 const Steps = styled.ul`
 width : 60%;
-margin : 0 auto;
+margin : 10 auto;
 display : flex;
 justify-content : space-around;
 align-items : center;
@@ -49,6 +43,14 @@ const Line = styled.hr`
     box-shadow: 0px 2px 20px 0.5px #dcdcdc;
     margin-top: 0px;
 `
+
+const Back = styled.img(props => ({
+    src: props.src,
+    alt: props.alt,
+    width: '30px',
+    height: '30px',
+    cursor: 'pointer',
+  }));
  
 
 const steps = [
@@ -69,34 +71,35 @@ const steps = [
         content : (<div style={{height : "70%", display : "flex" , justifyContent: "center", alignItems : "center"}}>This is the page content 2</div>),
         header : {
             title : "Select your priorities",
-            subtitle : "Select your priorities"
+            subtitle : "Make your result more accurate"
         }
     },
 
 ]
 
-const Filter = ({open, setOpen, current}) => {
+const Filter = ({open, setOpen, current, previous}) => {
 
     
     return (
         <>
             <Container open={open}>
-                <Close onClick={() => {setOpen(!open)}}>
-                X
-                </Close>
                 <Jumbo>
                     <center>
                     {
-                        steps[current-1].icon ? (<div>{steps[current-1].icon}</div>) : ("")
+                        // steps[current-1].icon ? (<div>{steps[current-1].icon}</div>) : ("")
+                        <Back src="/back.svg" alt="backButton" onClick={()=>{
+                            if(current === 1){setOpen(!open)}
+                            else if(current === 2){console.log(previous())}
+                            }}>
+                        </Back>
                     }
-                    <h2 style={{fontSize : "22px"}} 
+                    <h2 style={{fontSize : "22px", color: "#FFF"}} 
                     >{steps[current-1].header.title}</h2>
-                    <p style={{fontSize : "14px"}} >{steps[current-1].header.subtitle}</p> 
+                    <p style={{fontSize : "14px", color: "#FFF"}} >{steps[current-1].header.subtitle}</p> 
                     </center>              
                 </Jumbo>
-                {/* <hr style={{width : "50%" , color: "red", marginTop: "0px"}}/> */}
-                <Line></Line>
-                <div></div>
+                {/* <Line></Line> */}
+                {/* <div></div> */}
                 <div style={{overflow : "scroll", marginTop: "20px"}}>{steps[current-1].content}</div>
                 
             </Container>
