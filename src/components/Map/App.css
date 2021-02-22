@@ -1,0 +1,13 @@
+body{ margin: 0; padding: 0;}
+#container{
+    position: relative;
+}
+#container #map{width: 100vw; height: 100vh; }
+#container #delete-icon{
+    position: absolute;
+    top: 10%;
+    left: 18%;
+    z-index: 99;
+    
+}
+

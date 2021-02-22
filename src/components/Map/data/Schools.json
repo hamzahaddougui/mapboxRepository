@@ -1,0 +1,40 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "schools",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -81.2347255803, 29.6016970572 ]
+			},
+			"properties" : {
+				"name" : "MATANZAS HIGH SCHOOL",
+				"id": "MATANZAS_HIGH_SCHOOL",
+				"address" : "3535 OLD KINGS ROAD NORTH",
+				"city" : "PALM COAST",
+				"zipCode" : 32137,
+				"county" : "FLAGLER",
+				"phone" : "386-447-1580",
+				"type" : "SENIOR HIGH"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -81.73828125, 29.477861195816843 ]
+			},
+			"properties" : {
+				"name" : "TEST HIGH SCHOOL",
+				"id": "TEST_HIGH_SCHOOL",
+				"address" : "3535 OLD KINGS ROAD NORTH",
+				"city" : "PALM COAST",
+				"zipCode" : 32137,
+				"county" : "FLAGLER",
+				"phone" : "386-447-1580",
+				"type" : "SENIOR HIGH"
+			}
+		}
+	]
+}
