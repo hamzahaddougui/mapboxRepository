@@ -1,0 +1,108 @@
+.bottomBox{
+    height: 8%;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 92%;
+    right: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.thunder{
+    height: 32px;
+    width: 32px;
+    position: absolute;
+    bottom: 143%;
+}
+
+.logo{
+    margin-left: 12px;
+}
+
+.splitButton{
+    background-color: #323643;
+    display: inline-flex;
+    padding: 4px;
+    border-radius: 24px;
+    opacity: 77%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 12px;
+}
+
+.splitButtonView{
+    background-color: #323643;
+    display: inline-flex;
+    padding: 4px;
+    border-radius: 24px;
+    opacity: 77%;
+    /* position: absolute;
+    left: 50%;
+    transform: translate(-50%); */
+    margin-top: 12px;
+}
+
+.splitButtonItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    background-color: transparent;
+    border-radius: 24px;
+    padding: 4px 24px;
+    cursor: pointer;
+    color: #fff;
+    opacity: 50%;
+}
+
+.splitButtonItemActive{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F2F4F4;
+    border-radius: 24px;
+    padding: 4px 24px;
+    cursor: pointer;
+    color: #323643;
+}
+
+.dropDown{
+    background-color: #323643;
+    height: 40px;
+    width: 200px;
+    display: inline-flex;
+    position: absolute;
+    margin-top: 12px;
+    right: 37px;
+    cursor: pointer;
+}
+
+.dropDownContent{
+    height: calc(100vh - 15%);
+    width: 362px;
+    background-color: #FFF;
+    position: absolute;
+    right: 37px;
+    margin-top: 9px;
+    padding-top: 24px;
+    overflow: hidden;
+    opacity: 90%;
+}
+
+.dropDownItem{
+    display: flex;
+    margin-left: 16%;
+    align-items: center;
+    color: #000;
+}
+
+.percentMatch{
+    display: flex;
+    margin-left: 12%;
+    align-items: center;
+    color: #FFF;
+}

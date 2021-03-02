@@ -1,32 +1,31 @@
-// import React from 'react';
-// import Document, { Html, Head, Main, NextScript } from 'next/document';
-// import { ServerStyleSheets } from '@material-ui/core/styles';
-// //import theme from '../src/theme';
+import React from 'react';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { ServerStyleSheets } from '@material-ui/core/styles';
+import theme from '../src/theme';
 
-// export default class MyDocument extends Document {
-//   render() {
-//     return (
-//       <Html lang="en">
-//         <Head>
-//           {/* PWA primary color */}
-//           {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
-//           <link
-//             rel="stylesheet"
-//             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-//           />
-//         </Head>
-//         <body>
-//           <Main />
-//           <NextScript />
-//         </body>
-//       </Html>
-//     );
-//   }
-// }
+export default class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          {/* PWA primary color */}
+          <meta name="theme-color" content={theme.palette.primary.main} />
+          
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with server-side generation (SSG).
-//MyDocument.getInitialProps = async (ctx) => {
+MyDocument.getInitialProps = async (ctx) => {
   // Resolution order
   //
   // On the server:
@@ -50,109 +49,19 @@
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-//   const sheets = new ServerStyleSheets();
-//   const originalRenderPage = ctx.renderPage;
+  const sheets = new ServerStyleSheets();
+  const originalRenderPage = ctx.renderPage;
 
-//   ctx.renderPage = () =>
-//     originalRenderPage({
-//       enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
-//     });
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+    });
 
-//   const initialProps = await Document.getInitialProps(ctx);
+  const initialProps = await Document.getInitialProps(ctx);
 
-//   return {
-//     ...initialProps,
-//     // Styles fragment is rendered after the app and page rendering finish.
-//     styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
-//   };
-// };
-
-// import Document from 'next/document'
-// import { ServerStyleSheet } from 'styled-components'
-
-// export default class MyDocument extends Document {
-//   static async getInitialProps(ctx) {
-//     const sheet = new ServerStyleSheet()
-//     const originalRenderPage = ctx.renderPage
-
-//     try {
-//       ctx.renderPage = () =>
-//         originalRenderPage({
-//           enhanceApp: (App) => (props) =>
-//             sheet.collectStyles(<App {...props} />),
-//         })
-
-//       const initialProps = await Document.getInitialProps(ctx)
-//       return {
-//         ...initialProps,
-//         styles: (
-//           <>
-//             {initialProps.styles}
-//             {sheet.getStyleElement()}
-//           </>
-//         ),
-//       }
-//     } finally {
-//       sheet.seal()
-//     }
-//   }
-// }
-
-
-import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheet } from 'styled-components'
-import { ServerStyleSheets } from '@material-ui/core/styles';
-import theme from '../src/theme';
-
-class MyDocument extends Document {
-  static async getInitialProps (ctx) {
-    const styledComponentsSheet = new ServerStyleSheet()
-    const materialSheets = new ServerStyleSheets()
-    const originalRenderPage = ctx.renderPage;
-
-    try {
-        ctx.renderPage = () => originalRenderPage({
-            enhanceApp: App => props => styledComponentsSheet.collectStyles(materialSheets.collect(<App {...props} />))
-          })
-        const initialProps = await Document.getInitialProps(ctx)
-        return {
-          ...initialProps,
-          styles: (
-            <React.Fragment>
-              {initialProps.styles}
-              {materialSheets.getStyleElement()}
-              {styledComponentsSheet.getStyleElement()}
-            </React.Fragment>
-          )
-        }
-      } finally {
-        styledComponentsSheet.seal()
-      }
-  }
-
-  render() {
-    return (
-      <Html lang="en" dir="ltr">
-        <Head>
-          <meta charSet="utf-8" />
-          {/* PWA primary color */}
-          <meta
-            name="theme-color"
-            content={theme.palette.primary.main}
-          />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
-}
-
-export default MyDocument;
+  return {
+    ...initialProps,
+    // Styles fragment is rendered after the app and page rendering finish.
+    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+  };
+};

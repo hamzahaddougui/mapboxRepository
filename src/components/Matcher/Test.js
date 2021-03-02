@@ -105,13 +105,20 @@ const Matcher = () => {
                         <img src="/thunder.svg" alt="thunder" />
                     </div>
                     
-    {   open ? 
-                (<div> 
-                    { current===2 ? (<Button className={classes.matchButton}>Start the Matcher</Button>) : (<Button className={classes.matchButton} onClick = {() => {next()}}>Next</Button>) }
-                </div>)
+    
+             
+                    {/* { current===2 ? (<Button className={classes.matchButton}>Start the Matcher</Button>) : (<Button className={classes.matchButton} onClick = {() => {next()}}>Next</Button>) } */}
+        { open 
+            ? 
+        ("") 
             : 
-                (<Button className={classes.matchButton} onClick={()=>{setOpen(!open); console.log(current)}}>Start the Matcher</Button>)
-    }
+        (<div>
+            <div className={styles.thunder}> <img src="/thunder.svg" alt="thunder" />
+            </div>
+            <Button className={classes.matchButton} onClick={()=>{setOpen(!open); console.log(current)}}>Start the Matcher</Button>
+        </div>
+        ) }
+                
                     <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
                         <Typography style={{fontSize: "10px", color: "#323643", opacity: "57%"}}>Powered by</Typography>
                         <img className={styles.logo} src="/logo.svg" alt="logo" />

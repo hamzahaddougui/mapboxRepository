@@ -17,6 +17,9 @@ const theme = createMuiTheme({
       default: '#fff',
     },
   },
+  typography: {
+    fontFamily: "'Poppins', sans-serif"
+  }
 });
 
 export default theme;

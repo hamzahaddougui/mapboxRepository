@@ -1,10 +1,11 @@
-import Matcher from "../src/components/Matcher"
-const MatcherPage = () => {
+import MatcherComponent from '../src/components/Matcher/Test'
+
+const Matcher = () => {
     return (
         <div>
-            <Matcher/>
+            <MatcherComponent />
         </div>
     )
 }
 
-export default MatcherPage
+export default Matcher
