@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
         padding: "10px 40px",
         borderRadius: "22.5px",
         textTransform: "none",
+        "&:hover": {
+            backgroundColor: "transparent"
+          }
     }
 }));
 
@@ -101,16 +104,18 @@ const Matcher = () => {
     }
 
                 <div className={styles.bottomBox}>
-                    <div className={styles.thunder}>
+                    {/* <div className={styles.thunder}>
                         <img src="/thunder.svg" alt="thunder" />
-                    </div>
+                    </div> */}
                     
     
              
                     {/* { current===2 ? (<Button className={classes.matchButton}>Start the Matcher</Button>) : (<Button className={classes.matchButton} onClick = {() => {next()}}>Next</Button>) } */}
         { open 
             ? 
-        ("") 
+        (<div>
+            { current === 2 ? (<div className={styles.navigation} onClick={()=>{console.log("Submit")}}>Neighborhood Matcher</div>) : (<div className={styles.navigation} onClick={() => {next()}}> Next</div>) }
+        </div>) 
             : 
         (<div>
             <div className={styles.thunder}> <img src="/thunder.svg" alt="thunder" />
