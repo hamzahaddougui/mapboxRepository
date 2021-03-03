@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
     fontFamily: "Poppins",
     fontWeight: "light",
-    backgroundColor: "#6772e5",
     textTransform: "none",
     border: "0.5px solid #ABABAB",
     [theme.breakpoints.down("xs")]: {
@@ -30,10 +29,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
     textTransform: "none",
     fontFamily: "Poppins",
-    // backgroundColor: theme.palette.common.primary,
-    backgroundColor: "blue",
-    color: "blue",
-    fontWeight: "bold ",
+    backgroundColor: theme.palette.common.primary,
+    color: "white",
+    fontWeight: "bold",
     "&:hover": {
       backgroundColor: theme.palette.common.primary,
     },
