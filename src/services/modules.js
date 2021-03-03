@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import MatcherReducer from "../components/Matcher/MatcherService";
+import FilterReducer from "../components/Matcher/FilterService";
 
 export default combineReducers({
   matcher: MatcherReducer,
+  filter: FilterReducer,
 });

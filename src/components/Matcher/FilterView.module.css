@@ -1,5 +1,7 @@
 .jumbo{
     background: url(/map_head.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
     width : 100%;
     height : 22%;
     margin : 0 auto;

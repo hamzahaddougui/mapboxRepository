@@ -4,20 +4,29 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckyButtonContainer from "../../../common/CheckyButton/CheckyButtonContainer";
 import styles from "./FilterForm.module.css";
 
-import { loadFilters } from "./MatcherService";
+import { loadFilters } from "./FilterService";
+
+import { Grid, Typography } from '@material-ui/core'
 
 const FilterForm = () => {
   const [checked, setChecked] = useState(false);
-  const filters = useSelector(state => state.modules.matcher.filters);
-  console.log(filters);
+//   const filters = useSelector(state => state.modules.matcher.filters);
+//   console.log(filters);
 
-  const dispatch = useDispatch();
+   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // dispatch({ type: "matcher/loadFilters" });
-    dispatch(loadFilters());
-    loadFilters(dispatch);
-  }, []);
+//   useEffect(() => {
+//     // dispatch({ type: "matcher/loadFilters" });
+//     dispatch(loadFilters());
+//   }, []);
+
+    useEffect(() => {
+        dispatch(loadFilters());
+    }, [])
+
+    const filters = useSelector(state => state.modules.matcher.filters);
+
+    console.log(filters);
 
   const options = [
     {
@@ -43,22 +52,42 @@ const FilterForm = () => {
 
   return (
     <div>
-      <div
+
+      {/* <div
         className={checked ? styles.checkyButtonActive : styles.checkyButton}
         onClick={() => {
           setChecked(!checked);
         }}
       >
         Test
-      </div>
-      <div>
+      </div> */}
+
+      {/* <div>
         <CheckyButtonContainer
           checkedValues={["Valueee2"]}
           onClick={handleClick}
           options={options}
-          title="title Test"
+          title="Settlement"
         />
-      </div>
+      </div> */}
+
+      {filters.map((option, i) => (
+        <Grid
+          key={`${option.name}${i}`}
+          container
+          direction="column"
+          alignItems="center"
+          style={{ marginBottom: "1em" }}
+        >
+          <Typography>{option.category}</Typography>
+          <CheckyButtonContainer
+            options={filters}
+            //checkedValues={checkedValues}
+            onClick={handleClick}
+          />
+        </Grid>
+      ))}
+
     </div>
   );
 };
