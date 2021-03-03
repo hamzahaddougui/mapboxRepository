@@ -66,7 +66,7 @@ const slice = createSlice({
       state.loading = false;
     },
     filtersReceived: (state, action) => {
-      state.filters = action.payload.data;
+      state.filters = action.payload;
       state.loading = false;
       state.lastFetch = Date.now();
     },
@@ -170,6 +170,7 @@ export const loadFilters = () => (dispatch, getState) => {
   dispatch(
     apiCallBegan({
       url,
+      // method: "get",
       onStart: filtersRequested.type,
       onSuccess: filtersReceived.type,
       onError: filtersRequestFailed.type,

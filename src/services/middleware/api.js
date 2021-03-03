@@ -14,6 +14,7 @@ const api = ({ dispatch }) => next => async action => {
   next(action);
   try {
     const response = await axios.request({
+      // baseURL: "http://www.nomadville.xyz/api",
       baseURL: "http://www.nomadville.xyz/api",
       url,
       method,
