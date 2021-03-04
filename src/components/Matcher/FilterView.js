@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { Container } from '@material-ui/core';
 import FilterForm from './FilterForm';
+import PriorityForm from './PriorityForm';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,7 +36,7 @@ const steps = [
         key : 2,
         title : "step 2",
         icon : (""),
-        content : (<div>This is the page content 2</div>),
+        content : (<PriorityForm />),
         header : {
             title : "Select your priorities",
             subtitle : "Make your result more accurate"

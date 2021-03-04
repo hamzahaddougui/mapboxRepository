@@ -4,50 +4,61 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckyButtonContainer from "../../../common/CheckyButton/CheckyButtonContainer";
 import styles from "./FilterForm.module.css";
 
-import { loadFilters } from "./FilterService";
+import _ from 'lodash';
+
+import { loadFilters, checkValueAction } from "./FilterService";
 
 import { Grid, Typography } from '@material-ui/core'
 
+
 const FilterForm = () => {
   const [checked, setChecked] = useState(false);
-//   const filters = useSelector(state => state.modules.matcher.filters);
-//   console.log(filters);
 
    const dispatch = useDispatch();
-
-//   useEffect(() => {
-//     // dispatch({ type: "matcher/loadFilters" });
-//     dispatch(loadFilters());
-//   }, []);
 
     useEffect(() => {
         dispatch(loadFilters());
     }, [])
 
-    const filters = useSelector(state => state.modules.matcher.filters);
+    const filters = useSelector(state => state.modules.filter.filters);
 
-    console.log(filters);
+    const checkedValues = useSelector(state => state.modules.filter.checkedValues);
 
-  const options = [
-    {
-      title: "tiiiitle",
-      value: "Valueee1",
-      label: "labeeel",
-    },
-    {
-      title: "tiiiitle",
-      value: "Valueee",
-      label: "labeeel",
-    },
-    {
-      title: "tiiiitle",
-      value: "Valueee2",
-      label: "labeeel",
-    },
-  ];
+    console.log(checkedValues);
 
-  const handleClick = () => {
-    console.log("CLICK");
+    var groupedFilters = _.chain(filters)
+    .groupBy("category")
+    .toPairs()
+    .map(function(currentFilter) {
+        return _.toPlainObject(_.zip(["category", "champs"], currentFilter));
+    })
+    .value();
+
+    // console.log(groupedFilters);
+    // console.log(groupedFilters[0][0][1]);
+    // console.log(groupedFilters[0][1][1]);
+
+  // const options = [
+  //   {
+  //     title: "tiiiitle",
+  //     value: "Valueee1",
+  //     label: "labeeel",
+  //   },
+  //   {
+  //     title: "tiiiitle",
+  //     value: "Valueee",
+  //     label: "labeeel",
+  //   },
+  //   {
+  //     title: "tiiiitle",
+  //     value: "Valueee2",
+  //     label: "labeeel",
+  //   },
+  // ];
+
+  const handleClick = (e, option) => {
+    e.preventDefault;
+    dispatch(checkValueAction(option));
   };
 
   return (
@@ -66,23 +77,23 @@ const FilterForm = () => {
         <CheckyButtonContainer
           checkedValues={["Valueee2"]}
           onClick={handleClick}
-          options={options}
-          title="Settlement"
+          options={groupedFilters[0][1][1]}
+          title={groupedFilters[0][0][1]}
         />
       </div> */}
 
-      {filters.map((option, i) => (
+      {groupedFilters.map((option, i) => (
         <Grid
-          key={`${option.name}${i}`}
+          key={`${option.category}${i}`}
           container
           direction="column"
           alignItems="center"
           style={{ marginBottom: "1em" }}
         >
-          <Typography>{option.category}</Typography>
           <CheckyButtonContainer
-            options={filters}
-            //checkedValues={checkedValues}
+            title={option[0][1]}
+            options={option[1][1]}
+            checkedValues={checkedValues}
             onClick={handleClick}
           />
         </Grid>

@@ -3,18 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   title: {
     fontFamily: "Poppins",
-    fontSize: 24,
-    fontWeight: "Bold",
+    fontSize: 14.24,
+    fontWeight: "Light",
     [theme.breakpoints.down("xs")]: {
       fontSize: 16,
     },
   },
   checkyButton: {
-    borderRadius: "20px",
+    borderRadius: "32px",
     width: "216px",
     fontSize: 16.02,
     fontFamily: "Poppins",
-    fontWeight: "light",
+    fontWeight: "lighter",
     textTransform: "none",
     border: "1.2px solid #B2B3B4",
     [theme.breakpoints.down("xs")]: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   activeCheckyButton: {
     border: "1.2px solid transparent",
-    borderRadius: "20px",
+    borderRadius: "32px",
     width: "216px",
     fontSize: 16.02,
     textTransform: "none",

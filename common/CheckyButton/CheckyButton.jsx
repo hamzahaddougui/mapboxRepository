@@ -12,10 +12,10 @@ const CheckyButton = ({ active, option, onClick }) => {
   return (
     <React.Fragment>
       <Button
-        onClick={e => option && onClick(e, option.value)}
+        onClick={e => option && onClick(e, option.name)}
         className={active ? classes.activeCheckyButton : classes.checkyButton}
       >
-        {option && option.label}
+        {option && option.name}
       </Button>
     </React.Fragment>
   );
