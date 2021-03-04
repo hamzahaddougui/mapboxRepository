@@ -52,7 +52,7 @@ const PriorityForm = () => {
                         </Grid>
                         <Grid item xs>
                         <Button
-                            onClick={e => option && onClick(e, option.name)}
+                            onClick={handleClick}
                             className={classes.checkyButton}
                         >
                             Nice to Have
