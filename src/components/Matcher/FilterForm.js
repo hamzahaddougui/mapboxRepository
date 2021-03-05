@@ -24,8 +24,6 @@ const FilterForm = () => {
 
     const checkedValues = useSelector(state => state.modules.filter.checkedValues);
 
-    console.log(checkedValues);
-
     var groupedFilters = _.chain(filters)
     .groupBy("category")
     .toPairs()

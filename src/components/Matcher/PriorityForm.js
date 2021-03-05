@@ -12,14 +12,13 @@ const PriorityForm = () => {
 
     const dispatch = useDispatch();
 
+    const priorities = useSelector(state => state.modules.filter.priorities);
+
     useEffect(() => {
         dispatch(loadPriorities());
-    }, [])
+    }, []);
 
     const checkedValues = useSelector(state => state.modules.filter.checkedValues);
-
-    const priorities = useSelector(state => state.modules.filter.priorities);
-    console.log(priorities);
 
     const handleMustHaveClick = (option) => {
         //e.preventDefault;
@@ -46,7 +45,6 @@ const PriorityForm = () => {
                   <Typography>{option.name}</Typography>
                   </Grid>
                   {/* <Grid item container xs> */}
-                  {console.log("----"+ option.name)}
                     <Grid item xs>
                         <Button
                             // onClick={e => option && onClick(e, option.name)}
@@ -72,7 +70,6 @@ const PriorityForm = () => {
                   checkedValues={checkedValues}
                   onClick={handleClick}
                 /> */}
-                {console.log(" option is " + option.name)}
               </Grid>
             ))}
         </div>

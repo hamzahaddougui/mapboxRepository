@@ -1,4 +1,9 @@
+import Router from 'next/router';
+
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { loadMatched } from './NeighborhoodService';
 
 import styles from './Matcher.module.css';
 import FilterView from './FilterView';
@@ -36,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Matcher = () => {
 
+    const dispatch = useDispatch();
     const classes = useStyles();
 
     const [open, setOpen] = useState(false);
@@ -114,7 +120,7 @@ const Matcher = () => {
         { open 
             ? 
         (<div>
-            { current === 2 ? (<div className={styles.navigation} onClick={()=>{console.log("Submit")}}>Neighborhood Matcher</div>) : (<div className={styles.navigation} onClick={() => {next()}}> Next</div>) }
+            { current === 2 ? (<div className={styles.navigation} onClick={()=>{dispatch(loadMatched())}}>Neighborhood Matcher</div>) : (<div className={styles.navigation} onClick={() => {next()}}> Next</div>) }
         </div>) 
             : 
         (<div>

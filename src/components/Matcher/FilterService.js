@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { map } from 'lodash';
 import { apiCallBegan } from "../../services/api";
 
 const url = "/filter/json";
@@ -26,6 +27,9 @@ const slice = createSlice({
             state.loading = false;
             state.lastFetch = Date.now();
         },
+        prioritiesEmpty: (state, action) => {
+            state.priorities = [];
+        },
         prioritiesRequested: (state, action) => {
             state.loading = true;
         },
@@ -33,14 +37,23 @@ const slice = createSlice({
             state.loading = false;
         },
         prioritiesReceived: (state, action) => {
-            const value = action.payload;
-            //state.priorities.push(value);
-            if (state.priorities.includes(value)) {
-                const index = state.priorities.indexOf(value);
-                if (index > -1) {
-                  state.priorities.splice(index, 1);
+            const {priority, currentPriorities}  = action.payload;
+            let c = 0;
+            let currentPrioritie
+            currentPriorities.map((element) => {
+                if(element.name === priority.name){
+                     currentPrioritie = element;
+                    c = 1;
                 }
-            } else state.priorities.push(value);
+            })
+            if(c==0) state.priorities.push(priority); 
+            else state.priorities.push(currentPrioritie);
+            // if (state.priorities.includes(value)) {
+            //     const index = state.priorities.indexOf(value);
+            //     if (index > -1) {
+            //       state.priorities.splice(index, 1);
+            //     }
+            // } else state.priorities.push(value);
             state.loading = false;
         },
         checkValueAction: (state, action) => {
@@ -70,6 +83,7 @@ export const {
     filtersRequested,
     filtersRequestFailed,
     filtersReceived,
+    prioritiesEmpty,
     prioritiesRequested,
     prioritiesRequestFailed,
     prioritiesReceived,
@@ -118,10 +132,13 @@ export const loadPriorities = () => {
   
       try {
         console.log("loading priorities ...");
+            const currentPriorities = getState().modules.filter.priorities;
+            dispatch(prioritiesEmpty());
             const data = getState().modules.filter.checkedValues;
+            
 
             data.map((element) =>{
-                var priority = {
+                const priority = {
                         "name": element,
                         "priority": {
                             "mustHave": false,
@@ -129,7 +146,7 @@ export const loadPriorities = () => {
                         }
                 }
 
-                dispatch(prioritiesReceived(priority));
+                dispatch(prioritiesReceived({priority, currentPriorities}));
 
             });
 
