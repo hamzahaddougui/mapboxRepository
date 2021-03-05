@@ -16,7 +16,6 @@ const slice = createSlice({
     },
     reducers: {
         filtersRequested: (state, action) => {
-            console.log("filterRequested");
             state.loading = true;
         },
         filtersRequestFailed: (state, action) => {
@@ -28,23 +27,26 @@ const slice = createSlice({
             state.lastFetch = Date.now();
         },
         prioritiesRequested: (state, action) => {
-            console.log("Priorities Requested");
             state.loading = true;
         },
         prioritiesRequestFailed: (state, action) => {
             state.loading = false;
         },
         prioritiesReceived: (state, action) => {
-            //state.priorities = action.payload;
             const value = action.payload;
-            state.priorities.push(value);
+            //state.priorities.push(value);
+            if (state.priorities.includes(value)) {
+                const index = state.priorities.indexOf(value);
+                if (index > -1) {
+                  state.priorities.splice(index, 1);
+                }
+            } else state.priorities.push(value);
             state.loading = false;
-            //state.lastFetch = Date.now();
         },
         checkValueAction: (state, action) => {
-            console.log("Checked Value");
+            //console.log("Checked Value");
             const value = action.payload;
-            console.log(value);
+            //console.log(value);
             if (state.checkedValues.includes(value)) {
                 const index = state.checkedValues.indexOf(value);
                 if (index > -1) {
@@ -52,17 +54,13 @@ const slice = createSlice({
                 }
             } else state.checkedValues.push(value);
         },
-        checkPriorityAction: (state, action) => {
-            console.log("Checked Priority");
-            console.log(action);
+        checkPriorityMustHave: (state, action) => {
             const value = action.payload;
-            console.log("Value is " + value);
-            if (state.priorities.includes(value)) {
-                const index = state.priorities.indexOf(value);
-                if (index > -1) {
-                  state.priorities.splice(index, 1);
-                }
-            } else state.priorities.push({option: value, mustHave: "true"});
+            state.priorities.map((element) => {(element.name == value ? element.priority.mustHave = (!element.priority.mustHave) : element.priority.mustHave)});
+        },
+        checkPriorityNiceToHave: (state, action) => {
+            const value = action.payload;
+            state.priorities.map((element) => {(element.name == value ? element.priority.niceToHave = (!element.priority.niceToHave) : element.priority.niceToHave)});
         }
     }
 
@@ -76,7 +74,8 @@ export const {
     prioritiesRequestFailed,
     prioritiesReceived,
     checkValueAction,
-    checkPriorityAction
+    checkPriorityMustHave,
+    checkPriorityNiceToHave
 } = slice.actions;
 
 export default slice.reducer;
@@ -120,10 +119,8 @@ export const loadPriorities = () => {
       try {
         console.log("loading priorities ...");
             const data = getState().modules.filter.checkedValues;
-            console.log(data);
 
             data.map((element) =>{
-                //console.log(element);
                 var priority = {
                         "name": element,
                         "priority": {

@@ -5,7 +5,7 @@ import { Grid, Button, Typography } from '@material-ui/core';
 
 import useStyles from "../../../common/CheckyButton/CheckyButtonStyle";
 
-import { loadPriorities, checkPriorityAction } from "./FilterService";
+import { loadPriorities, checkPriorityMustHave, checkPriorityNiceToHave } from "./FilterService";
 
 const PriorityForm = () => {
     const classes = useStyles();
@@ -18,16 +18,22 @@ const PriorityForm = () => {
 
     const checkedValues = useSelector(state => state.modules.filter.checkedValues);
 
-    const handleClick = (e, option) => {
-        e.preventDefault;
-        // console.log("OPTION IS +++ "+ e.target.option)
-        // dispatch(checkPriorityAction(option));
-        console.log("target is : " + option)
+    const priorities = useSelector(state => state.modules.filter.priorities);
+    console.log(priorities);
+
+    const handleMustHaveClick = (option) => {
+        //e.preventDefault;
+        dispatch(checkPriorityMustHave(option));
+    };
+
+    const handleNiceToHaveClick = (option) => {
+        //e.preventDefault;
+        dispatch(checkPriorityNiceToHave(option));
     };
 
     return (
         <div>
-            {checkedValues.map((option, i) => (
+            {priorities.map((option, i) => (
                 <Grid
                 key={`${i}`}
                 container
@@ -37,23 +43,24 @@ const PriorityForm = () => {
                 spacing={2}
               >
                   <Grid item xs>
-                  <Typography>{option}</Typography>
+                  <Typography>{option.name}</Typography>
                   </Grid>
                   {/* <Grid item container xs> */}
-                  {console.log("----"+ option)}
+                  {console.log("----"+ option.name)}
                     <Grid item xs>
                         <Button
                             // onClick={e => option && onClick(e, option.name)}
-                            onClick={handleClick}
-                            className={classes.checkyButton}
+                            //option={option}
+                            onClick={()=>{handleMustHaveClick(option.name)}}
+                            className={option.priority.mustHave ? classes.activeCheckyButton : classes.checkyButton}
                         >
                             Must Have
                         </Button>
                         </Grid>
                         <Grid item xs>
                         <Button
-                            onClick={handleClick}
-                            className={classes.checkyButton}
+                            onClick={()=>{handleNiceToHaveClick(option.name)}}
+                            className={option.priority.niceToHave ? classes.activeCheckyButton : classes.checkyButton}
                         >
                             Nice to Have
                         </Button>
@@ -65,7 +72,7 @@ const PriorityForm = () => {
                   checkedValues={checkedValues}
                   onClick={handleClick}
                 /> */}
-                {console.log(" option is " + option)}
+                {console.log(" option is " + option.name)}
               </Grid>
             ))}
         </div>
