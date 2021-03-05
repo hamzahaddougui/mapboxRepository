@@ -40,7 +40,7 @@ export default slice.reducer;
 export const loadMatched = () => (dispatch, getState) => {
     // if (isCached(getState().modules.filters)) return;
     console.log("load Filters ...");
-    const data = [];
+    const data = {};
 
     data.filters = getState().modules.filter.priorities;
 
