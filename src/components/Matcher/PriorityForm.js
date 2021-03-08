@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Grid, Button, Typography } from '@material-ui/core';
 
-import useStyles from "../../../common/CheckyButton/CheckyButtonStyle";
+import useStyles from "../../../common/PriorityButton/PriorityButtonStyle";
 
 import { loadPriorities, checkPriorityMustHave, checkPriorityNiceToHave } from "./FilterService";
 
@@ -41,7 +41,7 @@ const PriorityForm = () => {
                 style={{ marginBottom: "1em" }}
                 spacing={2}
               >
-                  <Grid item xs>
+                  <Grid item xs style={{ marginRight: "20px" }}>
                   <Typography>{option.name}</Typography>
                   </Grid>
                   {/* <Grid item container xs> */}
@@ -50,7 +50,7 @@ const PriorityForm = () => {
                             // onClick={e => option && onClick(e, option.name)}
                             //option={option}
                             onClick={()=>{handleMustHaveClick(option.name)}}
-                            className={option.priority.mustHave ? classes.activeCheckyButton : classes.checkyButton}
+                            className={option.priority.mustHave ? classes.activePriorityButton : classes.priorityButton}
                         >
                             Must Have
                         </Button>
@@ -58,18 +58,12 @@ const PriorityForm = () => {
                         <Grid item xs>
                         <Button
                             onClick={()=>{handleNiceToHaveClick(option.name)}}
-                            className={option.priority.niceToHave ? classes.activeCheckyButton : classes.checkyButton}
+                            className={option.priority.niceToHave ? classes.activePriorityButton : classes.priorityButton}
                         >
                             Nice to Have
                         </Button>
                         </Grid>
                     {/* </Grid> */}
-                {/* <CheckyButtonContainer
-                  title={option[0][1]}
-                  options={option[1][1]}
-                  checkedValues={checkedValues}
-                  onClick={handleClick}
-                /> */}
               </Grid>
             ))}
         </div>
