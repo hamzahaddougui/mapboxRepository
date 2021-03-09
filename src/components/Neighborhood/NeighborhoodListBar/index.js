@@ -1,13 +1,16 @@
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from "./NeighborhoodListBar.module.css";
+
+import { addFavorite } from "../../Matcher/NeighborhoodService";
 
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
-import FavoriteBorderSharp from '@material-ui/icons/FavoriteBorderSharp';
+import { Favorite, FavoriteBorderSharp} from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -65,32 +68,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * const tileData = [
- *   {
- *     img: image,
- *     title: 'Image',
- *     author: 'author',
- *   },
- *   {
- *     [etc...]
- *   },
- * ];
- */
 const NeighborhoodListBar = () => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
   const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
+  const favorites = useSelector(state => state.modules.neighborhood.favorites);
 
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={5.5}>
-        {neighborhoods.data.map((neighborhood) => (
+        {neighborhoods.data.slice(0,500).map((neighborhood) => (
           <GridListTile className={classes.wrapper} key={neighborhood.Neighborhood}>
             {/* <img src={neighborhood.img} alt={neighborhood.title} /> */}
             {/* <div className={classes.wrapper}></div> */}
@@ -106,11 +95,17 @@ const NeighborhoodListBar = () => {
                 </IconButton>
               }
             /> */}
-            <IconButton className={classes.HeartIconWrapper} aria-label={`Heart ${neighborhoods.Neighborhood}`}>
-                  <FavoriteBorderSharp className={classes.heartIcon} />
+
+            {/* { favorites.includes(neighborhood) ? (setFavorite(true)) : (setFavorite(false)) } */}
+
+            <IconButton className={classes.HeartIconWrapper} onClick={()=>{dispatch(addFavorite(neighborhood));}} aria-label={`Heart ${neighborhoods.Neighborhood}`}>
+              {
+                favorites.includes(neighborhood) ? ( <Favorite style={{color: 'red'}} />) : (<FavoriteBorderSharp className={classes.heartIcon}/>)
+              }
+                  {/* <FavoriteBorderSharp className={classes.heartIcon}/> */}
             </IconButton>
             <Typography className={classes.title} component="h6" variant="h6">{neighborhood.Neighborhood}</Typography>
-            <div className={styles.score} >
+            <div className={ favorites.includes(neighborhood) ? styles.scoreFavorite : styles.score } >
               <Typography className={classes.score} component="body1" variant="body1">
                 {neighborhood.Score}%
               </Typography>
@@ -123,56 +118,3 @@ const NeighborhoodListBar = () => {
 }
 
 export default NeighborhoodListBar
-
-
-// import { useSelector } from 'react-redux';
-// import { makeStyles, useTheme } from '@material-ui/core/styles';
-// import Card from '@material-ui/core/Card';
-// import CardContent from '@material-ui/core/CardContent';
-// import Typography from '@material-ui/core/Typography';
-
-// const useStyles = makeStyles(() => ({
-//     root: {
-//       display: 'flex',
-//     },
-//     details: {
-//       display: 'flex',
-//       flexDirection: 'column',
-//     },
-//     content: {
-//       flex: '1 0 auto',
-//     },
-//   }));
-
-// const index = () => {
-//     const classes = useStyles();
-
-//     const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
-
-//     console.log(neighborhoods.data);
-//     return (
-//         <div>
-//             <h1>Results:</h1>
-//                 {neighborhoods.data.map((neighborhood) => (
-//                     // <Card className={classes.root}>
-//                     // <div className={classes.details}>
-//                     //   <CardContent className={classes.content}>
-//                     //     <Typography component="h5" variant="h5">
-//                     //       {neighborhood.Neighborhood}
-//                     //     </Typography>
-//                     //     <Typography variant="subtitle1" color="textSecondary">
-//                     //         {neighborhood.Score}
-//                     //     </Typography>
-//                     //   </CardContent>
-//                     //   </div>
-//                     // </Card>
-//                     <ul>
-//                         <li>{neighborhood.Neighborhood}</li>
-//                         <li>{neighborhood.Score}</li>
-//                     </ul>
-//                 ))}
-//         </div>
-//     )
-// }
-
-// export default index

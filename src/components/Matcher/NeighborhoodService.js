@@ -11,6 +11,7 @@ const slice = createSlice({
 
   initialState: {
     matched: [],
+    favorites: [],
     loading: false,
     lastFetch: null,
   },
@@ -36,6 +37,29 @@ const slice = createSlice({
       //<Link href="/"></Link>
       console.log(state.matched);
     },
+    addFavorite: (state, action) => {
+      console.log("Favorite added!!");
+      const value = action.payload;
+      console.log(value);
+
+      let index = -1;
+      state.favorites.forEach((element, i) => {
+        if (JSON.stringify(element) === JSON.stringify(value)) index = i
+      })
+
+      if (index > -1) { state.favorites.splice(index, 1); index = -1}
+      else state.favorites.push(value)
+
+      // THIS ONE BELOW IS WORKING WITH ELEMENTS
+
+      // if (state.favorites.includes(value)) {
+      //   console.log('Value exists already!');
+      //   const index = state.favorites.indexOf(value);
+      //   if (index > -1) {
+      //     state.favorites.splice(index, 1);
+      //   }
+      // } else {state.favorites.push(value)}
+    }
   },
 });
 
@@ -43,6 +67,7 @@ export const {
   neighborhoodRequested,
   neighborhoodRequestFailed,
   neighborhoodReceived,
+  addFavorite
 } = slice.actions;
 
 export default slice.reducer;
