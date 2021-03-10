@@ -1,7 +1,8 @@
 import axios from "axios";
 import * as actions from "../api";
 
-const BASE_URL = "http://www.nomadville.xyz/api";
+// const BASE_URL = "http://www.nomadville.xyz/api";
+const BASE_URL = "http://localhost:3001/api";
 
 const api_ = store => next => async action => {
   // console.log(store.getState());

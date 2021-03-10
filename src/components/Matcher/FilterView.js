@@ -63,7 +63,7 @@ const FilterView = ({open, setOpen, current, next, previous}) => {
 
                 <div className={styles.header}>
                 <h2 style={{fontSize : "25px", color: "#323643", fontWeight: "600", margin: "24px 0 8px 0"}}>{steps[current-1].header.title}</h2>
-                <p style={{fontSize : "16.02px", color: "#323643", fontWeight: "200", margin: "8px 0 24px 0 ", letterSpacing: "0.01071em"}} >{steps[current-1].header.subtitle}</p>
+                <div style={{fontSize : "16.02px", color: "#323643", fontWeight: "200", margin: "8px 0 24px 0 ", letterSpacing: "0.01071em"}} >{steps[current-1].header.subtitle}</div>
                 </div>
 
             </div>
