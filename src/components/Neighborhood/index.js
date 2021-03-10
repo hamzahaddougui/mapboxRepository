@@ -1,7 +1,9 @@
 import NeighborhoodListBar from './NeighborhoodListBar'
 
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Router from 'next/router';
 
 import styles from './Neighborhood.module.css';
 
@@ -39,6 +41,14 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 14.24,
         fontFamily: "Poppins",
         textAlign: 'center',
+    },
+    restartMatcherButton:{
+        color : "#323643", 
+        textTransform: "none",
+        position: "relative",
+        "&:hover": {
+            backgroundColor: "transparent"
+          }
     }
 }));
 
@@ -48,6 +58,8 @@ const Neighborhood = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    const favorites = useSelector(state => state.modules.neighborhood.favorites);
+
     const [open, setOpen] = useState(false);
     const [current, setCurrent] = useState(1);
     const [matcher, setMatcher] = useState(false);
@@ -55,6 +67,8 @@ const Neighborhood = () => {
     const [twoD, setTwoD] = useState(true);
     const [threeD, setThreeD] = useState(false);
     const [menu, setMenu] = useState(false);
+
+    favorites.length > 0 ? (console.log("Favorites Full!!")) : (console.log("Favorites is Empty")) ;
 
     const next = () => {
         setCurrent(current+1)
@@ -123,18 +137,38 @@ const Neighborhood = () => {
             
                 <NeighborhoodListBar />
 
-                <div className={styles.bottomBox}>  
+                <div className={styles.bottomBox}> 
 
-                <div>
-                    <div className={styles.thunder}> <img src="/thunder.svg" alt="thunder" />
-                    </div>
-                    <Button className={classes.matchButton}>Start the Matcher</Button>
-                </div>
+                <div className={styles.bottomNavigationButtons}>
                 
-                    <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
+         
+                    <div className={styles.restartMatcher} onClick={() => {console.log("Restart Matcher")}}>
+                        <img className={styles.restartMatcherThunder} src="/thunder.svg" alt="thunder" />
+                        <Button className={classes.restartMatcherButton}>Restart the Matcher</Button>
+                    </div>
+
+                    {
+                        favorites.length > 0 
+                        ? 
+                            (<div className={styles.homeMatcherActive} onClick={() => {console.log("Home Matcher"); Router.push('/signup')}}>
+                                <img className={styles.homeMatcherThunderActive} src="/thunder.svg" alt="thunder" />
+                                <Button className={classes.restartMatcherButton}>Home Matcher</Button>
+                            </div>) 
+                        : 
+                            (<div className={styles.homeMatcher}>
+                                <img className={styles.homeMatcherThunder} src="/thunder.svg" alt="thunder" />
+                                <Button className={classes.restartMatcherButton} disabled>Home Matcher</Button>
+                            </div>)
+                    }
+            
+
+                </div>
+
+                <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
                         <Typography style={{fontSize: "10px", color: "#323643", opacity: "57%"}}>Powered by</Typography>
                         <img className={styles.logo} src="/logo.svg" alt="logo" />
-                    </div>
+                </div>
+
                 </div>
 
             </Container>

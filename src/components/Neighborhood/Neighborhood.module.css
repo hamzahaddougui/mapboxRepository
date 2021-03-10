@@ -125,3 +125,64 @@
 .leftGroupButtons{
     background-color: thistle;
 }
+
+.bottomNavigationButtons{
+    display: inline-flex;
+}
+
+.restartMatcher{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 30%;
+    bottom: 20%;
+    cursor: pointer;
+}
+
+.restartMatcherThunder{
+    height: 64px;
+    width: 32px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 60%;
+    z-index: 2;
+}
+
+.homeMatcher{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 30%;
+    bottom: 20%;
+}
+
+.homeMatcherActive{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 30%;
+    bottom: 20%;
+    cursor: pointer;
+}
+
+
+.homeMatcherThunderActive{
+    height: 64px;
+    width: 32px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 60%;
+    z-index: 2;
+}
+
+.homeMatcherThunder{
+    height: 32px;
+    width: 16px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 70%;
+    z-index: 2;
+}

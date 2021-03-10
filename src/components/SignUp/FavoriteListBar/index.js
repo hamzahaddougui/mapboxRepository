@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import styles from "./NeighborhoodListBar.module.css";
+import styles from "./FavoriteListBar.module.css";
 
 import { addFavorite } from "../../Matcher/NeighborhoodService";
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'transparent',
     height: '210px',
     padding: '4px 0',
-    marginTop: 'calc(100vh - 23%)',
+    margin: '-48px 29px 0',
   },
   gridList: {
     flexWrap: 'nowrap',
@@ -63,24 +63,62 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#323643',
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 50)',
     borderRadius: '24px',
-    margin: '0 4px',
-    width: '257px',
+    margin: '8px 4px',
+    //width: '257px',
+  },
+  addNeighborhood:{
+    backgroundColor: '#fff',
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.3)',
+    borderRadius: '24px',
+    margin: '8px 4px',
+  },
+  addNeighborhoodImg:{
+    width: "75px",
+    height: "71px",
+    marginTop: "24px",
+  },
+  addNeighborhoodTxt:{
+    fontFamily: "Poppins",
+    color: "#323643",
+    fontSize: 16.02,
+    fontWeight: "lighter",
+    textAlign: "center",
+    marginTop: "8px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  addNeighborhoodWrapper:{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   }
+
 }));
 
-const NeighborhoodListBar = () => {
+const FavoriteListBar = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
-  const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
+  //const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
 
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={5.5}>
-        {neighborhoods.data.slice(0,500).map((neighborhood) => (
-          <GridListTile className={classes.wrapper} key={neighborhood.Neighborhood}>
+
+        <div className={classes.addNeighborhood}>
+          <div className={classes.addNeighborhoodWrapper}>
+          <img className={classes.addNeighborhoodImg} src="/addNeighborhood.svg" alt="Add Neighborhood" />
+          <Typography className={classes.addNeighborhoodTxt} variant="body1" component="body1">
+            <span style={{ fontSize: 22, fontWeight: "bold", marginRight: "6px" }}>+ </span> Add a neighborhood
+          </Typography>
+          </div>
+        </div>
+
+        {favorites.map((favorite) => (
+          <GridListTile className={classes.wrapper} key={favorite.Neighborhood}>
             {/* <img src={neighborhood.img} alt={neighborhood.title} /> */}
             {/* <div className={classes.wrapper}></div> */}
             {/* <GridListTileBar
@@ -98,16 +136,16 @@ const NeighborhoodListBar = () => {
 
             {/* { favorites.includes(neighborhood) ? (setFavorite(true)) : (setFavorite(false)) } */}
 
-            <IconButton className={classes.HeartIconWrapper} onClick={()=>{dispatch(addFavorite(neighborhood));}} aria-label={`Heart ${neighborhood.Neighborhood}`}>
+            <IconButton className={classes.HeartIconWrapper} onClick={()=>{dispatch(addFavorite(favorite));}} aria-label={`Heart ${favorite.Neighborhood}`}>
               {
-                favorites.includes(neighborhood) ? ( <Favorite style={{color: 'red'}} />) : (<FavoriteBorderSharp className={classes.heartIcon}/>)
+                favorites.includes(favorite) ? ( <Favorite style={{color: 'red'}} />) : (<FavoriteBorderSharp className={classes.heartIcon}/>)
               }
                   {/* <FavoriteBorderSharp className={classes.heartIcon}/> */}
             </IconButton>
-            <Typography className={classes.title} component="h6" variant="h6">{neighborhood.Neighborhood}</Typography>
-            <div className={ favorites.includes(neighborhood) ? styles.scoreFavorite : styles.score } >
+            <Typography className={classes.title} component="h6" variant="h6">{favorite.Neighborhood}</Typography>
+            <div className={ favorites.includes(favorite) ? styles.scoreFavorite : styles.score } >
               <Typography className={classes.score} component="body1" variant="body1">
-                {neighborhood.Score}%
+                {favorite.Score}%
               </Typography>
             </div>
           </GridListTile>
@@ -117,4 +155,4 @@ const NeighborhoodListBar = () => {
   );
 }
 
-export default NeighborhoodListBar
+export default FavoriteListBar
