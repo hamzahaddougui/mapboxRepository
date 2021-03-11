@@ -150,7 +150,7 @@ const Neighborhood = () => {
                     {
                         favorites.length > 0 
                         ? 
-                            (<div className={styles.homeMatcherActive} onClick={() => {console.log("Home Matcher"); Router.push('/signup')}}>
+                            (<div className={styles.homeMatcherActive} onClick={() => {console.log("Home Matcher"); Router.push('/result')}}>
                                 <img className={styles.homeMatcherThunderActive} src="/thunder.svg" alt="thunder" />
                                 <Button className={classes.restartMatcherButton}>Home Matcher</Button>
                             </div>) 
