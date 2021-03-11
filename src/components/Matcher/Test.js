@@ -34,6 +34,14 @@ const useStyles = makeStyles((theme) => ({
         "&:hover": {
             backgroundColor: "transparent"
           }
+    },
+    nMatcher:{
+        height: "104px",
+        width: "70px",
+        position: "absolute",
+        bottom: "39px",
+        left: "50%",
+        transform: "translateX(-50%)",
     }
 }));
 
@@ -118,7 +126,14 @@ const Matcher = () => {
         { open 
             ? 
         (<div>
-            { current === 2 ? (<div className={styles.navigation} onClick={()=>{dispatch(loadMatched())}}>Neighborhood Matcher</div>) : (<div className={styles.navigation} onClick={() => {next()}}> Next</div>) }
+            { current === 2 
+                    ? 
+                (<div>
+                    <img className={classes.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
+                    <div className={styles.navigation} onClick={()=>{dispatch(loadMatched())}}>Neighborhood Matcher</div>
+                </div>)
+                    : 
+                (<div className={styles.navigation} onClick={() => {next()}}> Next</div>) }
         </div>) 
             : 
         (<div>

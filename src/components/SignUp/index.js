@@ -142,7 +142,7 @@ const SignUp = () => {
         </div>
       </div>
 
-      <FavoriteListBar />
+      <FavoriteListBar open={open} setOpen={setOpen} />
 
       <div className={classes.bottomBox}>
         <div

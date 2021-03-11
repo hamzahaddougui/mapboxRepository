@@ -92,10 +92,11 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    cursor: "pointer",
   },
 }));
 
-const FavoriteListBar = () => {
+const FavoriteListBar = ({open, setOpen}) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -107,7 +108,8 @@ const FavoriteListBar = () => {
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={5.5}>
         <div className={classes.addNeighborhood}>
-          <div className={classes.addNeighborhoodWrapper}>
+
+          <div className={classes.addNeighborhoodWrapper} onClick={() => {setOpen(!open)}}>
             <img
               className={classes.addNeighborhoodImg}
               src="/addNeighborhood.svg"
