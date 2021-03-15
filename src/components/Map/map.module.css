@@ -1,0 +1,23 @@
+
+#container{
+    position: relative;
+}
+.map{width: 100vw; height: 100vh; }
+
+
+
+#container #map{width: 100vw; height: 100vh; }
+#container #card-div{
+      top: 10%;
+      left: 5%;
+      position: absolute;
+      z-index: 1;
+}
+#container #delete-icon{
+    position: absolute;
+    top: 10%;
+    left: 18%;
+    z-index: 99;
+    
+}
+
