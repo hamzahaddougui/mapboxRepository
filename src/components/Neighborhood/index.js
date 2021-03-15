@@ -62,8 +62,8 @@ const Neighborhood = () => {
 
     const [open, setOpen] = useState(false);
     const [current, setCurrent] = useState(1);
-    const [matcher, setMatcher] = useState(false);
-    const [search, setSearch] = useState(true);
+    const [matcher, setMatcher] = useState(true);
+    const [search, setSearch] = useState(false);
     const [twoD, setTwoD] = useState(true);
     const [threeD, setThreeD] = useState(false);
     const [menu, setMenu] = useState(false);

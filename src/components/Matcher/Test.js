@@ -5,6 +5,7 @@ import { loadMatched } from './NeighborhoodService';
 
 import styles from './Matcher.module.css';
 import FilterView from './FilterView';
+import MapComponent from "../Map";
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Box, Button, CssBaseline } from '@material-ui/core'
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         height: '100vh',
-        maxWidth: 'none',
+        width: '100vw',
     },
     matchButton: {
         border: "1px solid #979797",
@@ -52,8 +53,8 @@ const Matcher = () => {
 
     const [open, setOpen] = useState(false);
     const [current, setCurrent] = useState(1);
-    const [matcher, setMatcher] = useState(false);
-    const [search, setSearch] = useState(true);
+    const [matcher, setMatcher] = useState(true);
+    const [search, setSearch] = useState(false);
     const [twoD, setTwoD] = useState(true);
     const [threeD, setThreeD] = useState(false);
     const [menu, setMenu] = useState(false);
@@ -150,6 +151,8 @@ const Matcher = () => {
                 </div>
 
                 <FilterView open={open} setOpen={setOpen} current={current} next={next} previous={previous}/>
+
+                <MapComponent />
 
             </Container>
         </div>

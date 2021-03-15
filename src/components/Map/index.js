@@ -700,9 +700,9 @@ class Map extends Component {
   render() {
     return (
       <React.Fragment>
-        <div id="container">
+        <div className={styles.container} id="container">
           <div className={styles.map} id="map" />
-          <div id="card-div">
+          <div className={styles.card_div} id="card-div">
             <PoiCard
               details={this.state.cardObject}
               open={this.state.openCard}

@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     bottom: "0px",
     right: "0px",
     left: "0px",
-    zIndex: "1",
+    zIndex: "2",
     display: props => (props.open ? "block" : "none"),
   },
 }));

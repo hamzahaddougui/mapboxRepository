@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import styles from "./Matcher.module.css";
 import FilterView from "./FilterView";
+import MapComponent from "../Map";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button, CssBaseline } from "@material-ui/core";
@@ -51,6 +52,7 @@ const Matcher = () => {
 
   return (
     <div className={classes.root}>
+      <MapComponent style={{height: "100vh", width:"100vw"}} />
       <CssBaseline />
       <Container className={classes.jumbo} fixed>
         <div className={styles.splitButtonView}>
