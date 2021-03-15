@@ -79,7 +79,7 @@ const NeighborhoodListBar = () => {
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={5.5}>
-        {neighborhoods.data.slice(0, 50).map(neighborhood => (
+        {neighborhoods.data?.slice(0, 50).map(neighborhood => (
           <GridListTile className={classes.wrapper} key={neighborhood.Neighborhood}>
             {/* <img src={neighborhood.img} alt={neighborhood.title} /> */}
             {/* <div className={classes.wrapper}></div> */}
