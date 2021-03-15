@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
     overflow: "hidden",
     backgroundColor: "transparent",
     height: "210px",
-    padding: "4px 0",
-    margin: "-48px 29px 0",
+    // padding: "4px 0",
+    margin: "0px 29px 0",
   },
   gridList: {
     flexWrap: "nowrap",
