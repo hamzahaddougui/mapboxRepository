@@ -123,7 +123,7 @@ const FavoriteListBar = ({open, setOpen}) => {
         </div>
 
         {favorites.map(favorite => (
-          <GridListTile className={classes.wrapper} key={favorite.Neighborhood}>
+          <GridListTile className={classes.wrapper} key={favorite.Neighborhood} onClick={()=>{Router.push("/detail");}}>
             {/* <img src={neighborhood.img} alt={neighborhood.title} /> */}
             {/* <div className={classes.wrapper}></div> */}
             {/* <GridListTileBar

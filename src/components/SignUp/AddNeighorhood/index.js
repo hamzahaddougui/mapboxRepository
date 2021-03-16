@@ -136,7 +136,7 @@ const AddNeighborhood = ({open, setOpen}) => {
                 clearOnBlur
                 handleHomeEndKeys
                 id="add-neighborhood"
-                options={neighborhoods.data}
+                options={neighborhoods.data ? neighborhoods.data : []}
                 getOptionLabel={(option) => {
                     // Value selected with enter, right from the input
                     if (typeof option === 'string') {

@@ -1,7 +1,10 @@
 import Router from "next/router";
 
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
 
+import { SignUpAction } from './SignUpService';
+ 
 import FavoriteListBar from "./FavoriteListBar";
 import AddNeighborhood from "./AddNeighorhood";
 import SignUpForm from './SignUpForm';
@@ -133,6 +136,8 @@ const useStyles = makeStyles(theme => ({
 const SignUp = () => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({firstName: "", lastName: "", email: ""});
 
@@ -141,11 +146,11 @@ const SignUp = () => {
   };
 
   const handleClick = async () => {
-    if (data.email && data.password) {
+    if (data.email && data.firstName && data.lastName) {
       try {
         console.log(data);
-        const response = await instance.post("http://localhost:3001/api/users/signup", data);
-        console.log(response);
+        // const response = await instance.post("http://localhost:3001/api/users/signup", data);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -180,16 +185,17 @@ const SignUp = () => {
 
       <FavoriteListBar open={open} setOpen={setOpen} />
 
-      <SignUpForm />
+      <SignUpForm data={data} handleChange={handleChange} />
 
       </div>
 
       <div className={classes.bottomBox}>
         <div
           className={styles.homeMatcher}
-          onClick={() => {
-            console.log("Home Matcher");
-          }}
+          onClick={
+            // () => {dispatch(SignUpAction(data))}
+            handleClick
+          }
         >
           <img className={classes.thunder} src="/thunder.svg" alt="thunder" />
           <Button className={classes.navigation}>Home Matcher</Button>
