@@ -6,6 +6,7 @@ import { loadMatched } from './NeighborhoodService';
 import styles from './Matcher.module.css';
 import FilterView from './FilterView';
 import MapComponent from "../Map";
+import TestComponent from "../Map/components/Test";
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Box, Button, CssBaseline } from '@material-ui/core'
@@ -69,6 +70,7 @@ const Matcher = () => {
     return (
         <div className={classes.root}>
             <CssBaseline />
+            <TestComponent />
             <Container className={classes.jumbo} fixed>
 
                 <div className={styles.splitButtonView}>
