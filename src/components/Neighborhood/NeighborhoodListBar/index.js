@@ -1,3 +1,5 @@
+import Router from "next/router";
+
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -65,6 +67,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "24px",
     margin: "0 4px",
     width: "257px",
+    cursor: "pointer",
   },
 }));
 
@@ -80,7 +83,7 @@ const NeighborhoodListBar = () => {
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={5.5}>
         {neighborhoods.data?.slice(0, 50).map(neighborhood => (
-          <GridListTile className={classes.wrapper} key={neighborhood.Neighborhood}>
+          <GridListTile className={classes.wrapper} key={neighborhood.Neighborhood} onClick={()=>{Router.push("/detail");}}>
             {/* <img src={neighborhood.img} alt={neighborhood.title} /> */}
             {/* <div className={classes.wrapper}></div> */}
             {/* <GridListTileBar

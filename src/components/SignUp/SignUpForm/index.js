@@ -1,4 +1,6 @@
-import axios from "axios";
+//import axios from "axios";
+import { responseSuccessGoogle, responseFailureGoogle } from '../SignUpService';
+
 import GoogleLogin from "react-google-login";
 
 import styles from './SignUpForm.module.css';
@@ -59,24 +61,24 @@ const useStyles = makeStyles((theme) => ({
 
 const clientId = "79328369707-8da82odrau1iut7pol5linujatbgm9tm.apps.googleusercontent.com";
 
-const instance = axios.create({
-    withCredentials: true,
-  });
+// const instance = axios.create({
+//     withCredentials: true,
+//   });
 
-const SignUpForm = () => {
+const SignUpForm = ({data, handleChange}) => {
     const classes = useStyles();
 
-    const responseSuccessGoogle = async response => {
-        console.log("response google");
-        console.log(response);
-        const res = await instance.post("http://localhost:3001/api/users/signup-google", {
-          tokenId: response.tokenId,
-        });
-        console.log(res);
-      };
-      const responseFailureGoogle = response => {
-        console.log("response google", response);
-      };
+    // const responseSuccessGoogle = async response => {
+    //     console.log("response google");
+    //     console.log(response);
+    //     const res = await instance.post("http://localhost:3001/api/users/signup-google", {
+    //       tokenId: response.tokenId,
+    //     });
+    //     console.log(res);
+    //   };
+    //   const responseFailureGoogle = response => {
+    //     console.log("response google", response);
+    //   };
 
     return (
         
@@ -101,6 +103,8 @@ const SignUpForm = () => {
                     }}
                     //label="First name"
                     name="firstName"
+                    value={data.firstName}
+                    onChange={handleChange}
                     autoComplete="fname"
                     placeholder="First name"
                 />
@@ -119,6 +123,8 @@ const SignUpForm = () => {
                     //label="Last name"
                     placeholder="Last name"
                     name="lastName"
+                    value={data.lastName}
+                    onChange={handleChange}
                     autoComplete="lname"
                 />
                 </Grid>
@@ -136,6 +142,8 @@ const SignUpForm = () => {
                     //label="Email Address"
                     placeholder="Email"
                     name="email"
+                    value={data.email}
+                    onChange={handleChange}
                     autoComplete="email"
                 />
                 </Grid>
