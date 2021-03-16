@@ -48,8 +48,56 @@ const useStyles = makeStyles((theme) => ({
     },
     paper:{
         width: "827px",
-        height: "897px",
-        backgroundColor: "purple"
+        height: "85%",
+        position: "absolute",
+        left: "50%",
+        transform: "translate(-50%)",
+        top: "2%",
+        borderRadius: "24px",
+        boxShadow: '0 5px 18px 0 rgba(227,228,254,0.63)'
+    },
+    title:{
+        width: "153px",
+        height: "41px",
+        backgroundColor: "#FFF",
+        position: "absolute",
+        left: "50%",
+        transform: "translate(-50%)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "0 0 34px 34px"
+    },
+    titleTxt:{
+        fontFamily: "Poppins",
+        fontSize: 16.02,
+        textAlign: "center",
+        textTransform: "Capitalize"
+    },
+    imgSlider:{
+        width: "100%",
+        height: "547px",
+        backgroundColor: "#575FF9",
+        borderRadius: "24px 24px 0 0",
+        position: "relative"
+    },
+    scoreBall:{
+        width: "71px",
+        height: "41px",
+        backgroundColor: "#FFF",
+        borderRadius: "20.5px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "absolute",
+        bottom: "26px",
+        left: "22px"
+    },
+    score:{
+        fontFamily: "Poppins",
+        fontSize: 16.02,
+        color: "#575FF9",
+        fontWeight: "bold"
     }
 }));
 
@@ -70,10 +118,18 @@ const index = () => {
                     <img className={classes.backIcon} src="/back.svg" alt="backButton"></img>
                     <div className={classes.backText}>Map View</div>
                 </div>
-                <Paper className={classes.paper}>
-
-                </Paper>
             </div>
+            <Paper className={classes.paper}>
+                    <div className={classes.imgSlider}>
+                        <div className={classes.title}>
+                            <Typography variant="h5" className={classes.titleTxt}>south beach</Typography>
+                        </div>
+
+                        <div className={classes.scoreBall}>
+                            <Typography variant="h5" className={classes.score}>90%</Typography>
+                        </div>
+                    </div>
+            </Paper>
         </div>
     )
 }
