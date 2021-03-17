@@ -1,23 +1,15 @@
 import React, { Component } from "react";
-import Head from "next/head";
-// import mapboxgl from "mapbox-gl";
-// import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
-// import * as mapboxgl from "mapbox-gl";
-// import "mapbox-gl/dist/mapbox-gl.css";
+
 import { connect } from "react-redux";
 import styles from "./map.module.css";
-// import data from "./data/All_In_One.json";
-import PoiData from "./data/Schools.json";
 import POI from "./data/POI.json";
 import HouseData from "./data/houses.json";
 import PoiCard from "./components/card/card";
 import service from "./services/fetching";
-import PoiService from "./services/poiService";
 import layerShape from "./services/layerShape";
-import Neighborhood from "./components/neighborhood/Neighborhood";
 import axios from "axios";
 
-import TestComponent from "./components/Test";
+import { createPolygons, drawPolygons } from "./services/polygonsDrawer";
 
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
@@ -27,10 +19,9 @@ mapboxgl.accessToken =
 const image = "/map/schools.png";
 const marker = "/map/marker.png";
 
-class Map extends Component {
+class BaseMap extends Component {
   state = {
     openCard: false,
-    highlightedElements: [],
     scores: [
       { id: "house 5", score: 100 },
       { id: "house 4", score: 80 },
@@ -42,103 +33,49 @@ class Map extends Component {
     image: "",
     cardObject: { name: "", county: "", city: "", adress: "", phone: "", type: "" },
     popup: new mapboxgl.Popup({ closeButton: false }),
-    allInOne: "",
+    polygons: "",
   };
 
   handleClose = () => {
     this.setState({ ...this.state, openCard: false });
   };
 
-  getZoom = id => {
-    let minzoom;
-    let maxzoom;
-    switch (id.split("-").length) {
-      case 1:
-        minzoom = 5;
-        maxzoom = 7;
-        break;
-      case 2:
-        minzoom = 7;
-        maxzoom = 9;
-        break;
-      case 3:
-        minzoom = 9;
-        maxzoom = 11;
-        break;
-      case 4:
-        minzoom = 11;
-        maxzoom = 13;
-        break;
-      default:
-        break;
-    }
-    return { minzoom, maxzoom };
-  };
-
-  getElementStyle = (elements, feature) => {
-    let style;
-    elements.map(el => {
-      if (el.style.id.includes(feature[0].properties.id)) style = el.style;
-    });
-    return style;
-  };
-
   async componentDidMount() {
-    // get all_in_one : /api/filter/static/All_In_One.json
     let map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/hamzahad/ckm6lqb38f5ev17ljx1v8jxgp", // style URL
-      // style: "mapbox://styles/mapbox/streets-v11", // style URL
       center: [-83.12740247113558, 29.26252966640054], // starting position [lng, lat]
       zoom: 5, // starting zoom
     });
 
-    // let neigh= this.props.scores
-    // console.log(neigh);
-
-    const allInOne = (await this.getAllInOne()).data;
-    console.log(allInOne);
-    this.setState({ mapObject: map, allInOne: allInOne });
+    let polygonsData = await this.getAllInOne();
+    this.setState({ mapObject: map, polygons: polygonsData.data });
     let features = [];
-    map.on("load", () => {
-      // this.showPoiMarkers();
-
-      this.handleMapboxSourceState(allInOne, map, "region", "#E2E3F0", 0.2, 5, 7);
-      this.handleMapboxSourceState(allInOne, map, "county", "#E2E3F0", 0.2, 7, 9);
-      this.handleMapboxSourceState(allInOne, map, "city", "#E2E3F0", 0.2, 9, 11);
-      this.handleMapboxSourceState(allInOne, map, "neighborhood", "#E2E3F0", 0.2, 11, 15);
+    map.on("load", e => {
+      console.log("Event", e.target);
+      createPolygons(polygonsData, map, "region", "#E2E3F0", 0.2, 5, 7);
+      createPolygons(polygonsData, map, "county", "#E2E3F0", 0.2, 7, 9);
+      createPolygons(polygonsData, map, "city", "#E2E3F0", 0.2, 9, 11);
+      createPolygons(polygonsData, map, "neighborhood", "#E2E3F0", 0.2, 11, 15);
       this.showHouses();
-      let subCategories = [];
-
-      let feature = POI.features.filter(f => f.properties.subCategory == "Civic_Centers");
     });
 
     map.on("mousemove", "region-layer", e => {
       features = [];
-      features = this.showHighlightedOnMap(
-        allInOne,
-        service.getFeatures(allInOne.features, "region", e.features[0].properties.id),
+      features = drawPolygons(
+        service.getFeatures(polygonsData.data.features, "region", e.features[0].properties.id),
       );
-      this.handleMapboxSourceState(
-        allInOne,
-        map,
-        "region-highlighted",
-        "#858585",
-        0.4,
-        5,
-        7,
-        features,
-      );
+      console.log(features);
+      createPolygons(polygonsData, map, "region-highlighted", "#858585", 0.4, 5, 7, features);
       // map.moveLayer("region-highlighted-layer", "scores-layer");
     });
 
     map.on("mouseleave", "region-layer", e => {
-      this.handleMapboxSourceState(allInOne, map, "region-highlighted", "#858585", 0.4, 5, 7, []);
+      createPolygons(polygonsData, map, "region-highlighted", "#858585", 0.4, 5, 7, []);
     });
 
     map.on("click", "region-highlighted-layer", e => {
       this.handleMapboxLayerClick(
-        allInOne,
         map,
         e,
         { flyToMinZoom: 5, flyToMaxZoom: 7, flyToDuration: 10000, flyToSpeed: 0.4 },
@@ -158,20 +95,10 @@ class Map extends Component {
 
     map.on("mousemove", "county-layer", e => {
       features = [];
-      features = this.showHighlightedOnMap(
-        allInOne,
-        service.getFeatures(allInOne.features, "county", e.features[0].properties.id),
+      features = drawPolygons(
+        service.getFeatures(polygonsData.data.features, "county", e.features[0].properties.id),
       );
-      this.handleMapboxSourceState(
-        allInOne,
-        map,
-        "county-highlighted",
-        "#858585",
-        0.4,
-        7,
-        9,
-        features,
-      );
+      createPolygons(polygonsData, map, "county-highlighted", "#858585", 0.4, 7, 9, features);
       this.handleMapboxPopup(e).mapbox.addTo(map);
       // map.moveLayer("county-highlighted-layer", "scores-layer");
     });
@@ -179,7 +106,6 @@ class Map extends Component {
     map.on("click", "county-layer", e => {
       let result = e.features[0].properties.id.split("-");
       this.handleMapboxLayerClick(
-        allInOne,
         map,
         e,
         { flyToMinZoom: 7, flyToMaxZoom: 9, flyToDuration: 10000, flyToSpeed: 0.4 },
@@ -196,14 +122,13 @@ class Map extends Component {
     });
 
     map.on("mouseleave", "county-layer", e => {
-      this.handleMapboxSourceState(allInOne, map, "county-other", "#858585", 0.1, 7, 9, []);
+      createPolygons(polygonsData, map, "county-other", "#858585", 0.1, 7, 9, []);
     });
 
     this.handleMapboxMouseEventPolygon(map, "mouseleave", "county-layer");
 
     map.on("click", "county-highlighted-layer", e => {
       this.handleMapboxLayerClick(
-        allInOne,
         map,
         e,
         { flyToMinZoom: 7, flyToMaxZoom: 7, flyToDuration: 10000, flyToSpeed: 0.2 },
@@ -221,7 +146,6 @@ class Map extends Component {
 
     map.on("click", "county-clicked-layer", e => {
       this.handleMapboxLayerClick(
-        allInOne,
         map,
         e,
         { flyToMinZoom: 7, flyToMaxZoom: 9, flyToDuration: 10000, flyToSpeed: 0.2 },
@@ -239,16 +163,15 @@ class Map extends Component {
 
     map.on("mouseover", "city-layer", e => {
       features = [];
-      features = this.showHighlightedOnMap(
-        allInOne,
-        service.getFeatures(allInOne.features, "city", e.features[0].properties.id),
+      features = drawPolygons(
+        service.getFeatures(polygonsData.data.features, "city", e.features[0].properties.id),
       );
-      this.handleMapboxSourceState(allInOne, map, "city-other", "#858585", 0.4, 9, 11, features);
+      createPolygons(polygonsData, map, "city-other", "#858585", 0.4, 9, 11, features);
       // map.moveLayer("city-other-layer", "scores-layer");
     });
 
     map.on("mouseleave", "city-layer", e => {
-      this.handleMapboxSourceState(allInOne, map, "city-other", "#858585", 0.4, 9, 11, []);
+      createPolygons(polygonsData, map, "city-other", "#858585", 0.4, 9, 11, []);
     });
 
     this.handleMapboxMouseEventPolygon(map, "mousemove", "city-layer");
@@ -256,7 +179,6 @@ class Map extends Component {
 
     map.on("click", "city-other-layer", e => {
       this.handleMapboxLayerClick(
-        allInOne,
         map,
         e,
         { flyToMinZoom: 8, flyToMaxZoom: 9, flyToDuration: 10000, flyToSpeed: 0.4 },
@@ -274,7 +196,6 @@ class Map extends Component {
 
     map.on("click", "current-city-layer", e => {
       this.handleMapboxLayerClick(
-        allInOne,
         map,
         e,
         { flyToMinZoom: 11, flyToMaxZoom: 12, flyToDuration: 10000, flyToSpeed: 0.4 },
@@ -294,12 +215,15 @@ class Map extends Component {
     this.handleMapboxMouseEventPolygon(map, "mouseleave", "current-city-layer");
 
     map.on("mousemove", "neighborhood-layer", e => {
-      features = this.showHighlightedOnMap(
-        allInOne,
-        service.getFeatures(allInOne.features, "neighborhood", e.features[0].properties.id),
+      features = drawPolygons(
+        service.getFeatures(
+          polygonsData.data.features,
+          "neighborhood",
+          e.features[0].properties.id,
+        ),
       );
-      this.handleMapboxSourceState(
-        allInOne,
+      createPolygons(
+        polygonsData,
         map,
         "neighborhood-highlighted",
         "#858585",
@@ -313,7 +237,6 @@ class Map extends Component {
 
     map.on("click", "neighborhood-layer", e => {
       this.handleMapboxLayerClick(
-        allInOne,
         map,
         e,
         { flyToMinZoom: 11, flyToMaxZoom: 12, flyToDuration: 10000, flyToSpeed: 0.4 },
@@ -363,144 +286,6 @@ class Map extends Component {
     });
   }
 
-  handleMapboxSourceState = async (
-    allInOne,
-    map,
-    sourceName,
-    layerColor,
-    layerOpacity,
-    layerMinZoom,
-    layerMaxZoom,
-    features = null,
-  ) => {
-    let geojson = {
-      type: "FeatureCollection",
-      features: [],
-    };
-
-    // console.log(allInOne);
-
-    if (features == null) {
-      // console.log(this.state.allInOne.features);
-      features = this.showHighlightedOnMap(
-        allInOne,
-        service.getFeatures(allInOne.features, sourceName),
-      );
-      // console.log(features);
-      geojson.features = features;
-    }
-    if (!map.getSource(sourceName)) {
-      map.addSource(sourceName, {
-        type: "geojson",
-        data: geojson,
-      });
-
-      let fillLayer = {};
-      if (sourceName == "neighborhood") {
-        fillLayer = layerShape.fillLayer(
-          sourceName + "-layer",
-          sourceName,
-          "#E2E3F0",
-          [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            11,
-            ["case", ["<=", ["get", "position"], 20], 0.4, 0],
-            11.2,
-            ["case", ["<=", ["get", "position"], 40], 0.4, 0],
-            11.4,
-            ["case", ["<=", ["get", "position"], 60], 0.4, 0],
-            11.6,
-            ["case", ["<=", ["get", "score"], 80], 0.4, 0],
-            11.8,
-            ["case", ["<=", ["get", "score"], 100], 0.4, 0],
-          ],
-          layerMinZoom,
-          layerMaxZoom,
-          ["==", "$type", "Polygon"],
-        );
-        map.addLayer(fillLayer);
-
-        map.loadImage(marker, (error, image) => {
-          if (error) throw error;
-          map.addImage("score-marker", image, { sdf: true });
-          // const result = map.addLayer(
-          //   layerShape.symbolLayer(
-          //     "scores-layer",
-          //     sourceName,
-          //     "score-marker",
-          //     0.1,
-          //     ["get", "score"],
-          //     ["Open Sans Semibold", "Arial Unicode MS Bold"],
-          //     [0, 0],
-          //     "top",
-          //     12,
-          //     [
-          //       "case",
-          //       ["==", ["get", "score"], 20],
-          //       "#cb3e0b",
-          //       ["==", ["get", "score"], 40],
-          //       "#de0d0d",
-          //       ["==", ["get", "score"], 60],
-          //       "#d06139",
-          //       ["==", ["get", "score"], 80],
-          //       "#319220",
-          //       ["==", ["get", "score"], 100],
-          //       "#15450d",
-
-          //       "blue",
-          //     ],
-          //     "white",
-          //   ),
-          // );
-          // map.moveLayer("neighborhood-layer", "scores-layer");
-        });
-      } else {
-        fillLayer = layerShape.fillLayer(
-          sourceName + "-layer",
-          sourceName,
-          layerColor,
-          layerOpacity,
-          layerMinZoom,
-          layerMaxZoom,
-          ["==", "$type", "Polygon"],
-        );
-        map.addLayer(fillLayer);
-      }
-
-      let lineLayer = layerShape.lineLayer(
-        sourceName + "-layer-outline",
-        sourceName,
-        "#303EA6",
-        1,
-        [
-          "case",
-          ["==", sourceName, "region"],
-          2,
-          ["==", sourceName, "region-highlighted"],
-          3,
-          ["==", sourceName, "region-clicked"],
-          4,
-          ["==", sourceName, "current-county"],
-          2,
-          ["==", sourceName, "current-city"],
-          2,
-          ["==", sourceName, "current-neighborhood"],
-          2,
-          0.5,
-        ],
-        layerMinZoom,
-        layerMaxZoom,
-        ["==", "$type", "Polygon"],
-      );
-      map.addLayer(lineLayer);
-    } else {
-      geojson.features = features;
-      map.getSource(sourceName).setData(geojson);
-    }
-  };
-
   handleMapboxFlyTo = (map, e, minZoom, maxZoom, duration, speed) => {
     map.flyTo({
       center: e.lngLat,
@@ -544,21 +329,7 @@ class Map extends Component {
     }
   };
 
-  showHighlightedOnMap = (allInOne, elements = []) => {
-    let features = [];
-    elements.elements.map(el => {
-      const { value } = el;
-      let floridaFeature = allInOne.features.filter(feature => feature.properties.id == value);
-      features.push(floridaFeature);
-    });
-    features = features.map(f => f[0]);
-    // console.log(features);
-
-    return features;
-  };
-
   handleMapboxLayerClick = async (
-    allInOne,
     map,
     e,
     { flyToMinZoom = null, flyToMaxZoom = null, flyToDuration = null, flyToSpeed = null },
@@ -573,12 +344,10 @@ class Map extends Component {
   ) => {
     this.handleMapboxFlyTo(map, e, flyToMinZoom, flyToMaxZoom, flyToDuration, flyToSpeed);
     let features = [];
-    features = this.showHighlightedOnMap(
-      allInOne,
-      service.getFeatures(allInOne.features, sourceLayer, id),
-    );
-    this.handleMapboxSourceState(
-      allInOne,
+    let polygons = await this.getAllInOne();
+    features = drawPolygons(service.getFeatures(polygons.data.features, sourceLayer, id));
+    createPolygons(
+      polygonsData,
       map,
       targetLayerName,
       targetLayerColor,
@@ -598,17 +367,6 @@ class Map extends Component {
       if (!subCategories.includes(f.properties.subCategory))
         subCategories.push(f.properties.subCategory);
     });
-
-    //console.log(subCategories);
-    /* subCategories.forEach(sc => {
-      let image;
-      let features = POI.features.filter(f => f.properties.subCategory== sc);
-      import(`./assets/POI/${sc}.png`).then(image => {
-        this.setState({image: image.default});
-      });
-
-      console.log(this.state.image);
-    }) */
     let subCategory = "Speedway";
     let features = POI.features.filter(f => f.properties.subCategory == "Speedway");
     const image = "/map/POI/Speed&way.png";
@@ -784,4 +542,4 @@ const mapStateToProps = function (state) {
   };
 };
 
-export default connect(mapStateToProps)(Map);
+export default connect(mapStateToProps)(BaseMap);
