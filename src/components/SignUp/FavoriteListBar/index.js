@@ -1,3 +1,5 @@
+import Router from "next/router";
+
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -40,6 +42,7 @@ const useStyles = makeStyles(theme => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
+    cursor: "pointer",
   },
   score: {
     color: "white",
@@ -123,7 +126,7 @@ const FavoriteListBar = ({open, setOpen}) => {
         </div>
 
         {favorites.map(favorite => (
-          <GridListTile className={classes.wrapper} key={favorite.Neighborhood} onClick={()=>{Router.push("/detail");}}>
+          <GridListTile className={classes.wrapper} key={favorite.Neighborhood}>
             {/* <img src={neighborhood.img} alt={neighborhood.title} /> */}
             {/* <div className={classes.wrapper}></div> */}
             {/* <GridListTileBar
@@ -155,7 +158,7 @@ const FavoriteListBar = ({open, setOpen}) => {
               )}
               {/* <FavoriteBorderSharp className={classes.heartIcon}/> */}
             </IconButton>
-            <Typography className={classes.title} variant="h6">
+            <Typography className={classes.title} variant="h6" onClick={()=>{Router.push("/detail");}}>
               {favorite.Neighborhood}
             </Typography>
             <div className={favorites.includes(favorite) ? styles.scoreFavorite : styles.score}>

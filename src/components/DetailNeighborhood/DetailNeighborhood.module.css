@@ -1,0 +1,27 @@
+.navigation {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    /* border-bottom: solid 1px #535353; */
+    /* background-color: rosybrown; */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.line {
+    width: 98%;
+    border: 1px solid #F5F5F5;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+}
+
+.navigationElement{
+    height: 100%;
+    padding: 0 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

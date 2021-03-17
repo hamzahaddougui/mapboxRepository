@@ -1,11 +1,15 @@
 import Router from "next/router";
-import styles from './DetailNeighborhood.module.css'
 
+import { useSelector } from 'react-redux';
+
+import styles from './DetailNeighborhood.module.css'
 import { makeStyles } from '@material-ui/core/styles';
 import { 
     CssBaseline,
     Typography,
     Paper,
+    GridList,
+    Button
  } 
  from '@material-ui/core';
 
@@ -98,6 +102,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 16.02,
         color: "#575FF9",
         fontWeight: "bold"
+    },
+    gridList:{
+        flexWrap: "nowrap",
+        transform: "translateZ(0)",
+        height: "100%",
+        margin: 0,
     }
 }));
 
@@ -105,9 +115,14 @@ const index = () => {
 
     const classes = useStyles();
 
+    const filters = useSelector(state => state.modules.filter.filters);
+    // const formattedFilters = JSON.stringify(filters);
+    // console.log(formattedFilters);
+
     return (
         <div className={classes.root}>
             <CssBaseline />
+
             <div className={classes.jumboBackground}>
                 <div
                     className={classes.backContainer}
@@ -119,6 +134,7 @@ const index = () => {
                     <div className={classes.backText}>Map View</div>
                 </div>
             </div>
+
             <Paper className={classes.paper}>
                     <div className={classes.imgSlider}>
                         <div className={classes.title}>
@@ -129,7 +145,21 @@ const index = () => {
                             <Typography variant="h5" className={classes.score}>90%</Typography>
                         </div>
                     </div>
+
+                    <div className={styles.navigation}>
+
+                        <GridList className={classes.gridList} cols={5.5}>
+                            {filters?.map((filter, i) => (
+                                <span className={styles.navigationElement} key={i}>
+                                    {filter.name}
+                                </span>
+                            ))}
+                        </GridList>
+
+                        <hr className={styles.line} />
+                    </div>
             </Paper>
+
         </div>
     )
 }

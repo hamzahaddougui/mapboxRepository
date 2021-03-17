@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
+    cursor: "pointer",
   },
   score: {
     color: "white",
@@ -67,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "24px",
     margin: "0 4px",
     width: "257px",
-    cursor: "pointer",
+    //cursor: "pointer",
   },
 }));
 
@@ -83,7 +84,7 @@ const NeighborhoodListBar = () => {
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={5.5}>
         {neighborhoods.data?.slice(0, 50).map(neighborhood => (
-          <GridListTile className={classes.wrapper} key={neighborhood.Neighborhood} onClick={()=>{Router.push("/detail");}}>
+          <GridListTile className={classes.wrapper} key={neighborhood.Neighborhood}>
             {/* <img src={neighborhood.img} alt={neighborhood.title} /> */}
             {/* <div className={classes.wrapper}></div> */}
             {/* <GridListTileBar
@@ -115,7 +116,7 @@ const NeighborhoodListBar = () => {
               )}
               {/* <FavoriteBorderSharp className={classes.heartIcon}/> */}
             </IconButton>
-            <Typography className={classes.title} component="h6" variant="h6">
+            <Typography className={classes.title} component="h6" variant="h6" onClick={()=>{Router.push("/detail");}}>
               {neighborhood.Neighborhood}
             </Typography>
             <div className={favorites.includes(neighborhood) ? styles.scoreFavorite : styles.score}>
