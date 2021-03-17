@@ -1,5 +1,6 @@
 import Router from "next/router";
 
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import styles from './DetailNeighborhood.module.css'
@@ -9,7 +10,9 @@ import {
     Typography,
     Paper,
     GridList,
-    Button
+    Button,
+    LinearProgress,
+    Box
  } 
  from '@material-ui/core';
 
@@ -58,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
         transform: "translate(-50%)",
         top: "2%",
         borderRadius: "24px",
-        boxShadow: '0 5px 18px 0 rgba(227,228,254,0.63)'
+        boxShadow: '0 5px 18px 0 rgba(227,228,254,0.63)',
+        overflow: 'auto'
     },
     title:{
         width: "153px",
@@ -106,14 +110,57 @@ const useStyles = makeStyles((theme) => ({
     gridList:{
         flexWrap: "nowrap",
         transform: "translateZ(0)",
-        height: "100%",
+        height: "60px",
         margin: 0,
+    },
+    progressBar: {
+        '& .MuiLinearProgress-root': {
+            height: "22px",
+            borderRadius: "8px"
+        },
+    },
+    progressContainer: {
+        width: "129px",
+        position: "absolute",
+        right: "36px",
+    },
+    progressTxt: {
+        position: "absolute",
+        left: "50%",
+        transform: "translate(-50%)",
+        color: "#FFF"
     }
 }));
+
+  
+// LinearProgressWithLabel.propTypes = {
+//     /**
+//      * The value of the progress indicator for the determinate and buffer variants.
+//      * Value between 0 and 100.
+//      */
+//     value: PropTypes.number.isRequired,
+// };
 
 const index = () => {
 
     const classes = useStyles();
+
+    function LinearProgressWithLabel(props) {
+        return (
+          <Box className={classes.progressContainer} display="flex" alignItems="center">
+            <Box className={classes.progressBar} width="129px" mr={2}>
+              <LinearProgress variant="determinate" {...props} />
+            </Box>
+            <Box className={classes.progressTxt} minWidth={35}>
+              <Typography variant="body2">{`${Math.round(
+                props.value,
+              )}%`}</Typography>
+            </Box>
+          </Box>
+        );
+      }
+
+    const [active, setActive] = useState("percent match")
 
     const filters = useSelector(state => state.modules.filter.filters);
     // const formattedFilters = JSON.stringify(filters);
@@ -148,15 +195,35 @@ const index = () => {
 
                     <div className={styles.navigation}>
 
-                        <GridList className={classes.gridList} cols={5.5}>
+                        {/* <GridList className={classes.gridList} cols={5.5}>
                             {filters?.map((filter, i) => (
                                 <span className={styles.navigationElement} key={i}>
                                     {filter.name}
                                 </span>
                             ))}
-                        </GridList>
+                        </GridList> */}
+                        <div className={styles.container}>
+                            {filters?.map((filter, i) => (
+                                <div className={styles.navigationElement} key={i}>
+                                    <span className={active===filter.name ? styles.categoryActive : styles.category} onClick={() => {setActive(filter.name)}}>
+                                        {filter.name}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
 
-                        <hr className={styles.line} />
+                        {/* <hr className={styles.line} /> */}
+                    </div>
+
+                    <div className={styles.table}>
+                            {filters?.map((filter, i) => (
+                                <div className={styles.tableElement} key={i}>
+                                    <span className={styles.filterName}>
+                                        {filter.name}
+                                    </span>
+                                    <LinearProgressWithLabel value={90} />
+                                </div>
+                            ))}
                     </div>
             </Paper>
 
