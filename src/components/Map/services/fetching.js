@@ -60,33 +60,33 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
           if(from!= null){
             feature= feature.filter(f => f.properties.id.startsWith(from));
           }
-          let featureLength= feature.length;
-          feature.forEach(f => {
-            let position= (feature.indexOf(f)/ featureLength)* 100;
-            if(position<= 20){
-              f.properties= {...f.properties, score: 100, position};
+          // let featureLength= feature.length;
+          // feature.forEach(f => {
+          //   let position= (feature.indexOf(f)/ featureLength)* 100;
+          //   if(position<= 20){
+          //     f.properties= {...f.properties, score: 100, position};
               
-            }
-            if(position> 20 && position<=40){
-              f.properties= {...f.properties, score: 80, position};
+          //   }
+          //   if(position> 20 && position<=40){
+          //     f.properties= {...f.properties, score: 80, position};
               
-            }
-            if(position> 40 && position<=60){
-              f.properties= {...f.properties, score: 60, position};
+          //   }
+          //   if(position> 40 && position<=60){
+          //     f.properties= {...f.properties, score: 60, position};
               
-            }
-            if(position> 60 && position<=80){
-              f.properties= {...f.properties, score: 40, position};
+          //   }
+          //   if(position> 60 && position<=80){
+          //     f.properties= {...f.properties, score: 40, position};
               
-            }
-            if(position> 80 && position<=100){
-              f.properties= {...f.properties, score: 20, position};
+          //   }
+          //   if(position> 80 && position<=100){
+          //     f.properties= {...f.properties, score: 20, position};
               
-            }
+          //   }
             
             
-          });
-          feature= feature.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0));
+          // });
+          // feature= feature.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0));
           
           feature.forEach(f => {
             elements.push({id: 'neighborhood', value: f.properties.id});
