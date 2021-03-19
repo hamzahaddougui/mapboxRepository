@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "next_app",
   "version": "0.1.0",
@@ -28,3 +29,38 @@
     "redux": "^4.0.5"
   }
 }
+=======
+{
+  "name": "next_app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@reduxjs/toolkit": "^1.5.0",
+    "@types/node": "^14.14.35",
+    "@types/react": "^17.0.3",
+    "@zeit/next-css": "^1.0.1",
+    "axios": "^0.21.1",
+    "clsx": "^1.1.1",
+    "lodash": "^4.17.21",
+    "mapbox-gl": "^2.1.1",
+    "moment": "^2.29.1",
+    "next": "10.0.7",
+    "prop-types": "^15.7.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-google-login": "^5.2.2",
+    "react-redux": "^7.2.2",
+    "react-select": "^4.2.1",
+    "redux": "^4.0.5",
+    "typescript": "^4.2.3"
+  }
+}
+>>>>>>> 316e2ad87666da112bb362bb2cf5d18f975d803f
