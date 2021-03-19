@@ -136,8 +136,10 @@ const Matcher = () => {
             { current === 2 
                     ? 
                 (<div className={styles.bottomBox}>
+                    <div className={styles.clickWrapper} onClick={()=>{dispatch(loadMatched())}}>
                     <img className={classes.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
-                    <div className={styles.navigation} onClick={()=>{dispatch(loadMatched())}}>Neighborhood Matcher</div>
+                    <div className={styles.navigation}>Neighborhood Matcher</div>
+                    </div>
 
                     <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
                         <Typography style={{fontSize: "10px", color: "#323643", opacity: "57%"}}>Powered by</Typography>
