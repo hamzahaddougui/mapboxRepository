@@ -6,7 +6,6 @@ import { loadMatched } from './NeighborhoodService';
 import styles from './Matcher.module.css';
 import FilterView from './FilterView';
 import MapComponent from "../Map";
-import TestComponent from "../Map/components/Test";
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Box, Button, CssBaseline } from '@material-ui/core'
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
     jumbo: {
         backgroundColor: "#9A9895",
-        backgroundImage: 'url(/map.svg)',
+        // backgroundImage: 'url(/map.svg)',
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -72,7 +71,8 @@ const Matcher = () => {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <TestComponent />
+            <MapComponent />
+            {/* <TestComponent /> */}
             <Container className={classes.jumbo} fixed>
 
                 <div className={styles.splitButtonView}>
@@ -136,8 +136,10 @@ const Matcher = () => {
             { current === 2 
                     ? 
                 (<div className={styles.bottomBox}>
+                    <div className={styles.clickWrapper} onClick={()=>{dispatch(loadMatched())}}>
                     <img className={classes.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
-                    <div className={styles.navigation} onClick={()=>{dispatch(loadMatched())}}>Neighborhood Matcher</div>
+                    <div className={styles.navigation}>Neighborhood Matcher</div>
+                    </div>
 
                     <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
                         <Typography style={{fontSize: "10px", color: "#323643", opacity: "57%"}}>Powered by</Typography>
@@ -186,8 +188,6 @@ const Matcher = () => {
                 {/* </div> */}
 
                 <FilterView open={open} setOpen={setOpen} current={current} next={next} previous={previous}/>
-
-                <MapComponent />
 
             </Container>
 

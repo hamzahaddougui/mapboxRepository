@@ -1,5 +1,6 @@
 import NeighborhoodListBar from './NeighborhoodListBar';
 import RestartMatcher from './RestartMatcher';
+import MapComponent from '../Map'
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
         color : "#323643", 
         textTransform: "none",
         position: "relative",
+        // padding: "8px 45px",
         "&:hover": {
             backgroundColor: "transparent"
           }
@@ -87,7 +89,10 @@ const Neighborhood = () => {
                     ? 
                 (<RestartMatcher open={open} setOpen={setOpen} />) 
                     : 
-                (<Container className={classes.jumbo} fixed>
+                (<div>
+                    <MapComponent />
+
+                    <Container className={classes.jumbo} fixed>
 
                     {/* <div className={styles.leftGroupButtons}> */}
         
@@ -150,7 +155,8 @@ const Neighborhood = () => {
                         
                  
                             <div className={styles.restartMatcher} onClick={()=>setOpen(!open)}>
-                                <img className={styles.restartMatcherThunder} src="/thunder.svg" alt="thunder" />
+                                {/* <img className={styles.restartMatcherThunder} src="/thunder.svg" alt="thunder" /> */}
+                                <img className={styles.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
                                 <Button className={classes.restartMatcherButton}>Restart the Matcher</Button>
                             </div>
         
@@ -158,12 +164,12 @@ const Neighborhood = () => {
                                 favorites.length > 0 
                                 ? 
                                     (<div className={styles.homeMatcherActive} onClick={() => {console.log("Home Matcher"); Router.push('/result')}}>
-                                        <img className={styles.homeMatcherThunderActive} src="/thunder.svg" alt="thunder" />
+                                        <img className={styles.homeMatcherThunderActive} src="/Enabled.svg" alt="Home Matcher enabled" />
                                         <Button className={classes.restartMatcherButton}>Home Matcher</Button>
                                     </div>) 
                                 : 
                                     (<div className={styles.homeMatcher}>
-                                        <img className={styles.homeMatcherThunder} src="/thunder.svg" alt="thunder" />
+                                        <img className={styles.homeMatcherThunder} src="/Disabled.svg" alt="Home Matcher disabled" />
                                         <Button className={classes.restartMatcherButton} disabled>Home Matcher</Button>
                                     </div>)
                             }
@@ -178,7 +184,8 @@ const Neighborhood = () => {
         
                         </div>
         
-                    </Container>)
+                    </Container>
+                        </div>)
             } 
             
 
