@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import CheckyButtonContainer from "../../../common/CheckyButton/CheckyButtonContainer";
+import CheckyButtonContainer from "../../common/CheckyButton/CheckyButtonContainer";
 import styles from "./FilterForm.module.css";
 
 import _ from 'lodash';
@@ -60,7 +60,7 @@ const FilterForm = () => {
   };
 
   return (
-    <div>
+    <div className={styles.root}>
 
       {/* <div
         className={checked ? styles.checkyButtonActive : styles.checkyButton}

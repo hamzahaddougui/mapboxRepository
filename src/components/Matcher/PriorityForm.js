@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Grid, Button, Typography } from '@material-ui/core';
 
-import useStyles from "../../../common/PriorityButton/PriorityButtonStyle";
+import useStyles from "../../common/PriorityButton/PriorityButtonStyle";
+import styles from './PriorityForm.module.css';
 
 import { loadPriorities, checkPriorityMustHave, checkPriorityNiceToHave } from "./FilterService";
 
@@ -31,21 +32,22 @@ const PriorityForm = () => {
     };
 
     return (
-        <div>
+        <div className={styles.container}>
             {priorities.map((option, i) => (
                 <Grid
                 key={`${i}`}
                 container
+                justify="space-between"
                 direction="row"
                 alignItems="center"
                 style={{ marginBottom: "1em" }}
-                spacing={2}
+                // spacing={2}
               >
-                  <Grid item xs style={{ marginRight: "20px" }}>
+                  <Grid item container justify="flex-start" xs>
                   <Typography>{option.name}</Typography>
                   </Grid>
-                  {/* <Grid item container xs> */}
-                    <Grid item xs>
+                  <Grid item container justify="flex-end" spacing={1} xs>
+                    <Grid item>
                         <Button
                             // onClick={e => option && onClick(e, option.name)}
                             //option={option}
@@ -55,7 +57,7 @@ const PriorityForm = () => {
                             Must Have
                         </Button>
                         </Grid>
-                        <Grid item xs>
+                        <Grid item>
                         <Button
                             onClick={()=>{handleNiceToHaveClick(option.name)}}
                             className={option.priority.niceToHave ? classes.activePriorityButton : classes.priorityButton}
@@ -63,7 +65,7 @@ const PriorityForm = () => {
                             Nice to Have
                         </Button>
                         </Grid>
-                    {/* </Grid> */}
+                    </Grid>
               </Grid>
             ))}
         </div>

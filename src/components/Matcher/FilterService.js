@@ -74,6 +74,12 @@ const slice = createSlice({
         checkPriorityNiceToHave: (state, action) => {
             const value = action.payload;
             state.priorities.map((element) => {(element.name == value ? element.priority.niceToHave = (!element.priority.niceToHave) : element.priority.niceToHave)});
+        },
+        resetFilter: (state, action) => {
+            console.log("Restarting Filters...");
+            state.filters = [];
+            state.checkedValues = []; 
+            state.priorities = [];
         }
     }
 
@@ -89,7 +95,8 @@ export const {
     prioritiesReceived,
     checkValueAction,
     checkPriorityMustHave,
-    checkPriorityNiceToHave
+    checkPriorityNiceToHave,
+    resetFilter
 } = slice.actions;
 
 export default slice.reducer;

@@ -12,9 +12,16 @@ import {
     GridList,
     Button,
     LinearProgress,
-    Box
+    Box,
+    IconButton
  } 
  from '@material-ui/core';
+ import { 
+    Clear,
+    Replay,
+    Favorite
+ } 
+ from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -54,8 +61,8 @@ const useStyles = makeStyles((theme) => ({
         color: "#323643",
     },
     paper:{
-        width: "827px",
-        height: "85%",
+        width: "730px",
+        height: "86%",
         position: "absolute",
         left: "50%",
         transform: "translate(-50%)",
@@ -84,7 +91,8 @@ const useStyles = makeStyles((theme) => ({
     },
     imgSlider:{
         width: "100%",
-        height: "547px",
+        // height: "547px",
+        height: "400px",
         backgroundColor: "#575FF9",
         borderRadius: "24px 24px 0 0",
         position: "relative"
@@ -129,6 +137,30 @@ const useStyles = makeStyles((theme) => ({
         left: "50%",
         transform: "translate(-50%)",
         color: "#FFF"
+    },
+    clearWrapper: {
+        backgroundColor: "white",
+        height: "68px",
+        width: "68px",
+        color: "#575FF9",
+        boxShadow: "0 16px 28px 0 rgb(14 31 53 / 16%)",
+    },
+    redoWrapper: {
+        backgroundColor: "white",
+        height: "48px",
+        width: "48px",
+        color: "#323643",
+        boxShadow: "0 4px 8px 0 rgb(14 31 53 / 16%)",
+    },
+    favoriteWrapper: {
+        backgroundColor: "white",
+        height: "68px",
+        width: "68px",
+        color: "#FF0061",
+        boxShadow: "0 16px 28px 0 rgb(14 31 53 / 16%)",
+    },
+    bigIcon: {
+        fontSize: "38px",
     }
 }));
 
@@ -166,6 +198,8 @@ const index = () => {
     // const formattedFilters = JSON.stringify(filters);
     // console.log(formattedFilters);
 
+    //console.log(history);
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -174,7 +208,7 @@ const index = () => {
                 <div
                     className={classes.backContainer}
                     onClick={() => {
-                        Router.push("/neighborhood");
+                        Router.back();
                     }}
                     >
                     <img className={classes.backIcon} src="/back.svg" alt="backButton"></img>
@@ -203,6 +237,11 @@ const index = () => {
                             ))}
                         </GridList> */}
                         <div className={styles.container}>
+                                <div style={{paddingLeft: "6px"}} className={styles.navigationElement}>
+                                <span className={active==="percent match" ? styles.categoryActive : styles.category} onClick={() => {setActive("percent match")}}>
+                                    Percent match
+                                </span>
+                                </div>
                             {filters?.map((filter, i) => (
                                 <div className={styles.navigationElement} key={i}>
                                     <span className={active===filter.name ? styles.categoryActive : styles.category} onClick={() => {setActive(filter.name)}}>
@@ -226,6 +265,20 @@ const index = () => {
                             ))}
                     </div>
             </Paper>
+
+            <div className={styles.iconsContainer}>
+                <IconButton className={classes.clearWrapper} arial-label="Clear" onClick={() => {console.log("Clear Action")}}>
+                    <Clear className={classes.bigIcon} />
+                </IconButton>
+
+                <IconButton className={classes.redoWrapper} arial-label="Redo" onClick={() => {console.log("Redo Action")}}>
+                    <Replay />
+                </IconButton>
+
+                <IconButton className={classes.favoriteWrapper} arial-label="Favorite" onClick={() => {console.log("Favorite Action")}}>
+                    <Favorite className={classes.bigIcon} />
+                </IconButton>
+            </div>
 
         </div>
     )
