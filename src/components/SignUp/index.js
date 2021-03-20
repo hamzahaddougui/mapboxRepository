@@ -81,7 +81,7 @@ const useStyles = makeStyles(theme => ({
     //letterSpacing: "0.01071em"
   },
   bottomBox: {
-    height: "8%",
+    height: "74px",
     width: "100%",
     backgroundColor: "#fff",
     boxShadow:
@@ -108,14 +108,14 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
   },
-  thunder: {
-    height: "58px",
-    width: "58px",
-    position: "absolute",
-    bottom: "80%",
-    left: "50%",
-    transform: "translateX(-50%)",
-  },
+  // thunder: {
+  //   height: "58px",
+  //   width: "58px",
+  //   position: "absolute",
+  //   bottom: "80%",
+  //   left: "50%",
+  //   transform: "translateX(-50%)",
+  // },
   navigation: {
     color: "#323643",
     fontSize: 16.02,
@@ -197,8 +197,9 @@ const SignUp = () => {
             handleClick
           }
         >
-          <img className={classes.thunder} src="/thunder.svg" alt="thunder" />
+          <img className={styles.homeMatcherIcon} src="/Enabled.svg" alt="Home Matcher" />
           <Button className={classes.navigation}>Home Matcher</Button>
+          {/* <div className={styles.navigation} >Home Matcher</div> */}
         </div>
 
         <div className={classes.brand}>

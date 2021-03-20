@@ -63,6 +63,11 @@ const slice = createSlice({
       //   }
       // } else {state.favorites.push(value)}
     },
+    resetNeighborhood: (state, action) => {
+      console.log("Restarting Neighborhood results...");
+      state.matched = [];
+      state.favorites = []; 
+    }
   },
 });
 
@@ -71,6 +76,7 @@ export const {
   neighborhoodRequestFailed,
   neighborhoodReceived,
   addFavorite,
+  resetNeighborhood
 } = slice.actions;
 
 export default slice.reducer;

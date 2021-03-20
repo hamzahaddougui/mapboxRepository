@@ -1,12 +1,13 @@
 import service from "../services/fetching";
 import layerShape from "../services/layerShape";
-const marker = "../map/marker.png";
 import fetchFeatures from './fetchFeatures';
-import data from "../data/All_In_One.json";
+const marker = "/map/marker_one.png";
+// import marker from "../../../../public/map/marker_one.png";
 
 
 module.exports.drawPolygon = (
     map,
+    data,
     element,
     features = null,
   ) => {
@@ -15,9 +16,8 @@ module.exports.drawPolygon = (
       features: [],
     };
     let {id, source, color, opacity, minZoom, maxZoom}= element;
-      
     if (features == null) {
-      features = fetchFeatures.getPolygonFeatures(service.getFeatures(data.features, source));
+      features = fetchFeatures.getPolygonFeatures(data, service.getFeatures(data.features, source));
       geojson.features = features;
     }
     if (!map.getSource(id)) {
@@ -32,21 +32,22 @@ module.exports.drawPolygon = (
           id + "-layer",
           id,
           "#E2E3F0",
-          [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            11,
-            ["case", ["<=", ["get", "position"], 20], 0.4, 0],
-            11.2,
-            ["case", ["<=", ["get", "position"], 40], 0.4, 0],
-            11.4,
-            ["case", ["<=", ["get", "position"], 60], 0.4, 0],
-            11.6,
-            ["case", ["<=", ["get", "score"], 80], 0.4, 0],
-            11.8,
-            ["case", ["<=", ["get", "score"], 100], 0.4, 0],
-          ],
+          // [
+          //   "interpolate",
+          //   ["linear"],
+          //   ["zoom"],
+          //   11,
+          //   ["case", ["<=", ["get", "position"], 20], 0.4, 0],
+          //   11.2,
+          //   ["case", ["<=", ["get", "position"], 40], 0.4, 0],
+          //   11.4,
+          //   ["case", ["<=", ["get", "position"], 60], 0.4, 0],
+          //   11.6,
+          //   ["case", ["<=", ["get", "score"], 80], 0.4, 0],
+          //   11.8,
+          //   ["case", ["<=", ["get", "score"], 100], 0.4, 0],
+          // ],
+          0.4,
           minZoom,
           maxZoom,
           ["==", "$type", "Polygon"],
@@ -61,7 +62,7 @@ module.exports.drawPolygon = (
               "scores-layer",
               id,
               "score-marker",
-              0.1,
+              0.05,
               ["get", "score"],
               ["Open Sans Semibold", "Arial Unicode MS Bold"],
               [0, 0],
@@ -69,20 +70,21 @@ module.exports.drawPolygon = (
               12,
               [
                 "case",
-                ["==", ["get", "score"], 20],
+                ["<=", ["get", "score"], 20],
                 "#cb3e0b",
-                ["==", ["get", "score"], 40],
+                ["<=", ["get", "score"], 40],
                 "#de0d0d",
-                ["==", ["get", "score"], 60],
+                ["<=", ["get", "score"], 60],
                 "#d06139",
-                ["==", ["get", "score"], 80],
+                ["<=", ["get", "score"], 80],
                 "#319220",
-                ["==", ["get", "score"], 100],
+                [">", ["get", "score"], 80],
                 "#15450d",
 
-                "blue",
+                "black",
               ],
               "white",
+              ["has", "score"]
             ),
           );
           // map.moveLayer("neighborhood-layer", "scores-layer");
@@ -103,7 +105,7 @@ module.exports.drawPolygon = (
       let lineLayer = layerShape.lineLayer(
         id + "-layer-outline",
         id,
-        "#303EA6",
+        "#575FF9",
         1,
         [
           "case",

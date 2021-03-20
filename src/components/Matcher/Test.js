@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { loadMatched } from './NeighborhoodService';
 
 import styles from './Matcher.module.css';
 import FilterView from './FilterView';
 import MapComponent from "../Map";
-// import TestComponent from "../Map/components/Test";
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Box, Button, CssBaseline } from '@material-ui/core'
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
     jumbo: {
         backgroundColor: "#9A9895",
-        backgroundImage: 'url(/map.svg)',
+        // backgroundImage: 'url(/map.svg)',
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -52,6 +51,8 @@ const Matcher = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    const checked = useSelector(state => state.modules.filter.checkedValues);
+
     const [open, setOpen] = useState(false);
     const [current, setCurrent] = useState(1);
     const [matcher, setMatcher] = useState(true);
@@ -70,6 +71,7 @@ const Matcher = () => {
     return (
         <div className={classes.root}>
             <CssBaseline />
+            <MapComponent />
             {/* <TestComponent /> */}
             <Container className={classes.jumbo} fixed>
 
@@ -118,7 +120,9 @@ const Matcher = () => {
         ) : ("")
     }
 
-                <div className={styles.bottomBox}>
+                {/* <div className={styles.bottomBox}> */}
+
+
                     {/* <div className={styles.thunder}>
                         <img src="/thunder.svg" alt="thunder" />
                     </div> */}
@@ -131,32 +135,63 @@ const Matcher = () => {
         (<div>
             { current === 2 
                     ? 
-                (<div>
+                (<div className={styles.bottomBox}>
+                    <div className={styles.clickWrapper} onClick={()=>{dispatch(loadMatched())}}>
                     <img className={classes.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
-                    <div className={styles.navigation} onClick={()=>{dispatch(loadMatched())}}>Neighborhood Matcher</div>
-                </div>)
-                    : 
-                (<div className={styles.navigation} onClick={() => {next()}}> Next</div>) }
-        </div>) 
-            : 
-        (<div>
-            <div className={styles.thunder}> <img src="/thunder.svg" alt="thunder" />
-            </div>
-            <Button className={classes.matchButton} onClick={()=>{setOpen(!open); console.log(current)}}>Start the Matcher</Button>
-        </div>
-        ) }
-                
+                    <div className={styles.navigation}>Neighborhood Matcher</div>
+                    </div>
+
                     <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
                         <Typography style={{fontSize: "10px", color: "#323643", opacity: "57%"}}>Powered by</Typography>
                         <img className={styles.logo} src="/logo.svg" alt="logo" />
                     </div>
-                </div>
+                </div>)
+                    : 
+                (
+                    checked.length > 0 ? (<div className={styles.bottomBox}>
+                        <div className={styles.navigation} onClick={() => {next()}}> Next</div>
+                        
+                            <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
+                                <Typography style={{fontSize: "10px", color: "#323643", opacity: "57%"}}>Powered by</Typography>
+                                <img className={styles.logo} src="/logo.svg" alt="logo" />
+                            </div>
+                        </div>) : (<div className={styles.invisibleBottomBox}></div>)
+                
+                
+                // <div className={ checked.length > 0 ? styles.bottomBox : styles.invisibleBottomBox}>
+                // <div className={styles.navigation} onClick={() => {next()}}> Next</div>
+                
+                //     <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
+                //         <Typography style={{fontSize: "10px", color: "#323643", opacity: "57%"}}>Powered by</Typography>
+                //         <img className={styles.logo} src="/logo.svg" alt="logo" />
+                //     </div>
+                // </div>
+                ) }
+        </div>) 
+            : 
+        (<div className={styles.bottomBox}>
+            <div className={styles.thunder}> <img src="/thunder.svg" alt="thunder" />
+            </div>
+            <Button className={classes.matchButton} onClick={()=>{setOpen(!open); console.log(current)}}>Start the Matcher</Button>
+
+            <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
+                        <Typography style={{fontSize: "10px", color: "#323643", opacity: "57%"}}>Powered by</Typography>
+                        <img className={styles.logo} src="/logo.svg" alt="logo" />
+            </div>
+        </div>
+        ) }
+                
+                    {/* <div style={{position: "absolute", right: "4%", display: "flex", alignItems: "center"}}>
+                        <Typography style={{fontSize: "10px", color: "#323643", opacity: "57%"}}>Powered by</Typography>
+                        <img className={styles.logo} src="/logo.svg" alt="logo" />
+                    </div> */}
+                {/* </div> */}
 
                 <FilterView open={open} setOpen={setOpen} current={current} next={next} previous={previous}/>
 
-                <MapComponent />
-
             </Container>
+
+            
         </div>
     )
 }

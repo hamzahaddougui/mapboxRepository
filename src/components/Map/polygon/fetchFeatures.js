@@ -1,6 +1,5 @@
-import data from "../data/All_In_One.json";
 
-module.exports.getPolygonFeatures = function (elements = []){
+module.exports.getPolygonFeatures = function (data, elements = []){
     let features = [];
     elements.elements.map(el => {
       const { value } = el;

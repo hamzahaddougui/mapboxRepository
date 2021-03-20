@@ -2,16 +2,23 @@
 .container{
     position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 74px);
     left: 0%;
+    top: 0;
 }
-.map{width: 100%; height: 92%; z-index: 1; }
+.map{width: 100%; height: 100%; z-index: 1; }
 
 .card_div{
     top: 10%;
     left: 5%;
     position: absolute;
     z-index: 1;
+}
+
+.popup{
+    color:#575FF9;
+    border-radius: 2px;
+    
 }
 
 
