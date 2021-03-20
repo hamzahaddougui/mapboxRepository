@@ -47,9 +47,15 @@ const COUNTY= {
     opacity: 0.2,
     minZoom: 7,
     maxZoom: 9,
+<<<<<<< HEAD:components/Map/polygon/layer/config.js
     flyMinZoom: 6.5, 
     flyMaxZoom: 7, 
     flyDuration: 1000, 
+=======
+    flyMinZoom: 6.8, 
+    flyMaxZoom: 7, 
+    flyDuration: 9000, 
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/polygon/layer/config.js
     flySpeed: 0.5
 }
 
@@ -61,10 +67,17 @@ const COUNTY_HIGHLIGHTED= {
     opacity: 0.4,
     minZoom: 7,
     maxZoom: 9,
+<<<<<<< HEAD:components/Map/polygon/layer/config.js
     flyMinZoom: 6.5, 
     flyMaxZoom: 7, 
     flyDuration: 10000, 
     flySpeed: 0.2
+=======
+    flyMinZoom: 6.8, 
+    flyMaxZoom: 7, 
+    flyDuration: 9000, 
+    flySpeed: 0.5
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/polygon/layer/config.js
 }
 
 const COUNTY_CLICKED= {
@@ -76,7 +89,11 @@ const COUNTY_CLICKED= {
     maxZoom: 9,
     flyMinZoom: 7, 
     flyMaxZoom: 9, 
+<<<<<<< HEAD:components/Map/polygon/layer/config.js
     flyDuration: 5000, 
+=======
+    flyDuration: 9000, 
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/polygon/layer/config.js
     flySpeed: 0.2
 }
 
@@ -115,8 +132,13 @@ const CURRENT_CITY_CLICKED= {
     maxZoom: null,
     flyMinZoom: 11, 
     flyMaxZoom: 12, 
+<<<<<<< HEAD:components/Map/polygon/layer/config.js
     flyDuration: 5000, 
     flySpeed: 0.4
+=======
+    flyDuration: 9000, 
+    flySpeed: 0.2
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/polygon/layer/config.js
 }
 
 const CITY_OTHER= {
@@ -126,9 +148,15 @@ const CITY_OTHER= {
     opacity: 0.4,
     minZoom: 9,
     maxZoom: 11,
+<<<<<<< HEAD:components/Map/polygon/layer/config.js
     flyMinZoom: 8.9, 
     flyMaxZoom: 9, 
     flyDuration: 5000, 
+=======
+    flyMinZoom: 9, 
+    flyMaxZoom: 9, 
+    flyDuration: 9000, 
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/polygon/layer/config.js
     flySpeed: 0.4
 }
 

@@ -20,12 +20,23 @@ import {
   CURRENT_NEIGHBORHOOD,
 } from "./polygon/layer/config";
 
+<<<<<<< HEAD:components/Map/index.js
 import draw from "./polygon/draw";
 import move from "./polygon/polygonEvents/mousemove";
 import leave from "./polygon/polygonEvents/mouseleave";
 import layerClick from "./polygon/polygonEvents/click";
 import showPoi from "./poi";
 import showHouses from "./houses";
+=======
+import draw from './polygon/draw';
+import move from './polygon/polygonEvents/mousemove';
+import leave from './polygon/polygonEvents/mouseleave';
+import layerClick from './polygon/polygonEvents/click';
+import showPoi from './poi';
+import showHouses from './houses';
+import fetching from './services/fetching';
+
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/index.js
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
 mapboxgl.accessToken =
@@ -48,16 +59,27 @@ class Map extends Component {
     mapObject: "",
     image: "",
     cardObject: { name: "", county: "", city: "", adress: "", phone: "", type: "" },
+<<<<<<< HEAD:components/Map/index.js
     popup: new mapboxgl.Popup({ closeButton: false }),
     allInOne: "",
+=======
+    popup: new mapboxgl.Popup({ closeButton: false, className: 'popup' }),
+    allInOne: ""
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/index.js
   };
 
   handleClose = () => {
     this.setState({ ...this.state, openCard: false });
   };
 
+<<<<<<< HEAD:components/Map/index.js
   async componentDidMount() {
     // get all_in_one : /api/filter/static/All_In_One.json
+=======
+  
+  
+   async componentDidMount() {
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/index.js
     let map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/hamzahad/ckm6lqb38f5ev17ljx1v8jxgp", // style URL
@@ -67,6 +89,7 @@ class Map extends Component {
     let { popup } = this.state;
     this.setState({ mapObject: map });
     let allInOneData = await this.getAllInOne();
+<<<<<<< HEAD:components/Map/index.js
     if (this.props.scores.length > 0) {
       allInOneData.data.features.forEach(feature => {
         let neighborhood = this.props.scores.filter(
@@ -80,6 +103,10 @@ class Map extends Component {
     }
 
     map.on("load", e => {
+=======
+    fetching.updateScores(this.props.scores, allInOneData.data);
+    map.on("load", (e) => {
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/index.js
       // showPoi.showPoi(e);
       draw.drawPolygon(e.target, allInOneData.data, REGION);
       draw.drawPolygon(e.target, allInOneData.data, COUNTY);

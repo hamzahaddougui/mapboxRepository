@@ -70,6 +70,7 @@ module.exports.drawPolygon = (
               12,
               [
                 "case",
+<<<<<<< HEAD:components/Map/polygon/draw.js
                 ["==", ["get", "score"], 20],
                 "#cb3e0b",
                 ["==", ["get", "score"], 40],
@@ -79,12 +80,27 @@ module.exports.drawPolygon = (
                 ["==", ["get", "score"], 80],
                 "#319220",
                 ["==", ["get", "score"], 100],
+=======
+                ["<=", ["get", "score"], 20],
+                "#cb3e0b",
+                ["<=", ["get", "score"], 40],
+                "#de0d0d",
+                ["<=", ["get", "score"], 60],
+                "#d06139",
+                ["<=", ["get", "score"], 80],
+                "#319220",
+                [">", ["get", "score"], 80],
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/polygon/draw.js
                 "#15450d",
 
                 "black",
               ],
               "white",
+<<<<<<< HEAD:components/Map/polygon/draw.js
               ["has", "id"]
+=======
+              ["has", "score"]
+>>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb:src/components/Map/polygon/draw.js
             ),
           );
           // map.moveLayer("neighborhood-layer", "scores-layer");

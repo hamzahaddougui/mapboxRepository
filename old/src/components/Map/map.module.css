@@ -15,6 +15,12 @@
     z-index: 1;
 }
 
+.popup{
+    color:#575FF9;
+    border-radius: 2px;
+    
+}
+
 
 
 #container #map{width: 100vw; height: 100vh; }
