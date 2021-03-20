@@ -10,7 +10,7 @@ return { id, type: "line", source,
 
 
 module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textField= null, textFont= null, textOffset= null,
-    textAnchor= null, textSize= null, iconColor= null, textColor= null ) => {
+    textAnchor= null, textSize= null, iconColor= null, textColor= null, filter ) => {
     return {
         id,
         type: "symbol",
@@ -30,7 +30,9 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
           "icon-color": iconColor,
           "text-color": textColor
         },
-        minzoom: 5}}
+        minzoom: 5,
+        filter
+      }}
 
 module.exports.circleLayer= (id, source, circleColor, circleRadius, circleOpacity) => {
     return {

@@ -25,6 +25,8 @@ const useStyles = makeStyles(theme => ({
     height: "210px",
     padding: "4px 0",
     marginTop: "calc(100vh - 23%)",
+    position: "relative",
+    zIndex: "2",
   },
   gridList: {
     flexWrap: "nowrap",

@@ -1,40 +1,39 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import CheckyButtonContainer from "../../../common/CheckyButton/CheckyButtonContainer";
+import CheckyButtonContainer from "../../common/CheckyButton/CheckyButtonContainer";
 import styles from "./FilterForm.module.css";
 
-import _ from 'lodash';
+import _ from "lodash";
 
 import { loadFilters, checkValueAction } from "./FilterService";
 
-import { Grid, Typography } from '@material-ui/core'
-
+import { Grid, Typography } from "@material-ui/core";
 
 const FilterForm = () => {
   const [checked, setChecked] = useState(false);
 
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(loadFilters());
-    }, [])
+  useEffect(() => {
+    dispatch(loadFilters());
+  }, []);
 
-    const filters = useSelector(state => state.modules.filter.filters);
+  const filters = useSelector(state => state.modules.filter.filters);
 
-    const checkedValues = useSelector(state => state.modules.filter.checkedValues);
+  const checkedValues = useSelector(state => state.modules.filter.checkedValues);
 
-    var groupedFilters = _.chain(filters)
+  var groupedFilters = _.chain(filters)
     .groupBy("category")
     .toPairs()
-    .map(function(currentFilter) {
-        return _.toPlainObject(_.zip(["category", "champs"], currentFilter));
+    .map(function (currentFilter) {
+      return _.toPlainObject(_.zip(["category", "champs"], currentFilter));
     })
     .value();
 
-    // console.log(groupedFilters);
-    // console.log(groupedFilters[0][0][1]);
-    // console.log(groupedFilters[0][1][1]);
+  // console.log(groupedFilters);
+  // console.log(groupedFilters[0][0][1]);
+  // console.log(groupedFilters[0][1][1]);
 
   // const options = [
   //   {
@@ -60,8 +59,7 @@ const FilterForm = () => {
   };
 
   return (
-    <div>
-
+    <div className={styles.root}>
       {/* <div
         className={checked ? styles.checkyButtonActive : styles.checkyButton}
         onClick={() => {
@@ -96,7 +94,6 @@ const FilterForm = () => {
           />
         </Grid>
       ))}
-
     </div>
   );
 };

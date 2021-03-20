@@ -13,7 +13,9 @@ import {
   Button,
   LinearProgress,
   Box,
+  IconButton,
 } from "@material-ui/core";
+import { Clear, Replay, Favorite } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,9 +55,14 @@ const useStyles = makeStyles(theme => ({
     color: "#323643",
   },
   paper: {
+<<<<<<< HEAD
     // width: "827px",
     width: "55%",
     height: "85%",
+=======
+    width: "730px",
+    height: "86%",
+>>>>>>> 76d0946ca95555ae77633f5fb1407eb93bf2bbfa
     position: "absolute",
     left: "50%",
     transform: "translate(-50%)",
@@ -85,7 +92,11 @@ const useStyles = makeStyles(theme => ({
   imgSlider: {
     width: "100%",
     // height: "547px",
+<<<<<<< HEAD
     height: "65%",
+=======
+    height: "400px",
+>>>>>>> 76d0946ca95555ae77633f5fb1407eb93bf2bbfa
     backgroundColor: "#575FF9",
     borderRadius: "24px 24px 0 0",
     position: "relative",
@@ -131,6 +142,33 @@ const useStyles = makeStyles(theme => ({
     transform: "translate(-50%)",
     color: "#FFF",
   },
+<<<<<<< HEAD
+=======
+  clearWrapper: {
+    backgroundColor: "white",
+    height: "68px",
+    width: "68px",
+    color: "#575FF9",
+    boxShadow: "0 16px 28px 0 rgb(14 31 53 / 16%)",
+  },
+  redoWrapper: {
+    backgroundColor: "white",
+    height: "48px",
+    width: "48px",
+    color: "#323643",
+    boxShadow: "0 4px 8px 0 rgb(14 31 53 / 16%)",
+  },
+  favoriteWrapper: {
+    backgroundColor: "white",
+    height: "68px",
+    width: "68px",
+    color: "#FF0061",
+    boxShadow: "0 16px 28px 0 rgb(14 31 53 / 16%)",
+  },
+  bigIcon: {
+    fontSize: "38px",
+  },
+>>>>>>> 76d0946ca95555ae77633f5fb1407eb93bf2bbfa
 }));
 
 // LinearProgressWithLabel.propTypes = {
@@ -163,6 +201,7 @@ const index = () => {
   // const formattedFilters = JSON.stringify(filters);
   // console.log(formattedFilters);
 
+<<<<<<< HEAD
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -194,6 +233,41 @@ const index = () => {
           </div>
         </div>
 
+=======
+  //console.log(history);
+
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+
+      <div className={classes.jumboBackground}>
+        <div
+          className={classes.backContainer}
+          onClick={() => {
+            Router.back();
+          }}
+        >
+          <img className={classes.backIcon} src="/back.svg" alt="backButton"></img>
+          <div className={classes.backText}>Map View</div>
+        </div>
+      </div>
+
+      <Paper className={classes.paper}>
+        <div className={classes.imgSlider}>
+          <div className={classes.title}>
+            <Typography variant="h5" className={classes.titleTxt}>
+              south beach
+            </Typography>
+          </div>
+
+          <div className={classes.scoreBall}>
+            <Typography variant="h5" className={classes.score}>
+              90%
+            </Typography>
+          </div>
+        </div>
+
+>>>>>>> 76d0946ca95555ae77633f5fb1407eb93bf2bbfa
         <div className={styles.navigation}>
           {/* <GridList className={classes.gridList} cols={5.5}>
                             {filters?.map((filter, i) => (
@@ -203,6 +277,19 @@ const index = () => {
                             ))}
                         </GridList> */}
           <div className={styles.container}>
+<<<<<<< HEAD
+=======
+            <div style={{ paddingLeft: "6px" }} className={styles.navigationElement}>
+              <span
+                className={active === "percent match" ? styles.categoryActive : styles.category}
+                onClick={() => {
+                  setActive("percent match");
+                }}
+              >
+                Percent match
+              </span>
+            </div>
+>>>>>>> 76d0946ca95555ae77633f5fb1407eb93bf2bbfa
             {filters?.map((filter, i) => (
               <div className={styles.navigationElement} key={i}>
                 <span
@@ -229,6 +316,41 @@ const index = () => {
           ))}
         </div>
       </Paper>
+<<<<<<< HEAD
+=======
+
+      <div className={styles.iconsContainer}>
+        <IconButton
+          className={classes.clearWrapper}
+          arial-label="Clear"
+          onClick={() => {
+            console.log("Clear Action");
+          }}
+        >
+          <Clear className={classes.bigIcon} />
+        </IconButton>
+
+        <IconButton
+          className={classes.redoWrapper}
+          arial-label="Redo"
+          onClick={() => {
+            console.log("Redo Action");
+          }}
+        >
+          <Replay />
+        </IconButton>
+
+        <IconButton
+          className={classes.favoriteWrapper}
+          arial-label="Favorite"
+          onClick={() => {
+            console.log("Favorite Action");
+          }}
+        >
+          <Favorite className={classes.bigIcon} />
+        </IconButton>
+      </div>
+>>>>>>> 76d0946ca95555ae77633f5fb1407eb93bf2bbfa
     </div>
   );
 };
