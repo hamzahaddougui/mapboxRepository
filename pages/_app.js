@@ -1,18 +1,17 @@
-import "../styles/globals.css";
-
-import { Provider } from "react-redux";
-import configureStore from "../src/services/configureStore";
-
 import React from "react";
-import PropTypes from "prop-types";
 import Head from "next/head";
+import PropTypes from "prop-types";
+import { Provider } from "react-redux";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import theme from "../src/theme";
+
+import configureStore from "../services/configureStore";
+import theme from "../common/theme";
+import "../styles/globals.css";
 
 const store = configureStore();
 
-function MyApp(props) {
+function App(props) {
   const { Component, pageProps } = props;
 
   React.useEffect(() => {
@@ -26,7 +25,7 @@ function MyApp(props) {
   return (
     <Provider store={store}>
       <Head>
-        <title>My page</title>
+        <title>NomadVille - Funnel</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
@@ -38,9 +37,9 @@ function MyApp(props) {
   );
 }
 
-MyApp.propTypes = {
+App.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
 
-export default MyApp;
+export default App;

@@ -1,0 +1,21 @@
+.homeMatcher{
+    cursor: pointer;
+}
+
+.homeMatcher{
+    /* height: 104px; */
+    /* width: 70px; */
+    position: absolute;
+    /* bottom: 46px; */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.homeMatcherIcon {
+    height: 104px;
+    width: 70px;
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+}

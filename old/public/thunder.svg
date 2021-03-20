@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="46px" height="73px" viewBox="0 0 46 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Path Copy 3</title>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#A64EFE" offset="0%"></stop>
+            <stop stop-color="#4346F7" offset="100%"></stop>
+        </linearGradient>
+        <path d="M38.6588755,25.0884599 L21.0903951,25.0884599 L24.0357978,1.55762841 C24.100851,0.909400669 23.732595,0.299004035 23.1450626,0.0812048939 C22.5575302,-0.136594248 21.9037922,0.0949476885 21.5638053,0.641257063 L0.198655602,39.778797 C-0.0557461518,40.2114437 -0.066525598,40.7541046 0.170475936,41.197423 C0.40747747,41.6407414 0.855210843,41.9154158 1.34094211,41.9154777 L18.6469011,41.9154777 L16.3127072,65.4817161 C16.2655132,66.1274729 16.6449146,66.7238738 17.2327496,66.9279786 C17.8205845,67.1320834 18.4658221,66.891452 18.7974402,66.3444513 L39.8095439,27.2111181 C40.0576025,26.7778963 40.0637494,26.2386824 39.8256372,25.7994015 C39.5875268,25.3600335 39.1418582,25.0884748 38.6588755,25.0884599 Z" id="path-2"></path>
+        <filter x="-7.5%" y="-6.0%" width="120.0%" height="111.9%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="1" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.341176471   0 0 0 0 0.37254902   0 0 0 0 0.976470588  0 0 0 0.245738636 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="thunder" transform="translate(2.000000, 3.000000)" fill-rule="nonzero">
+            <g id="Path-Copy-3">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use stroke-opacity="0.484265734" stroke="#9357F9" stroke-width="1" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+        </g>
+    </g>
+</svg>

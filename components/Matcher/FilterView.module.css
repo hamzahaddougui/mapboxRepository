@@ -1,0 +1,41 @@
+.jumbo{
+    background: url(/map_head.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width : 100%;
+    height : 22%;
+    margin : 0 auto;
+    padding : 20px;
+}
+
+.backContainer{
+    display: inline-flex;
+    margin: 8px;
+    cursor: pointer;
+}
+
+.backIcon{
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    float: left;
+    align-items: center;
+    margin-right: 4px;
+}
+
+.backText{
+    display: inline-flex;
+    float: left;
+    align-items: center;
+    margin: 0;
+    font-size: 12px;
+    color: #323643;
+}
+
+.header{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}

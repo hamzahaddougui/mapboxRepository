@@ -1,0 +1,81 @@
+{
+    "type": "FeatureCollection",
+    "name": "houses",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "house 1",
+          "name": "house 1"
+          
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.2496337890625,
+            25.834505347339903
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "house 2",
+          "name": "house 2"
+          
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.24002075195312,
+            25.76526690492097
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "house 3",
+          "name": "house 3"
+         
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.21530151367188,
+            25.81719952930879
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "house 4",
+          "name": "house 4"
+         
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.31530151367188,
+            25.81719952930879
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "house 5",
+          "name": "house 5"
+         
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.91530151367188,
+            25.81719952930879
+          ]
+        }
+      }
+    ]
+  }

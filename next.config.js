@@ -7,7 +7,23 @@ module.exports = withImages({
       test: /\.(eot|svg|gif|md)$/,
       loaders: ["style-loader", "css-loader", "less-loader"],
     });
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack", "url-loader"],
+    });
 
     return config;
   },
 });
+
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/matcher",
+        permanent: true,
+      },
+    ];
+  },
+};

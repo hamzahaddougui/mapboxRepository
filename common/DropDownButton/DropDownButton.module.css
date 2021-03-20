@@ -1,0 +1,14 @@
+.dropDown {
+  background-color: #323643;
+  height: 40px;
+  width: 200px;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.contentButton {
+  display: flex;
+  margin-left: 12%;
+  align-items: center;
+  color: #fff;
+}
