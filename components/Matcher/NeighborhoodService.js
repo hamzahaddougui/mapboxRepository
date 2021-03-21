@@ -86,7 +86,7 @@ const slice = createSlice({
 
       state.loading = false;
       state.lastFetch = Date.now();
-      Router.push("/neighborhood");
+      // Router.push("/neighborhood");
       //<Link href="/"></Link>
       // console.log(state.matched);
     },

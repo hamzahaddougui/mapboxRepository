@@ -12,11 +12,8 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@reduxjs/toolkit": "^1.5.0",
-<<<<<<< HEAD
     "@svgr/webpack": "^5.5.0",
-=======
     "@turf/area": "^6.3.0",
->>>>>>> 28e2f56b524142cbc609fc056e90e5d771d0cbcb
     "@types/node": "^14.14.35",
     "@types/react": "^17.0.3",
     "@zeit/next-css": "^1.0.1",

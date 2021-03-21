@@ -1,198 +1,156 @@
-// import moment from "moment";
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../../services/api";
 
-const CACHE_DELAY = 10;
-const url = "/filter/json";
+import Router from "next/router";
+import Link from "next/link";
+
+const url = "/matcher/run";
 
 const slice = createSlice({
-  name: "matcher",
+  name: "neighborhoodResult",
 
   initialState: {
-    filters: [
-      {
-        group: "TERRITORY",
-        category: "Settlement",
-        name: "Town",
-        level: "city level",
-        radiusMiles: "",
-        description: "Town <10k ppl",
-      },
-      {
-        group: "TERRITORY",
-        category: "Settlement",
-        name: "Large town",
-        level: "city level",
-        radiusMiles: "",
-        description: "Large town 10k-100k ppl",
-      },
-      {
-        group: "TERRITORY",
-        category: "Settlement",
-        name: "City",
-        level: "city level",
-        radiusMiles: "",
-        description: "City 100k-1M ppl",
-      },
-      {
-        group: "TERRITORY",
-        category: "Settlement",
-        name: "Metropolis",
-        level: "city level",
-        radiusMiles: "",
-        description: "Metropolis 1M-10M ppl",
-      },
-      {
-        group: "TERRITORY",
-        category: "Location",
-        name: "Downtown",
-        level: "Neighborhood level",
-        radiusMiles: "",
-        description: "",
-      },
+    matched: [
+      { Neighborhood: "Atlantic at San Pablo", Score: 18 },
+      { Neighborhood: "Autumn Point", Score: 18 },
+      { Neighborhood: "Avanti", Score: 18 },
+      { Neighborhood: "Avenue Royale", Score: 18 },
+      { Neighborhood: "Avenues", Score: 19 },
+      { Neighborhood: "Avia St. Johns", Score: 19 },
+      { Neighborhood: "Azalea Ridge", Score: 19 },
+      { Neighborhood: "Bainbridge Town Center East", Score: 19 },
+      { Neighborhood: "Bainebridge Estates", Score: 18 },
+      { Neighborhood: "Banyan Bay", Score: 18 },
+      { Neighborhood: "Bartram", Score: 18 },
+      { Neighborhood: "Bay Harbour", Score: 18 },
+      { Neighborhood: "Baymeadows", Score: 18 },
+      { Neighborhood: "Beach / Walker", Score: 19 },
+      { Neighborhood: "Beach Haven", Score: 18 },
+      { Neighborhood: "Beach Way", Score: 19 },
+      { Neighborhood: "Beachwood", Score: 19 },
+      { Neighborhood: "Beatrice Walk", Score: 19 },
+      { Neighborhood: "Beauclerc", Score: 18 },
+      { Neighborhood: "Bent Creek", Score: 19 },
+      { Neighborhood: "Benton", Score: 20 },
+      { Neighborhood: "Bentwater", Score: 19 },
+      { Neighborhood: "Big Island Swamp", Score: 18 },
+      { Neighborhood: "Biltmore", Score: 18 },
+      { Neighborhood: "Biscayne", Score: 19 },
+      { Neighborhood: "Bishop Estates Road", Score: 20 },
+      { Neighborhood: "Bishopswood", Score: 19 },
+      { Neighborhood: "Black Hammock Island", Score: 19 },
+      { Neighborhood: "Blackwood Cove Ballastone", Score: 19 },
+      { Neighborhood: "Blackwood Forest", Score: 19 },
+      { Neighborhood: "Blair Rd", Score: 19 },
+      { Neighborhood: "Blanding Blvd", Score: 18 },
+      { Neighborhood: "Blue Lake Estates", Score: 18 },
+      { Neighborhood: "Boney Road", Score: 20 },
+      { Neighborhood: "Brady Manor", Score: 18 },
+      { Neighborhood: "Braywick East", Score: 20 },
+      { Neighborhood: "Braywick Village", Score: 19 },
+      { Neighborhood: "Brentwood Park", Score: 18 },
+      { Neighborhood: "Bridgeview", Score: 18 },
+      { Neighborhood: "Bridgewater", Score: 19 },
+      { Neighborhood: "Brierwood", Score: 18 },
+      { Neighborhood: "Bright Water", Score: 18 },
+      { Neighborhood: "Brookhollow", Score: 19 },
+      { Neighborhood: "Brooklyn", Score: 18 },
+      { Neighborhood: "Brookview", Score: 18 },
+      { Neighborhood: "Brown Island", Score: 18 },
+      { Neighborhood: "Bulls Bay", Score: 18 },
+      { Neighborhood: "Cabana", Score: 19 },
+      { Neighborhood: "Camp Milton", Score: 19 },
+      { Neighborhood: "Campfield", Score: 19 },
+      { Neighborhood: "Candelwood", Score: 19 },
     ],
-    currentStep: "filter_explore",
-    filterStep: "filter_explore",
-    list: [],
+    favorites: [],
     loading: false,
     lastFetch: null,
   },
   reducers: {
-    filtersRequested: (state, action) => {
-      console.log("filterRequested");
+    neighborhoodRequested: (state, action) => {
       state.loading = true;
     },
-    filtersRequestFailed: (state, action) => {
+    neighborhoodRequestFailed: (state, action) => {
       state.loading = false;
     },
-    filtersReceived: (state, action) => {
-      state.filters = action.payload;
+    neighborhoodReceived: (state, action) => {
+      if (typeof action.payload === String) {
+        // console.log(action.payload.replace(/\bNaN\b/g, ""))
+        state.matched = JSON.parse(action.payload.replace(/\bNaN\b/g, '""'));
+      } else {
+        // console.log(action.payload)
+        state.matched = action.payload;
+      }
+      console.log(`${state.matched.data.length} Neighborhoods receiver`);
+
       state.loading = false;
       state.lastFetch = Date.now();
+      console.log("heeeeeeeeeeeeey");
+      // Router.push("/neighborhood");
+      //<Link href="/"></Link>
+      // console.log(state.matched);
     },
-    changeValue: (state, action) => {
-      state.form[action.payload.name] = action.payload.value;
+    addFavorite: (state, action) => {
+      console.log("Favorite added!!");
+      const value = action.payload;
+      console.log(value);
+
+      let index = -1;
+      state.favorites.forEach((element, i) => {
+        if (JSON.stringify(element) === JSON.stringify(value)) index = i;
+      });
+
+      if (index > -1) {
+        state.favorites.splice(index, 1);
+        index = -1;
+      } else state.favorites.push(value);
+
+      // THIS ONE BELOW IS WORKING WITH ELEMENTS
+
+      // if (state.favorites.includes(value)) {
+      //   console.log('Value exists already!');
+      //   const index = state.favorites.indexOf(value);
+      //   if (index > -1) {
+      //     state.favorites.splice(index, 1);
+      //   }
+      // } else {state.favorites.push(value)}
     },
-    checkValue: (state, action) => {
-      console.log("Hey");
-      const { value, formName } = action.payload;
-      const currentStep = state.list.filter(s => s.name === state.currentStep)[0];
-      const form = currentStep.forms.filter(f => f.name === formName)[0];
-      const checkedValues = form.data;
-      if (checkedValues.includes(value)) {
-        const index = checkedValues.indexOf(value);
-        if (index > -1) {
-          checkedValues.splice(index, 1);
-        }
-      } else checkedValues.push(value);
-    },
-    checkFilterValue: (state, action) => {
-      const currentStep = state.list.filter(s => s.name === state.filterStep)[0];
-      const checkedValues = currentStep.data.checkedValues;
-      if (checkedValues.includes(action.payload)) {
-        const index = checkedValues.indexOf(action.payload);
-        if (index > -1) {
-          checkedValues.splice(index, 1);
-        }
-      } else checkedValues.push(action.payload);
-    },
-    changeStep: (state, action) => {
-      state.currentStep = action.payload.to;
-    },
-    changeSelectValue: (state, action) => {
-      const currentStep = state.list.filter(s => s.name === state.currentStep)[0];
-      currentStep.data = action.payload.option;
-    },
-    changeRange: (state, action) => {
-      const { value, formName } = action.payload;
-      const currentStep = state.list.filter(s => s.name === state.currentStep)[0];
-      const form = currentStep.forms.filter(f => f.name === formName)[0];
-      form.data = value;
-    },
-    chooseValue: (state, action) => {
-      const { value, formName } = action.payload;
-      const currentStep = state.list.filter(s => s.name === state.currentStep)[0];
-      const form = currentStep.forms.filter(f => f.name === formName)[0];
-      form.data = value;
-    },
-    addNbValue: (state, action) => {
-      const { formName } = action.payload;
-      const currentStep = state.list.filter(s => s.name === state.currentStep)[0];
-      const form = currentStep.forms.filter(f => f.name === formName)[0];
-      form.data.value += 1;
-    },
-    removeNbValue: (state, action) => {
-      const { formName } = action.payload;
-      const currentStep = state.list.filter(s => s.name === state.currentStep)[0];
-      const form = currentStep.forms.filter(f => f.name === formName)[0];
-      form.data.value -= 1;
-    },
-    removeCurrentSelectedValue: (state, action) => {
-      const currentStep = state.list.filter(s => s.name === state.currentStep)[0];
-      currentStep.data = "";
-    },
-    validateStep: (state, action) => {
-      const currentStep = state.list.filter(s => s.name === state.currentStep)[0];
-      currentStep.valid = true;
-    },
-    invalidateStep: (state, action) => {
-      const currentStep = state.list.filter(s => s.name === state.currentStep)[0];
-      currentStep.valid = false;
+    resetNeighborhood: (state, action) => {
+      console.log("Restarting Neighborhood results...");
+      state.matched = [];
+      state.favorites = [];
     },
   },
 });
 
 export const {
-  articleAdded,
-  filtersRequested,
-  filtersReceived,
-  filtersRequestFailed,
-  changeValue,
-  checkValue,
-  changeStep,
-  changeSelectValue,
-  removeCurrentSelectedValue,
-  checkFilterValue,
-  validateStep,
-  invalidateStep,
-  changeRange,
-  addNbValue,
-  removeNbValue,
-  chooseValue,
+  neighborhoodRequested,
+  neighborhoodRequestFailed,
+  neighborhoodReceived,
+  addFavorite,
+  resetNeighborhood,
 } = slice.actions;
 
 export default slice.reducer;
 
-// Action Creators
-export const loadFilters = () => (dispatch, getState) => {
+export const loadMatched = () => (dispatch, getState) => {
   // if (isCached(getState().modules.filters)) return;
-  console.log("loadFilter -----------");
+  console.log("load Filters ...");
+  const data = {};
+
+  data.filters = getState().modules.filter.priorities;
+
+  console.log(data);
+
   dispatch(
     apiCallBegan({
       url,
-      // method: "get",
-      onStart: filtersRequested.type,
-      onSuccess: filtersReceived.type,
-      onError: filtersRequestFailed.type,
+      onStart: neighborhoodRequested.type,
+      onSuccess: neighborhoodReceived.type,
+      onError: neighborhoodRequestFailed.type,
+      data,
+      method: "POST",
     }),
   );
 };
-
-// export const loadMapData = () => (dispatch, getState) => {
-//   if (isCached(getState().modules.article)) return;
-
-//   dispatch(
-//     apiCallBegan({
-//       url,
-//       onStart: articleRequested.type,
-//       onSuccess: articleReceived.type,
-//       onError: articleRequestFailed.type,
-//     }),
-//   );
-// };
-
-// const isCached = entity => {
-//   const { lastFetch } = entity;
-//   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
-//   return diffInMinutes < CACHE_DELAY;
-// };
