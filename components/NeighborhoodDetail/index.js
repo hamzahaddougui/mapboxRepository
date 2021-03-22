@@ -3,13 +3,14 @@ import Router from "next/router";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import styles from "./DetailNeighborhood.module.css";
+import styles from "./NeighborhoodDetail.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   CssBaseline,
   Typography,
   Paper,
   GridList,
+  Grid,
   Button,
   LinearProgress,
   Box,
@@ -19,8 +20,8 @@ import { Clear, Replay, Favorite } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100vw",
-    height: "100vh",
+    // width: "1000px",
+    // height: "100vh",
   },
   jumboBackground: {
     backgroundColor: "#9A9895",
@@ -55,23 +56,23 @@ const useStyles = makeStyles(theme => ({
     color: "#323643",
   },
   paper: {
-    width: "730px",
+    // width: "730px",
     height: "86%",
-    position: "absolute",
-    left: "50%",
-    transform: "translate(-50%)",
-    top: "2%",
+    // position: "absolute",
+    // left: "50%",
+    // transform: "translate(-50%)",
+    // top: "2%",
     borderRadius: "24px",
     boxShadow: "0 5px 18px 0 rgba(227,228,254,0.63)",
-    overflow: "auto",
+    // overflow: "auto",
   },
   title: {
     width: "153px",
     height: "41px",
     backgroundColor: "#FFF",
-    position: "absolute",
-    left: "50%",
-    transform: "translate(-50%)",
+    // position: "absolute",
+    // left: "50%",
+    // transform: "translate(-50%)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -99,7 +100,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
+    // position: "absolute",
     bottom: "26px",
     left: "22px",
   },
@@ -123,13 +124,15 @@ const useStyles = makeStyles(theme => ({
   },
   progressContainer: {
     width: "129px",
-    position: "absolute",
+    // position: "absolute",
     right: "36px",
   },
   progressTxt: {
-    position: "absolute",
-    left: "50%",
-    transform: "translate(-50%)",
+    // position: "absolute",
+    // left: "50%",
+    // transform: "translate(-50%)",
+    // marginLeft: "3em",
+    // marginTop: "-3px",
     color: "#FFF",
   },
   clearWrapper: {
@@ -192,36 +195,36 @@ const index = () => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-
-      <div className={classes.jumboBackground}>
-        <div
-          className={classes.backContainer}
-          onClick={() => {
-            Router.back();
-          }}
+      <Paper component={Grid} container className={classes.paper}>
+        <Grid
+          item
+          container
+          direction="column"
+          // alignItems="center"
+          justify="space-between"
+          className={classes.imgSlider}
         >
-          <img className={classes.backIcon} src="/back.svg" alt="backButton"></img>
-          <div className={classes.backText}>Map View</div>
-        </div>
-      </div>
-
-      <Paper className={classes.paper}>
-        <div className={classes.imgSlider}>
-          <div className={classes.title}>
-            <Typography variant="h5" className={classes.titleTxt}>
-              south beach
-            </Typography>
-          </div>
+          <Grid
+            item
+            container
+            justify="center"
+            // style={{ width: "100%" }}
+          >
+            <div className={classes.title}>
+              <Typography variant="h5" className={classes.titleTxt}>
+                south beach
+              </Typography>
+            </div>
+          </Grid>
 
           <div className={classes.scoreBall}>
             <Typography variant="h5" className={classes.score}>
               90%
             </Typography>
           </div>
-        </div>
+        </Grid>
 
-        <div className={styles.navigation}>
+        <Grid item container className={styles.navigation}>
           {/* <GridList className={classes.gridList} cols={5.5}>
                             {filters?.map((filter, i) => (
                                 <span className={styles.navigationElement} key={i}>
@@ -255,19 +258,22 @@ const index = () => {
           </div>
 
           {/* <hr className={styles.line} /> */}
-        </div>
+        </Grid>
 
-        <div className={styles.table}>
-          {filters?.map((filter, i) => (
-            <div className={styles.tableElement} key={i}>
-              <span className={styles.filterName}>{filter.name}</span>
-              <LinearProgressWithLabel value={90} />
-            </div>
-          ))}
-        </div>
+        <GridList cellHeight="auto" className={styles.table}>
+          {filters?.map(
+            (filter, i) =>
+              filter.name && (
+                <Grid item container justify="space-between" alignItems="flex-start" key={i}>
+                  <span className={styles.filterName}>{filter.name}</span>
+                  <LinearProgressWithLabel value={90} />
+                </Grid>
+              ),
+          )}
+        </GridList>
       </Paper>
 
-      <div className={styles.iconsContainer}>
+      <Grid item container justify="center" className={styles.iconsContainer}>
         <IconButton
           className={classes.clearWrapper}
           arial-label="Clear"
@@ -279,6 +285,7 @@ const index = () => {
         </IconButton>
 
         <IconButton
+          style={{ margin: "0em 2em 0em 2em" }}
           className={classes.redoWrapper}
           arial-label="Redo"
           onClick={() => {
@@ -297,7 +304,7 @@ const index = () => {
         >
           <Favorite className={classes.bigIcon} />
         </IconButton>
-      </div>
+      </Grid>
     </div>
   );
 };

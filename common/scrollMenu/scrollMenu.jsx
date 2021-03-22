@@ -96,7 +96,7 @@ export default class MyScrollMenu extends Component {
         translate={this.state.translate}
         // selected={selected}
         // onSelect={this.onSelect}
-        onSelect={this.props.onClick}
+        onSelect={this.props.onSelect}
       />
     );
   }

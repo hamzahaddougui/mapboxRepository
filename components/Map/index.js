@@ -193,6 +193,9 @@ class Map extends Component {
       map.on("mouseleave", "current-neighborhood-layer", e => {
         leave.mouseLeave(e, popup);
       });
+      map.on("click", "current-neighborhood-layer", e => {
+        console.log(e.features[0].properties.id);
+      });
 
       map.on("click", "points-layer", e => {
         const { mapObject } = this.state;

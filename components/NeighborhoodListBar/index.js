@@ -78,7 +78,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NeighborhoodListBar = () => {
+const NeighborhoodListBar = ({ onClick }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -88,7 +88,7 @@ const NeighborhoodListBar = () => {
   const Items =
     neighborhoods?.length &&
     neighborhoods.slice(0, 50).map((neighborhood, i) => (
-      <div key={`${neighborhood.score}${i}`}>
+      <div key={`${neighborhood.Neighborhood}`}>
         <NeighborhoodCard neighborhood={neighborhood} />
       </div>
     ));
@@ -100,7 +100,7 @@ const NeighborhoodListBar = () => {
         item
         // container alignItems="center" justify="center"
       >
-        <ScrollMenu Items={Items} />
+        <ScrollMenu onSelect={onClick} Items={Items} />
       </Grid>
     </React.Fragment>
   );

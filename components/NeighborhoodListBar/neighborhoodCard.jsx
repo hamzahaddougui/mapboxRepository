@@ -46,6 +46,9 @@ const useStyles = makeStyles(theme => ({
     cursor: "pointer",
     marginBottom: "1em",
   },
+  HeartIconWrapper: {
+    zIndex: 10,
+  },
 }));
 
 const NeighborhoodCard = ({ neighborhood, onClick }) => {
@@ -60,6 +63,11 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
   const onMouseOver = () => setElevation(6);
   const onMouseOut = () => setElevation(2);
 
+  const handleAddToFavorites = e => {
+    e.stopPropagation();
+    dispatch(addFavorite(neighborhood));
+  };
+
   return (
     <Paper
       onMouseOver={onMouseOver}
@@ -70,13 +78,12 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       container
       direction="column"
       className={classes.wrapper}
+      onClick={onClick}
     >
       <Grid item container justify="flex-end" alignItems="center">
         <IconButton
           className={classes.HeartIconWrapper}
-          onClick={() => {
-            dispatch(addFavorite(neighborhood));
-          }}
+          onClick={handleAddToFavorites}
           aria-label={`Heart ${neighborhood.Neighborhood}`}
         >
           {favorites.includes(neighborhood) ? (

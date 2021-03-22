@@ -15,7 +15,7 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
   const matched = useSelector(state => state.modules.matcher.matched.data);
   favorites.length > 0 ? console.log("Favorites Full!!") : console.log("Favorites is Empty");
-
+  const hm = Boolean(favorites.length > 0);
   // console.log(matched);
 
   const renderAfterMatching = () => (
@@ -26,28 +26,23 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
           <img className={styles.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
           <Button className={classes.restartMatcherButton}>Restart the Matcher</Button>
         </div>
-
-        {favorites.length > 0 ? (
-          <div className={styles.homeMatcherActive} onClick={onHomeMatcher}>
-            <img
-              className={styles.homeMatcherThunderActive}
-              src="/Enabled.svg"
-              alt="Home Matcher enabled"
-            />
-            <Button className={classes.restartMatcherButton}>Home Matcher</Button>
-          </div>
-        ) : (
-          <div className={styles.homeMatcher}>
-            <img
-              className={styles.homeMatcherThunder}
-              src="/Disabled.svg"
-              alt="Home Matcher disabled"
-            />
-            <Button className={classes.restartMatcherButton} disabled>
-              Home Matcher
-            </Button>
-          </div>
-        )}
+        <div
+          className={hm ? styles.homeMatcherActive : styles.homeMatcher}
+          onClick={hm && onHomeMatcher}
+        >
+          <img
+            className={hm ? styles.homeMatcherThunderActive : styles.homeMatcherThunder}
+            src={hm ? "/Enabled.svg" : "/Disabled.svg"}
+            alt={hm ? "Home Matcher enabled" : "Home Matcher disabled"}
+          />
+          <Button
+            disabled={!hm}
+            style={{ transition: "ease 0.5s" }}
+            className={classes.restartMatcherButton}
+          >
+            Home Matcher
+          </Button>
+        </div>
       </div>
 
       <div style={{ position: "absolute", right: "4%", display: "flex", alignItems: "center" }}>
