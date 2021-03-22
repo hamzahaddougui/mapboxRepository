@@ -21,7 +21,6 @@ function App(props) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
-
   return (
     <Provider store={store}>
       <Head>

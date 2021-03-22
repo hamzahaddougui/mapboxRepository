@@ -17,6 +17,15 @@ const styles = theme => ({
     left: "50%",
     transform: "translateX(-50%)",
   },
+  restartMatcherButton: {
+    color: "#323643",
+    textTransform: "none",
+    position: "relative",
+    // padding: "8px 45px",
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  },
 });
 
 export default styles;

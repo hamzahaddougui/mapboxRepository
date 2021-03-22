@@ -7,7 +7,7 @@ import { loadMatched } from "components/Matcher/MatcherService";
 import PriorityForm from "components/Priority/PriorityForm";
 import PriorityFooter from "components/PriorityFooter";
 import BackButton from "../../../common/BackButton/BackButton";
-import muiStyles from "./startStyles";
+import muiStyles from "styles/priorityStyles";
 
 const useStyles = makeStyles(muiStyles);
 

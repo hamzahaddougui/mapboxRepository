@@ -83,13 +83,15 @@ const NeighborhoodListBar = () => {
 
   const dispatch = useDispatch();
 
-  const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
-  const favorites = useSelector(state => state.modules.neighborhood.favorites);
-  const Items = neighborhoods.map((neighborhood, i) => (
-    <div key={`${neighborhood.score}${i}`}>
-      <NeighborhoodCard neighborhood={neighborhood} />
-    </div>
-  ));
+  const neighborhoods = useSelector(state => state.modules.matcher.matched.data);
+  const favorites = useSelector(state => state.modules.matcher.favorites);
+  const Items =
+    neighborhoods?.length &&
+    neighborhoods.slice(0, 50).map((neighborhood, i) => (
+      <div key={`${neighborhood.score}${i}`}>
+        <NeighborhoodCard neighborhood={neighborhood} />
+      </div>
+    ));
 
   return (
     <React.Fragment>

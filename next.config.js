@@ -11,7 +11,6 @@ module.exports = withImages({
       test: /\.svg$/,
       use: ["@svgr/webpack", "url-loader"],
     });
-
     return config;
   },
 });

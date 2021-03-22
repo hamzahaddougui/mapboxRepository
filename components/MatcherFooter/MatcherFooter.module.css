@@ -10,11 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 3;
-}
-
-.logo {
-  margin-left: 12px;
+  z-index: 4;
 }
 
 .thunder {
@@ -22,6 +18,187 @@
   width: 32px;
   position: absolute;
   bottom: 143%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo {
+  margin-left: 12px;
+}
+
+.splitButton {
+  background-color: #323643;
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 24px;
+  opacity: 77%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 12px;
+  z-index: 2;
+}
+
+.splitButtonView {
+  background-color: #323643;
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 24px;
+  opacity: 77%;
+  /* position: absolute;
+  left: 50%;
+  transform: translate(-50%); */
+  margin-top: 12px;
+  left: 37px;
+  position: relative;
+  z-index: 2;
+}
+
+.splitButtonItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  background-color: transparent;
+  border-radius: 24px;
+  padding: 4px 24px;
+  cursor: pointer;
+  color: #fff;
+  opacity: 50%;
+}
+
+.splitButtonItemActive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f4f4;
+  border-radius: 24px;
+  padding: 4px 24px;
+  cursor: pointer;
+  color: #323643;
+}
+
+.dropDown {
+  background-color: #323643;
+  height: 40px;
+  width: 200px;
+  display: inline-flex;
+  position: absolute;
+  margin-top: 12px;
+  right: 37px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.dropDownContent {
+  height: calc(100vh - 15%);
+  width: 362px;
+  background-color: #fff;
+  position: absolute;
+  right: 37px;
+  margin-top: 9px;
+  padding-top: 24px;
+  overflow: hidden;
+  opacity: 90%;
+  z-index: 3;
+}
+
+.dropDownItem {
+  display: flex;
+  margin-left: 16%;
+  align-items: center;
+  color: #000;
+}
+
+.percentMatch {
+  display: flex;
+  margin-left: 12%;
+  align-items: center;
+  color: #fff;
+}
+
+.navigation {
+  color: #323643;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 8px 45px;
+  /* padding-left : 20px; */
+}
+
+.SwipeView {
+  background-color: #323643;
+  opacity: 0.77;
+}
+
+.leftGroupButtons {
+  background-color: thistle;
+}
+
+.bottomNavigationButtons {
+  display: inline-flex;
+}
+
+.restartMatcher {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 30%;
+  bottom: 20%;
+  cursor: pointer;
+}
+
+/* .restartMatcherThunder{
+  height: 64px;
+  width: 32px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  bottom: 60%;
+  z-index: 2;
+} */
+
+.homeMatcher {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 30%;
+  bottom: 20%;
+}
+
+.homeMatcherActive {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 30%;
+  bottom: 20%;
+  cursor: pointer;
+}
+
+.homeMatcherThunderActive {
+  height: 76px;
+  width: 74px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  bottom: 30px;
+  z-index: 2;
+}
+
+.homeMatcherThunder {
+  height: 62px;
+  width: 60px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  bottom: 30px;
+  z-index: 2;
+}
+
+.nMatcher {
+  height: 104px;
+  width: 70px;
+  position: absolute;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
 }

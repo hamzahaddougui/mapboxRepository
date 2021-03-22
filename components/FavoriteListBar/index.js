@@ -2,11 +2,11 @@ import Router from "next/router";
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ScrollMenu from "../../../common/scrollMenu/scrollMenu";
+import ScrollMenu from "../../common/scrollMenu/scrollMenu";
 
 import styles from "./FavoriteListBar.module.css";
 
-import { addFavorite } from "../../Matcher/NeighborhoodService";
+import { addFavorite } from "../Matcher/NeighborhoodService";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, SvgIcon } from "@material-ui/core";
@@ -15,8 +15,8 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
 import { Favorite, FavoriteBorderSharp } from "@material-ui/icons";
-import NeighborhoodCard from "../../Neighborhood/NeighborhoodListBar/neighborhoodCard";
-import AddNeighborhoodCard from "../../Neighborhood/NeighborhoodListBar/addNeighborhoodCard";
+import NeighborhoodCard from "../NeighborhoodListBar/neighborhoodCard";
+import AddNeighborhoodCard from "../NeighborhoodListBar/addNeighborhoodCard";
 
 // import { ReactComponent as AddNbIcon } from "../../../../public/addNeighborhood.svg";
 const addNbIcon = "/addNeighborhood.svg";

@@ -27,6 +27,7 @@ import layerClick from "./polygon/polygonEvents/click";
 import showPoi from "./poi";
 import showHouses from "./houses";
 import fetching from "./services/fetching";
+import { loadStarted, LoadEnded } from "./MapService";
 
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
@@ -59,166 +60,174 @@ class Map extends Component {
   };
 
   async componentDidMount() {
-    let map = new mapboxgl.Map({
-      container: "map", // container id
-      style: "mapbox://styles/hamzahad/ckm6lqb38f5ev17ljx1v8jxgp", // style URL
-      center: [-83.30318241957815, 27.863450414180377], // starting position [lng, lat]
-      zoom: 6, // starting zoom
-    });
-    let { popup } = this.state;
-    this.setState({ mapObject: map });
-    let allInOneData = await this.getAllInOne();
-    fetching.updateScores(this.props.scores, allInOneData.data);
-    map.on("load", e => {
-      // showPoi.showPoi(e);
-      draw.drawPolygon(e.target, allInOneData.data, REGION);
-      draw.drawPolygon(e.target, allInOneData.data, COUNTY);
-      draw.drawPolygon(e.target, allInOneData.data, CITY);
-      draw.drawPolygon(e.target, allInOneData.data, NEIGHBORHOOD);
-      this.showHouses(e);
-    });
-
-    map.on("mousemove", "region-layer", e =>
-      move.mouseMove(allInOneData.data, e, "region", REGION_HIGHLIGHTED, popup),
-    );
-
-    map.on("mouseleave", "region-layer", e => {
-      draw.drawPolygon(e.target, allInOneData.data, REGION_HIGHLIGHTED, []);
-      leave.mouseLeave(e, popup);
-    });
-
-    map.on("click", "region-highlighted-layer", e => {
-      layerClick.click(
-        allInOneData.data,
-        e,
-        REGION_HIGHLIGHTED,
-        "region",
-        e.features[0].properties.id,
-        REGION_CLICKED,
-      );
-    });
-
-    map.on("mousemove", "county-layer", e => {
-      move.mouseMove(allInOneData.data, e, "county", COUNTY_HIGHLIGHTED, popup);
-      this.handlePopup(e).mapbox.addTo(e.target);
-    });
-
-    map.on("click", "county-layer", e => {
-      let result = e.features[0].properties.id.split("-");
-      layerClick.click(allInOneData.data, e, COUNTY, "region", result[0], REGION_CLICKED);
-      layerClick.click(
-        allInOneData.data,
-        e,
-        COUNTY_HIGHLIGHTED,
-        "county",
-        e.features[0].properties.id,
-        COUNTY_CLICKED,
-      );
-    });
-
-    map.on("mouseleave", "county-layer", e => {
-      draw.drawPolygon(e.target, allInOneData.data, COUNTY_HIGHLIGHTED, []);
-      leave.mouseLeave(e, popup);
-    });
-
-    map.on("click", "county-clicked-layer", e =>
-      layerClick.click(
-        allInOneData.data,
-        e,
-        COUNTY_CLICKED,
-        "city",
-        e.features[0].properties.id,
-        CURRENT_CITY,
-      ),
-    );
-
-    map.on("mousemove", "city-layer", e =>
-      move.mouseMove(allInOneData.data, e, "city", CITY_OTHER, popup),
-    );
-
-    map.on("mouseleave", "city-layer", e => {
-      draw.drawPolygon(e.target, allInOneData.data, CITY_OTHER, []);
-      leave.mouseLeave(e, popup);
-    });
-
-    map.on("click", "city-other-layer", e =>
-      layerClick.click(
-        allInOneData.data,
-        e,
-        CITY_OTHER,
-        "city",
-        e.features[0].properties.id,
-        CURRENT_CITY,
-      ),
-    );
-
-    map.on("click", "current-city-layer", e =>
-      layerClick.click(
-        allInOneData.data,
-        e,
-        CURRENT_CITY_CLICKED,
-        "neighborhood",
-        e.features[0].properties.id,
-        CURRENT_NEIGHBORHOOD,
-      ),
-    );
-
-    map.on("mouseleave", "current-city-layer", e => {
-      leave.mouseLeave(e, popup);
-    });
-
-    map.on("mousemove", "neighborhood-layer", e =>
-      move.mouseMove(allInOneData.data, e, "neighborhood", NEIGHBORHOOD_HIGHLIGHTED, popup),
-    );
-
-    map.on("click", "neighborhood-layer", e =>
-      layerClick.click(
-        allInOneData.data,
-        e,
-        NEIGHBORHOOD,
-        "neighborhood",
-        e.features[0].properties.id,
-        CURRENT_NEIGHBORHOOD,
-      ),
-    );
-
-    map.on("mouseleave", "neighborhood-layer", e => {
-      draw.drawPolygon(e.target, allInOneData.data, NEIGHBORHOOD_HIGHLIGHTED, []);
-      leave.mouseLeave(e, popup);
-    });
-
-    map.on("mouseleave", "current-neighborhood-layer", e => {
-      leave.mouseLeave(e, popup);
-    });
-
-    map.on("click", "points-layer", e => {
-      const { mapObject } = this.state;
-      let feature = mapObject.queryRenderedFeatures(e.point, { layers: ["points-layer"] });
-      if (!feature.length) return;
-      let { name, county, city, address, phone, type } = feature[0].properties;
-      this.setState({ openCard: true, cardObject: { name, county, city, address, phone, type } });
-    });
-
-    map.on("mouseover", "houses-layer", e => {
-      let { name } = e.features[0].properties;
-      this.setState({
-        openCard: true,
-        cardObject: {
-          name,
-          county: "test",
-          city: "test",
-          address: "test",
-          phone: "test",
-          type: "house",
-        },
+    this.props.loadStarted();
+    if (!this.props.map) {
+      let map = new mapboxgl.Map({
+        container: "map", // container id
+        style: "mapbox://styles/hamzahad/ckm6lqb38f5ev17ljx1v8jxgp", // style URL
+        center: [-83.30318241957815, 27.863450414180377], // starting position [lng, lat]
+        zoom: 6, // starting zoom
       });
-    });
+      let { popup } = this.state;
+      this.setState({ mapObject: map });
+      let allInOneData = await this.getAllInOne();
+      fetching.updateScores(this.props.scores, allInOneData.data);
+      map.on("load", e => {
+        // showPoi.showPoi(e);
+        draw.drawPolygon(e.target, allInOneData.data, REGION);
+        draw.drawPolygon(e.target, allInOneData.data, COUNTY);
+        draw.drawPolygon(e.target, allInOneData.data, CITY);
+        draw.drawPolygon(e.target, allInOneData.data, NEIGHBORHOOD);
+        this.showHouses(e);
+      });
 
-    map.on("mouseleave", "houses-layer", e => {
-      map.getCanvas().style.cursor = "";
-      this.setState({ openCard: false });
-    });
+      map.on("mousemove", "region-layer", e =>
+        move.mouseMove(allInOneData.data, e, "region", REGION_HIGHLIGHTED, popup),
+      );
+
+      map.on("mouseleave", "region-layer", e => {
+        draw.drawPolygon(e.target, allInOneData.data, REGION_HIGHLIGHTED, []);
+        leave.mouseLeave(e, popup);
+      });
+
+      map.on("click", "region-highlighted-layer", e => {
+        layerClick.click(
+          allInOneData.data,
+          e,
+          REGION_HIGHLIGHTED,
+          "region",
+          e.features[0].properties.id,
+          REGION_CLICKED,
+        );
+      });
+
+      map.on("mousemove", "county-layer", e => {
+        move.mouseMove(allInOneData.data, e, "county", COUNTY_HIGHLIGHTED, popup);
+        this.handlePopup(e).mapbox.addTo(e.target);
+      });
+
+      map.on("click", "county-layer", e => {
+        let result = e.features[0].properties.id.split("-");
+        layerClick.click(allInOneData.data, e, COUNTY, "region", result[0], REGION_CLICKED);
+        layerClick.click(
+          allInOneData.data,
+          e,
+          COUNTY_HIGHLIGHTED,
+          "county",
+          e.features[0].properties.id,
+          COUNTY_CLICKED,
+        );
+      });
+
+      map.on("mouseleave", "county-layer", e => {
+        draw.drawPolygon(e.target, allInOneData.data, COUNTY_HIGHLIGHTED, []);
+        leave.mouseLeave(e, popup);
+      });
+
+      map.on("click", "county-clicked-layer", e =>
+        layerClick.click(
+          allInOneData.data,
+          e,
+          COUNTY_CLICKED,
+          "city",
+          e.features[0].properties.id,
+          CURRENT_CITY,
+        ),
+      );
+
+      map.on("mousemove", "city-layer", e =>
+        move.mouseMove(allInOneData.data, e, "city", CITY_OTHER, popup),
+      );
+
+      map.on("mouseleave", "city-layer", e => {
+        draw.drawPolygon(e.target, allInOneData.data, CITY_OTHER, []);
+        leave.mouseLeave(e, popup);
+      });
+
+      map.on("click", "city-other-layer", e =>
+        layerClick.click(
+          allInOneData.data,
+          e,
+          CITY_OTHER,
+          "city",
+          e.features[0].properties.id,
+          CURRENT_CITY,
+        ),
+      );
+
+      map.on("click", "current-city-layer", e =>
+        layerClick.click(
+          allInOneData.data,
+          e,
+          CURRENT_CITY_CLICKED,
+          "neighborhood",
+          e.features[0].properties.id,
+          CURRENT_NEIGHBORHOOD,
+        ),
+      );
+
+      map.on("mouseleave", "current-city-layer", e => {
+        leave.mouseLeave(e, popup);
+      });
+
+      map.on("mousemove", "neighborhood-layer", e =>
+        move.mouseMove(allInOneData.data, e, "neighborhood", NEIGHBORHOOD_HIGHLIGHTED, popup),
+      );
+
+      map.on("click", "neighborhood-layer", e =>
+        layerClick.click(
+          allInOneData.data,
+          e,
+          NEIGHBORHOOD,
+          "neighborhood",
+          e.features[0].properties.id,
+          CURRENT_NEIGHBORHOOD,
+        ),
+      );
+
+      map.on("mouseleave", "neighborhood-layer", e => {
+        draw.drawPolygon(e.target, allInOneData.data, NEIGHBORHOOD_HIGHLIGHTED, []);
+        leave.mouseLeave(e, popup);
+      });
+
+      map.on("mouseleave", "current-neighborhood-layer", e => {
+        leave.mouseLeave(e, popup);
+      });
+
+      map.on("click", "points-layer", e => {
+        const { mapObject } = this.state;
+        let feature = mapObject.queryRenderedFeatures(e.point, { layers: ["points-layer"] });
+        if (!feature.length) return;
+        let { name, county, city, address, phone, type } = feature[0].properties;
+        this.setState({ openCard: true, cardObject: { name, county, city, address, phone, type } });
+      });
+
+      map.on("mouseover", "houses-layer", e => {
+        let { name } = e.features[0].properties;
+        this.setState({
+          openCard: true,
+          cardObject: {
+            name,
+            county: "test",
+            city: "test",
+            address: "test",
+            phone: "test",
+            type: "house",
+          },
+        });
+      });
+
+      map.on("mouseleave", "houses-layer", e => {
+        map.getCanvas().style.cursor = "";
+        this.setState({ openCard: false });
+      });
+    }
+    this.props.LoadEnded();
   }
+
+  // componentWillUnmount() {
+  //   this.state.mapObject.remove();
+  // }
 
   handlePopup = e => {
     const { popup } = this.state;
@@ -264,7 +273,13 @@ class Map extends Component {
 const mapStateToProps = function (state) {
   return {
     scores: state.modules.neighborhood.matched,
+    map: state.modules.map.map,
   };
 };
 
-export default connect(mapStateToProps)(Map);
+const mapActionsToProps = dispatch => ({
+  loadStarted: () => dispatch(loadStarted()),
+  LoadEnded: () => dispatch(LoadEnded()),
+});
+
+export default connect(mapStateToProps, mapActionsToProps)(Map);

@@ -1,0 +1,39 @@
+.backContainer{
+    position: absolute;
+    display: inline-flex;
+    margin: 30px 0 0 33px;
+    cursor: pointer;
+}
+
+.backIcon{
+    width: 24px;
+    display: inline-flex;
+    height: 24px;
+    align-items: center;
+    margin-right: 4px;
+    float: left;
+}
+
+.backText{
+    display: inline-flex;
+    align-items: center;
+    float: left;
+    margin: 0;
+    color: #323643;
+    font-size: 12px;
+}
+
+.restartMatcherWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -40%);
+}
+
+.restartIcon {
+    height: 93px;
+    width: 107px;
+}

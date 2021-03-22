@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 
 const NeighborhoodCard = ({ neighborhood, onClick }) => {
   const classes = useStyles();
-  const [elevation, setElevation] = useState(3);
+  const [elevation, setElevation] = useState(2);
 
   const dispatch = useDispatch();
 

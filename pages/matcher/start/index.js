@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core";
 import FilterForm from "components/Filter/FilterForm";
 import FilterFooter from "components/FilterFooter";
 import BackButton from "../../../common/BackButton/BackButton";
-import muiStyles from "./startStyles";
+import muiStyles from "styles/startStyles";
 
 const useStyles = makeStyles(muiStyles);
 
