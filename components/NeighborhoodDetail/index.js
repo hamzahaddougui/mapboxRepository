@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import Router from "next/router";
 
-import { useState } from "react";
 import { useSelector } from "react-redux";
 
+// import ScrollArea from "../../common/scrollArea/scrollArea";
 import styles from "./NeighborhoodDetail.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -15,8 +16,10 @@ import {
   LinearProgress,
   Box,
   IconButton,
+  Divider,
 } from "@material-ui/core";
 import { Clear, Replay, Favorite } from "@material-ui/icons";
+const NeighborhoodMiniCardImg = "/NeighborhoodMiniCardImg.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,14 +60,16 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     // width: "730px",
-    height: "86%",
+    // height: "86%",
     // position: "absolute",
     // left: "50%",
     // transform: "translate(-50%)",
     // top: "2%",
+    marginBottom: "2em",
     borderRadius: "24px",
-    boxShadow: "0 5px 18px 0 rgba(227,228,254,0.63)",
+    // boxShadow: "0 5px 18px 0 rgba(227,228,254,0.63)",
     // overflow: "auto",
+    paddingBottom: "1em",
   },
   title: {
     width: "153px",
@@ -88,7 +93,8 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     // height: "547px",
     height: "400px",
-    backgroundColor: "#575FF9",
+    // backgroundColor: "#575FF9",
+    backgroundImage: `url(${NeighborhoodMiniCardImg})`,
     borderRadius: "24px 24px 0 0",
     position: "relative",
   },
@@ -100,9 +106,8 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    margin: "1em",
     // position: "absolute",
-    bottom: "26px",
-    left: "22px",
   },
   score: {
     fontFamily: "Poppins",
@@ -117,15 +122,23 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
   },
   progressBar: {
-    "& .MuiLinearProgress-root": {
-      height: "22px",
-      borderRadius: "8px",
-    },
+    // "& .MuiLinearProgress-root": {
+    //   height: "22px",
+    //   borderRadius: "8px",
+    // },
+    // borderRadius: "10px",
+    height: "100%",
+    backgroundColor: "#575FF9",
+    position: "relative",
   },
   progressContainer: {
+    margin: "0.5em 1em 0.5em 0em",
+    height: "20px",
     width: "129px",
-    // position: "absolute",
-    right: "36px",
+    backgroundColor: "#e7e7e7",
+    borderRadius: "10px",
+    overflow: "hidden",
+    // right: "36px",
   },
   progressTxt: {
     // position: "absolute",
@@ -159,6 +172,19 @@ const useStyles = makeStyles(theme => ({
   bigIcon: {
     fontSize: "38px",
   },
+  "@global": {
+    "*::-webkit-scrollbar": {
+      width: "0.4em",
+      height: "0.4em",
+    },
+    "*::-webkit-scrollbar-track": {
+      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)",
+    },
+    "*::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgba(0,0,0,.1)",
+      outline: "1px solid slategrey",
+    },
+  },
 }));
 
 // LinearProgressWithLabel.propTypes = {
@@ -174,14 +200,13 @@ const index = () => {
 
   function LinearProgressWithLabel(props) {
     return (
-      <Box className={classes.progressContainer} display="flex" alignItems="center">
-        <Box className={classes.progressBar} width="129px" mr={2}>
-          <LinearProgress variant="determinate" {...props} />
-        </Box>
-        <Box className={classes.progressTxt} minWidth={35}>
-          <Typography variant="body2">{`${Math.round(props.value)}%`}</Typography>
-        </Box>
-      </Box>
+      <div className={classes.progressContainer}>
+        <div className={classes.progressBar} style={{ width: `${props.value}%` }}>
+          <Typography align="center" className={classes.progressTxt} variant="body2">{`${Math.round(
+            props.value,
+          )}%`}</Typography>
+        </div>
+      </div>
     );
   }
 
@@ -195,7 +220,7 @@ const index = () => {
 
   return (
     <div className={classes.root}>
-      <Paper component={Grid} container className={classes.paper}>
+      <Paper elevation={5} component={Grid} container className={classes.paper}>
         <Grid
           item
           container
@@ -224,7 +249,7 @@ const index = () => {
           </div>
         </Grid>
 
-        <Grid item container className={styles.navigation}>
+        <Grid container className={styles.navigation}>
           {/* <GridList className={classes.gridList} cols={5.5}>
                             {filters?.map((filter, i) => (
                                 <span className={styles.navigationElement} key={i}>
@@ -264,7 +289,14 @@ const index = () => {
           {filters?.map(
             (filter, i) =>
               filter.name && (
-                <Grid item container justify="space-between" alignItems="flex-start" key={i}>
+                <Grid
+                  className={styles.itemContainer}
+                  item
+                  container
+                  justify="space-between"
+                  alignItems="center"
+                  key={i}
+                >
                   <span className={styles.filterName}>{filter.name}</span>
                   <LinearProgressWithLabel value={90} />
                 </Grid>
