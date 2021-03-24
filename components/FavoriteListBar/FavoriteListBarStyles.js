@@ -1,3 +1,5 @@
+const addNbIcon = "/addNeighborhood.svg";
+
 const styles = () => ({
 
     // FavoriteListBar Styles

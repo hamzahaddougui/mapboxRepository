@@ -19,7 +19,7 @@ import NeighborhoodCard from "../NeighborhoodListBar/neighborhoodCard";
 import AddNeighborhoodCard from "../NeighborhoodListBar/addNeighborhoodCard";
 
 // import { ReactComponent as AddNbIcon } from "../../../../public/addNeighborhood.svg";
-const addNbIcon = "/addNeighborhood.svg";
+// const addNbIcon = "/addNeighborhood.svg";
 {
   /* <SvgIcon component={StarIcon} viewBox="0 0 600 476.6" />; */
 }
