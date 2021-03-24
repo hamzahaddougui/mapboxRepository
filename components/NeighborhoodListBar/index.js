@@ -84,6 +84,7 @@ const NeighborhoodListBar = ({ onClick }) => {
   const dispatch = useDispatch();
 
   const neighborhoods = useSelector(state => state.modules.matcher.matched.data);
+  console.log(neighborhoods);
   const favorites = useSelector(state => state.modules.matcher.favorites);
   const Items =
     neighborhoods?.length &&
