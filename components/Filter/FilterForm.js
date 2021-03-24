@@ -8,10 +8,13 @@ import _ from "lodash";
 
 import { loadFilters, checkValueAction } from "./FilterService";
 
+import FilterFormHeader from './FilterFormHeader';
+
 import { Grid, Typography } from "@material-ui/core";
 
 const FilterForm = () => {
   const [checked, setChecked] = useState(false);
+  const [selected, setSelected] = useState(null)
 
   const dispatch = useDispatch();
 
@@ -31,6 +34,13 @@ const FilterForm = () => {
     })
     .value();
 
+  const groups = [];
+  filters.map((filter) => {
+    if(groups.indexOf(filter.group) === -1) {
+      groups.push(filter.group);
+    }
+  });
+
   const handleClick = (e, option) => {
     e.preventDefault;
     dispatch(checkValueAction(option));
@@ -38,7 +48,11 @@ const FilterForm = () => {
 
   return (
     <div className={styles.root}>
+      <FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} />
+      
       {groupedFilters.map((option, i) => (
+        <section id={option[1][1][0].group}>
+          {console.log(option[1][1][0].group)}
         <Grid
           key={`${option.category}${i}`}
           container
@@ -53,6 +67,7 @@ const FilterForm = () => {
             onClick={handleClick}
           />
         </Grid>
+        </section>
       ))}
     </div>
   );

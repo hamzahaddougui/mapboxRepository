@@ -28,7 +28,7 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
         </div>
         <div
           className={hm ? styles.homeMatcherActive : styles.homeMatcher}
-          onClick={hm && onHomeMatcher}
+          onClick={onHomeMatcher}
         >
           <img
             className={hm ? styles.homeMatcherThunderActive : styles.homeMatcherThunder}
