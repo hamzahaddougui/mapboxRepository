@@ -125,11 +125,11 @@ module.exports.updateScores= (scores, data) => {
      if(feature.properties.hasOwnProperty('Neighborhood')){
        let neighborhood= scores.data.filter(s => s.Neighborhood== feature.properties.Neighborhood);
        if(neighborhood[0]== undefined){
-         feature.properties= {...feature.properties, score: 0}
+         feature.properties= {...feature.properties, score: 0, favourite: false}
        
      }
        else{
-        feature.properties= {...feature.properties, score: neighborhood[0].Score}
+        feature.properties= {...feature.properties, score: neighborhood[0].Score, favourite: false}
 
       }
      
@@ -140,4 +140,11 @@ module.exports.updateScores= (scores, data) => {
    }
 
    return 0;
+}
+
+module.exports.updateFavourites= (data, neighborhoodId)=> {
+  let features= data.features.filter(f => f.properties.hasOwnProperty('Neighborhood'));
+  let neighborhood= features.filter(f => f.properties.Neighborhood== neighborhoodId);
+  neighborhood[0].properties.favourite= true;
+  
 }

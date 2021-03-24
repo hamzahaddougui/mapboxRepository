@@ -5,20 +5,10 @@ import HouseData from "./data/houses.json";
 import PoiCard from "./components/card/card";
 import axios from "axios";
 import {
-  REGION,
-  REGION_HIGHLIGHTED,
-  REGION_CLICKED,
-  COUNTY,
-  COUNTY_HIGHLIGHTED,
-  COUNTY_CLICKED,
-  COUNTY_BORDERED,
-  CITY,
-  CITY_OTHER,
-  CURRENT_CITY,
-  CURRENT_CITY_CLICKED,
-  NEIGHBORHOOD,
-  NEIGHBORHOOD_HIGHLIGHTED,
-  CURRENT_NEIGHBORHOOD,
+  REGION, REGION_HIGHLIGHTED, REGION_CLICKED,
+  COUNTY, COUNTY_HIGHLIGHTED, COUNTY_CLICKED, COUNTY_BORDERED,
+  CITY, CITY_OTHER, CURRENT_CITY, CURRENT_CITY_CLICKED, CITY_BORDERED,
+  NEIGHBORHOOD, NEIGHBORHOOD_HIGHLIGHTED, CURRENT_NEIGHBORHOOD,
 } from "./polygon/layer/config";
 
 import draw from "./polygon/draw";
@@ -28,15 +18,15 @@ import layerClick from "./polygon/polygonEvents/click";
 import showPoi from "./poi";
 import showHouses from "./houses";
 import fetching from "./services/fetching";
+import layerShape from "./services/layerShape";
 import { loadStarted, LoadEnded } from "./MapService";
+import NeighborhoodDetail from "../NeighborhoodDetail/index";
+const marker = "/map/pin.png";
 
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFtemFoYWQiLCJhIjoiY2trY2YybmozMGo3bzJ1b2FpcTh4ZmdpeiJ9.urpUJIK3zKrxCaEKXNe9Rw";
-
-const image = "/map/schools.png";
-const marker = "/map/marker.png";
 
 class Map extends Component {
   state = {
@@ -53,7 +43,8 @@ class Map extends Component {
     image: "",
     cardObject: { name: "", county: "", city: "", adress: "", phone: "", type: "" },
     popup: new mapboxgl.Popup({ closeButton: false }),
-    allInOne: "",
+    polygonsData: "",
+    neighborhoodCard: {display: 'none', name: ''}
   };
 
   handleClose = () => {
@@ -70,10 +61,10 @@ class Map extends Component {
       zoom: 6, // starting zoom
     });
     let { popup } = this.state;
-    this.setState({ mapObject: map });
     let allInOneData = await this.getAllInOne();
-    let result = fetching.updateScores(this.props.scores, allInOneData.data);
-    console.log(result);
+    this.setState({ mapObject: map, polygonsData: allInOneData.data });
+
+    fetching.updateScores(this.props.scores, allInOneData.data)
     map.on("load", e => {
       // showPoi.showPoi(e);
       draw.drawPolygon(e.target, allInOneData.data, REGION);
@@ -94,15 +85,8 @@ class Map extends Component {
     });
 
     map.on("click", "region-highlighted-layer", e => {
-      layerClick.click(
-        allInOneData.data,
-        e,
-        REGION_HIGHLIGHTED,
-        "region",
-        e.features[0].properties.id,
-        REGION_CLICKED,
-      );
-    });
+      layerClick.click(allInOneData.data, e, REGION_HIGHLIGHTED, "region", e.features[0].properties.id,
+        REGION_CLICKED)});
 
     map.on("mousemove", "county-layer", e => {
       move.mouseMove(allInOneData.data, e, "county", COUNTY_HIGHLIGHTED, popup);
@@ -113,15 +97,8 @@ class Map extends Component {
     map.on("click", "county-layer", e => {
       let result = e.features[0].properties.id.split("-");
       layerClick.click(allInOneData.data, e, COUNTY, "region", result[0], REGION_CLICKED);
-      layerClick.click(
-        allInOneData.data,
-        e,
-        COUNTY_HIGHLIGHTED,
-        "county",
-        e.features[0].properties.id,
-        COUNTY_CLICKED,
-      );
-    });
+      layerClick.click(allInOneData.data, e, COUNTY_HIGHLIGHTED, "county", e.features[0].properties.id,
+        COUNTY_CLICKED)});
 
     map.on("mouseleave", "county-layer", e => {
       draw.drawPolygon(e.target, allInOneData.data, COUNTY_HIGHLIGHTED, []);
@@ -129,19 +106,9 @@ class Map extends Component {
     });
 
     map.on("click", "county-clicked-layer", e => {
-      let county = e.features[0].properties.id.split("-");
-      console.log(county[1]);
-      layerClick.click(allInOneData.data, e, COUNTY_CLICKED, "county", county[1], COUNTY_BORDERED);
-      layerClick.click(
-        allInOneData.data,
-        e,
-        COUNTY_CLICKED,
-        "city",
-        e.features[0].properties.id,
-        CURRENT_CITY,
-      );
-      console.log(map.getLayer("county-bordered-layer"));
-    });
+      layerClick.click(allInOneData.data, e, COUNTY_CLICKED, "county", e.features[0].properties.id, COUNTY_BORDERED);
+      layerClick.click(allInOneData.data, e, COUNTY_CLICKED, "city", e.features[0].properties.id, CURRENT_CITY);
+      });
 
     map.on("mousemove", "city-layer", e => {
       move.mouseMove(allInOneData.data, e, "city", CITY_OTHER, popup);
@@ -154,30 +121,18 @@ class Map extends Component {
     });
 
     map.on("click", "city-other-layer", e => {
-      let county = e.features[0].properties.id.split("-");
-      // console.log(county[1]);
-
-      layerClick.click(
-        allInOneData.data,
-        e,
-        CITY_OTHER,
-        "city",
-        e.features[0].properties.id,
-        CURRENT_CITY,
-      );
-      layerClick.click(allInOneData.data, e, CITY_OTHER, "county", county[1], COUNTY_BORDERED);
+      let id = e.features[0].properties.id.split("-");
+      layerClick.click(allInOneData.data, e, CITY_OTHER, "city", e.features[0].properties.id, CURRENT_CITY);
+      layerClick.click(allInOneData.data, e, CITY_OTHER, "county", id[0]+"-"+id[1], COUNTY_BORDERED);
     });
 
-    map.on("click", "current-city-layer", e =>
-      layerClick.click(
-        allInOneData.data,
-        e,
-        CURRENT_CITY_CLICKED,
-        "neighborhood",
-        e.features[0].properties.id,
-        CURRENT_NEIGHBORHOOD,
-      ),
-    );
+    map.on("click", "current-city-layer", e => {
+      layerClick.click(allInOneData.data, e, CURRENT_CITY_CLICKED, "neighborhood", e.features[0].properties.id,
+        CURRENT_NEIGHBORHOOD);
+      layerClick.click(allInOneData.data, e, CURRENT_CITY_CLICKED, "city", e.features[0].properties.id,
+        CITY_BORDERED);
+      }
+        );
 
     map.on("mouseleave", "current-city-layer", e => {
       leave.mouseLeave(e, popup);
@@ -188,16 +143,20 @@ class Map extends Component {
       popup.addClassName(styles.popup);
     });
 
-    map.on("click", "neighborhood-layer", e =>
-      layerClick.click(
-        allInOneData.data,
-        e,
-        NEIGHBORHOOD,
-        "neighborhood",
-        e.features[0].properties.id,
-        CURRENT_NEIGHBORHOOD,
-      ),
-    );
+    map.on("click", "neighborhood-layer", e => {
+      let id= e.features[0].properties.id.split('-');
+      layerClick.click(allInOneData.data, e, NEIGHBORHOOD, "neighborhood", e.features[0].properties.id,
+        CURRENT_NEIGHBORHOOD);
+      layerClick.click(allInOneData.data, e, NEIGHBORHOOD, "city", id[0]+"-"+id[1]+"-"+id[2],
+        CITY_BORDERED); 
+      });
+
+    map.on("click", "current-neighborhood-layer", e => {
+      let id= e.features[0].properties.id.split('-');
+      layerClick.click(allInOneData.data, e, NEIGHBORHOOD, "city", id[0]+"-"+id[1]+"-"+id[2],
+        CITY_BORDERED);
+      this.setState({neighborhoodCard: {display: 'block', name: id[3] }})
+    })
 
     map.on("mouseleave", "neighborhood-layer", e => {
       draw.drawPolygon(e.target, allInOneData.data, NEIGHBORHOOD_HIGHLIGHTED, []);
@@ -265,6 +224,37 @@ class Map extends Component {
     return json;
   };
 
+  handleFavouriteClick= ()=> {
+    const {polygonsData, mapObject}= this.state;
+    fetching.updateFavourites(polygonsData, 'Tahiti' );
+    mapObject.setFilter('scores-layer', ["==", ["get", "favourite"], true]);
+    mapObject.setPaintProperty('scores-layer', 'icon-color', '#ff0061');
+    // mapObject.loadImage(marker, (error, image) => {
+    //   if (error) throw error;
+    //   mapObject.addImage("favourite-marker", image, { sdf: true });
+    //   result = mapObject.addLayer(
+    //     layerShape.symbolLayer(
+    //       "favourites-layer",
+    //       "neighborhood",
+    //       "favourite-marker",
+    //       0.1,
+    //       ["get", "score"],
+    //       ["Open Sans Semibold", "Arial Unicode MS Bold"],
+    //       [0, -1],
+    //       "top",
+    //       12,
+    //       "#ff0061",
+    //       "white",
+    //       ["has", "score"], ["==", ["get", "favourite"], true]
+    //     ),
+    //   );
+    // });
+  }
+
+  handleNeighborhoodDetailClick= () => {
+   this.setState({neighborhoodCard: {display: 'none'}})
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -276,6 +266,13 @@ class Map extends Component {
               open={this.state.openCard}
               handleClose={this.handleClose}
             ></PoiCard>
+          </div>
+          <div style={{display: this.state.neighborhoodCard.display}} className={styles.neighborhood_detail} 
+               onClick={this.handleNeighborhoodDetailClick}>
+            <NeighborhoodDetail detail={this.state.neighborhoodCard}></NeighborhoodDetail>
+          </div>
+          <div>
+            <button className={styles.test_button} onClick={this.handleFavouriteClick}>Set favourite</button>
           </div>
         </div>
       </React.Fragment>
