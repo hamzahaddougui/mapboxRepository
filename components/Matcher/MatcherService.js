@@ -119,7 +119,6 @@ const slice = createSlice({
     resetNeighborhood: (state, action) => {
       console.log("Restarting Neighborhood results...");
       state.matched = [];
-      state.favorites = [];
     },
   },
 });

@@ -58,7 +58,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
   const dispatch = useDispatch();
 
   const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
-  const favorites = useSelector(state => state.modules.neighborhood.favorites);
+  const favorites = useSelector(state => state.modules.matcher.favorites);
 
   const onMouseOver = () => setElevation(6);
   const onMouseOut = () => setElevation(2);
@@ -67,6 +67,9 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     e.stopPropagation();
     dispatch(addFavorite(neighborhood));
   };
+
+  //console.log(neighborhood);
+  favorites.includes(neighborhood) ? console.log(neighborhood) : null ;
 
   return (
     <Paper
@@ -107,7 +110,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       <Grid item container justify="flex-start" alignItems="center">
         <div className={favorites.includes(neighborhood) ? styles.scoreFavorite : styles.score}>
           <Typography align="center" className={classes.score} variant="body1">
-            {neighborhood.Score}%
+            {Math.round(neighborhood.Score)}%
           </Typography>
         </div>
       </Grid>
