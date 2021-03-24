@@ -81,6 +81,7 @@ class Map extends Component {
       draw.drawPolygon(e.target, allInOneData.data, CITY);
       draw.drawPolygon(e.target, allInOneData.data, NEIGHBORHOOD);
       this.showHouses(e);
+      this.props.LoadEnded();
     });
 
     map.on("mousemove", "region-layer", e => {
@@ -235,7 +236,6 @@ class Map extends Component {
       map.getCanvas().style.cursor = "";
       this.setState({ openCard: false });
     });
-    this.props.LoadEnded();
   }
 
   // componentWillUnmount() {

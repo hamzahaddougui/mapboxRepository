@@ -107,7 +107,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       <Grid item container justify="flex-start" alignItems="center">
         <div className={favorites.includes(neighborhood) ? styles.scoreFavorite : styles.score}>
           <Typography align="center" className={classes.score} variant="body1">
-            {neighborhood.Score}%
+            {Number(neighborhood.Score).toFixed(0)}%
           </Typography>
         </div>
       </Grid>
