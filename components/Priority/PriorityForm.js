@@ -19,7 +19,7 @@ const PriorityForm = () => {
     dispatch(loadPriorities());
   }, []);
 
-  const checkedValues = useSelector(state => state.modules.filter.checkedValues);
+  // const checkedValues = useSelector(state => state.modules.filter.checkedValues);
 
   const handleMustHaveClick = option => {
     //e.preventDefault;

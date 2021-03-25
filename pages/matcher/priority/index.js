@@ -10,7 +10,6 @@ import BackButton from "../../../common/BackButton/BackButton";
 import BackdropLoader from "../../../common/BackdropLoader/BackdropLoader";
 import Alert from "../../../common/Alert/Alert";
 import muiStyles from "styles/priorityStyles";
-import State from "ol/source/State";
 
 const useStyles = makeStyles(muiStyles);
 
