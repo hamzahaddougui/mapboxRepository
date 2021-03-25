@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
 // import Map from "components/Map";
-import MapHeader from "components/MapHeader";
-import MatcherFooter from "components/MatcherFooter";
-import NeighborhoodListBar from "components/NeighborhoodListBar";
-import MatcherRestart from "components/MatcherRestart";
-import NeighborhoodDetail from "components/NeighborhoodDetail";
+import MapHeader from "components/MapHeader/MapHeader";
+import MatcherFooter from "components/MatcherFooter/MatcherFooter";
+import NeighborhoodListBar from "components/NbListBar/NbListBar";
+import MatcherRestart from "components/MatcherRestart/MatcherRestart";
+import NeighborhoodDetail from "components/NbDetail/NbDetail";
 import { Dialog } from "@material-ui/core";
 
 import styles from "styles/matcherStyles";

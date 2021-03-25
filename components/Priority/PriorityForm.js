@@ -1,37 +1,33 @@
+// Third party
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Grid, Button, Typography } from "@material-ui/core";
 
-import useStyles from "../../common/PriorityButton/PriorityButtonStyle";
-
+// Actions
 import { loadPriorities, checkPriorityMustHave, checkPriorityNiceToHave } from "./PriorityService";
+
+// Assets
+import useStyles from "./PriorityFormStyle";
 
 const PriorityForm = () => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
-
   const priorities = useSelector(state => state.modules.filter.priorities);
 
   useEffect(() => {
     dispatch(loadPriorities());
   }, []);
 
-  // const checkedValues = useSelector(state => state.modules.filter.checkedValues);
-
   const handleMustHaveClick = option => {
-    //e.preventDefault;
     dispatch(checkPriorityMustHave(option));
   };
 
   const handleNiceToHaveClick = option => {
-    //e.preventDefault;
     dispatch(checkPriorityNiceToHave(option));
   };
 
   return (
-    <div className={classes.container}>
+    <div className={classes.root}>
       {priorities.map((option, i) => (
         <Grid
           key={`${i}`}
@@ -39,8 +35,7 @@ const PriorityForm = () => {
           justify="space-between"
           direction="row"
           alignItems="center"
-          style={{ marginBottom: "1em" }}
-          // spacing={2}
+          className={classes.itemContainer}
         >
           <Grid item container justify="flex-start" xs>
             <Typography>{option.name}</Typography>
@@ -48,8 +43,6 @@ const PriorityForm = () => {
           <Grid item container justify="flex-end" spacing={1} xs>
             <Grid item>
               <Button
-                // onClick={e => option && onClick(e, option.name)}
-                //option={option}
                 onClick={() => {
                   handleMustHaveClick(option.name);
                 }}

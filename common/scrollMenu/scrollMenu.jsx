@@ -79,7 +79,7 @@ export default class MyScrollMenu extends Component {
     // Create menu from items
 
     return (
-      <ScrollContainer hideScrollbars={false}>
+      <ScrollContainer className="hideScrollBar" hideScrollbars={false}>
         <div style={{ display: "flex" }}>{Items}</div>
       </ScrollContainer>
       // <ScrollMenu

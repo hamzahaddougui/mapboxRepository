@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 
-import { loadMatched, resetErrors } from "components/Matcher/MatcherService";
+import { loadMatched, resetErrors } from "components/Neighborhood/NbService";
 import PriorityForm from "components/Priority/PriorityForm";
-import PriorityFooter from "components/PriorityFooter";
+import PriorityFooter from "components/PriorityFooter/PriorityFooter";
 import BackButton from "../../../common/BackButton/BackButton";
 import BackdropLoader from "../../../common/BackdropLoader/BackdropLoader";
 import Alert from "../../../common/Alert/Alert";
@@ -17,8 +17,8 @@ const Priority = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
-  const error = useSelector(state => state.modules.matcher.error);
-  const matcherLoading = useSelector(state => state.modules.matcher.loading);
+  const error = useSelector(state => state.modules.neighborhood.error);
+  const matcherLoading = useSelector(state => state.modules.neighborhood.loading);
 
   const handleBack = () => {
     router.push("/matcher/start");

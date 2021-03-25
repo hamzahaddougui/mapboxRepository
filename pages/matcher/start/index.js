@@ -3,7 +3,7 @@ import Router, { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core";
 
 import FilterForm from "components/Filter/FilterForm";
-import FilterFooter from "components/FilterFooter";
+import FilterFooter from "components/FilterFooter/FilterFooter";
 import BackButton from "../../../common/BackButton/BackButton";
 import muiStyles from "styles/startStyles";
 
