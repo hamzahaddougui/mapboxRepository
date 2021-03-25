@@ -35,7 +35,7 @@ function App(props) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Box component="div" visibility={router.pathname === "/matcher" ? "visible" : "hidden"}>
+        <Box visibility={router.pathname === "/matcher" ? "visible" : "hidden"}>
           <Map />
         </Box>
 
