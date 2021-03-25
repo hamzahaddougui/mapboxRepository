@@ -3,7 +3,7 @@ import { responseSuccessGoogle, responseFailureGoogle } from '../SignUpService';
 
 import GoogleLogin from "react-google-login";
 
-import styles from './SignUpForm.module.css';
+import muiStyles from './SignUpFormStyles';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -16,48 +16,7 @@ import {
     Typography 
 } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-      marginTop: "12px",
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    form: {
-      width: '600px', // Fix IE 11 issue.
-      marginTop: "18px",
-      '& .MuiOutlinedInput-root':{
-        borderRadius: "27px"
-      },
-      
-    },
-    title:{
-        fontFamily: "Poppins",
-        fontSize: 20.27,
-        fontWeight: "bold",
-        textTransform: "Uppercase",
-    },
-    helper:{
-        color: "#323643",
-        opacity: 0.68,
-        fontSize: 14.24,
-        textDecoration: "underline"
-    },
-    helperWrapper:{
-        marginTop: "16px"
-    },
-    titleOther:{
-        fontFamily: "Poppins",
-        color: "#323643",
-        fontSize: 16.02,
-        fontWeight: "lighter",
-        marginTop: "59px"
-    },
-    authWrapper:{
-        width: "600px",
-        marginTop: "16px"
-    }
-}));
+const useStyles = makeStyles(muiStyles);
 
 const clientId = "79328369707-8da82odrau1iut7pol5linujatbgm9tm.apps.googleusercontent.com";
 
@@ -162,7 +121,7 @@ const SignUpForm = ({data, handleChange}) => {
             <Grid container spacing={2} className={classes.authWrapper}>
             <Grid item xs={12} sm={6}>
                 <GoogleLogin
-                className= {styles.auth}
+                className= {classes.auth}
                 clientId={clientId}
                 buttonText="Google"
                 onSuccess={responseSuccessGoogle}
@@ -172,7 +131,7 @@ const SignUpForm = ({data, handleChange}) => {
             </Grid>
             <Grid item xs={12} sm={6}>
                 <GoogleLogin
-                className= {styles.auth}
+                className= {classes.auth}
                 clientId={clientId}
                 buttonText="Google"
                 onSuccess={responseSuccessGoogle}

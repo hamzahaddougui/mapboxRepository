@@ -1,14 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./FilterFooter.module.css";
-import { Typography } from "@material-ui/core";
+
+import muiStyles from "./FilterFooterStyles";
+
+import { makeStyles, Typography } from "@material-ui/core";
+
+const useStyles = makeStyles(muiStyles);
 
 const FilterFooter = ({ onClick }) => {
+  const classes = useStyles();
+
   const checked = useSelector(state => state.modules.filter.checkedValues);
 
   return checked.length > 0 ? (
-    <div className={styles.bottomBox}>
-      <div className={styles.navigation} onClick={onClick}>
+    <div className={classes.bottomBox}>
+      <div className={classes.navigation} onClick={onClick}>
         Next
       </div>
 
@@ -16,11 +22,11 @@ const FilterFooter = ({ onClick }) => {
         <Typography style={{ fontSize: "10px", color: "#323643", opacity: "57%" }}>
           Powered by
         </Typography>
-        <img className={styles.logo} src="/logo.svg" alt="logo" />
+        <img className={classes.logo} src="/logo.svg" alt="logo" />
       </div>
     </div>
   ) : (
-    <div className={styles.invisibleBottomBox}></div>
+    <div className={classes.invisibleBottomBox}></div>
   );
 };
 

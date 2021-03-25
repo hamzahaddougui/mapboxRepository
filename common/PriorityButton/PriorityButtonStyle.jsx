@@ -39,6 +39,10 @@ const useStyles = makeStyles(theme => ({
       minWidth: "3em",
     },
   },
+  container: {
+    width: "662px",
+    paddingBottom: "80px",
+  }
 }));
 
 export default useStyles;

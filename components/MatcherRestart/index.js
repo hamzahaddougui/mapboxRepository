@@ -9,62 +9,14 @@ import { resetNeighborhood } from "../Matcher/NeighborhoodService";
 import { resetFilter } from "../Filter/FilterService";
 
 // CSS modules importation
-import styles from "./RestartMatcher.module.css";
+import muiStyles from "./MatcherRestartStyles";
 
 // Material UI CSS importation
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Grid, Button } from "@material-ui/core";
 import { Close, Favorite } from "@material-ui/icons";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: "100vh",
-    width: "100vw",
-    backgroundColor: "white",
-    position: "absolute",
-    top: 0,
-    overflow: "hidden",
-    zIndex: 3,
-    // display: props => (props.open ? "block" : "none"),
-  },
-  close: {
-    width: "27px",
-    height: "27px",
-    position: "absolute",
-    right: "30px",
-    top: "33px",
-    cursor: "pointer",
-  },
-  title: {
-    fontSize: 25,
-    marginTop: "36px",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  favoriteIcon: {
-    color: "#FF0061",
-    position: "relative",
-    top: "3px",
-  },
-  desc: {
-    fontSize: 18.02,
-    marginTop: "23px",
-    textAlign: "center",
-    fontWeight: "lighter",
-  },
-  buttonsWrapper: {
-    width: "440px",
-    marginTop: "33px",
-  },
-  customButton: {
-    width: "216px",
-    height: "40px",
-    backgroundColor: "white",
-    border: "1px solid rgba(50,54,67,0.24)",
-    borderRadius: "21px",
-    textTransform: "none",
-  },
-}));
+const useStyles = makeStyles(muiStyles);
 
 const RestartMatcher = ({ onClose }) => {
   const classes = useStyles();
@@ -73,15 +25,15 @@ const RestartMatcher = ({ onClose }) => {
 
   return (
     <div className={classes.root}>
-      <div className={styles.backContainer} onClick={onClose}>
-        <img className={styles.backIcon} src="/back.svg" alt="backButton"></img>
-        <div className={styles.backText}>Back</div>
+      <div className={classes.backContainer} onClick={onClose}>
+        <img className={classes.backIcon} src="/back.svg" alt="backButton"></img>
+        <div className={classes.backText}>Back</div>
       </div>
 
       <Close className={classes.close} onClick={onClose} />
 
-      <div className={styles.restartMatcherWrapper}>
-        <img className={styles.restartIcon} src="/Restart.svg" alt="RestartIcon"></img>
+      <div className={classes.restartMatcherWrapper}>
+        <img className={classes.restartIcon} src="/Restart.svg" alt="RestartIcon"></img>
         <Typography className={classes.title} variant="h2">
           You will restart the neighborhood matcher
           <br />

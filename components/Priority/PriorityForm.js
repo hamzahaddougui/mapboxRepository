@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid, Button, Typography } from "@material-ui/core";
 
 import useStyles from "../../common/PriorityButton/PriorityButtonStyle";
-import styles from "./PriorityForm.module.css";
 
 import { loadPriorities, checkPriorityMustHave, checkPriorityNiceToHave } from "./PriorityService";
 
@@ -32,7 +31,7 @@ const PriorityForm = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={classes.container}>
       {priorities.map((option, i) => (
         <Grid
           key={`${i}`}

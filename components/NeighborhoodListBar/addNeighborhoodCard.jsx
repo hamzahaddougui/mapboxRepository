@@ -3,40 +3,12 @@ import Router from "next/router";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import muiStyles from './NeighborhoodListStyles';
+
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, Box } from "@material-ui/core";
-const addNbIcon = "/addNeighborhood.svg";
 
-const useStyles = makeStyles(theme => ({
-  wrapper: {
-    backgroundColor: "white",
-    backgroundImage: `url(${addNbIcon})`,
-    backgroundRepeat: "no-repeat",
-    // backgroundSize: "center",
-    backgroundPosition: "50%  35%",
-    borderRadius: "24px",
-    margin: "0 4px",
-    width: "257px",
-    // height: "100%",
-    cursor: "pointer",
-    marginBottom: "1em",
-    zIndex: 1500,
-    position: "relative",
-  },
-  text: {
-    fontFamily: "Poppins",
-    color: "#323643",
-    fontSize: 16.02,
-    fontWeight: "lighter",
-    textAlign: "center",
-    marginTop: "8px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: "6.7em",
-    paddingBottom: "2em",
-  },
-}));
+const useStyles = makeStyles(muiStyles);
 
 const AddNbCard = ({ onClick }) => {
   const classes = useStyles();
@@ -53,10 +25,10 @@ const AddNbCard = ({ onClick }) => {
       item
       container
       direction="column"
-      className={classes.wrapper}
+      className={classes.addNghbr_wrapper}
       onClick={onClick}
     >
-      <Grid item container className={classes.text}>
+      <Grid item container className={classes.addNghbr_text}>
         <span style={{ fontSize: 22, fontWeight: "bold", marginRight: "6px" }}>+ </span> Add a
         neighborhood
       </Grid>

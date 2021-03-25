@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import CheckyButtonContainer from "../../common/CheckyButton/CheckyButtonContainer";
-import styles from "./FilterForm.module.css";
+import muiStyles from "./FilterFormStyles";
 
 import _ from "lodash";
 
@@ -10,9 +10,13 @@ import { loadFilters, checkValueAction } from "./FilterService";
 
 import FilterFormHeader from "./FilterFormHeader";
 
-import { Grid, Typography } from "@material-ui/core";
+import { makeStyles, Grid, Typography } from "@material-ui/core";
+
+const useStyles = makeStyles(muiStyles);
 
 const FilterForm = () => {
+  const classes = useStyles();
+
   const [checked, setChecked] = useState(false);
   const [selected, setSelected] = useState(null);
 
@@ -47,7 +51,7 @@ const FilterForm = () => {
   };
 
   return (
-    <div className={styles.root}>
+    <div className={classes.filterFormRoot}>
       <FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} />
 
       {groupedFilters.map((option, i) => (

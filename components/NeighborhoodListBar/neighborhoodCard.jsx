@@ -3,54 +3,14 @@ import Router from "next/router";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import styles from "./NeighborhoodListBar.module.css";
+import muiStyles from './NeighborhoodListStyles';
 
 import { addFavorite } from "../Matcher/NeighborhoodService";
 import { Favorite, FavoriteBorderSharp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Grid, IconButton, Paper } from "@material-ui/core";
 
-const NeighborhoodMiniCardImg = "/NeighborhoodMiniCardImg.png";
-
-const useStyles = makeStyles(theme => ({
-  title: {
-    color: "white",
-    fontSize: 20,
-    fontFamily: "Poppins",
-    fontWeight: "Bold",
-    textAlign: "center",
-    cursor: "pointer",
-    whiteSpace: "nowrap",
-  },
-  score: {
-    color: "white",
-    fontSize: 12,
-    fontFamily: "Poppins",
-    fontWeight: "Bold",
-  },
-  heartIcon: {
-    color: "white",
-  },
-  titleBar: {
-    background:
-      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
-  },
-  wrapper: {
-    backgroundColor: "#ffffff",
-    backgroundImage: `url(${NeighborhoodMiniCardImg})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    borderRadius: "24px",
-    margin: "0 4px",
-    width: "257px",
-    cursor: "pointer",
-    marginBottom: "1em",
-  },
-  HeartIconWrapper: {
-    zIndex: 10,
-  },
-}));
+const useStyles = makeStyles(muiStyles);
 
 const NeighborhoodCard = ({ neighborhood, onClick }) => {
   const classes = useStyles();
@@ -81,19 +41,19 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       item
       container
       direction="column"
-      className={classes.wrapper}
+      className={classes.nCard_wrapper}
       onClick={onClick}
     >
       <Grid item container justify="flex-end" alignItems="center">
         <IconButton
-          className={classes.HeartIconWrapper}
+          className={classes.nCard_HeartIconWrapper}
           onClick={handleAddToFavorites}
           aria-label={`Heart ${neighborhood.Neighborhood}`}
         >
           {favorites.includes(neighborhood) ? (
             <Favorite style={{ color: "red" }} />
           ) : (
-            <FavoriteBorderSharp className={classes.heartIcon} />
+            <FavoriteBorderSharp className={classes.nCard_heartIcon} />
           )}
         </IconButton>
       </Grid>
@@ -101,7 +61,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
         <Typography
           // nowrap
           style={{ padding: "1em", textOverflow: "ellipsis", overflow: "hidden" }}
-          className={classes.title}
+          className={classes.nCard_title}
           align="center"
           variant="h6"
         >
@@ -109,8 +69,8 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
         </Typography>
       </Grid>
       <Grid item container justify="flex-start" alignItems="center">
-        <div className={favorites.includes(neighborhood) ? styles.scoreFavorite : styles.score}>
-          <Typography align="center" className={classes.score} variant="body1">
+        <div className={favorites.includes(neighborhood) ? classes.scoreFavorite : classes.score}>
+          <Typography align="center" className={classes.nCard_score} variant="body1">
             {Math.round(neighborhood.Score)}%
           </Typography>
         </div>

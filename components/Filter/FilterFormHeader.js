@@ -38,7 +38,7 @@ const FilterFormHeader = ({groups, selected, setSelected}) => {
                     }
                     
                     <Grid item className={classes.textContainer}>
-                        <Typography className={ selected===group ? classes.selectedTitleTxt : classes.titleTxt}>{group}</Typography>
+                        <Typography className={ selected===group ? classes.selectedTitleTxt : classes.titleTxt}>{group.toLowerCase()}</Typography>
                     </Grid>
                 </Grid>
             ))}

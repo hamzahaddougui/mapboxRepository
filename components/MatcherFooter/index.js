@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Button, makeStyles, Typography } from "@material-ui/core";
-import styles from "./MatcherFooter.module.css";
+
 import muiStyles from "./MatcherFooterStyle.js";
 
 const useStyles = makeStyles(muiStyles);
@@ -19,19 +19,19 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
   // console.log(matched);
 
   const renderAfterMatching = () => (
-    <div className={styles.bottomBox}>
-      <div className={styles.bottomNavigationButtons}>
-        <div className={styles.restartMatcher} onClick={onRestartMatcher}>
+    <div className={classes.bottomBox}>
+      <div className={classes.bottomNavigationButtons}>
+        <div className={classes.restartMatcher} onClick={onRestartMatcher}>
           {/* <img className={styles.restartMatcherThunder} src="/thunder.svg" alt="thunder" /> */}
-          <img className={styles.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
+          <img className={classes.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
           <Button className={classes.restartMatcherButton}>Restart the Matcher</Button>
         </div>
         <div
-          className={hm ? styles.homeMatcherActive : styles.homeMatcher}
+          className={hm ? classes.homeMatcherActive : classes.homeMatcher}
           onClick={onHomeMatcher}
         >
           <img
-            className={hm ? styles.homeMatcherThunderActive : styles.homeMatcherThunder}
+            className={hm ? classes.homeMatcherThunderActive : classes.homeMatcherThunder}
             src={hm ? "/Enabled.svg" : "/Disabled.svg"}
             alt={hm ? "Home Matcher enabled" : "Home Matcher disabled"}
           />
@@ -49,15 +49,15 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
         <Typography style={{ fontSize: "10px", color: "#323643", opacity: "57%" }}>
           Powered by
         </Typography>
-        <img className={styles.logo} src="/logo.svg" alt="logo" />
+        <img className={classes.logo} src="/logo.svg" alt="logo" />
       </div>
     </div>
   );
 
   const renderBeforeMatching = () => (
-    <div className={styles.bottomBox}>
+    <div className={classes.bottomBox}>
       <div onClick={onStartMatcher} style={{ cursor: "pointer" }}>
-        <div className={styles.thunder}>
+        <div className={classes.thunder}>
           <img src="/thunder.svg" alt="thunder" />
         </div>
         <Button className={classes.matchButton}>Start the Matcher</Button>
@@ -67,7 +67,7 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
         <Typography style={{ fontSize: "10px", color: "#323643", opacity: "57%" }}>
           Powered by
         </Typography>
-        <img className={styles.logo} src="/logo.svg" alt="logo" />
+        <img className={classes.logo} src="/logo.svg" alt="logo" />
       </div>
     </div>
   );

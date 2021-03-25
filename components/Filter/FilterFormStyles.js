@@ -38,12 +38,41 @@ const styles = () => ({
     },
     titleTxt: {
       fontSize: 12.24,
-      color: "#323643"
+      color: "#323643",
+      textTransform: "capitalize",
     },
     selectedTitleTxt: {
       fontSize: 14.24,
       color: "#323643",
-      fontWeight: "bold"
+      fontWeight: "bold",
+      textTransform: "capitalize",
+    },
+
+    // FilterForm Styles
+    checkyButton: {
+      height: "40px",
+      width: "216px",
+      border: "1px solid #323643",
+      borderRadius: "24px",
+      backgroundColor: "transparent",
+      cursor: "pointer",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    checkyButtonActive: {
+      height: "40px",
+      width: "216px",
+      borderRadius: "24px",
+      backgroundColor: "#323643",
+      color: "#FFF",
+      cursor: "pointer",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    filterFormRoot: {
+      paddingBottom: "90px",
     }
   });
     
