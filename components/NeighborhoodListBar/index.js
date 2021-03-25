@@ -30,6 +30,10 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     zIndex: "2",
     paddingBottom: "100px",
+    "& .menu-wrapper": {
+      width: "100% !important",
+      overflowX: "scroll !important",
+    },
   },
   gridList: {
     flexWrap: "nowrap",
@@ -90,7 +94,7 @@ const NeighborhoodListBar = ({ onClick }) => {
     neighborhoods?.length &&
     neighborhoods.slice(0, 50).map((neighborhood, i) => (
       <div key={`${neighborhood.Neighborhood}${i}`}>
-        <NeighborhoodCard neighborhood={neighborhood} />
+        <NeighborhoodCard onClick={onClick} neighborhood={neighborhood} />
       </div>
     ));
 

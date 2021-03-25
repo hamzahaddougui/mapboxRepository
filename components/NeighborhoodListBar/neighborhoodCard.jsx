@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "Bold",
     textAlign: "center",
     cursor: "pointer",
+    whiteSpace: "nowrap",
   },
   score: {
     color: "white",

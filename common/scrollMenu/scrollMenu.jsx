@@ -4,6 +4,7 @@ import "./scrollMenu.module.css";
 import ArrowBack from "@material-ui/icons/NavigateBefore";
 import ArrowNext from "@material-ui/icons/NavigateNext";
 import IconButton from "@material-ui/core/IconButton";
+import ScrollContainer from "react-indiana-drag-scroll";
 
 const Arrow = ({ text, className }) => {
   return <div className={className}>{text}</div>;
@@ -74,30 +75,34 @@ export default class MyScrollMenu extends Component {
 
   render() {
     const { selected } = this.state;
-    const { Items, withArrows } = this.props;
+    const { Items, withArrows, onSelect } = this.props;
     // Create menu from items
 
     return (
-      <ScrollMenu
-        data={this.props.Items}
-        alignCenter
-        wheel
-        transition={0.5}
-        scrollToSelected
-        scrollBy={1}
-        inertiaScrolling
-        disableTabindex
-        hideSingleArrow
-        // onSelect={this.onSelect}
-        selected={selected}
-        arrowLeft={withArrows && this.ArrowLeft}
-        arrowRight={withArrows && this.ArrowRight}
-        // onUpdate={this.onUpdate}
-        translate={this.state.translate}
-        // selected={selected}
-        // onSelect={this.onSelect}
-        onSelect={this.props.onSelect}
-      />
+      <ScrollContainer hideScrollbars={false}>
+        <div style={{ display: "flex" }}>{Items}</div>
+      </ScrollContainer>
+      // <ScrollMenu
+      //   data={this.props.Items}
+      //   // alignCenter
+      //   wheel={false}
+      //   transition={0.5}
+      //   scrollToSelected
+      //   scrollBy={1}
+      //   inertiaScrolling
+      //   // inertiaScrollingSlowdown={0.25}
+      //   disableTabindex
+      //   hideSingleArrow
+      //   // onSelect={this.onSelect}
+      //   selected={selected}
+      //   arrowLeft={withArrows && this.ArrowLeft}
+      //   arrowRight={withArrows && this.ArrowRight}
+      //   // onUpdate={this.onUpdate}
+      //   translate={this.state.translate}
+      //   // selected={selected}
+      //   // onSelect={this.onSelect}
+      //   onSelect={this.props.onSelect}
+      // />
     );
   }
 }
