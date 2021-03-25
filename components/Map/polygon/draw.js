@@ -85,7 +85,7 @@ module.exports.drawPolygon = (
                 "black",
               ],
               "white",
-              ["has", "score"]
+              ["has", "score"], ["==", ["get", "favourite"], false]
             ),
           );
         });
@@ -115,16 +115,18 @@ module.exports.drawPolygon = (
           2,
           ["==", id, "region-highlighted"],
           3,
-          ["==", id, "region-clicked"],
-          4,
-          ["==", id, "county-bordered"],
-          4,
           ["==", id, "current-county"],
           2,
           ["==", id, "current-city"],
           2,
           ["==", id, "current-neighborhood"],
           2,
+          ["==", id, "region-clicked"],
+          4,
+          ["==", id, "county-bordered"],
+          4,
+          ["==", id, "city-bordered"],
+          4,
           0.5,
         ],
         minZoom,

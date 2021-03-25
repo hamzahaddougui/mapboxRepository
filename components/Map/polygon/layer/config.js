@@ -80,6 +80,19 @@ const COUNTY_CLICKED= {
     flySpeed: 0.5
 }
 
+const COUNTY_BORDERED= {
+    id: 'county-bordered',
+    source: 'county',
+    color: HIGHLIGHT_COLOR,
+    opacity: 0,
+    minZoom: 9,
+    maxZoom: 11,
+    flyMinZoom: null, 
+    flyMaxZoom: null, 
+    flyDuration: null, 
+    flySpeed: null
+}
+
 const CITY= {
     id: 'city',
     source: 'city',
@@ -93,18 +106,7 @@ const CITY= {
     flySpeed: null
 }
 
-const COUNTY_BORDERED= {
-    id: 'county-bordered',
-    source: 'county',
-    color: HIGHLIGHT_COLOR,
-    opacity: 0.4,
-    minZoom: 9,
-    maxZoom: 11,
-    flyMinZoom: null, 
-    flyMaxZoom: null, 
-    flyDuration: null, 
-    flySpeed: null
-}
+
 
 const CURRENT_CITY= {
     id: 'current-city',
@@ -143,6 +145,19 @@ const CITY_OTHER= {
     flyMaxZoom: 10.9, 
     flyDuration: 5000, 
     flySpeed: 0.5
+}
+
+const CITY_BORDERED= {
+    id: 'city-bordered',
+    source: 'city',
+    color: HIGHLIGHT_COLOR,
+    opacity: 0,
+    minZoom: 11,
+    maxZoom: 24,
+    flyMinZoom: null, 
+    flyMaxZoom: null, 
+    flyDuration: null, 
+    flySpeed: null
 }
 
 const NEIGHBORHOOD= {
@@ -187,7 +202,7 @@ const NEIGHBORHOOD_HIGHLIGHTED= {
 export {
     REGION, REGION_HIGHLIGHTED, REGION_CLICKED, 
     COUNTY, COUNTY_HIGHLIGHTED, COUNTY_CLICKED, COUNTY_BORDERED,
-    CITY, CITY_OTHER, CURRENT_CITY, CURRENT_CITY_CLICKED,
+    CITY, CITY_OTHER, CURRENT_CITY, CURRENT_CITY_CLICKED, CITY_BORDERED,
     NEIGHBORHOOD, NEIGHBORHOOD_HIGHLIGHTED, CURRENT_NEIGHBORHOOD
 }
 
