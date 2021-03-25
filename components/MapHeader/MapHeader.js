@@ -8,9 +8,9 @@ import DropDownButton from "../../common/DropDownButton/DropDownButton";
 import DropDownMenu from "../../common/DropDownMenu/DropDownMenu";
 
 // Assets
-import styles from "./MapHeaderStyle";
+import muiStyles from "./MapHeaderStyles";
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(muiStyles);
 
 const MapHeader = () => {
   const classes = useStyles();

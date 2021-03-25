@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 
 // Assets
-import muiStyles from "./MatcherFooterStyle.js";
+import muiStyles from "./MatcherFooterStyle";
 
 const useStyles = makeStyles(muiStyles);
 
