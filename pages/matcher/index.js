@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
-import Map from "components/Map";
+// import Map from "components/Map";
 import MapHeader from "components/MapHeader";
 import MatcherFooter from "components/MatcherFooter";
 import NeighborhoodListBar from "components/NeighborhoodListBar";
@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(styles);
 
-const Matcher = () => {
+const Matcher = ({ Map }) => {
   const classes = useStyles();
   const router = useRouter();
   const [openRestartMatcher, setOpenRestartMatcher] = useState(false);
@@ -46,7 +46,7 @@ const Matcher = () => {
     <div className={classes.root}>
       {/* <CssBaseline /> */}
       {openRestartMatcher && <MatcherRestart onClose={handleRestartMatcher} />}
-      <Map />
+      {/* <Map /> */}
       <div className={classes.mapHeader}>
         <MapHeader />
       </div>
