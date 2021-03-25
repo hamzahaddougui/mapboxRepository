@@ -195,7 +195,7 @@ const useStyles = makeStyles(theme => ({
 //     value: PropTypes.number.isRequired,
 // };
 
-const index = (props) => {
+const index = () => {
   const classes = useStyles();
 
   function LinearProgressWithLabel(props) {
@@ -218,7 +218,6 @@ const index = (props) => {
 
   //console.log(history);
 
-  const {name}= props.detail;
   return (
     <div className={classes.root}>
       <Paper elevation={5} component={Grid} container className={classes.paper}>
@@ -238,7 +237,7 @@ const index = (props) => {
           >
             <div className={classes.title}>
               <Typography variant="h5" className={classes.titleTxt}>
-                {name}
+                South Beach
               </Typography>
             </div>
           </Grid>
