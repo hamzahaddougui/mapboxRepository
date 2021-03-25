@@ -8,13 +8,13 @@ import _ from "lodash";
 
 import { loadFilters, checkValueAction } from "./FilterService";
 
-import FilterFormHeader from './FilterFormHeader';
+import FilterFormHeader from "./FilterFormHeader";
 
 import { Grid, Typography } from "@material-ui/core";
 
 const FilterForm = () => {
   const [checked, setChecked] = useState(false);
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -35,8 +35,8 @@ const FilterForm = () => {
     .value();
 
   const groups = [];
-  filters.map((filter) => {
-    if(groups.indexOf(filter.group) === -1) {
+  filters.map(filter => {
+    if (groups.indexOf(filter.group) === -1) {
       groups.push(filter.group);
     }
   });
@@ -49,24 +49,24 @@ const FilterForm = () => {
   return (
     <div className={styles.root}>
       <FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} />
-      
+
       {groupedFilters.map((option, i) => (
-        <section id={option[1][1][0].group}>
-          {console.log(option[1][1][0].group)}
-        <Grid
-          key={`${option.category}${i}`}
-          container
-          direction="column"
-          alignItems="center"
-          style={{ marginBottom: "1em" }}
-        >
-          <CheckyButtonContainer
-            title={option[0][1]}
-            options={option[1][1]}
-            checkedValues={checkedValues}
-            onClick={handleClick}
-          />
-        </Grid>
+        <section key={`${option.category}${i}`} id={option[1][1][0].group}>
+          {/* {console.log(option[1][1][0].group)} */}
+          <Grid
+            key={`${option.category}${i}`}
+            container
+            direction="column"
+            alignItems="center"
+            style={{ marginBottom: "1em" }}
+          >
+            <CheckyButtonContainer
+              title={option[0][1]}
+              options={option[1][1]}
+              checkedValues={checkedValues}
+              onClick={handleClick}
+            />
+          </Grid>
         </section>
       ))}
     </div>

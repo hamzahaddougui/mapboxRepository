@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./NeighborhoodListBar.module.css";
 
-import { addFavorite } from "../Matcher/MatcherService";
+import { addFavorite } from "../Matcher/NeighborhoodService";
 import { Favorite, FavoriteBorderSharp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Grid, IconButton, Paper } from "@material-ui/core";
@@ -58,7 +58,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
   const dispatch = useDispatch();
 
   const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
-  const favorites = useSelector(state => state.modules.matcher.favorites);
+  const favorites = useSelector(state => state.modules.neighborhood.favorites);
 
   const onMouseOver = () => setElevation(6);
   const onMouseOut = () => setElevation(2);
@@ -69,7 +69,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
   };
 
   //console.log(neighborhood);
-  favorites.includes(neighborhood) ? console.log(neighborhood) : null;
+  // favorites.includes(neighborhood) ? console.log(neighborhood) : null;
 
   return (
     <Paper

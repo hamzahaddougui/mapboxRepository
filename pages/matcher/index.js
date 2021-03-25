@@ -20,7 +20,6 @@ const Matcher = () => {
   const router = useRouter();
   const [openRestartMatcher, setOpenRestartMatcher] = useState(false);
   const [openNbDetails, setOpenNbDetails] = useState(false);
-  const matcherLoading = useSelector(state => state.modules.matcher.loading);
   const mapLoading = useSelector(state => state.modules.map.loading);
 
   const handleStartMatcher = () => {
@@ -37,7 +36,6 @@ const Matcher = () => {
 
   const handleNbClick = e => {
     console.log("click");
-    console.log(e);
     setOpenNbDetails(true);
   };
   const handleCloseNbDetails = () => {
@@ -62,7 +60,7 @@ const Matcher = () => {
           onHomeMatcher={handleHomeMatcher}
         />
       </div>
-      <BackdropLoader open={matcherLoading || mapLoading} />
+      <BackdropLoader open={mapLoading} />
       <Dialog
         fullWidth
         PaperProps={{

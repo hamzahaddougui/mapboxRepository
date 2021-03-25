@@ -84,12 +84,12 @@ const NeighborhoodListBar = ({ onClick }) => {
   const dispatch = useDispatch();
 
   const neighborhoods = useSelector(state => state.modules.matcher.matched.data);
-  console.log(neighborhoods);
+  // console.log(neighborhoods);
   const favorites = useSelector(state => state.modules.matcher.favorites);
   const Items =
     neighborhoods?.length &&
     neighborhoods.slice(0, 50).map((neighborhood, i) => (
-      <div key={`${neighborhood.Neighborhood}`}>
+      <div key={`${neighborhood.Neighborhood}${i}`}>
         <NeighborhoodCard neighborhood={neighborhood} />
       </div>
     ));
