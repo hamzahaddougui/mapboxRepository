@@ -8,6 +8,7 @@ const styles = theme => ({
     right: "0px",
     left: "0px",
     zIndex: "2",
+    overflowX: "hidden",
     // display: props => (props.open ? "block" : "none"),
   },
   jumbo: {

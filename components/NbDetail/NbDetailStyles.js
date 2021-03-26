@@ -1,10 +1,13 @@
 const styles = theme => ({
   // Neighborhood Detail Styles
-  root: {},
+  root: {
+    height: "100%",
+  },
   paper: {
     marginBottom: "2em",
     borderRadius: "24px",
     paddingBottom: "1em",
+    height: "100%",
   },
   imgSlider: {
     width: "100%",
@@ -128,6 +131,23 @@ const styles = theme => ({
     width: "68px",
     color: "#FF0061",
     boxShadow: "0 16px 28px 0 rgb(14 31 53 / 16%)",
+  },
+
+  progressBar: {
+    height: "100%",
+    backgroundColor: "#575FF9",
+    position: "relative",
+  },
+  progressContainer: {
+    margin: "0.5em 1em 0.5em 0em",
+    height: "20px",
+    width: "129px",
+    backgroundColor: "#e7e7e7",
+    borderRadius: "10px",
+    overflow: "hidden",
+  },
+  progressTxt: {
+    color: "#FFF",
   },
 
   "@global": {

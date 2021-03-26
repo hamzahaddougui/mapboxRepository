@@ -1,7 +1,7 @@
 import { SmsFailed } from "@material-ui/icons";
 import { createSlice } from "@reduxjs/toolkit";
 import { map } from "lodash";
-import { apiCallBegan } from "../../services/api";
+import { apiCallBegan } from "../api";
 
 const url = "/users/signin";
 

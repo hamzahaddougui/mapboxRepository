@@ -30,7 +30,7 @@ import showPoi from "./poi";
 import showHouses from "./houses";
 import fetching from "./services/fetching";
 import layerShape from "./services/layerShape";
-import { loadStarted, LoadEnded } from "./MapService";
+import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
 import NeighborhoodDetail from "../NbDetail/NbDetail";
 const marker = "/map/pin.png";
 

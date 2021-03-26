@@ -1,6 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   title: {
     fontFamily: "Poppins",
     fontSize: 14.24,
@@ -40,6 +38,6 @@ const useStyles = makeStyles(theme => ({
       minWidth: "3em",
     },
   },
-}));
+});
 
-export default useStyles;
+export default styles;

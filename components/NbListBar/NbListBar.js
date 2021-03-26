@@ -5,8 +5,8 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // components
-import ScrollMenu from "../../common/scrollMenu/scrollMenu";
 import NeighborhoodCard from "../NbCard/NbCard";
+import ScrollMenu from "../../common/scrollMenu/scrollMenu";
 
 // Assets
 import muiStyles from "./NbListBarStyles";

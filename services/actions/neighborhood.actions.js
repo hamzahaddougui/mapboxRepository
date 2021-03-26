@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../../services/api";
+import { apiCallBegan } from "../api";
 
 import Router from "next/router";
 import Link from "next/link";
@@ -8,7 +8,6 @@ const url = "/matcher/run";
 
 const slice = createSlice({
   name: "nbResult",
-
   initialState: {
     matched: [],
     favorites: [],

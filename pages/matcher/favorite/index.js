@@ -2,13 +2,14 @@
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, GridList } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
 // components
 import FavoriteListBar from "components/FavListBar/FavListBar";
 import AddNeighborhood from "components/AddNb/AddNb";
-import SignUpForm from "components/SignUp/SignUpForm/SignUpForm";
-import SignUpHeader from "components/SignUp/SignUpHeader/SignUpHeader";
-import SignUpFooter from "components/SignUp/SignUpFooter/SignUpFooter";
+import SignUpForm from "components/SignUpForm/SignUpForm";
+import SignUpHeader from "components/SignUpHeader/SignUpHeader";
+import SignUpFooter from "components/SignUpFooter/SignUpFooter";
 
 // Assets
 import muiStyles from "styles/favoriteStyles";
@@ -38,7 +39,14 @@ const Favorite = () => {
 
   return (
     <Grid container className={classes.root}>
-      <Grid item container justify="center" alignItems="center">
+      <Grid
+        component={Box}
+        visibility={!open ? "visible" : "hidden"}
+        item
+        container
+        justify="center"
+        alignItems="center"
+      >
         <GridList className={classes.wrapper}>
           <SignUpForm data={data} handleChange={handleChange} />
         </GridList>

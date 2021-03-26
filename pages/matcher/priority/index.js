@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 
-import { loadMatched, resetErrors } from "components/Neighborhood/NbService";
+import { loadMatched, resetErrors } from "services/actions/neighborhood.actions";
 import PriorityForm from "components/Priority/PriorityForm";
 import PriorityFooter from "components/PriorityFooter/PriorityFooter";
 import BackButton from "../../../common/BackButton/BackButton";

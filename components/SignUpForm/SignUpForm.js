@@ -4,7 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container, CssBaseline, TextField, Link, Grid, Typography } from "@material-ui/core";
 
 // Actions
-import { responseSuccessGoogle, responseFailureGoogle } from "../SignUpService";
+import {
+  responseSuccessGoogle,
+  responseFailureGoogle,
+} from "../../services/actions/signup.actions";
 
 // Assets
 import muiStyles from "./SignUpFormStyles";

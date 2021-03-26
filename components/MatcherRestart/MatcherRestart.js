@@ -5,8 +5,8 @@ import { Typography, Grid, Button } from "@material-ui/core";
 import { Close, Favorite } from "@material-ui/icons";
 
 // Actions
-import { resetNeighborhood } from "../Neighborhood/NbService";
-import { resetFilter } from "../Filter/FilterService";
+import { resetNeighborhood } from "../../services/actions/neighborhood.actions";
+import { resetFilter } from "../../services/actions/filter.actions";
 
 // Assets
 import muiStyles from "./MatcherRestartStyles";

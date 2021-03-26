@@ -4,10 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid, Button, Typography } from "@material-ui/core";
 
 // Actions
-import { loadPriorities, checkPriorityMustHave, checkPriorityNiceToHave } from "./PriorityService";
+import {
+  loadPriorities,
+  checkPriorityMustHave,
+  checkPriorityNiceToHave,
+} from "../../services/actions/filter.actions";
 
 // Assets
-import useStyles from "./PriorityFormStyle";
+import useStyles from "./PriorityFormStyles";
 
 const PriorityForm = () => {
   const classes = useStyles();

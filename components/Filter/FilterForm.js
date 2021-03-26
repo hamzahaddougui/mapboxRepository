@@ -9,7 +9,7 @@ import CheckyButtonContainer from "../../common/CheckyButton/CheckyButtonContain
 import FilterFormHeader from "./FilterHeader";
 
 // Actions
-import { loadFilters, checkValueAction } from "./FilterService";
+import { loadFilters, checkValueAction } from "../../services/actions/filter.actions";
 
 // Assets
 import muiStyles from "./FilterFormStyles";

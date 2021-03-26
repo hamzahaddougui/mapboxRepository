@@ -6,7 +6,7 @@ import { Favorite, FavoriteBorderSharp } from "@material-ui/icons";
 import { Typography, Grid, IconButton, Paper } from "@material-ui/core";
 
 // Actions
-import { addFavorite } from "../Neighborhood/NbService";
+import { addFavorite } from "../../services/actions/neighborhood.actions";
 
 // Assets
 import muiStyles from "./NbCardStyles";

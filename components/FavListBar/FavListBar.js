@@ -1,5 +1,4 @@
 // Third party
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -15,8 +14,9 @@ const useStyles = makeStyles(muiStyles);
 
 const FavoriteListBar = ({ open, setOpen }) => {
   const classes = useStyles();
-  const [items, setItems] = useState([]);
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
+
+  const Items = [];
 
   const addNeighborhoodCard = (
     <div key={`addNb`}>
@@ -29,25 +29,18 @@ const FavoriteListBar = ({ open, setOpen }) => {
     </div>
   );
 
-  useEffect(() => {
-    const items_ = [...items];
-    console.log(items.length);
-    if (!items.length) {
-      items_.push(addNeighborhoodCard);
-      favorites.forEach((neighborhood, i) =>
-        items_.push(
-          <div key={`${neighborhood.score}${i}`}>
-            <NeighborhoodCard neighborhood={neighborhood} />
-          </div>,
-        ),
-      );
-      setItems(items_);
-    }
-  }, [items]);
+  Items.push(addNeighborhoodCard);
+  favorites.forEach((neighborhood, i) =>
+    Items.push(
+      <div key={`${neighborhood.score}${i}`}>
+        <NeighborhoodCard neighborhood={neighborhood} />
+      </div>,
+    ),
+  );
 
   return (
     <div className={classes.root}>
-      <ScrollMenu Items={items} />
+      <ScrollMenu Items={Items} />
     </div>
   );
 };

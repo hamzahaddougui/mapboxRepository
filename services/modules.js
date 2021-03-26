@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import FilterReducer from "../components/Filter/FilterService";
-import NeighborhoodReducer from "../components/Neighborhood/NbService";
-import AuthenticationReducer from "../components/SignUp/SignUpService";
-import MapReducer from "../components/Map/MapService";
+import FilterReducer from "./actions/filter.actions";
+import NeighborhoodReducer from "./actions/neighborhood.actions";
+import AuthenticationReducer from "./actions/signup.actions";
+import MapReducer from "./actions/map.actions";
 
 export default combineReducers({
   filter: FilterReducer,

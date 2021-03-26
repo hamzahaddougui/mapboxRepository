@@ -1,5 +1,6 @@
 // Third party
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, TextField } from "@material-ui/core";
@@ -7,7 +8,7 @@ import { Close } from "@material-ui/icons";
 import { Autocomplete, createFilterOptions } from "@material-ui/lab";
 
 //Actions
-import { addFavorite } from "../Neighborhood/NbService";
+import { addFavorite } from "../../services/actions/neighborhood.actions";
 
 // Assets
 import muiStyles from "./AddNbStyles";
@@ -18,12 +19,10 @@ const filter = createFilterOptions();
 
 const AddNeighborhood = ({ open, setOpen }) => {
   const classes = useStyles((open = { open }));
-
-  const dispatch = useDispatch();
-
-  const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
-
+  const router = useRouter();
   const [value, setValue] = useState(null);
+  const dispatch = useDispatch();
+  const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
 
   return (
     <div className={classes.root} open={open}>

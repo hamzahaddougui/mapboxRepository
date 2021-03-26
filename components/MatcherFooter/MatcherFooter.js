@@ -15,6 +15,10 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
   const matched = useSelector(state => state.modules.neighborhood.matched.data);
   const hm = Boolean(favorites.length > 0);
 
+  const handleHomeMatcher = e => {
+    hm && onHomeMatcher(e);
+  };
+
   const renderAfterMatching = () => (
     <div className={classes.bottomBox}>
       <div className={classes.bottomNavigationButtons}>
@@ -24,7 +28,7 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
         </div>
         <div
           className={hm ? classes.homeMatcherActive : classes.homeMatcher}
-          onClick={onHomeMatcher}
+          onClick={handleHomeMatcher}
         >
           <img
             className={hm ? classes.homeMatcherThunderActive : classes.homeMatcherThunder}

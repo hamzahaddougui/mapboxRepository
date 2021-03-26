@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../../services/api";
+import { apiCallBegan } from "../api";
 
 import Router from "next/router";
 import axios from "axios";
