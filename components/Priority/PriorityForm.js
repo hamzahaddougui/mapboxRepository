@@ -6,7 +6,7 @@ import { Grid, Button, Typography } from "@material-ui/core";
 // Actions
 import {
   loadPriorities,
-  checkPriorityMustHave,
+  checkPriority,
   checkPriorityNiceToHave,
 } from "../../services/actions/filter.actions";
 
@@ -22,13 +22,21 @@ const PriorityForm = () => {
     dispatch(loadPriorities());
   }, []);
 
-  const handleMustHaveClick = option => {
-    dispatch(checkPriorityMustHave(option));
+  const handlePriorityClick = (e, option) => {
+    e.preventDefault();
+    console.log(e.currentTarget);
+    const optionObject = {
+      id: e.currentTarget.name,
+      value: option,
+    };
+    dispatch(checkPriority(optionObject));
   };
 
-  const handleNiceToHaveClick = option => {
-    dispatch(checkPriorityNiceToHave(option));
-  };
+  // const handleNiceToHaveClick = (e, option) => {
+  //   e.preventDefault();
+  //   console.log(e.target.id);
+  //   dispatch(checkPriorityNiceToHave(option));
+  // };
 
   return (
     <div className={classes.root}>
@@ -47,9 +55,12 @@ const PriorityForm = () => {
           <Grid item container justify="flex-end" spacing={1} xs>
             <Grid item>
               <Button
-                onClick={() => {
-                  handleMustHaveClick(option.name);
-                }}
+                // name="mustHave"
+                // onClick={(e) => {
+                //   handlePriorityClick(e, option.name);
+                // }}
+                name="mustHave" 
+                onClick={(e) => {handlePriorityClick(e, option.name);}}
                 className={
                   option.priority.mustHave ? classes.activePriorityButton : classes.priorityButton
                 }
@@ -59,8 +70,9 @@ const PriorityForm = () => {
             </Grid>
             <Grid item>
               <Button
-                onClick={() => {
-                  handleNiceToHaveClick(option.name);
+                name="niceToHave"
+                onClick={(e) => {
+                  handlePriorityClick(e, option.name);
                 }}
                 className={
                   option.priority.niceToHave ? classes.activePriorityButton : classes.priorityButton

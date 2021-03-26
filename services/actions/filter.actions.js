@@ -57,22 +57,38 @@ const slice = createSlice({
         }
       } else state.checkedValues.push(value);
     },
-    checkPriorityMustHave: (state, action) => {
-      const value = action.payload;
+    checkPriority: (state, action) => {
+      const option = action.payload;
       state.priorities.map(element => {
-        element.name == value
-          ? (element.priority.mustHave = !element.priority.mustHave)
-          : element.priority.mustHave;
+        if(element.name == option.value) {
+          const pr = option.id;
+          if(pr === "mustHave"){
+              if(element.priority.niceToHave) element.priority.niceToHave = false;
+              element.priority.mustHave = !element.priority.mustHave;
+          } else if(pr === "niceToHave"){
+            if(element.priority.mustHave) element.priority.mustHave = false;
+              element.priority.niceToHave = !element.priority.niceToHave;
+          }
+
+        }
       });
     },
-    checkPriorityNiceToHave: (state, action) => {
-      const value = action.payload;
-      state.priorities.map(element => {
-        element.name == value
-          ? (element.priority.niceToHave = !element.priority.niceToHave)
-          : element.priority.niceToHave;
-      });
-    },
+    // checkPriorityMustHave: (state, action) => {
+    //   const value = action.payload;
+    //   state.priorities.map(element => {
+    //     element.name == value
+    //       ? (element.priority.mustHave = !element.priority.mustHave)
+    //       : element.priority.mustHave;
+    //   });
+    // },
+    // checkPriorityNiceToHave: (state, action) => {
+    //   const value = action.payload;
+    //   state.priorities.map(element => {
+    //     element.name == value
+    //       ? (element.priority.niceToHave = !element.priority.niceToHave)
+    //       : element.priority.niceToHave;
+    //   });
+    // },
     resetFilter: (state, action) => {
       console.log("Restarting Filters...");
       state.filters = [];
@@ -91,8 +107,7 @@ export const {
   prioritiesRequestFailed,
   prioritiesReceived,
   checkValueAction,
-  checkPriorityMustHave,
-  checkPriorityNiceToHave,
+  checkPriority,
   resetFilter,
 } = slice.actions;
 
