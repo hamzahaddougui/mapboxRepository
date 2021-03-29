@@ -8,6 +8,7 @@ const styles = theme => ({
     right: "0px",
     left: "0px",
     zIndex: "2",
+    overflowX: "hidden",
     // display: props => (props.open ? "block" : "none"),
   },
   jumbo: {
@@ -27,19 +28,27 @@ const styles = theme => ({
     textAlign: "center",
   },
 
-  title: {
-    fontSize: "25px",
+  upperTitle: {
+    fontFamily: "Poppins-Light",
+    fontSize: 25,
     color: "#323643",
-    fontWeight: "600",
+    // fontWeight: "600",
     margin: "24px 0 8px 0",
   },
 
-  subtitle: {
-    fontSize: "16.02px",
+  title: {
+    fontFamily: "Poppins-SemiBold",
+    fontSize: 25,
     color: "#323643",
-    fontWeight: "200",
-    margin: "8px 0 24px 0 ",
-    letterSpacing: "0.01071em",
+    // fontWeight: "600",
+    margin: "0 0 4px 0",
+  },
+
+  subtitle: {
+    fontFamily: "Poppins-Light",
+    fontSize: 16.02,
+    color: "#323643",
+    margin: "0 0 24px 0 ",
   },
   form: {
     overflow: "hidden",

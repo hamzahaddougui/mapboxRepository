@@ -63,6 +63,10 @@ const MapHeader = () => {
         active2={search}
         label1="Matcher"
         label2="Search"
+        iconEnabled1="/thunder.svg"
+        iconDisabled1="/thunderDisabled.svg"
+        iconEnabled2="/search.svg"
+        iconDisabled2="/searchDisabled.svg"
         onClick1={handleClickMatcher}
         onClick2={handleClickSearch}
       />

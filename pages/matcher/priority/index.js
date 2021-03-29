@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 
 import { loadMatched, resetErrors } from "services/actions/neighborhood.actions";
 import PriorityForm from "components/Priority/PriorityForm";
@@ -40,14 +40,9 @@ const Priority = () => {
       <div className={classes.jumbo}>
         <BackButton onClick={handleBack} />
         <div className={classes.header}>
-          <h2 className={classes.title}>Narrow down your Match</h2>
-          <div className={classes.subtitle}>
-            <div>
-              Choose as many filters as you like.
-              <br />
-              You can always change them later
-            </div>
-          </div>
+          <Typography variant="h2" className={classes.upperTitle}>One last step!</Typography>
+          <Typography variant="h3" className={classes.title}>Select your priorities</Typography>
+          <Typography variant="h5" className={classes.subtitle}>Make your result more accurate</Typography>
         </div>
       </div>
 
