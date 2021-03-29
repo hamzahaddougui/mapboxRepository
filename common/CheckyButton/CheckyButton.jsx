@@ -11,16 +11,19 @@ const useStyles = makeStyles(muiStyles);
 // option = {active: true/false, label: "string"}
 const CheckyButton = ({ active, option, onClick }) => {
   const classes = useStyles();
+  option && (option.name === "" && console.log("Empty Field detected !!"));
 
   return (
     <React.Fragment>
-      <Button
-        fullWidth
-        onClick={e => option && onClick(e, option.name)}
-        className={active ? classes.activeCheckyButton : classes.checkyButton}
-      >
-        {option && option.name}
-      </Button>
+      { option && (option.name !== "" && (
+        <Button
+          fullWidth
+          onClick={e => option && onClick(e, option.name)}
+          className={active ? classes.activeCheckyButton : classes.checkyButton}
+        >
+          {option.name}
+        </Button>
+      ))}
     </React.Fragment>
   );
 };

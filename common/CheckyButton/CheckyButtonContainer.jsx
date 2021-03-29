@@ -10,8 +10,11 @@ const useStyles = makeStyles(muiStyles);
 
 const CheckyButtonContainer = ({ title, options, checkedValues, onClick, maxWidth }) => {
   const classes = useStyles();
+  var formattedOptions = _.reject(options, ['name', ""]);
+
   return (
     <Container style={{ maxWidth: maxWidth || "60em" }}>
+      {!_.isEmpty(formattedOptions) && (
       <Grid
         container
         justify="center"
@@ -24,8 +27,8 @@ const CheckyButtonContainer = ({ title, options, checkedValues, onClick, maxWidt
         <Grid item container justify="center">
           <Typography className={classes.title}>{title}</Typography>
         </Grid>
-        {!_.isEmpty(options) &&
-          options.map((option, i) => (
+        {!_.isEmpty(formattedOptions) &&
+          formattedOptions.map((option, i) => (
             <Grid key={`${option.title}${i}`} item style={{ margin: "0.6em 0.4em 0em 0.4em" }}>
               <CheckyButton
                 active={checkedValues && checkedValues.includes(option.name)}
@@ -35,6 +38,7 @@ const CheckyButtonContainer = ({ title, options, checkedValues, onClick, maxWidt
             </Grid>
           ))}
       </Grid>
+      )}
     </Container>
   );
 };
