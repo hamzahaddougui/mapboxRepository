@@ -114,9 +114,16 @@ const styles = theme => ({
     width: "68px",
     color: "#575FF9",
     boxShadow: "0 16px 28px 0 rgb(14 31 53 / 16%)",
+    "&:hover": {
+      backgroundColor: "#FFF",
+    },
   },
   bigIcon: {
     fontSize: "38px",
+    "&:hover": {
+      fontSize: "40px",
+      transition: "linear 0.2s"
+    },
   },
   redoWrapper: {
     backgroundColor: "white",
@@ -124,6 +131,16 @@ const styles = theme => ({
     width: "48px",
     color: "#323643",
     boxShadow: "0 4px 8px 0 rgb(14 31 53 / 16%)",
+    "&:hover": {
+      backgroundColor: "#FFF",
+    },
+  },
+  smallIcon: {
+    fontSize: "24px",
+    "&:hover": {
+      fontSize: "26px",
+      transition: "linear 0.2s"
+    },
   },
   favoriteWrapper: {
     backgroundColor: "white",
@@ -131,6 +148,9 @@ const styles = theme => ({
     width: "68px",
     color: "#FF0061",
     boxShadow: "0 16px 28px 0 rgb(14 31 53 / 16%)",
+    "&:hover": {
+      backgroundColor: "#FFF",
+    },
   },
 
   progressBar: {

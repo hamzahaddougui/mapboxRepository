@@ -118,7 +118,7 @@ const NbDetail = () => {
             console.log("Redo Action");
           }}
         >
-          <Replay />
+          <Replay className={classes.smallIcon} />
         </IconButton>
 
         <IconButton

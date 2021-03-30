@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { Button, makeStyles, Typography } from "@material-ui/core";
+import ReplayIcon from '@material-ui/icons/Replay';
 
 // Assets
 import muiStyles from "./MatcherFooterStyle";
@@ -24,7 +25,10 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
       <div className={classes.bottomNavigationButtons}>
         <div className={classes.restartMatcher} onClick={onRestartMatcher}>
           <img className={classes.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
-          <Button className={classes.restartMatcherButton}>Restart the Matcher</Button>
+          <Button className={classes.restartMatcherButton}>
+            <img src="/Restart.svg" alt="Restart Icon" className={classes.rMatcherButtonIcon} />
+            Restart the Matcher
+          </Button>
         </div>
         <div
           className={hm ? classes.homeMatcherActive : classes.homeMatcher}

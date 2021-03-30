@@ -16,6 +16,9 @@ const styles = theme => ({
   },
   heartContainer: {
     zIndex: 10,
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
   },
   heart: {
     color: "white",

@@ -29,6 +29,11 @@ const styles = theme => ({
       backgroundColor: "transparent",
     },
   },
+  rMatcherButtonIcon: {
+    marginRight: "5px",
+    width: "14px",
+    height: "12px",
+  },
   bottomBox: {
     height: "74px",
     width: "100%",
