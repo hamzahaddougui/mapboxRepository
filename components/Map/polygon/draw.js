@@ -1,9 +1,8 @@
 import service from "../services/fetching";
 import layerShape from "../services/layerShape";
 import fetchFeatures from './fetchFeatures';
-const marker = "/map/pin.png";
-// import marker from "../../../../public/map/marker_one.png";
-
+const score = "/map/pin.png";
+const favourite = "/map/pin.png";
 
 module.exports.drawPolygon = (
     map,
@@ -13,7 +12,7 @@ module.exports.drawPolygon = (
   ) => {
     let geojson = {
       type: "FeatureCollection",
-      features: [],
+      features,
     };
     let {id, source, color, opacity, minZoom, maxZoom}= element;
     if (features == null) {
@@ -55,39 +54,26 @@ module.exports.drawPolygon = (
         );
         map.addLayer(fillLayer);
         
-        map.loadImage(marker, (error, image) => {
+        map.loadImage(favourite, (error, image) => {
           if (error) throw error;
-          map.addImage("score-marker", image, { sdf: true });
-          result = map.addLayer(
+          map.addImage("favourite_marker", image, { sdf: true });
+          let result = map.addLayer(
             layerShape.symbolLayer(
-              "scores-layer",
+              "favourites_layer",
               id,
-              "score-marker",
-              0.1,
-              ["get", "score"],
+              "favourite_marker",
+              0.3,
+              ["concat", ["get", "score"], "%"],
               ["Open Sans Semibold", "Arial Unicode MS Bold"],
               [0, -1],
               "top",
-              12,
-              [
-                "case",
-                ["<=", ["get", "score"], 20],
-                "#C8CAF2",
-                ["<=", ["get", "score"], 40],
-                "#B2B6F5",
-                ["<=", ["get", "score"], 60],
-                "#969CF6",
-                ["<=", ["get", "score"], 80],
-                "#777EFA",
-                [">", ["get", "score"], 80],
-                "#5D66FA",
-
-                "black",
-              ],
+              16,
+              "#ff0061",
               "white",
-              ["has", "score"], ["==", ["get", "favourite"], false]
+              ["==", ["get", "favourite"], true]
             ),
           );
+          console.log(map.getPaintProperty('favourites_layer', 'icon-opacity'));
         });
 
       } else {
@@ -144,4 +130,43 @@ module.exports.drawPolygon = (
       map.getSource(id).setData(geojson);
     }
     
-  };
+};
+
+
+module.exports.drawScores= (map)=> {
+  map.loadImage(score, (error, image) => {
+    if (error) throw error;
+    map.addImage("score_marker", image, { sdf: true });
+    let result = map.addLayer(
+      layerShape.symbolLayer(
+        "scores_layer",
+        "neighborhood",
+        "score_marker",
+        0.1,
+        ["concat", ["get", "score"], "%"],
+        ["Open Sans Semibold", "Arial Unicode MS Bold"],
+        [0, -1],
+        "top",
+        12,
+        [
+          "case",
+          ["<=", ["get", "score"], 20],
+          "#C8CAF2",
+          ["<=", ["get", "score"], 40],
+          "#B2B6F5",
+          ["<=", ["get", "score"], 60],
+          "#969CF6",
+          ["<=", ["get", "score"], 80],
+          "#777EFA",
+          [">", ["get", "score"], 80],
+          "#5D66FA",
+
+          "black",
+        ],
+        "white",
+        ["==", ["get", "favourite"], false]
+      ),
+    );
+  });
+}
+

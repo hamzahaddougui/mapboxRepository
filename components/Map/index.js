@@ -1,25 +1,15 @@
 import React, { Component } from "react";
+import "mapbox-gl/dist/mapbox-gl.css";
 import { connect } from "react-redux";
 import styles from "./map.module.css";
 import HouseData from "./data/houses.json";
 import PoiCard from "./components/card/card";
 import axios from "axios";
 import {
-  REGION,
-  REGION_HIGHLIGHTED,
-  REGION_CLICKED,
-  COUNTY,
-  COUNTY_HIGHLIGHTED,
-  COUNTY_CLICKED,
-  COUNTY_BORDERED,
-  CITY,
-  CITY_OTHER,
-  CURRENT_CITY,
-  CURRENT_CITY_CLICKED,
-  CITY_BORDERED,
-  NEIGHBORHOOD,
-  NEIGHBORHOOD_HIGHLIGHTED,
-  CURRENT_NEIGHBORHOOD,
+  REGION, REGION_HIGHLIGHTED, REGION_CLICKED,
+  COUNTY, COUNTY_HIGHLIGHTED, COUNTY_CLICKED, COUNTY_BORDERED,
+  CITY, CITY_OTHER, CURRENT_CITY, CURRENT_CITY_CLICKED, CITY_BORDERED,
+  NEIGHBORHOOD, NEIGHBORHOOD_HIGHLIGHTED, CURRENT_NEIGHBORHOOD
 } from "./polygon/layer/config";
 
 import draw from "./polygon/draw";
@@ -32,9 +22,12 @@ import fetching from "./services/fetching";
 import layerShape from "./services/layerShape";
 import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
 import NeighborhoodDetail from "../NbDetail/NbDetail";
+import { useDispatch } from "react-redux";
+import {showCurrent} from "../../services/actions/neighborhood.actions";
 const marker = "/map/pin.png";
 
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
+// const mapboxglcss= require("mapbox-gl/dist/mapbox-gl.css");
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFtemFoYWQiLCJhIjoiY2trY2YybmozMGo3bzJ1b2FpcTh4ZmdpeiJ9.urpUJIK3zKrxCaEKXNe9Rw";
@@ -53,7 +46,7 @@ class Map extends Component {
     mapObject: "",
     image: "",
     cardObject: { name: "", county: "", city: "", adress: "", phone: "", type: "" },
-    popup: new mapboxgl.Popup({ closeButton: false }),
+    popup: new mapboxgl.Popup({ closeButton: false, anchor: 'top-right' }),
     polygonsData: "",
     neighborhoodCard: { display: "none", name: "" },
   };
@@ -68,14 +61,13 @@ class Map extends Component {
     let map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/hamzahad/ckm6lqb38f5ev17ljx1v8jxgp", // style URL
-      center: [-83.30318241957815, 27.863450414180377], // starting position [lng, lat]
-      zoom: 6, // starting zoom
+      center: [-84.13814338407742, 26.573880643027238], // starting position [lng, lat]
+      zoom: 5, // starting zoom
     });
     let { popup } = this.state;
     let allInOneData = await this.getAllInOne();
     this.setState({ mapObject: map, polygonsData: allInOneData.data });
 
-    fetching.updateScores(this.props.scores, allInOneData.data);
     map.on("load", e => {
       // showPoi.showPoi(e);
       draw.drawPolygon(e.target, allInOneData.data, REGION);
@@ -83,9 +75,11 @@ class Map extends Component {
       draw.drawPolygon(e.target, allInOneData.data, CITY);
       draw.drawPolygon(e.target, allInOneData.data, NEIGHBORHOOD);
       this.showHouses(e);
+
       this.props.LoadEnded();
     });
 
+    
     map.on("mousemove", "region-layer", e => {
       move.mouseMove(allInOneData.data, e, "region", REGION_HIGHLIGHTED, popup);
       popup.addClassName(styles.popup);
@@ -97,15 +91,8 @@ class Map extends Component {
     });
 
     map.on("click", "region-highlighted-layer", e => {
-      layerClick.click(
-        allInOneData.data,
-        e,
-        REGION_HIGHLIGHTED,
-        "region",
-        e.features[0].properties.id,
-        REGION_CLICKED,
-      );
-    });
+      layerClick.click(allInOneData.data, e, REGION_HIGHLIGHTED, "region", e.features[0].properties.id,
+        REGION_CLICKED)});
 
     map.on("mousemove", "county-layer", e => {
       move.mouseMove(allInOneData.data, e, "county", COUNTY_HIGHLIGHTED, popup);
@@ -116,15 +103,8 @@ class Map extends Component {
     map.on("click", "county-layer", e => {
       let result = e.features[0].properties.id.split("-");
       layerClick.click(allInOneData.data, e, COUNTY, "region", result[0], REGION_CLICKED);
-      layerClick.click(
-        allInOneData.data,
-        e,
-        COUNTY_HIGHLIGHTED,
-        "county",
-        e.features[0].properties.id,
-        COUNTY_CLICKED,
-      );
-    });
+      layerClick.click(allInOneData.data, e, COUNTY_HIGHLIGHTED, "county", e.features[0].properties.id,
+        COUNTY_CLICKED)});
 
     map.on("mouseleave", "county-layer", e => {
       draw.drawPolygon(e.target, allInOneData.data, COUNTY_HIGHLIGHTED, []);
@@ -132,23 +112,10 @@ class Map extends Component {
     });
 
     map.on("click", "county-clicked-layer", e => {
-      layerClick.click(
-        allInOneData.data,
-        e,
-        COUNTY_CLICKED,
-        "county",
-        e.features[0].properties.id,
-        COUNTY_BORDERED,
-      );
-      layerClick.click(
-        allInOneData.data,
-        e,
-        COUNTY_CLICKED,
-        "city",
-        e.features[0].properties.id,
-        CURRENT_CITY,
-      );
-    });
+      layerClick.click(allInOneData.data, e, COUNTY_CLICKED, "county", e.features[0].properties.id,
+        COUNTY_BORDERED);
+      layerClick.click(allInOneData.data, e, COUNTY_CLICKED, "city", e.features[0].properties.id,
+        CURRENT_CITY)});
 
     map.on("mousemove", "city-layer", e => {
       move.mouseMove(allInOneData.data, e, "city", CITY_OTHER, popup);
@@ -162,41 +129,16 @@ class Map extends Component {
 
     map.on("click", "city-other-layer", e => {
       let id = e.features[0].properties.id.split("-");
-      layerClick.click(
-        allInOneData.data,
-        e,
-        CITY_OTHER,
-        "city",
-        e.features[0].properties.id,
-        CURRENT_CITY,
-      );
-      layerClick.click(
-        allInOneData.data,
-        e,
-        CITY_OTHER,
-        "county",
-        id[0] + "-" + id[1],
-        COUNTY_BORDERED,
-      );
+      layerClick.click(allInOneData.data, e, CITY_OTHER, "city", e.features[0].properties.id,
+        CURRENT_CITY);
+      layerClick.click(allInOneData.data, e, CITY_OTHER, "county", id[0] + "-" + id[1], COUNTY_BORDERED);
     });
 
     map.on("click", "current-city-layer", e => {
-      layerClick.click(
-        allInOneData.data,
-        e,
-        CURRENT_CITY_CLICKED,
-        "neighborhood",
-        e.features[0].properties.id,
-        CURRENT_NEIGHBORHOOD,
-      );
-      layerClick.click(
-        allInOneData.data,
-        e,
-        CURRENT_CITY_CLICKED,
-        "city",
-        e.features[0].properties.id,
-        CITY_BORDERED,
-      );
+      layerClick.click(allInOneData.data, e, CURRENT_CITY_CLICKED, "neighborhood", e.features[0].properties.id,
+        CURRENT_NEIGHBORHOOD);
+      layerClick.click(allInOneData.data, e, CURRENT_CITY_CLICKED, "city", e.features[0].properties.id,
+        CITY_BORDERED);
     });
 
     map.on("mouseleave", "current-city-layer", e => {
@@ -210,34 +152,18 @@ class Map extends Component {
 
     map.on("click", "neighborhood-layer", e => {
       let id = e.features[0].properties.id.split("-");
-      layerClick.click(
-        allInOneData.data,
-        e,
-        NEIGHBORHOOD,
-        "neighborhood",
-        e.features[0].properties.id,
-        CURRENT_NEIGHBORHOOD,
-      );
-      layerClick.click(
-        allInOneData.data,
-        e,
-        NEIGHBORHOOD,
-        "city",
-        id[0] + "-" + id[1] + "-" + id[2],
-        CITY_BORDERED,
-      );
+      layerClick.click(allInOneData.data, e, NEIGHBORHOOD, "neighborhood", e.features[0].properties.id,
+        CURRENT_NEIGHBORHOOD);
+      layerClick.click(allInOneData.data, e, NEIGHBORHOOD, "city", id[0] + "-" + id[1] + "-" + id[2],
+        CITY_BORDERED);
     });
 
     map.on("click", "current-neighborhood-layer", e => {
       let id = e.features[0].properties.id.split("-");
-      layerClick.click(
-        allInOneData.data,
-        e,
-        NEIGHBORHOOD,
-        "city",
-        id[0] + "-" + id[1] + "-" + id[2],
-        CITY_BORDERED,
-      );
+      layerClick.click(allInOneData.data, e, NEIGHBORHOOD, "city", id[0] + "-" + id[1] + "-" + id[2],
+        CITY_BORDERED);
+      this.props.showCurrent(e.features[0].properties);
+      // useDispatch(showCurrent({type: 'CURRENT', value: e.features[0].properties}));
       this.setState({ neighborhoodCard: { display: "block", name: id[3] } });
     });
 
@@ -268,8 +194,8 @@ class Map extends Component {
           city: "test",
           address: "test",
           phone: "test",
-          type: "house",
-        },
+          type: "house"
+        }
       });
     });
 
@@ -279,12 +205,24 @@ class Map extends Component {
     });
   }
 
+  componentDidUpdate(){
+    const {mapObject, polygonsData}= this.state;
+    if(!mapObject.getLayer("scores_layer")){
+      fetching.setScores(mapObject, this.props.scores, polygonsData, NEIGHBORHOOD);
+    }
+
+    fetching.setFavourites(this.props.favourites, mapObject, polygonsData, NEIGHBORHOOD);
+    fetching.checkFavourites(this.props.favourites, mapObject, polygonsData, NEIGHBORHOOD);
+   
+  }
+
   // componentWillUnmount() {
   //   this.state.mapObject.remove();
   // }
 
   handlePopup = e => {
     const { popup } = this.state;
+    popup.getElement().style.color= "black";
     return {
       mapbox: popup.setLngLat(e.lngLat).setHTML(e.features[0].properties.id),
       id: e.features[0].properties.id,
@@ -306,33 +244,7 @@ class Map extends Component {
     return json;
   };
 
-  handleFavouriteClick = () => {
-    const { polygonsData, mapObject } = this.state;
-    fetching.updateFavourites(polygonsData, "Tahiti");
-    mapObject.setFilter("scores-layer", ["==", ["get", "favourite"], true]);
-    mapObject.setPaintProperty("scores-layer", "icon-color", "#ff0061");
-    // mapObject.loadImage(marker, (error, image) => {
-    //   if (error) throw error;
-    //   mapObject.addImage("favourite-marker", image, { sdf: true });
-    //   result = mapObject.addLayer(
-    //     layerShape.symbolLayer(
-    //       "favourites-layer",
-    //       "neighborhood",
-    //       "favourite-marker",
-    //       0.1,
-    //       ["get", "score"],
-    //       ["Open Sans Semibold", "Arial Unicode MS Bold"],
-    //       [0, -1],
-    //       "top",
-    //       12,
-    //       "#ff0061",
-    //       "white",
-    //       ["has", "score"], ["==", ["get", "favourite"], true]
-    //     ),
-    //   );
-    // });
-  };
-
+  
   handleNeighborhoodDetailClick = () => {
     this.setState({ neighborhoodCard: { display: "none" } });
   };
@@ -356,11 +268,6 @@ class Map extends Component {
           >
             <NeighborhoodDetail detail={this.state.neighborhoodCard}></NeighborhoodDetail>
           </div>
-          <div>
-            <button className={styles.test_button} onClick={this.handleFavouriteClick}>
-              Set favourite
-            </button>
-          </div>
         </div>
       </React.Fragment>
     );
@@ -371,12 +278,14 @@ const mapStateToProps = function (state) {
   return {
     scores: state.modules.neighborhood.matched,
     map: state.modules.map.map,
+    favourites: state.modules.neighborhood.favorites
   };
 };
 
 const mapActionsToProps = dispatch => ({
   loadStarted: () => dispatch(loadStarted()),
   LoadEnded: () => dispatch(LoadEnded()),
+  showCurrent:(currentNeighb) => dispatch(showCurrent(currentNeighb))
 });
 
 export default connect(mapStateToProps, mapActionsToProps)(Map);

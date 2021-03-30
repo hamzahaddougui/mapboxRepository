@@ -9,6 +9,7 @@ const url = "/matcher/run";
 const slice = createSlice({
   name: "nbResult",
   initialState: {
+    current: {},
     matched: [],
     favorites: [],
     loading: false,
@@ -60,6 +61,9 @@ const slice = createSlice({
       //   }
       // } else {state.favorites.push(value)}
     },
+    showCurrent: (state, action) => {
+      state.current= action.payload
+    },
     resetNeighborhood: (state, action) => {
       console.log("Restarting Neighborhood results...");
       state.matched = [];
@@ -75,6 +79,7 @@ export const {
   neighborhoodRequestFailed,
   neighborhoodReceived,
   addFavorite,
+  showCurrent,
   resetNeighborhood,
   resetErrors,
 } = slice.actions;
