@@ -79,9 +79,9 @@ class Map extends Component {
       this.props.LoadEnded();
     });
 
-    
     map.on("mousemove", "region-layer", e => {
-      move.mouseMove(allInOneData.data, e, "region", REGION_HIGHLIGHTED, popup);
+      move.mouseMove(allInOneData.data, e, "region", REGION_HIGHLIGHTED);
+      this.handlePopup(e, e.features[0].properties.id).mapbox.addTo(e.target);
       popup.addClassName(styles.popup);
     });
 
@@ -95,8 +95,8 @@ class Map extends Component {
         REGION_CLICKED)});
 
     map.on("mousemove", "county-layer", e => {
-      move.mouseMove(allInOneData.data, e, "county", COUNTY_HIGHLIGHTED, popup);
-      this.handlePopup(e).mapbox.addTo(e.target);
+      move.mouseMove(allInOneData.data, e, "county", COUNTY_HIGHLIGHTED);
+      this.handlePopup(e, e.features[0].properties.id.split('-')[1]).mapbox.addTo(e.target);
       popup.addClassName(styles.popup);
     });
 
@@ -118,7 +118,8 @@ class Map extends Component {
         CURRENT_CITY)});
 
     map.on("mousemove", "city-layer", e => {
-      move.mouseMove(allInOneData.data, e, "city", CITY_OTHER, popup);
+      move.mouseMove(allInOneData.data, e, "city", CITY_OTHER);
+      this.handlePopup(e, e.features[0].properties.id.split('-')[2]).mapbox.addTo(e.target);
       popup.addClassName(styles.popup);
     });
 
@@ -146,7 +147,8 @@ class Map extends Component {
     });
 
     map.on("mousemove", "neighborhood-layer", e => {
-      move.mouseMove(allInOneData.data, e, "neighborhood", NEIGHBORHOOD_HIGHLIGHTED, popup);
+      move.mouseMove(allInOneData.data, e, "neighborhood", NEIGHBORHOOD_HIGHLIGHTED);
+      this.handlePopup(e, e.features[0].properties.id.split('-')[3]).mapbox.addTo(e.target);
       popup.addClassName(styles.popup);
     });
 
@@ -163,7 +165,6 @@ class Map extends Component {
       layerClick.click(allInOneData.data, e, NEIGHBORHOOD, "city", id[0] + "-" + id[1] + "-" + id[2],
         CITY_BORDERED);
       this.props.showCurrent(e.features[0].properties);
-      // useDispatch(showCurrent({type: 'CURRENT', value: e.features[0].properties}));
       this.setState({ neighborhoodCard: { display: "block", name: id[3] } });
     });
 
@@ -213,6 +214,8 @@ class Map extends Component {
 
     fetching.setFavourites(this.props.favourites, mapObject, polygonsData, NEIGHBORHOOD);
     fetching.checkFavourites(this.props.favourites, mapObject, polygonsData, NEIGHBORHOOD);
+
+    
    
   }
 
@@ -220,14 +223,10 @@ class Map extends Component {
   //   this.state.mapObject.remove();
   // }
 
-  handlePopup = e => {
+  handlePopup = (e, id) => {
     const { popup } = this.state;
-    popup.getElement().style.color= "black";
-    return {
-      mapbox: popup.setLngLat(e.lngLat).setHTML(e.features[0].properties.id),
-      id: e.features[0].properties.id,
-    };
-  };
+    // popup.getElement().style.color= "black";
+    return { mapbox: popup.setLngLat(e.lngLat).setHTML(id)}};
 
   showHouses = e => {
     const { scores } = this.state;

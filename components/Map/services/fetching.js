@@ -156,8 +156,7 @@ module.exports.setFavourites= (favourites, map, data, source)=> {
       
     })
     draw.drawPolygon(map, data, source);
-    // console.log(map.getPaintProperty('favourites_layer', 'icon-opacity'));
-    
+    draw.drawFavourites(map);
   }
  
 }

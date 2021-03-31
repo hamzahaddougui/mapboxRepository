@@ -54,27 +54,7 @@ module.exports.drawPolygon = (
         );
         map.addLayer(fillLayer);
         
-        map.loadImage(favourite, (error, image) => {
-          if (error) throw error;
-          map.addImage("favourite_marker", image, { sdf: true });
-          let result = map.addLayer(
-            layerShape.symbolLayer(
-              "favourites_layer",
-              id,
-              "favourite_marker",
-              0.3,
-              ["concat", ["get", "score"], "%"],
-              ["Open Sans Semibold", "Arial Unicode MS Bold"],
-              [0, -1],
-              "top",
-              16,
-              "#ff0061",
-              "white",
-              ["==", ["get", "favourite"], true]
-            ),
-          );
-          console.log(map.getPaintProperty('favourites_layer', 'icon-opacity'));
-        });
+        
 
       } else {
         fillLayer = layerShape.fillLayer(
@@ -167,6 +147,32 @@ module.exports.drawScores= (map)=> {
         ["==", ["get", "favourite"], false]
       ),
     );
+  });
+}
+
+module.exports.drawFavourites= map => {
+  map.loadImage(favourite, (error, image) => {
+    if (error) throw error;
+    map.addImage("favourite_marker", image, { sdf: true });
+    let result = map.addLayer(
+      layerShape.symbolLayer(
+        "favourites_layer",
+        "neighborhood",
+        "favourite_marker",
+        0.3,
+        ["concat", ["get", "score"], "%"],
+        ["Open Sans Semibold", "Arial Unicode MS Bold"],
+        [0, -1],
+        "top",
+        16,
+        "#ff0061",
+        "white",
+        ["==", ["get", "favourite"], true]
+      ),
+    );
+
+    map.moveLayer('region-layer', 'favourites_layer');
+
   });
 }
 
