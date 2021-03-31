@@ -16,6 +16,15 @@ const useStyles = makeStyles(muiStyles);
 const NeighborhoodListBar = ({ onClick }) => {
   const classes = useStyles();
   const neighborhoods = useSelector(state => state.modules.neighborhood.matched.data);
+  const favorites = useSelector(state => state.modules.neighborhood.favorites);
+
+  const renderFavorites = () =>
+    favorites?.length &&
+    favorites.slice(0, 50).map((favorite, i) => (
+      <div key={`${favorite.Neighborhood}${i}`}>
+        <NeighborhoodCard onClick={onClick} neighborhood={favorite} />
+      </div>
+    ));
 
   const renderItems = () =>
     neighborhoods?.length &&
@@ -28,7 +37,7 @@ const NeighborhoodListBar = ({ onClick }) => {
   return (
     <React.Fragment>
       <Grid className={classes.root} item>
-        <ScrollMenu onSelect={onClick} Items={renderItems()} />
+        <ScrollMenu onSelect={onClick} Items={renderItems()} Favorites={renderFavorites()} />
       </Grid>
     </React.Fragment>
   );

@@ -21,6 +21,7 @@ const Matcher = ({ Map }) => {
   const [openRestartMatcher, setOpenRestartMatcher] = useState(false);
   const [openNbDetails, setOpenNbDetails] = useState(false);
   const mapLoading = useSelector(state => state.modules.map.loading);
+  const matched = useSelector(state => state.modules.neighborhood.matched);
 
   const handleStartMatcher = () => {
     router.push("/matcher/start");
@@ -50,9 +51,11 @@ const Matcher = ({ Map }) => {
       <div className={classes.mapHeader}>
         <MapHeader />
       </div>
+      { matched.data && (
       <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
         <NeighborhoodListBar onClick={handleNbClick} />
       </div>
+      )}
       <div className={classes.matcherFooter}>
         <MatcherFooter
           onStartMatcher={handleStartMatcher}

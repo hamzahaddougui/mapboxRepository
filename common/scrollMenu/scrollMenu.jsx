@@ -75,12 +75,15 @@ export default class MyScrollMenu extends Component {
 
   render() {
     const { selected } = this.state;
-    const { Items, withArrows, onSelect } = this.props;
+    const { Items, Favorites, withArrows, onSelect } = this.props;
     // Create menu from items
 
     return (
       <ScrollContainer className="hideScrollBar" hideScrollbars={false}>
-        <div style={{ display: "flex" }}>{Items}</div>
+        <div style={{ display: "flex" }}>
+        { Favorites && (<div style={{ display: "flex" }}>{Favorites}</div>)}
+        { Items && (<div style={{ display: "flex" }}>{Items}</div>)}
+        </div>
       </ScrollContainer>
       // <ScrollMenu
       //   data={this.props.Items}

@@ -47,8 +47,17 @@ const slice = createSlice({
 
       if (index > -1) {
         state.favorites.splice(index, 1);
+        state.matched.data.push(value);
         index = -1;
-      } else state.favorites.push(value);
+      } else {
+        let matchIndex = -1;
+        state.matched.data.forEach((element, i) => {
+          if (JSON.stringify(element) === JSON.stringify(value)) matchIndex = i;
+        });
+        state.matched.data.splice(matchIndex, 1);
+        state.favorites.push(value);
+        matchIndex = -1;
+      }
 
       // THIS ONE BELOW IS WORKING WITH ELEMENTS
 

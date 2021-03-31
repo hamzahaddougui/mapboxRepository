@@ -29,7 +29,8 @@ const styles = theme => ({
   },
 
   upperTitle: {
-    fontFamily: "Poppins-Light",
+    fontFamily: "Poppins",
+    fontWeight: "Lighter",
     fontSize: 25,
     color: "#323643",
     // fontWeight: "600",
@@ -37,7 +38,8 @@ const styles = theme => ({
   },
 
   title: {
-    fontFamily: "Poppins-SemiBold",
+    fontFamily: "Poppins",
+    fontWeight: "Bold",
     fontSize: 25,
     color: "#323643",
     // fontWeight: "600",
@@ -45,7 +47,8 @@ const styles = theme => ({
   },
 
   subtitle: {
-    fontFamily: "Poppins-Light",
+    fontFamily: "Poppins",
+    fontWeight: "Lighter",
     fontSize: 16.02,
     color: "#323643",
     margin: "0 0 24px 0 ",
