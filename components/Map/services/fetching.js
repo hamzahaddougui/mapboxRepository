@@ -156,7 +156,6 @@ module.exports.setFavourites= (favourites, map, data, source)=> {
       
     })
     draw.drawPolygon(map, data, source);
-    draw.drawFavourites(map);
   }
  
 }

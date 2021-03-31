@@ -19,10 +19,8 @@ import layerClick from "./polygon/polygonEvents/click";
 import showPoi from "./poi";
 import showHouses from "./houses";
 import fetching from "./services/fetching";
-import layerShape from "./services/layerShape";
 import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
 import NeighborhoodDetail from "../NbDetail/NbDetail";
-import { useDispatch } from "react-redux";
 import {showCurrent} from "../../services/actions/neighborhood.actions";
 const marker = "/map/pin.png";
 
@@ -46,7 +44,7 @@ class Map extends Component {
     mapObject: "",
     image: "",
     cardObject: { name: "", county: "", city: "", adress: "", phone: "", type: "" },
-    popup: new mapboxgl.Popup({ closeButton: false, anchor: 'top-right' }),
+    popup: new mapboxgl.Popup({ closeButton: false, anchor: 'top-right', offset: 20 }),
     polygonsData: "",
     neighborhoodCard: { display: "none", name: "" },
   };
@@ -83,6 +81,7 @@ class Map extends Component {
       move.mouseMove(allInOneData.data, e, "region", REGION_HIGHLIGHTED);
       this.handlePopup(e, e.features[0].properties.id).mapbox.addTo(e.target);
       popup.addClassName(styles.popup);
+     
     });
 
     map.on("mouseleave", "region-layer", e => {
@@ -211,21 +210,14 @@ class Map extends Component {
     if(!mapObject.getLayer("scores_layer")){
       fetching.setScores(mapObject, this.props.scores, polygonsData, NEIGHBORHOOD);
     }
-
+    
     fetching.setFavourites(this.props.favourites, mapObject, polygonsData, NEIGHBORHOOD);
     fetching.checkFavourites(this.props.favourites, mapObject, polygonsData, NEIGHBORHOOD);
-
-    
-   
+     
   }
-
-  // componentWillUnmount() {
-  //   this.state.mapObject.remove();
-  // }
-
+  
   handlePopup = (e, id) => {
     const { popup } = this.state;
-    // popup.getElement().style.color= "black";
     return { mapbox: popup.setLngLat(e.lngLat).setHTML(id)}};
 
   showHouses = e => {
@@ -263,8 +255,7 @@ class Map extends Component {
           <div
             style={{ display: this.state.neighborhoodCard.display }}
             className={styles.neighborhood_detail}
-            onClick={this.handleNeighborhoodDetailClick}
-          >
+            onClick={this.handleNeighborhoodDetailClick}>
             <NeighborhoodDetail detail={this.state.neighborhoodCard}></NeighborhoodDetail>
           </div>
         </div>

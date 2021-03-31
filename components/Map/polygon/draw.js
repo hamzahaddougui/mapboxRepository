@@ -26,7 +26,6 @@ module.exports.drawPolygon = (
       });
 
       let fillLayer = {};
-      let result;
       if (id == "neighborhood") {
         fillLayer = layerShape.fillLayer(
           id + "-layer",
@@ -53,7 +52,27 @@ module.exports.drawPolygon = (
           ["==", "$type", "Polygon"],
         );
         map.addLayer(fillLayer);
-        
+        map.loadImage(favourite, (error, image) => {
+          if (error) throw error;
+          map.addImage("favourite_marker", image, { sdf: true });
+          let result = map.addLayer(
+            layerShape.symbolLayer(
+              "favourites_layer",
+              "neighborhood",
+              "favourite_marker",
+              0.3,
+              ["concat", ["get", "score"], "%"],
+              ["Open Sans Semibold", "Arial Unicode MS Bold"],
+              [0, -1],
+              "top",
+              16,
+              "#ff0061",
+              "white",
+              ["==", ["get", "favourite"], true]
+            ),
+          );
+      
+        });
         
 
       } else {
@@ -100,11 +119,16 @@ module.exports.drawPolygon = (
         ["==", "$type", "Polygon"],
       );
       map.addLayer(lineLayer);
-      if(map.getLayer(result)){
-        map.moveLayer(fillLayer, result);
-        map.moveLayer(lineLayer, result);
+      
+      if(map.getLayer("scores_layer")){
+        map.moveLayer(id + "-layer", "scores_layer");
+        map.moveLayer(id + "-layer-outline", "scores_layer");
 
       }
+      if(map.getLayer("favourites_layer") && map.getZoom()== 5){
+        map.setLayoutProperty("favourites_layer", "visibility", "visible");
+      }
+
     } else {
       geojson.features = features;
       map.getSource(id).setData(geojson);
@@ -150,29 +174,4 @@ module.exports.drawScores= (map)=> {
   });
 }
 
-module.exports.drawFavourites= map => {
-  map.loadImage(favourite, (error, image) => {
-    if (error) throw error;
-    map.addImage("favourite_marker", image, { sdf: true });
-    let result = map.addLayer(
-      layerShape.symbolLayer(
-        "favourites_layer",
-        "neighborhood",
-        "favourite_marker",
-        0.3,
-        ["concat", ["get", "score"], "%"],
-        ["Open Sans Semibold", "Arial Unicode MS Bold"],
-        [0, -1],
-        "top",
-        16,
-        "#ff0061",
-        "white",
-        ["==", ["get", "favourite"], true]
-      ),
-    );
-
-    map.moveLayer('region-layer', 'favourites_layer');
-
-  });
-}
 
