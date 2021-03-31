@@ -14,6 +14,8 @@ const NbDetail = () => {
   const classes = useStyles({ image });
   const [active, setActive] = useState("percent match");
   const filters = useSelector(state => state.modules.filter.filters);
+  const current= useSelector(state=> state.modules.neighborhood.current);
+  const {Neighborhood}= current;
 
   function LinearProgressWithLabel(props) {
     return (
@@ -40,7 +42,7 @@ const NbDetail = () => {
           <Grid item container justify="center">
             <div className={classes.title}>
               <Typography variant="h5" className={classes.titleTxt}>
-                South Beach
+                {Neighborhood}
               </Typography>
             </div>
           </Grid>

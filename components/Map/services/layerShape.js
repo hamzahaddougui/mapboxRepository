@@ -28,9 +28,22 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
         },
         paint: {
           "icon-color": iconColor,
-          "text-color": textColor
+          "text-color": textColor,
+          "icon-opacity": [
+                            "interpolate",
+                            ["linear"],
+                            ["zoom"],
+                              5, 1
+            
+                          ],
+          "text-opacity": [
+                            "interpolate",
+                            ["linear"],
+                            ["zoom"],
+                              5, 1
+
+                          ]
         },
-        minzoom: 5,
         filter
       }}
 

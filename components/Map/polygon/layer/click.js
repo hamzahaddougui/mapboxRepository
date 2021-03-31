@@ -10,7 +10,6 @@ module.exports.handleLayerClick= (
     
     let features = [];
     features = fetchFeatures.getPolygonFeatures(data, service.getFeatures(data.features, sourceLayer, from));
-    // console.log(features);
     draw.drawPolygon( 
       e.target, data, targetLayer, features
     );

@@ -1,6 +1,6 @@
 import area from '@turf/area';
 import center from '@turf/center';
-
+import draw from '../polygon/draw';
 module.exports.getFeatures = (allFeatures, source, from=null) => {
     
   let feature;
@@ -119,8 +119,9 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
 
 };
 
-module.exports.updateScores= (scores, data) => {
+module.exports.setScores= (map, scores, data, source) => {
   if(scores.hasOwnProperty('data')){
+    // console.log(map.getSource('neighborhood'));
     data.features.forEach(feature => {
      if(feature.properties.hasOwnProperty('Neighborhood')){
        let neighborhood= scores.data.filter(s => s.Neighborhood== feature.properties.Neighborhood);
@@ -136,15 +137,38 @@ module.exports.updateScores= (scores, data) => {
      }
     
    }) 
+   draw.drawPolygon(map, data, source);
+
+   draw.drawScores(map);
    return 1;
    }
 
    return 0;
 }
 
-module.exports.updateFavourites= (data, neighborhoodId)=> {
-  let features= data.features.filter(f => f.properties.hasOwnProperty('Neighborhood'));
-  let neighborhood= features.filter(f => f.properties.Neighborhood== neighborhoodId);
-  neighborhood[0].properties.favourite= true;
-  
+module.exports.setFavourites= (favourites, map, data, source)=> {
+
+  if(favourites.length> 0){
+    let features= data.features.filter(f => f.properties.hasOwnProperty('Neighborhood'));
+    favourites.forEach(favourite => {
+      let neighborhood= features.filter(f => f.properties.Neighborhood == favourite.Neighborhood);
+      neighborhood[0].properties.favourite= true;
+      
+    })
+    draw.drawPolygon(map, data, source);
+    // console.log(map.getPaintProperty('favourites_layer', 'icon-opacity'));
+    
+  }
+ 
+}
+
+module.exports.checkFavourites= (favourites, map, data, source)=> {
+  let favFeatures= data.features.filter(f => f.properties.favourite== true);
+  favFeatures.forEach(feature => {
+    let neighb= favourites.filter(fav => fav.Neighborhood== feature.properties.Neighborhood);
+    console.log(neighb[0]);
+    if(neighb[0]== undefined)  feature.properties.favourite= false;
+  })
+  draw.drawPolygon(map, data, source);
+
 }
