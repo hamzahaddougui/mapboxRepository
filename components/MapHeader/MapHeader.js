@@ -19,6 +19,7 @@ const MapHeader = () => {
   const [matcher, setMatcher] = useState(true);
   const [search, setSearch] = useState(false);
   const [percentMatch, setPercentMatch] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick2D = () => {
     console.log("2D Clicked!");
@@ -43,13 +44,15 @@ const MapHeader = () => {
     setMatcher(!matcher);
   };
 
-  const handleClickPercentMatch = () => {
+  const handleClickPercentMatch = (event) => {
     setPercentMatch(!percentMatch);
+    setAnchorEl(event.currentTarget);
     console.log("Menu Clicked!!");
   };
 
   return (
     <Grid container justify="space-between" className={classes.headerContainer}>
+      <Grid item>
       <SplittedButton
         active1={twoD}
         active2={threeD}
@@ -58,6 +61,8 @@ const MapHeader = () => {
         onClick1={handleClick2D}
         onClick2={handleClick3D}
       />
+      </Grid>
+      <Grid item>
       <SplittedButton
         active1={matcher}
         active2={search}
@@ -70,8 +75,11 @@ const MapHeader = () => {
         onClick1={handleClickMatcher}
         onClick2={handleClickSearch}
       />
+      </Grid>
+      <Grid item>
       <DropDownButton onClick={handleClickPercentMatch} />
-      <DropDownMenu open={percentMatch} />
+      <DropDownMenu open={percentMatch} anchorEl={anchorEl}/>
+      </Grid>
     </Grid>
   );
 };

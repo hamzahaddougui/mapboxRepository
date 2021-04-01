@@ -10,6 +10,7 @@ import AddNeighborhood from "components/AddNb/AddNb";
 import SignUpForm from "components/SignUpForm/SignUpForm";
 import SignUpHeader from "components/SignUpHeader/SignUpHeader";
 import SignUpFooter from "components/SignUpFooter/SignUpFooter";
+import Accordion from "components/Accordion/Accordion";
 
 // Assets
 import muiStyles from "styles/favoriteStyles";
@@ -57,6 +58,7 @@ const Favorite = () => {
       </Grid>
       <SignUpFooter onClick={handleSubmit} />
       <AddNeighborhood open={open} setOpen={setOpen} />
+      <Accordion />
     </Grid>
   );
 };
