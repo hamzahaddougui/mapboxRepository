@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // components
 import NeighborhoodCard from "../NbCard/NbCard";
-import SeeMoreCard from '../NbCard/seeMoreCard';
+import SeeMoreCard from '../NbCard/SeeMoreCard';
 import ScrollMenu from "../../common/scrollMenu/scrollMenu";
 import GridView from '../GridView/GridView';
 
