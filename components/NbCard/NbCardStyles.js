@@ -1,10 +1,9 @@
-const NeighborhoodMiniCardImg = "/NeighborhoodMiniCardImg.png";
 
 const styles = theme => ({
   // Neighborhood Card Styles
   root: {
     backgroundColor: "#ffffff",
-    backgroundImage: `url(${NeighborhoodMiniCardImg})`,
+    backgroundImage:  props => `url(http://www.nomadville.xyz/api/nbdata/static/city-img/${props.image}.jpg)`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",

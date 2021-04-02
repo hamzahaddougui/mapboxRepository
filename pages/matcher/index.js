@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
 // import Map from "components/Map";
@@ -11,17 +11,28 @@ import { Dialog } from "@material-ui/core";
 
 import styles from "styles/matcherStyles";
 import BackdropLoader from "../../common/BackdropLoader/BackdropLoader";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+// Actions
+import { loadFilters } from '../../services/actions/filter.actions';
 
 const useStyles = makeStyles(styles);
 
 const Matcher = ({ Map }) => {
   const classes = useStyles();
   const router = useRouter();
+  const dispatch = useDispatch();
   const [openRestartMatcher, setOpenRestartMatcher] = useState(false);
   const [openNbDetails, setOpenNbDetails] = useState(false);
   const mapLoading = useSelector(state => state.modules.map.loading);
   const matched = useSelector(state => state.modules.neighborhood.matched);
+  // const filters = useSelector(state => state.modules.filter.filters);
+
+  // console.log("Filters length is : ", filters.length);
+  // !filters.length ? console.log("Filters is Full") : console.log("Filters is Empty");
+  // if(!filters.length){
+  //     dispatch(loadFilters());
+  // }
 
   const handleStartMatcher = () => {
     router.push("/matcher/start");

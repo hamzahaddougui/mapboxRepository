@@ -24,9 +24,9 @@ const FilterForm = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(loadFilters());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loadFilters());
+  // }, []);
 
   const filters = useSelector(state => state.modules.filter.filters);
 

@@ -1,20 +1,31 @@
 // Third party
 import React from "react";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import ReplayIcon from '@material-ui/icons/Replay';
 
 // Assets
 import muiStyles from "./MatcherFooterStyle";
 
+// Services
+import { loadFilters } from "../../services/actions/filter.actions"
+
 const useStyles = makeStyles(muiStyles);
 
 const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+  
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
   const matched = useSelector(state => state.modules.neighborhood.matched.data);
   const hm = Boolean(favorites.length > 0);
+  const filters = useSelector(state => state.modules.filter.filters);
+
+  if(filters.length === 0){
+    dispatch(loadFilters());
+  }
 
   const handleHomeMatcher = e => {
     hm && onHomeMatcher(e);
