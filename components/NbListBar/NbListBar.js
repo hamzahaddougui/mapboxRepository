@@ -6,7 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // components
 import NeighborhoodCard from "../NbCard/NbCard";
+import SeeMoreCard from '../NbCard/seeMoreCard';
 import ScrollMenu from "../../common/scrollMenu/scrollMenu";
+import GridView from '../GridView/GridView';
 
 // Assets
 import muiStyles from "./NbListBarStyles";
@@ -15,11 +17,18 @@ const useStyles = makeStyles(muiStyles);
 
 const NeighborhoodListBar = ({ onClick }) => {
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+
   const neighborhoods = useSelector(state => state.modules.neighborhood.matched.data);
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
 
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
   const renderFavorites = () =>
-    favorites?.length &&
+    favorites.length > 0 &&
     favorites.slice(0, 50).map((favorite, i) => (
       <div key={`${favorite.Neighborhood}${i}`}>
         <NeighborhoodCard onClick={onClick} neighborhood={favorite} />
@@ -34,11 +43,21 @@ const NeighborhoodListBar = ({ onClick }) => {
       </div>
     ));
 
+  const renderSeeMore = () =>
+      <div key={`SeeMore`}>
+        <SeeMoreCard
+          onClick={handleOpen}
+          // neighborhood={{ Neighborhood: "sbignzi", score: "150" }}
+        />
+      </div>
+  ;
+
   return (
     <React.Fragment>
       <Grid className={classes.root} item>
-        <ScrollMenu onSelect={onClick} Items={renderItems()} Favorites={renderFavorites()} />
+        <ScrollMenu onSelect={onClick} Items={renderItems()} Favorites={renderFavorites()} SeeMore={renderSeeMore()} />
       </Grid>
+      <GridView open={open} handleOpen={handleOpen} handleCard={onClick} />
     </React.Fragment>
   );
 };
