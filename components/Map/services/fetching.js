@@ -1,6 +1,7 @@
 import area from '@turf/area';
 import center from '@turf/center';
 import draw from '../polygon/draw';
+import {CITY, NEIGHBORHOOD} from '../polygon/layer/config';
 module.exports.getFeatures = (allFeatures, source, from=null) => {
     
   let feature;
@@ -119,54 +120,80 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
 
 };
 
-module.exports.setScores= (map, scores, data, source) => {
+module.exports.setScores= (map, scores, data) => {
   if(scores.hasOwnProperty('data')){
-    // console.log(map.getSource('neighborhood'));
     data.features.forEach(feature => {
-     if(feature.properties.hasOwnProperty('Neighborhood')){
-       let neighborhood= scores.data.filter(s => s.Neighborhood== feature.properties.Neighborhood);
-       if(neighborhood[0]== undefined){
-         feature.properties= {...feature.properties, score: 0, favourite: false}
-       
-     }
-       else{
-        feature.properties= {...feature.properties, score: neighborhood[0].Score, favourite: false}
+       if(feature.properties.hasOwnProperty('City') || feature.properties.hasOwnProperty('Neighborhood')){
+        let neighborhood= scores.data.filter(s => s.Neighborhood== feature.properties.Neighborhood);
+        if(neighborhood[0]== undefined){
+          let city= scores.data.filter(s => s.City== feature.properties.City);
+          if(city[0]== undefined){
+            feature.properties= {...feature.properties, score: 0, favourite: false}
 
-      }
+          }
+          else{
+            feature.properties= {...feature.properties, score: city[0].Score, favourite: false}
+
+          }
+        
+        }
+        else{
+         feature.properties= {...feature.properties, score: neighborhood[0].Score, favourite: false}
+ 
+        }
+       }
      
-     }
-    
    }) 
-   draw.drawPolygon(map, data, source);
-
-   draw.drawScores(map);
+   draw.drawPolygon(map, data, CITY);
+   draw.drawScores(map, "city_score_marker", "city_score_layer", "city");
+   draw.drawPolygon(map, data, NEIGHBORHOOD);
+   draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
    return 1;
    }
 
    return 0;
 }
 
-module.exports.setFavourites= (favourites, map, data, source)=> {
+module.exports.setFavourites= (favourites, map, data)=> {
 
   if(favourites.length> 0){
-    let features= data.features.filter(f => f.properties.hasOwnProperty('Neighborhood'));
+    let neighbFeatures= data.features.filter(f => f.properties.hasOwnProperty('Neighborhood'));
     favourites.forEach(favourite => {
-      let neighborhood= features.filter(f => f.properties.Neighborhood == favourite.Neighborhood);
-      neighborhood[0].properties.favourite= true;
+      let neighborhood= neighbFeatures.filter(f => f.properties.Neighborhood == favourite.Neighborhood);
+      if(neighborhood[0]== undefined){
+        let cityFeatures= data.features.filter(f => f.properties.id.split('-').length== 3);
+        let city= cityFeatures.filter(c => c.properties.City== favourite.City);
+        city[0].properties.favourite= true;
+      }
+      else{
+        neighborhood[0].properties.favourite= true;
+
+      }
       
     })
-    draw.drawPolygon(map, data, source);
+    draw.drawPolygon(map, data, CITY);
+    draw.drawPolygon(map, data, NEIGHBORHOOD);
+
   }
  
 }
 
-module.exports.checkFavourites= (favourites, map, data, source)=> {
+module.exports.checkFavourites= (favourites, map, data)=> {
   let favFeatures= data.features.filter(f => f.properties.favourite== true);
+  let element;
   favFeatures.forEach(feature => {
-    let neighb= favourites.filter(fav => fav.Neighborhood== feature.properties.Neighborhood);
-    console.log(neighb[0]);
-    if(neighb[0]== undefined)  feature.properties.favourite= false;
+    if(feature.properties.id.split('-').length== 3){
+      element= favourites.filter(fav => fav.City== feature.properties.City);
+      
+    }
+    if(feature.properties.id.split('-').length== 4){
+      element= favourites.filter(fav => fav.Neighborhood== feature.properties.Neighborhood);
+
+    }
+
+    if(element[0]== undefined)  feature.properties.favourite= false;
   })
-  draw.drawPolygon(map, data, source);
+  draw.drawPolygon(map, data, CITY);
+  draw.drawPolygon(map, data, NEIGHBORHOOD);
 
 }

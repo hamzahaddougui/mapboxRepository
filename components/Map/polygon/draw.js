@@ -52,14 +52,37 @@ module.exports.drawPolygon = (
           ["==", "$type", "Polygon"],
         );
         map.addLayer(fillLayer);
+
         map.loadImage(favourite, (error, image) => {
           if (error) throw error;
-          map.addImage("favourite_marker", image, { sdf: true });
+          map.addImage("city_favourite_marker", image, { sdf: true });
           let result = map.addLayer(
             layerShape.symbolLayer(
-              "favourites_layer",
+              "city_favourite_layer",
+              "city",
+              "city_favourite_marker",
+              0.3,
+              ["concat", ["get", "score"], "%"],
+              ["Open Sans Semibold", "Arial Unicode MS Bold"],
+              [0, -1],
+              "top",
+              16,
+              "#ff0061",
+              "white",
+              ["==", ["get", "favourite"], true]
+            ),
+          );
+      
+        });
+
+        map.loadImage(favourite, (error, image) => {
+          if (error) throw error;
+          map.addImage("neighborhood_favourite_marker", image, { sdf: true });
+          let result = map.addLayer(
+            layerShape.symbolLayer(
+              "neighborhood_favourite_layer",
               "neighborhood",
-              "favourite_marker",
+              "neighborhood_favourite_marker",
               0.3,
               ["concat", ["get", "score"], "%"],
               ["Open Sans Semibold", "Arial Unicode MS Bold"],
@@ -120,14 +143,29 @@ module.exports.drawPolygon = (
       );
       map.addLayer(lineLayer);
       
-      if(map.getLayer("scores_layer")){
-        map.moveLayer(id + "-layer", "scores_layer");
-        map.moveLayer(id + "-layer-outline", "scores_layer");
+      if(map.getLayer("city_score_layer")){
+        map.moveLayer(id + "-layer", "city_score_layer");
+        map.moveLayer(id + "-layer-outline", "city_score_layer");
 
       }
-      if(map.getLayer("favourites_layer") && map.getZoom()== 5){
-        map.setLayoutProperty("favourites_layer", "visibility", "visible");
+      if(map.getLayer("neighborhood_score_layer")){
+        map.moveLayer(id + "-layer", "neighborhood_score_layer");
+        map.moveLayer(id + "-layer-outline", "neighborhood_score_layer");
+
       }
+      if(map.getLayer("city_favourite_layer")){
+        map.moveLayer(id + "-layer", "city_favourite_layer");
+        map.moveLayer(id + "-layer-outline", "city_favourite_layer");
+        map.moveLayer("city_score_layer", "city_favourite_layer");
+
+      }
+      if(map.getLayer("neighborhood_favourite_layer")){
+        map.moveLayer(id + "-layer", "neighborhood_favourite_layer");
+        map.moveLayer(id + "-layer-outline", "neighborhood_favourite_layer");
+        map.moveLayer("neighborhood_score_layer", "neighborhood_favourite_layer");
+
+      }
+      
 
     } else {
       geojson.features = features;
@@ -137,15 +175,15 @@ module.exports.drawPolygon = (
 };
 
 
-module.exports.drawScores= (map)=> {
+module.exports.drawScores= (map, imageName, layerName, source)=> {
   map.loadImage(score, (error, image) => {
     if (error) throw error;
-    map.addImage("score_marker", image, { sdf: true });
+    map.addImage(imageName, image, { sdf: true });
     let result = map.addLayer(
       layerShape.symbolLayer(
-        "scores_layer",
-        "neighborhood",
-        "score_marker",
+        layerName,
+        source,
+        imageName,
         0.1,
         ["concat", ["get", "score"], "%"],
         ["Open Sans Semibold", "Arial Unicode MS Bold"],

@@ -9,5 +9,5 @@ module.exports.mouseMove= (data, e, source, elementDrawed) => {
     );
     draw.drawPolygon(e.target, data, elementDrawed, features);
     e.target.getCanvas().style.cursor = "pointer";
-    // map.moveLayer("region-highlighted-layer", "scores-layer");
+    
 }
