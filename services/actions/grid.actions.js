@@ -37,8 +37,9 @@ const slice = createSlice({
     },
     clearChunk: (state, action) => {
         console.log("Clearing Chunk");
-        state.page = 0;
-        state.chunk = _.chunk(state.neighborhoods, 50)[state.page];
+        state.chunk = _.chunk(state.neighborhoods, 50)[0];
+        state.page = 1;
+        // state.chunk = _.chunk(state.neighborhoods, 50)[state.page];
     }
   },
 });

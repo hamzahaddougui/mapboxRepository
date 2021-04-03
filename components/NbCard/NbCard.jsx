@@ -10,11 +10,15 @@ import { addFavorite } from "../../services/actions/neighborhood.actions";
 
 // Assets
 import muiStyles from "./NbCardStyles";
+var image = "/NeighborhoodMiniCardImg.png";
 
 const useStyles = makeStyles(muiStyles);
 
 const NeighborhoodCard = ({ neighborhood, onClick }) => {
-  const classes = useStyles();
+  
+  image = neighborhood.City.replace(/ /g,"_");
+
+  const classes = useStyles({ image });
   const [elevation, setElevation] = useState(2);
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
@@ -27,6 +31,9 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     e.stopPropagation();
     dispatch(addFavorite(neighborhood));
   };
+
+  console.log(neighborhood.City.replace(/ /g,"_"));
+
   return (
     <Paper
       onMouseOver={handleMouseOver}
