@@ -10,6 +10,16 @@ const slice = createSlice({
   name: "nbResult",
   initialState: {
     current: {},
+    // matched: {data: [
+    //   {City: "Royal Palm Beach", Neighborhood: "Estates of Royal Palm Beach", Score: 100, id: "6065eceb533fdd40f08c5563"},
+    //   {City: "Royal Palm Beach", Neighborhood: "Crestwood", Score: 100, id: "6065eceb533fdd40f08c5562"},
+    //   {City: "Royal Palm Beach", Neighborhood: "Courtyard of the Groves", Score: 100, id: "6065eceb533fdd40f08c5561"},
+    //   {City: "Royal Palm Beach", Neighborhood: "Counterpoint Estates", Score: 100, id: "6065eceb533fdd40f08c5560"},
+    //   {City: "Royal Palm Beach", Neighborhood: "Business Parkway", Score: 100, id: "6065eceb533fdd40f08c555f"},
+    //   {City: "Royal Palm Beach", Neighborhood: "Bellasera", Score: 100, id: "6065eceb533fdd40f08c555e"},
+    //   {City: "Royal Palm Beach", Neighborhood: "Bella Terra", Score: 100, id: "6065eceb533fdd40f08c555d"}
+
+    // ]},
     matched: [],
     favorites: [],
     loading: false,
@@ -48,14 +58,14 @@ const slice = createSlice({
 
       if (index > -1) {
         state.favorites.splice(index, 1);
-        state.matched.data.push(value);
+        // state.matched.data.push(value);
         index = -1;
       } else {
         let matchIndex = -1;
         state.matched.data.forEach((element, i) => {
           if (JSON.stringify(element) === JSON.stringify(value)) matchIndex = i;
         });
-        state.matched.data.splice(matchIndex, 1);
+        // state.matched.data.splice(matchIndex, 1);
         state.favorites.push(value);
         matchIndex = -1;
       }

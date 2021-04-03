@@ -147,18 +147,18 @@ module.exports.setScores= (map, scores, data) => {
    draw.drawPolygon(map, data, NEIGHBORHOOD);
    draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
     }
-   else{
-      let cityFeatures= data.features.filter(f => f.properties.id.split('-').length== 3 && f.properties.favourite== false);
-      cityFeatures.forEach(feature => {
-        feature.properties.score= 0;
-      })
-      let neighbFeatures= data.features.filter(f => f.properties.id.split('-').length== 4 && f.properties.favourite== false);
-      neighbFeatures.forEach(feature => {
-        feature.properties.score= 0;
-      })
-      draw.drawPolygon(map, data, CITY);
-      draw.drawPolygon(map, data, NEIGHBORHOOD);
-    }
+  //  else{
+  //     let cityFeatures= data.features.filter(f => f.properties.id.split('-').length== 3 && f.properties.favourite== false);
+  //     cityFeatures.forEach(feature => {
+  //       feature.properties.score= 0;
+  //     })
+  //     let neighbFeatures= data.features.filter(f => f.properties.id.split('-').length== 4 && f.properties.favourite== false);
+  //     neighbFeatures.forEach(feature => {
+  //       feature.properties.score= 0;
+  //     })
+  //     draw.drawPolygon(map, data, CITY);
+  //     draw.drawPolygon(map, data, NEIGHBORHOOD);
+  //   }
 }
 
 module.exports.setFavourites= (favourites, map, data)=> {

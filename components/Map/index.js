@@ -65,6 +65,10 @@ class Map extends Component {
     let allInOneData = await this.getAllInOne();
     this.setState({ mapObject: map, polygonsData: allInOneData.data });
 
+    if(this.props.scores ){
+      fetching.setScores(map, this.props.scores, allInOneData.data);
+    }
+
     map.on("load", e => {
       // showPoi.showPoi(e);
       draw.drawPolygon(e.target, allInOneData.data, REGION);
@@ -200,17 +204,21 @@ class Map extends Component {
     });
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps){
     const {mapObject, polygonsData}= this.state;
-    let features= polygonsData.features.filter(f => f.properties.hasOwnProperty('City') || f.properties.hasOwnProperty('Neighborhood'));
-    let geojson = {
-      type: "FeatureCollection",
-      features
-    };
-    fetching.setScores(mapObject, this.props.scores, geojson);
+    // let features= polygonsData.features.filter(f => f.properties.hasOwnProperty('City') || f.properties.hasOwnProperty('Neighborhood'));
+    // let geojson = {
+    //   type: "FeatureCollection",
+    //   features
+    // };
+
+    // if(!mapObject.getLayer('city_score_layer') || !mapObject.getLayer('city_score_layer')){
+    if(prevProps.scores !== this.props.scores  ){
+      fetching.setScores(mapObject, this.props.scores, polygonsData);
+    }
     
-    fetching.setFavourites(this.props.favourites, mapObject, geojson);
-    fetching.checkFavourites(this.props.favourites, mapObject, geojson);
+    // fetching.setFavourites(this.props.favourites, mapObject, polygonsData);
+    // fetching.checkFavourites(this.props.favourites, mapObject, polygonsData);
     
   }
   

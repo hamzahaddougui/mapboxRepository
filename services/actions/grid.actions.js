@@ -9,7 +9,15 @@ const url = "/matcher/run";
 const slice = createSlice({
   name: "grid",
   initialState: {
-    neighborhoods: [],
+    neighborhoods: [
+      // {City: "Royal Palm Beach", Neighborhood: "Estates of Royal Palm Beach", Score: 100, id: "6065eceb533fdd40f08c5563"},
+      // {City: "Royal Palm Beach", Neighborhood: "Crestwood", Score: 100, id: "6065eceb533fdd40f08c5562"},
+      // {City: "Royal Palm Beach", Neighborhood: "Courtyard of the Groves", Score: 100, id: "6065eceb533fdd40f08c5561"},
+      // {City: "Royal Palm Beach", Neighborhood: "Counterpoint Estates", Score: 100, id: "6065eceb533fdd40f08c5560"},
+      // {City: "Royal Palm Beach", Neighborhood: "Business Parkway", Score: 100, id: "6065eceb533fdd40f08c555f"},
+      // {City: "Royal Palm Beach", Neighborhood: "Bellasera", Score: 100, id: "6065eceb533fdd40f08c555e"},
+      // {City: "Royal Palm Beach", Neighborhood: "Bella Terra", Score: 100, id: "6065eceb533fdd40f08c555d"}
+    ],
     chunk: [],
     page: 0,
     loading: false,
