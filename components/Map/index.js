@@ -24,6 +24,7 @@ import NeighborhoodDetail from "../NbDetail/NbDetail";
 import {showCurrent} from "../../services/actions/neighborhood.actions";
 
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
+const score = "/map/pin.png";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFtemFoYWQiLCJhIjoiY2trY2YybmozMGo3bzJ1b2FpcTh4ZmdpeiJ9.urpUJIK3zKrxCaEKXNe9Rw";
@@ -77,7 +78,7 @@ class Map extends Component {
 
     map.on("mousemove", "region-layer", e => {
       move.mouseMove(allInOneData.data, e, "region", REGION_HIGHLIGHTED);
-      this.handlePopup(e, e.features[0].properties.id);
+      this.handlePopup(e, "Region", e.features[0].properties.id);
       
     });
 
@@ -92,7 +93,7 @@ class Map extends Component {
 
     map.on("mousemove", "county-layer", e => {
       move.mouseMove(allInOneData.data, e, "county", COUNTY_HIGHLIGHTED);
-      this.handlePopup(e, e.features[0].properties.id.split('-')[1]);
+      this.handlePopup(e, "County", e.features[0].properties.id.split('-')[1]);
       });
 
     map.on("click", "county-layer", e => {
@@ -114,7 +115,7 @@ class Map extends Component {
 
     map.on("mousemove", "city-layer", e => {
       move.mouseMove(allInOneData.data, e, "city", CITY_OTHER);
-      this.handlePopup(e, e.features[0].properties.id.split('-')[2]);
+      this.handlePopup(e, "City", e.features[0].properties.id.split('-')[2]);
       });
 
     map.on("mouseleave", "city-layer", e => {
@@ -142,7 +143,7 @@ class Map extends Component {
 
     map.on("mousemove", "neighborhood-layer", e => {
       move.mouseMove(allInOneData.data, e, "neighborhood", NEIGHBORHOOD_HIGHLIGHTED);
-      this.handlePopup(e, e.features[0].properties.id.split('-')[3]);
+      this.handlePopup(e, "Neighborhood", e.features[0].properties.id.split('-')[3]);
       });
 
     map.on("click", "neighborhood-layer", e => {
@@ -201,21 +202,31 @@ class Map extends Component {
 
   componentDidUpdate(){
     const {mapObject, polygonsData}= this.state;
-    fetching.setScores(mapObject, this.props.scores, polygonsData);
+    let features= polygonsData.features.filter(f => f.properties.hasOwnProperty('City') || f.properties.hasOwnProperty('Neighborhood'));
+    let geojson = {
+      type: "FeatureCollection",
+      features
+    };
+    fetching.setScores(mapObject, this.props.scores, geojson);
     
-    fetching.setFavourites(this.props.favourites, mapObject, polygonsData);
-    fetching.checkFavourites(this.props.favourites, mapObject, polygonsData);
+    fetching.setFavourites(this.props.favourites, mapObject, geojson);
+    fetching.checkFavourites(this.props.favourites, mapObject, geojson);
     
   }
   
-  handlePopup = (e, id) => {
+  handlePopup = (e, key, id) => {
     const { popup } = this.state;
-    popup.setLngLat(e.lngLat).setHTML(id).addTo(e.target);
+    popup.setLngLat(e.lngLat).setHTML("<img class='popup_img'></img><h4 class='popup_heading'>"+key+"</h4>: "+id).addTo(e.target);
     let popupTip= document.getElementsByClassName('mapboxgl-popup-tip');
     popupTip[0].style.display= "none";
     let popupContent= document.getElementsByClassName('mapboxgl-popup-content');
-    popupContent[0].style.borderRadius= "10px";
-    popupContent[0].style.padding= "10px";
+    popupContent[0].style.borderRadius= "15px";
+    popupContent[0].style.padding= "8px 16px";
+    let popupHeading= document.getElementsByClassName('popup_heading');
+    popupHeading[0].style.color= "black";
+    popupHeading[0].style.display= "inline";
+    let popupImg= document.getElementsByClassName('popup_img');
+    popupImg[0].style.src= score;
     popup.addClassName(styles.popup);
   }
 

@@ -123,7 +123,6 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
 module.exports.setScores= (map, scores, data) => {
   if(scores.hasOwnProperty('data')){
     data.features.forEach(feature => {
-       if(feature.properties.hasOwnProperty('City') || feature.properties.hasOwnProperty('Neighborhood')){
         let neighborhood= scores.data.filter(s => s.Neighborhood== feature.properties.Neighborhood);
         if(neighborhood[0]== undefined){
           let city= scores.data.filter(s => s.City== feature.properties.City);
@@ -141,7 +140,6 @@ module.exports.setScores= (map, scores, data) => {
          feature.properties= {...feature.properties, score: neighborhood[0].Score, favourite: false}
  
         }
-       }
      
    }) 
    draw.drawPolygon(map, data, CITY);
@@ -150,15 +148,13 @@ module.exports.setScores= (map, scores, data) => {
    draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
     }
    else{
-      let cityFeatures= data.features.filter(f => f.properties.id.split('-').length== 3);
+      let cityFeatures= data.features.filter(f => f.properties.id.split('-').length== 3 && f.properties.favourite== false);
       cityFeatures.forEach(feature => {
-        delete feature.properties.score;
-        delete feature.properties.favourite;
+        feature.properties.score= 0;
       })
-      let neighbFeatures= data.features.filter(f => f.properties.id.split('-').length== 4);
+      let neighbFeatures= data.features.filter(f => f.properties.id.split('-').length== 4 && f.properties.favourite== false);
       neighbFeatures.forEach(feature => {
-        delete feature.properties.score;
-        delete feature.properties.favourite;
+        feature.properties.score= 0;
       })
       draw.drawPolygon(map, data, CITY);
       draw.drawPolygon(map, data, NEIGHBORHOOD);
@@ -166,24 +162,23 @@ module.exports.setScores= (map, scores, data) => {
 }
 
 module.exports.setFavourites= (favourites, map, data)=> {
-  let formattedData= data.features.filter(f => f.properties.hasOwnProperty('City') || f.properties.hasOwnProperty('Neighborhood'));
   if(favourites.length> 0){
     favourites.forEach(favourite => {
-      let neighborhood= formattedData.filter(f => f.properties.Neighborhood == favourite.Neighborhood);
+      let neighborhood= data.features.filter(f => f.properties.Neighborhood == favourite.Neighborhood);
       if(neighborhood[0]== undefined){
-        let city= formattedData.filter(f => f.properties.City== favourite.City);
+        let city= data.features.filter(f => f.properties.City== favourite.City);
         city[0].properties.favourite= true;
-        draw.drawPolygon(map, data, CITY);
         
       }
       else{
         neighborhood[0].properties.favourite= true;
-        draw.drawPolygon(map, data, NEIGHBORHOOD);
 
       }
       
     })
-
+    draw.drawPolygon(map, data, CITY);
+    draw.drawPolygon(map, data, NEIGHBORHOOD);
+        
   }
  
 }

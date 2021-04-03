@@ -12,7 +12,7 @@ module.exports.drawPolygon = (
   ) => {
     let geojson = {
       type: "FeatureCollection",
-      features,
+      features
     };
     let {id, source, color, opacity, minZoom, maxZoom}= element;
     if (features == null) {
