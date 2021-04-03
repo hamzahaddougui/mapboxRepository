@@ -42,9 +42,9 @@ class Map extends Component {
     mapObject: "",
     image: "",
     cardObject: { name: "", county: "", city: "", adress: "", phone: "", type: "" },
-    popup: new mapboxgl.Popup({ closeButton: false, anchor: 'right', offset: 5 }),
+    popup: new mapboxgl.Popup({ closeButton: false, anchor: 'right', offset: 16 }),
     polygonsData: "",
-    neighborhoodCard: { display: "none", name: "" },
+    neighborhoodCard: { display: "none", name: "" }
   };
 
   handleClose = () => {
@@ -70,7 +70,7 @@ class Map extends Component {
       draw.drawPolygon(e.target, allInOneData.data, COUNTY);
       draw.drawPolygon(e.target, allInOneData.data, CITY);
       draw.drawPolygon(e.target, allInOneData.data, NEIGHBORHOOD);
-      this.showHouses(e);
+      // this.showHouses(e);
 
       this.props.LoadEnded();
     });
@@ -201,13 +201,10 @@ class Map extends Component {
 
   componentDidUpdate(){
     const {mapObject, polygonsData}= this.state;
-    if(!mapObject.getLayer("city_score_layer") || !mapObject.getLayer("neighborhood_score_layer")){
-      fetching.setScores(mapObject, this.props.scores, polygonsData);
-    }
+    fetching.setScores(mapObject, this.props.scores, polygonsData);
     
     fetching.setFavourites(this.props.favourites, mapObject, polygonsData);
     fetching.checkFavourites(this.props.favourites, mapObject, polygonsData);
-    
     
   }
   
@@ -218,7 +215,7 @@ class Map extends Component {
     popupTip[0].style.display= "none";
     let popupContent= document.getElementsByClassName('mapboxgl-popup-content');
     popupContent[0].style.borderRadius= "10px";
-    popupContent[0].style.padding= "7px";
+    popupContent[0].style.padding= "10px";
     popup.addClassName(styles.popup);
   }
 

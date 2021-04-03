@@ -148,31 +148,41 @@ module.exports.setScores= (map, scores, data) => {
    draw.drawScores(map, "city_score_marker", "city_score_layer", "city");
    draw.drawPolygon(map, data, NEIGHBORHOOD);
    draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
-   return 1;
-   }
-
-   return 0;
+    }
+   else{
+      let cityFeatures= data.features.filter(f => f.properties.id.split('-').length== 3);
+      cityFeatures.forEach(feature => {
+        delete feature.properties.score;
+        delete feature.properties.favourite;
+      })
+      let neighbFeatures= data.features.filter(f => f.properties.id.split('-').length== 4);
+      neighbFeatures.forEach(feature => {
+        delete feature.properties.score;
+        delete feature.properties.favourite;
+      })
+      draw.drawPolygon(map, data, CITY);
+      draw.drawPolygon(map, data, NEIGHBORHOOD);
+    }
 }
 
 module.exports.setFavourites= (favourites, map, data)=> {
-
+  let formattedData= data.features.filter(f => f.properties.hasOwnProperty('City') || f.properties.hasOwnProperty('Neighborhood'));
   if(favourites.length> 0){
-    let neighbFeatures= data.features.filter(f => f.properties.hasOwnProperty('Neighborhood'));
     favourites.forEach(favourite => {
-      let neighborhood= neighbFeatures.filter(f => f.properties.Neighborhood == favourite.Neighborhood);
+      let neighborhood= formattedData.filter(f => f.properties.Neighborhood == favourite.Neighborhood);
       if(neighborhood[0]== undefined){
-        let cityFeatures= data.features.filter(f => f.properties.id.split('-').length== 3);
-        let city= cityFeatures.filter(c => c.properties.City== favourite.City);
+        let city= formattedData.filter(f => f.properties.City== favourite.City);
         city[0].properties.favourite= true;
+        draw.drawPolygon(map, data, CITY);
+        
       }
       else{
         neighborhood[0].properties.favourite= true;
+        draw.drawPolygon(map, data, NEIGHBORHOOD);
 
       }
       
     })
-    draw.drawPolygon(map, data, CITY);
-    draw.drawPolygon(map, data, NEIGHBORHOOD);
 
   }
  

@@ -39,7 +39,7 @@ const slice = createSlice({
     addFavorite: (state, action) => {
       console.log("Favorite added!!");
       const value = action.payload;
-      console.log(value);
+      // console.log(value);
 
       let index = -1;
       state.favorites.forEach((element, i) => {

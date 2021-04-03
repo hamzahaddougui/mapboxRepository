@@ -61,12 +61,12 @@ module.exports.drawPolygon = (
               "city_favourite_layer",
               "city",
               "city_favourite_marker",
-              0.3,
+              0.1,
               ["concat", ["get", "score"], "%"],
               ["Open Sans Semibold", "Arial Unicode MS Bold"],
               [0, -1],
               "top",
-              16,
+              12,
               "#ff0061",
               "white",
               ["==", ["get", "favourite"], true]
@@ -83,12 +83,12 @@ module.exports.drawPolygon = (
               "neighborhood_favourite_layer",
               "neighborhood",
               "neighborhood_favourite_marker",
-              0.3,
+              0.1,
               ["concat", ["get", "score"], "%"],
               ["Open Sans Semibold", "Arial Unicode MS Bold"],
               [0, -1],
               "top",
-              16,
+              12,
               "#ff0061",
               "white",
               ["==", ["get", "favourite"], true]
@@ -156,14 +156,12 @@ module.exports.drawPolygon = (
       if(map.getLayer("city_favourite_layer")){
         map.moveLayer(id + "-layer", "city_favourite_layer");
         map.moveLayer(id + "-layer-outline", "city_favourite_layer");
-        map.moveLayer("city_score_layer", "city_favourite_layer");
-
+        
       }
       if(map.getLayer("neighborhood_favourite_layer")){
         map.moveLayer(id + "-layer", "neighborhood_favourite_layer");
         map.moveLayer(id + "-layer-outline", "neighborhood_favourite_layer");
-        map.moveLayer("neighborhood_score_layer", "neighborhood_favourite_layer");
-
+        
       }
       
 
