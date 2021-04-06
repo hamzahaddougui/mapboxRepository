@@ -1,7 +1,8 @@
 import layerClick from '../layer/click';
 
-module.exports.click= (data, e, flyToOptions, source, id, target) => {
+module.exports.click= (map, data, e, flyToOptions, source, id, target) => {
     layerClick.handleLayerClick(
+      map,
       data, 
       e,
       flyToOptions,
