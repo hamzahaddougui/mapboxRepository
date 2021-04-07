@@ -22,7 +22,7 @@ const REGION_HIGHLIGHTED= {
     minZoom: 3,
     maxZoom: 7,
     flyMinZoom: 7, 
-    flyMaxZoom: 7.5, 
+    flyMaxZoom: 7, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -48,7 +48,7 @@ const COUNTY= {
     minZoom: 7,
     maxZoom: 9,
     flyMinZoom: 7, 
-    flyMaxZoom: 8.9, 
+    flyMaxZoom: 7, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -62,7 +62,7 @@ const COUNTY_HIGHLIGHTED= {
     minZoom: 7,
     maxZoom: 9,
     flyMinZoom: 7, 
-    flyMaxZoom: 8.9, 
+    flyMaxZoom: 7, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -71,7 +71,7 @@ const COUNTY_CLICKED= {
     id: 'county-clicked',
     source: 'county',
     color: HIGHLIGHT_COLOR,
-    opacity: 0.4,
+    opacity: 0.8,
     minZoom: 7,
     maxZoom: 9,
     flyMinZoom: 7, 

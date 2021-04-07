@@ -32,12 +32,12 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
           "icon-opacity": [
                             "case",
                             ["<=", ["get", "score"], 0],
-                            0, 1          
+                            0.1, 1          
                           ],
           "text-opacity": [
                             "case",
                             ["<=", ["get", "score"], 0],
-                            0, 1            
+                            0.1, 1            
                           ]
         },
         filter

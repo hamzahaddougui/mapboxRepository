@@ -20,6 +20,13 @@
     color:#575FF9;    
 }
 
+.mapboxgl-popup-content{
+    background-image: url('../../public/map/pin.png');
+    display: block;
+    position: absolute;
+    z-index: 1;
+}
+
 .neighborhood_detail{
     position: absolute;
     z-index: 1;

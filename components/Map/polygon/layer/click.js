@@ -4,9 +4,9 @@ import service from '../../services/fetching';
 import draw from '../draw';
 
 module.exports.handleLayerClick= (
-    data, e, flyToOptions, { sourceLayer, from }, targetLayer ) => {
+    map, data, e, flyToOptions, { sourceLayer, from }, targetLayer ) => {
     let {flyMinZoom, flyMaxZoom, flyDuration, flySpeed}= flyToOptions;
-    flyTo.handleFlyTo(e, flyMinZoom, flyMaxZoom, flyDuration, flySpeed);
+    flyTo.handleFlyTo(map, flyMinZoom, flyMaxZoom, flyDuration, flySpeed, e, '');
     
     let features = [];
     features = fetchFeatures.getPolygonFeatures(data, service.getFeatures(data.features, sourceLayer, from));
