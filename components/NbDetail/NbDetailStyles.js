@@ -12,7 +12,10 @@ const styles = theme => ({
   imgSlider: {
     width: "100%",
     height: "400px",
-    backgroundImage: props => `url(${props.image})`,
+    backgroundImage: props => `url(http://www.nomadville.xyz/api/nbdata/static/city-img/${props.image}.jpg)`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
     borderRadius: "24px 24px 0 0",
     position: "relative",
   },
@@ -76,6 +79,7 @@ const styles = theme => ({
   },
   category: {
     fontSize: 14.24,
+    textTransform: "capitalize",
     cursor: "pointer",
   },
   categoryActive: {
@@ -85,6 +89,7 @@ const styles = theme => ({
     padding: "3px 16px",
     fontSize: 14.24,
     fontWeight: "bold",
+    textTransform: "capitalize",
     cursor: "pointer",
   },
   table: {

@@ -26,6 +26,7 @@ const Matcher = ({ Map }) => {
   const [openNbDetails, setOpenNbDetails] = useState(false);
   const mapLoading = useSelector(state => state.modules.map.loading);
   const matched = useSelector(state => state.modules.neighborhood.matched);
+  const favorites = useSelector(state => state.modules.neighborhood.favorites);
   // const filters = useSelector(state => state.modules.filter.filters);
 
   // console.log("Filters length is : ", filters.length);
@@ -62,7 +63,7 @@ const Matcher = ({ Map }) => {
       <div className={classes.mapHeader}>
         <MapHeader />
       </div>
-      { matched.data && (
+      { (matched.data || favorites) && (
       <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
         <NeighborhoodListBar onClick={handleNbClick} />
       </div>
@@ -77,18 +78,20 @@ const Matcher = ({ Map }) => {
       <BackdropLoader open={mapLoading} />
       <Dialog
         fullWidth
+        maxWidth='md'
         PaperProps={{
           style: {
             backgroundColor: "transparent",
             boxShadow: "none",
             height: "80vh",
+            width: "75vw",
           },
         }}
         // style={{ width: "100vw", height: "100vh" }}
         onClose={handleCloseNbDetails}
         open={openNbDetails}
       >
-        <NeighborhoodDetail />
+        {openNbDetails && (<NeighborhoodDetail handleCloseNbDetails={handleCloseNbDetails} />)}
       </Dialog>
     </div>
   );

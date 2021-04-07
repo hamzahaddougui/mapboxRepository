@@ -83,7 +83,7 @@ export default class MyScrollMenu extends Component {
         <div style={{ display: "flex" }}>
         { Favorites && (<div style={{ display: "flex" }}>{Favorites}</div>)}
         { Items && (<div style={{ display: "flex" }}>{Items}</div>)}
-        { SeeMore && (<div style={{ display: "flex" }}>{SeeMore}</div>)}
+        { (SeeMore && Items)  && (<div style={{ display: "flex" }}>{SeeMore}</div>)}
         </div>
       </ScrollContainer>
       // <ScrollMenu
