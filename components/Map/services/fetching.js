@@ -1,8 +1,10 @@
 import area from '@turf/area';
 import center from '@turf/center';
+import bbox from '@turf/bbox';
 import draw from '../polygon/draw';
 import {CITY, NEIGHBORHOOD} from '../polygon/layer/config';
 import flyTo from "../flyingTo";
+import fitBounds from "../fitBounds";
 module.exports.getFeatures = (allFeatures, source, from=null) => {
     
   let feature;
@@ -11,7 +13,7 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
   switch (source) {
     case 'region':
       feature= allFeatures.filter(f => f.properties.id.split('-').length== 1);
-      feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f)});
+      feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
       
       let min= feature[0].properties.surface;
       let max= min;
@@ -40,7 +42,7 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
       break;
     case 'county':
         feature= allFeatures.filter(f => f.properties.id.split('-').length== 2);
-        feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f)});
+        feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
 
         if(from!= null){
           feature= feature.filter(f => f.properties.id.startsWith(from));
@@ -59,7 +61,7 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
         break;
       case 'city':
           feature= allFeatures.filter(f => f.properties.id.split('-').length== 3);
-          feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f)});
+          feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
 
           if(from!= null){
             feature= feature.filter(f => f.properties.id.startsWith(from));
@@ -78,7 +80,7 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
         break;
       case 'neighborhood':
           feature= allFeatures.filter(f => f.properties.id.split('-').length== 4);
-          feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f)});
+          feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
           if(from!= null){
             feature= feature.filter(f => f.properties.id.startsWith(from));
           }
@@ -175,25 +177,20 @@ module.exports.setScores= (map, scores, data) => {
 
 module.exports.setFavourites= (favourites, map, data)=> {
   if(favourites.length> 0){
-    favourites.forEach(favourite => {
+      let favourite= favourites[favourites.length-1];
       let neighborhood= data.features.filter(f => f.properties.Neighborhood == favourite.Neighborhood);
       if(neighborhood[0]== undefined){
         let city= data.features.filter(f => f.properties.City== favourite.City || f.properties.City.includes(favourite.City));
+        flyTo.handleFlyTo(map, '', 13, 8000, 0.3, '', city[0].properties.center.geometry.coordinates);
         city[0].properties.score= favourite.Score;
         city[0].properties.favourite= true;
-        draw.drawPolygon(map, data, CITY, city[0]);
-        flyTo.handleFlyTo(map, '', 12, 8000, 0.3, '', city[0].properties.center.geometry.coordinates);
+        draw.drawPolygon(map, data, CITY);
       }
       else{
+        fitBounds.fitBounds(map, neighborhood[0], "favourite");
         neighborhood[0].properties.favourite= true;
-        draw.drawPolygon(map, data, NEIGHBORHOOD, neighborhood[0]);
-        flyTo.handleFlyTo(map, '', 14, 8000, 0.3, '', neighborhood[0].properties.center.geometry.coordinates);
-      }
-    })
-    
-      
-    
-        
+        draw.drawPolygon(map, data, NEIGHBORHOOD);
+}     
   }
  
 }
@@ -204,16 +201,24 @@ module.exports.checkFavourites= (favourites, map, data)=> {
   favFeatures.forEach(feature => {
     if(feature.properties.id.split('-').length== 3){
       element= favourites.filter(fav => fav.City== feature.properties.City);
-      
+      if(element[0]== undefined){
+        feature.properties.favourite= false;
+        flyTo.handleFlyTo(map, '', 14, 8000, 0.3, '', feature.properties.center.geometry.coordinates);
+        draw.drawPolygon(map, data, CITY);
+  
+      }    
     }
     if(feature.properties.id.split('-').length== 4){
       element= favourites.filter(fav => fav.Neighborhood== feature.properties.Neighborhood);
+      if(element[0]== undefined){
+        feature.properties.favourite= false;
+        fitBounds.fitBounds(map, feature, "favourite");
+        draw.drawPolygon(map, data, NEIGHBORHOOD);
 
+      }
     }
-
-    if(element[0]== undefined)  feature.properties.favourite= false;
+    
+    
   })
-  draw.drawPolygon(map, data, CITY);
-  draw.drawPolygon(map, data, NEIGHBORHOOD);
-
+  
 }

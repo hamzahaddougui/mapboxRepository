@@ -32,7 +32,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     dispatch(addFavorite(neighborhood));
   };
 
-  console.log(neighborhood.City.replace(/ /g,"_"));
+  // console.log(neighborhood.City.replace(/ /g,"_"));
 
   return (
     <Paper

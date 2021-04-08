@@ -93,19 +93,6 @@ class Map extends Component {
     });
 
     map.on("click", "region-highlighted-layer", e => {
-      switch (true) {
-        case (e.features[0].properties.surface>= 10000000000 && e.features[0].properties.surface<=20000000000):
-          REGION_HIGHLIGHTED.flyMaxZoom= 7.2;
-          break;
-        case (e.features[0].properties.surface>= 20000000000 && e.features[0].properties.surface<=30000000000):
-          REGION_HIGHLIGHTED.flyMaxZoom= 7.4;
-          break;
-        case (e.features[0].properties.surface> 30000000000):
-          REGION_HIGHLIGHTED.flyMaxZoom= 7.5;
-          break;
-        default:
-          break;
-      }
       layerClick.click(map, allInOneData.data, e, REGION_HIGHLIGHTED, "region", e.features[0].properties.id,
         REGION_CLICKED)});
 
@@ -202,8 +189,7 @@ class Map extends Component {
       let { name } = e.features[0].properties;
       this.setState({
         openCard: true,
-        cardObject: {name, county: "test", city: "test", address: "test", phone: "test", type: "house"
-        }});
+        cardObject: {name, county: "test", city: "test", address: "test", phone: "test", type: "house" }});
     });
 
     map.on("mouseleave", "houses-layer", e => {
@@ -216,11 +202,13 @@ class Map extends Component {
     const {mapObject, polygonsData}= this.state;
     
     if(prevProps.scores!= this.props.scores){
-      fetching.setScores(mapObject, this.props.scores, polygonsData);
-    }
-    fetching.setFavourites(this.props.favourites, mapObject, polygonsData);
-    fetching.checkFavourites(this.props.favourites, mapObject, polygonsData);
-    
+      fetching.setScores(mapObject, this.props.scores, polygonsData); }
+
+    if(this.props.favourites.length> prevProps.favourites.length){
+      fetching.setFavourites(this.props.favourites, mapObject, polygonsData); }
+
+    if(this.props.favourites.length<= prevProps.favourites.length){
+     fetching.checkFavourites(this.props.favourites, mapObject, polygonsData); }
   }
   
   handlePopup = (e, key, id) => {
@@ -234,14 +222,6 @@ class Map extends Component {
     let popupHeading= document.getElementsByClassName('popup_heading');
     popupHeading[0].style.color= "black";
     popupHeading[0].style.display= "inline";
-    // let popupImg= document.getElementsByClassName('popup_img');
-    // popupImg[0].style.src= "url('/map/pin.png')";
-    // popupImg[0].style.position= "absolute";
-    // popupImg[0].style.zIndex= "1";
-    // popupImg[0].style.display= "inline";
-    // popupImg[0].style.width= "100px";
-    // popupImg[0].style.height= "100px";
-    // console.log(popupImg[0].style);
     popup.addClassName(styles.popup);
   }
 

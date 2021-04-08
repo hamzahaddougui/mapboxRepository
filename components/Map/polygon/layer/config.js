@@ -75,7 +75,7 @@ const COUNTY_CLICKED= {
     minZoom: 7,
     maxZoom: 9,
     flyMinZoom: 7, 
-    flyMaxZoom: 10, 
+    flyMaxZoom: 9, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -129,7 +129,7 @@ const CURRENT_CITY_CLICKED= {
     minZoom: null,
     maxZoom: null,
     flyMinZoom: 11.5, 
-    flyMaxZoom: 12, 
+    flyMaxZoom: 11, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -168,7 +168,7 @@ const NEIGHBORHOOD= {
     minZoom: 11,
     maxZoom: 24,
     flyMinZoom: 11, 
-    flyMaxZoom: 15, 
+    flyMaxZoom: 11, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -181,7 +181,7 @@ const CURRENT_NEIGHBORHOOD= {
     minZoom: 11,
     maxZoom: 24,
     flyMinZoom: 11, 
-    flyMaxZoom: 15, 
+    flyMaxZoom: 11, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -194,7 +194,7 @@ const NEIGHBORHOOD_HIGHLIGHTED= {
     minZoom: 11,
     maxZoom: 24,
     flyMinZoom: 11, 
-    flyMaxZoom: 15, 
+    flyMaxZoom: 11, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }

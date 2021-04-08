@@ -45,7 +45,7 @@ const GridView = ({open, handleOpen, handleCard}) => {
   const chunk = useSelector(state => state.modules.grid.chunk);
   const page = useSelector(state => state.modules.grid.page);
 
-  console.log("Chunk length : ",chunk.length, " and neighborhoods length : ", neighborhoods.length);
+  // console.log("Chunk length : ",chunk.length, " and neighborhoods length : ", neighborhoods.length);
   
   const handleClose = () => {
     dispatch(clearChunk());
