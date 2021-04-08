@@ -9,6 +9,8 @@ const url = "/matcher/run";
 const slice = createSlice({
   name: "nbResult",
   initialState: {
+    currentNb: null,
+    detailNb: null,
     current: {},
     // matched: {data: [
     //   {City: "Royal Palm Beach", Neighborhood: "Estates of Royal Palm Beach", Score: 100, id: "6065eceb533fdd40f08c5563"},
@@ -46,6 +48,17 @@ const slice = createSlice({
       state.lastFetch = Date.now();
       Router.push("/matcher");
     },
+    detailRequested: (state, action) => {
+      state.loading = true;
+    },
+    detailRequestFailed: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    detailReceived: (state, action) => {
+      state.detailNb = action.payload;
+      state.loading = false;
+    },
     addFavorite: (state, action) => {
       console.log("Favorite added!!");
       const value = action.payload;
@@ -62,7 +75,7 @@ const slice = createSlice({
         index = -1;
       } else {
         let matchIndex = -1;
-        state.matched.data.forEach((element, i) => {
+        state.matched.data?.forEach((element, i) => {
           if (JSON.stringify(element) === JSON.stringify(value)) matchIndex = i;
         });
         // state.matched.data.splice(matchIndex, 1);
@@ -79,6 +92,10 @@ const slice = createSlice({
       //     state.favorites.splice(index, 1);
       //   }
       // } else {state.favorites.push(value)}
+    },
+    setCurrentNB: (state, action) => {
+      console.log('Setting Curent ID : ', action.payload);
+      state.currentNb = action.payload;
     },
     showCurrent: (state, action) => {
       state.current= action.payload
@@ -97,7 +114,11 @@ export const {
   neighborhoodRequested,
   neighborhoodRequestFailed,
   neighborhoodReceived,
+  detailRequested,
+  detailRequestFailed,
+  detailReceived,
   addFavorite,
+  setCurrentNB,
   showCurrent,
   resetNeighborhood,
   resetErrors,
@@ -120,6 +141,24 @@ export const loadMatched = () => (dispatch, getState) => {
       onError: neighborhoodRequestFailed.type,
       data,
       method: "POST",
+    }),
+  );
+};
+
+export const detailNeighborhood = () => (dispatch, getState) => {
+  // if (isCached(getState().modules.filters)) return;
+  console.log("Getting Neighborhood ...");
+
+  const data = getState().modules.neighborhood.currentNb;
+  console.log("Id : ", data);
+  
+  dispatch(
+    apiCallBegan({
+      url : `/nbdata/${data}`,
+      onStart: detailRequested.type,
+      onSuccess: detailReceived.type,
+      onError: detailRequestFailed.type,
+      method: "GET",
     }),
   );
 };

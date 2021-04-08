@@ -1,7 +1,7 @@
 // Third party
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Typography, Slide } from "@material-ui/core";
 
 // Assets
 import muiStyles from "./FilterFooterStyles";
@@ -13,6 +13,7 @@ const FilterFooter = ({ onClick }) => {
   const checked = useSelector(state => state.modules.filter.checkedValues);
 
   return checked.length > 0 ? (
+    <Slide direction="up" in={checked.length > 0 ? true : false} mountOnEnter unmountOnExit>
     <div className={classes.bottomBox}>
       <div className={classes.navigation} onClick={onClick}>
         Next
@@ -25,6 +26,7 @@ const FilterFooter = ({ onClick }) => {
         <img className={classes.logo} src="/logo.svg" alt="logo" />
       </div>
     </div>
+    </Slide>
   ) : (
     <div className={classes.invisibleBottomBox}></div>
   );
