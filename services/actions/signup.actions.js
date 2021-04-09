@@ -60,7 +60,7 @@ export default slice.reducer;
 export const SignUpAction = data => (dispatch, getState) => {
   dispatch(
     apiCallBegan({
-      //url,
+      url,
       onStart: signUpRequested.type,
       onSuccess: signUpSuccess.type,
       onError: signUpFailed.type,

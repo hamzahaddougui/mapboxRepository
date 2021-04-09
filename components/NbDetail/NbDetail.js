@@ -25,6 +25,7 @@ const NbDetail = ({handleCloseNbDetails}) => {
   const filters = useSelector(state => state.modules.filter.filters);
   const current= useSelector(state=> state.modules.neighborhood.current);
   const detailNb = useSelector(state => state.modules.neighborhood.detailNb);
+  const currentNb = useSelector(state => state.modules.neighborhood.currentNb);
 
   var formattedFilters = [];
   detailNb && (
@@ -64,7 +65,7 @@ const NbDetail = ({handleCloseNbDetails}) => {
     const neighborhood = {
       "City": detailNb.City,
       "Neighborhood": detailNb.Neighborhood,
-      "Score": 98,
+      "Score": currentNb.Score,
       "id": detailNb.id
     };
     console.log(neighborhood);
@@ -105,7 +106,7 @@ const NbDetail = ({handleCloseNbDetails}) => {
 
           <div className={classes.scoreBall}>
             <Typography variant="h5" className={classes.score}>
-              90%
+            {currentNb && currentNb.Score}%
             </Typography>
           </div>
         </Grid>

@@ -1,5 +1,6 @@
 // Third party
 import { useState } from "react";
+import { useDispatch } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, GridList } from "@material-ui/core";
 import { Box } from "@material-ui/core";
@@ -11,6 +12,9 @@ import SignUpForm from "components/SignUpForm/SignUpForm";
 import SignUpHeader from "components/SignUpHeader/SignUpHeader";
 import SignUpFooter from "components/SignUpFooter/SignUpFooter";
 
+// Actions
+import { SignUpAction } from '../../../services/actions/signup.actions';
+
 // Assets
 import muiStyles from "styles/favoriteStyles";
 
@@ -18,6 +22,9 @@ const useStyles = makeStyles(muiStyles);
 
 const Favorite = () => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({ firstName: "", lastName: "", email: "" });
 
@@ -29,6 +36,7 @@ const Favorite = () => {
     if (data.email && data.firstName && data.lastName) {
       try {
         console.log(data);
+        // dispatch(SignUpAction(data));
         // const response = await instance.post("http://localhost:3001/api/users/signup", data);
         // console.log(response);
       } catch (error) {
