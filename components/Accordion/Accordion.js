@@ -81,7 +81,8 @@ const CustomizedAccordions = () => {
     const classes = useStyles();
 
   const [expanded, setExpanded] = useState('panel1');
-  const [chosen, setChosen] = useState(null)
+  const [chosen, setChosen] = useState(null);
+  const [filter, setFilter] = useState(null);
 
   const checkedValues = useSelector(state => state.modules.filter.checkedValues);
   const filters = useSelector(state => state.modules.filter.filters);
@@ -137,9 +138,10 @@ const CustomizedAccordions = () => {
                         <div className={classes.filterGroupArray}>
                         {groupedFilters[filterGroup]?.map((filtersArray, i) => (
                             <Typography 
-                            className={classes.CheckedValue} 
+                            className={ filtersArray.name===filter ? classes.CheckedValueActive : classes.CheckedValue} 
                             variant="h6" 
                             key={i}
+                            onClick={()=>{console.log(filtersArray.name), setFilter(filtersArray.name)}}
                             >
                             {filtersArray.name}
                             </Typography>

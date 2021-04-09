@@ -94,7 +94,7 @@ const slice = createSlice({
       // } else {state.favorites.push(value)}
     },
     setCurrentNB: (state, action) => {
-      console.log('Setting Curent ID : ', action.payload);
+      console.log('Setting Curent: ', action.payload);
       state.currentNb = action.payload;
     },
     showCurrent: (state, action) => {
@@ -150,15 +150,16 @@ export const detailNeighborhood = () => (dispatch, getState) => {
   console.log("Getting Neighborhood ...");
 
   const data = getState().modules.neighborhood.currentNb;
-  console.log("Id : ", data);
+  data && (console.log("Id : ", data.id));
   
+  data && (
   dispatch(
     apiCallBegan({
-      url : `/nbdata/${data}`,
+      url : `/nbdata/${data.id}`,
       onStart: detailRequested.type,
       onSuccess: detailReceived.type,
       onError: detailRequestFailed.type,
       method: "GET",
     }),
-  );
+  ));
 };
