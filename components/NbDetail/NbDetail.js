@@ -44,7 +44,7 @@ const NbDetail = ({handleCloseNbDetails}) => {
 
   active !== "percent match" ? (grouped = _.filter(combined, { 'group': active })) : (grouped = combined);
 
-  console.log("Grouped : ", grouped);
+  // console.log("Grouped : ", grouped);
 
   const {Neighborhood}= current;
 

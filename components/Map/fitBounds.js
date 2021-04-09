@@ -7,7 +7,7 @@ module.exports.fitBounds= (map, feature, favourite= null)=> {
         
     }
       bounds= [[bounds[0], bounds[1]], [bounds[2], bounds[3]]];
-      map.fitBounds(bounds, {linear: false, easing: function (t) {
+      map.fitBounds(bounds, { linear: false, easing: function (t) {
         return t;
-      }});
+      }, offset:[8, 8], duration: 3000 });
 }

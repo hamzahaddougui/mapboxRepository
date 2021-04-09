@@ -4,5 +4,5 @@ import api from "./middleware/api";
 //import formValidation from "./middleware/formValidation";
 
 export default function store() {
-  return configureStore({ reducer, middleware: [...getDefaultMiddleware(), api] });
+  return configureStore({ reducer, middleware: [...getDefaultMiddleware({serializableCheck: false, immutableCheck: false}), api] });
 }

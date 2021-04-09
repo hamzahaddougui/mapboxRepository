@@ -168,7 +168,7 @@ const NEIGHBORHOOD= {
     minZoom: 11,
     maxZoom: 24,
     flyMinZoom: 11, 
-    flyMaxZoom: 11, 
+    flyMaxZoom: 13, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -181,7 +181,7 @@ const CURRENT_NEIGHBORHOOD= {
     minZoom: 11,
     maxZoom: 24,
     flyMinZoom: 11, 
-    flyMaxZoom: 11, 
+    flyMaxZoom: 13, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -194,7 +194,7 @@ const NEIGHBORHOOD_HIGHLIGHTED= {
     minZoom: 11,
     maxZoom: 24,
     flyMinZoom: 11, 
-    flyMaxZoom: 11, 
+    flyMaxZoom: 13, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }

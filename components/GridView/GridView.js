@@ -79,7 +79,8 @@ const GridView = ({open, handleOpen, handleCard}) => {
             }
         > */}
             <Grid container justify="space-around" className={classes.wrapper}>
-            {console.log("Chunk is : ", chunk),
+            {
+            // console.log("Chunk is : ", chunk),
             chunk?.map((neighborhood, i) => (
                 <Grid key={i}>
                     <NeighborhoodCard onClick={handleCard} neighborhood={neighborhood} />

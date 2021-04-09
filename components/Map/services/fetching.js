@@ -203,7 +203,7 @@ module.exports.checkFavourites= (favourites, map, data)=> {
       element= favourites.filter(fav => fav.City== feature.properties.City);
       if(element[0]== undefined){
         feature.properties.favourite= false;
-        flyTo.handleFlyTo(map, '', 14, 8000, 0.3, '', feature.properties.center.geometry.coordinates);
+        // flyTo.handleFlyTo(map, '', 14, 8000, 0.3, '', feature.properties.center.geometry.coordinates);
         draw.drawPolygon(map, data, CITY);
   
       }    
@@ -212,7 +212,7 @@ module.exports.checkFavourites= (favourites, map, data)=> {
       element= favourites.filter(fav => fav.Neighborhood== feature.properties.Neighborhood);
       if(element[0]== undefined){
         feature.properties.favourite= false;
-        fitBounds.fitBounds(map, feature, "favourite");
+        // fitBounds.fitBounds(map, feature, "favourite");
         draw.drawPolygon(map, data, NEIGHBORHOOD);
 
       }

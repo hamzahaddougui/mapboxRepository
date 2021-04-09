@@ -135,7 +135,7 @@ module.exports.drawPolygon = (
           4,
           ["==", id, "city-bordered"],
           4,
-          0.5,
+          0.5
         ],
         minZoom,
         maxZoom,

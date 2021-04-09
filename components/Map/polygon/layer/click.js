@@ -12,7 +12,6 @@ module.exports.handleLayerClick= (
       fitBounds.fitBounds(map, e.features[0])
     }
     
-    
     let features = [];
     features = fetchFeatures.getPolygonFeatures(data, service.getFeatures(data.features, sourceLayer, from));
     draw.drawPolygon( 
