@@ -181,13 +181,13 @@ module.exports.setFavourites= (favourites, map, data)=> {
       let neighborhood= data.features.filter(f => f.properties.Neighborhood == favourite.Neighborhood);
       if(neighborhood[0]== undefined){
         let city= data.features.filter(f => f.properties.City== favourite.City || f.properties.City.includes(favourite.City));
-        flyTo.handleFlyTo(map, '', 13, 8000, 0.3, '', city[0].properties.center.geometry.coordinates);
+        flyTo.handleFlyTo(map, '', 13, 10000, 0.1, '', city[0].properties.center.geometry.coordinates);
         city[0].properties.score= favourite.Score;
         city[0].properties.favourite= true;
         draw.drawPolygon(map, data, CITY);
       }
       else{
-        fitBounds.fitBounds(map, neighborhood[0], "favourite");
+        fitBounds.fitBounds(map, neighborhood[0], 8000, 0.1,  "favourite");
         neighborhood[0].properties.favourite= true;
         draw.drawPolygon(map, data, NEIGHBORHOOD);
 }     

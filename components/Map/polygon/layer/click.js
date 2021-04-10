@@ -9,7 +9,7 @@ module.exports.handleLayerClick= (
     flyTo.handleFlyTo(map, flyMinZoom, flyMaxZoom, flyDuration, flySpeed, e, '');
     
     if(e.features[0].properties.id.split('-').length== 4){
-      fitBounds.fitBounds(map, e.features[0])
+      fitBounds.fitBounds(map, e.features[0], 5000, 0.5)
     }
     
     let features = [];

@@ -1,4 +1,4 @@
-module.exports.fitBounds= (map, feature, favourite= null)=> {
+module.exports.fitBounds= (map, feature, duration, speed, favourite= null)=> {
     let bounds= feature.properties.bounds;
     if(favourite== null){
         bounds= bounds.split(',');
@@ -7,7 +7,12 @@ module.exports.fitBounds= (map, feature, favourite= null)=> {
         
     }
       bounds= [[bounds[0], bounds[1]], [bounds[2], bounds[3]]];
-      map.fitBounds(bounds, { linear: false, easing: function (t) {
-        return t;
-      }, offset:[8, 8], duration: 3000 });
+      map.fitBounds(bounds, { 
+        // linear: false, 
+        // easing: function (t) {
+        // return t; }, 
+        // offset:[8, 8], 
+        duration,
+        speed
+      });
 }
