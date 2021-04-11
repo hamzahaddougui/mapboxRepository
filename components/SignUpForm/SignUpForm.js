@@ -2,22 +2,39 @@
 import GoogleLogin from "react-google-login";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, CssBaseline, TextField, Link, Grid, Typography } from "@material-ui/core";
+import axios from "axios";
 
 // Actions
-import {
-  responseSuccessGoogle,
-  responseFailureGoogle,
-} from "../../services/actions/signup.actions";
+// import {
+//   responseSuccessGoogle,
+//   responseFailureGoogle,
+// } from "../../services/actions/signup.actions";
 
 // Assets
 import muiStyles from "./SignUpFormStyles";
 
+const instance = axios.create({
+  withCredentials: true,
+});
 const useStyles = makeStyles(muiStyles);
 
 const clientId = "79328369707-8da82odrau1iut7pol5linujatbgm9tm.apps.googleusercontent.com";
 
 const SignUpForm = ({ data, handleChange }) => {
   const classes = useStyles();
+
+  const responseSuccessGoogle = async response => {
+    console.log("response google");
+    console.log(response);
+    const res = await instance.post("http://localhost:3001/api/users/signup-google", {
+      tokenId: response.tokenId,
+    });
+    console.log(res);
+  };
+
+  const responseFailureGoogle = response => {
+    console.log("response Failure google");
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -68,6 +85,21 @@ const SignUpForm = ({ data, handleChange }) => {
                 value={data.email}
                 onChange={handleChange}
                 autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="password"
+                inputProps={{ className: classes.input }}
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={data.password}
+                onChange={handleChange}
+                autoComplete="password"
               />
             </Grid>
           </Grid>
