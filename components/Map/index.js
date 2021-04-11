@@ -279,7 +279,7 @@ const mapStateToProps = function (state) {
 const mapActionsToProps = dispatch => ({
   loadStarted: () => dispatch(loadStarted()),
   LoadEnded: () => dispatch(LoadEnded()),
-  showCurrent:(currentNeighb) => dispatch(showCurrent(currentNeighb))
+  showCurrent: (currentNeighb) => dispatch(showCurrent(currentNeighb))
 });
 
 export default connect(mapStateToProps, mapActionsToProps)(Map);
