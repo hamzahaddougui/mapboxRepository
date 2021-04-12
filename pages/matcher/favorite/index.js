@@ -1,6 +1,6 @@
 // Third party
 import { useState } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, GridList } from "@material-ui/core";
 import { Box } from "@material-ui/core";
@@ -13,7 +13,7 @@ import SignUpHeader from "components/SignUpHeader/SignUpHeader";
 import SignUpFooter from "components/SignUpFooter/SignUpFooter";
 
 // Actions
-import { SignUpAction } from '../../../services/actions/signup.actions';
+import { SignUpAction } from "../../../services/actions/signup.actions";
 
 // Assets
 import muiStyles from "styles/favoriteStyles";
@@ -58,12 +58,18 @@ const Favorite = () => {
         <GridList className={classes.wrapper}>
           <SignUpForm data={data} handleChange={handleChange} />
         </GridList>
+        <SignUpFooter onClick={handleSubmit} />
       </Grid>
-      <Grid id="jumboTag" container className={classes.jumbo}>
+      <Grid
+        component={Box}
+        visibility={!open ? "visible" : "hidden"}
+        id="jumboTag"
+        container
+        className={classes.jumbo}
+      >
         <SignUpHeader />
         <FavoriteListBar open={open} setOpen={setOpen} />
       </Grid>
-      <SignUpFooter onClick={handleSubmit} />
       <AddNeighborhood open={open} setOpen={setOpen} />
     </Grid>
   );
