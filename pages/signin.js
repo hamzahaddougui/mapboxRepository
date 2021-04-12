@@ -13,7 +13,7 @@ import SignUpHeader from "components/SignUpHeader/SignUpHeader";
 import SignUpFooter from "components/SignUpFooter/SignUpFooter";
 
 // Actions
-import { SignUpAction } from "../../../services/actions/signup.actions";
+// import { SignUpAction } from "../../../services/actions/signup.actions";
 
 // Assets
 import muiStyles from "styles/favoriteStyles";
@@ -47,7 +47,8 @@ const Favorite = () => {
 
   return (
     <Grid container className={classes.root}>
-      <Grid
+      Signin
+      {/* <Grid
         component={Box}
         visibility={!open ? "visible" : "hidden"}
         item
@@ -60,7 +61,7 @@ const Favorite = () => {
         </GridList>
       </Grid>
       <SignUpFooter onClick={handleSubmit} />
-      <AddNeighborhood open={open} setOpen={setOpen} />
+      <AddNeighborhood open={open} setOpen={setOpen} /> */}
     </Grid>
   );
 };
