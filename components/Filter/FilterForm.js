@@ -57,7 +57,7 @@ const FilterForm = () => {
       <FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} />
 
       {groupedFilters.map((option, i) => (
-        <section key={`${option.category}${i}`} id={option[1][1][0].group}>
+        <section key={`${option.category}${i}`} id={option[1][1][0].group} style={{scrollBehavior: "smooth"}}>
           {/* {console.log(option[1][1][0].group)} */}
           <Grid
             key={`${option.category}${i}`}

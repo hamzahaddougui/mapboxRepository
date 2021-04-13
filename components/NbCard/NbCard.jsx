@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Favorite, FavoriteBorderSharp } from "@material-ui/icons";
 import { Typography, Grid, IconButton, Paper } from "@material-ui/core";
 
+import ReactCardFlip from 'react-card-flip';
+
 // Actions
 import { addFavorite } from "../../services/actions/neighborhood.actions";
 
@@ -20,6 +22,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
 
   const classes = useStyles({ image });
   const [elevation, setElevation] = useState(2);
+  const [isFlipped, setIsFlipped] = useState(false);
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
 
@@ -32,7 +35,14 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     dispatch(addFavorite(neighborhood));
   };
 
+  const handleDetails = e => {
+    e.stopPropagation();
+    onClick(e);
+  };
+
   return (
+    <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+
     <Paper
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
@@ -42,7 +52,8 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       container
       direction="column"
       className={classes.root}
-      onClick={onClick}
+      // onClick={onClick}
+      onClick={() => {setIsFlipped(!isFlipped)}}
     >
       <Grid item container justify="flex-end" alignItems="center">
         <IconButton
@@ -79,6 +90,38 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
         </div>
       </Grid>
     </Paper>
+
+    <Paper
+      className={classes.backSideRoot}
+      onClick={() => {setIsFlipped(!isFlipped)}}
+      component={Grid}
+      item
+      container
+      direction="column"
+      spacing={0}
+    >
+      {favorites.includes(neighborhood) ? (
+            <img 
+              className={classes.backSideHeart}
+              src="/heartOn.svg"
+              onClick={handleAddToFavorites}
+            />
+          ) : (
+            <img 
+              className={classes.backSideHeart}
+              src="/heartOff.svg" 
+              onMouseOver={e => (e.currentTarget.src = "/heartHover.svg")}
+              onMouseOut={e => (e.currentTarget.src = "/heartOff.svg")}
+              onClick={handleAddToFavorites}
+            />
+          )
+      }
+      <Typography className={classes.backSideTitle} variant="h6">Add to favorites</Typography>
+      <Typography className={classes.backSideDesc}>To find homes in this neighborhood</Typography>
+      <Typography className={classes.backSideDetail} onClick={handleDetails}>About this neighborhood</Typography>
+    </Paper>
+
+  </ReactCardFlip>
   );
 };
 
