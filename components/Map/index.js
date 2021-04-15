@@ -177,6 +177,19 @@ class Map extends Component {
       leave.mouseLeave(e, popup);
     });
 
+    this.handleFavouriteHover("mousemove", "city_favourite_layer", 
+     {iconSize: 0.15, textSize: 14, iconColor: "white", textColor: "#575ff9"});
+    
+    this.handleFavouriteHover("mousemove", "neighborhood_favourite_layer", 
+     {iconSize: 0.15, textSize: 14, iconColor: "white", textColor: "#575ff9"});
+
+    this.handleFavouriteHover("mouseleave", "city_favourite_layer", 
+     {iconSize: 0.1, textSize: 12, iconColor: "#ff0061", textColor: "white"});
+
+    this.handleFavouriteHover("mouseleave", "neighborhood_favourite_layer", 
+     {iconSize: 0.1, textSize: 12, iconColor: "#ff0061", textColor: "white"});
+
+    
     map.on("click", "points-layer", e => {
       const { mapObject } = this.state;
       let feature = mapObject.queryRenderedFeatures(e.point, { layers: ["points-layer"] });
@@ -211,6 +224,19 @@ class Map extends Component {
      favourites.checkFavourites(this.props.favourites, mapObject, polygonsData); }
   }
   
+  handleFavouriteHover= (mouseEvent, layerName, properties)=> {
+    const {mapObject}= this.state;
+    const {iconSize, textSize, iconColor, textColor}= properties;
+    mapObject.on(mouseEvent, layerName, e => {
+      mapObject.setLayoutProperty(layerName, "icon-size", iconSize);
+      mapObject.setLayoutProperty(layerName, "text-size", textSize);
+      mapObject.setPaintProperty(layerName, "icon-color", iconColor);
+      mapObject.setPaintProperty(layerName, "text-color", textColor);
+    })
+    
+  }
+
+
   handlePopup = (e, key, id) => {
     const { popup } = this.state;
     popup.setLngLat(e.lngLat).setHTML("<img class='popup_img'></img><h4 class='popup_heading'>"+key+"</h4>: "+id).addTo(e.target);

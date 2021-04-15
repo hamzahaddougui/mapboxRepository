@@ -22,7 +22,7 @@ const REGION_HIGHLIGHTED= {
     minZoom: 3,
     maxZoom: 7,
     flyMinZoom: 7, 
-    flyMaxZoom: 8, 
+    flyMaxZoom: 8.5, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
