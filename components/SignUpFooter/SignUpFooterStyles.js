@@ -28,6 +28,8 @@ const styles = () => ({
   },
   navigation: {
     color: "#323643",
+    fontFamily: "Poppins",
+    fontWeight: "300",
     fontSize: 16.02,
     textTransform: "none",
     cursor: "pointer",
@@ -37,17 +39,24 @@ const styles = () => ({
   },
   brand: {
     position: "absolute",
-    right: "4%",
+    right: "21px",
     display: "flex",
     alignItems: "center",
   },
   poweredBy: {
-    fontSize: "10px",
+    fontFamily: "Poppins", 
+    fontSize: 11.3, 
+    fontWeight: "300", 
     color: "#323643",
-    opacity: "57%",
+    margin: "0 3px 0 0",
+    opacity: 0.57
   },
-  logo: {
-    marginLeft: "12px",
+  brandName: {
+    fontFamily: "Poppins",
+    fontSize: 11.3,
+    fontWeight: 500,
+    color: "#323643",
+    margin: "0 0 0 3px"
   },
 });
 

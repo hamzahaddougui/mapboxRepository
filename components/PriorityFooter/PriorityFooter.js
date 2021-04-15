@@ -18,12 +18,17 @@ const PriorityFooter = ({ onClick }) => {
           src="/N_Matcher.svg"
           alt="Neighborhood Matcher Icon"
         />
-        <div className={classes.navigation}>Neighborhood Matcher</div>
+        <Typography className={classes.navigation}>Neighborhood Matcher</Typography>
       </div>
 
       <div className={classes.poweredByWrapper}>
-        <Typography className={classes.poweredByTxt}>Powered by</Typography>
-        <img className={classes.logo} src="/logo.svg" alt="logo" />
+        <Typography className={classes.poweredBy}>
+          Powered by
+        </Typography>
+        <Typography className={classes.brandName}>
+          Nomadville
+        </Typography>
+        {/* <img className={classes.logo} src="/logo.svg" alt="logo" /> */}
       </div>
     </div>
   );

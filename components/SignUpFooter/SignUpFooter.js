@@ -17,8 +17,13 @@ const Favorite = ({ onClick }) => {
       </div>
 
       <div className={classes.brand}>
-        <Typography className={classes.poweredBy}>Powered by</Typography>
-        <img className={classes.logo} src="/logo.svg" alt="logo" />
+        <Typography className={classes.poweredBy}>
+          Powered by
+        </Typography>
+        <Typography className={classes.brandName}>
+          Nomadville
+        </Typography>
+        {/* <img className={classes.logo} src="/logo.svg" alt="logo" /> */}
       </div>
     </div>
   );

@@ -47,15 +47,15 @@ const styles = () => ({
     fontFamily: "Poppins",
     color: "#323643",
     fontSize: 25,
-    fontWeight: "Bold",
+    fontWeight: "600",
     margin: "29px 0 6px 0",
   },
   headerDesc: {
     fontFamily: "Poppins",
     color: "#323643",
     fontSize: 16.02,
-    fontWeight: "lighter",
-    margin: "8px 0 16px 0",
+    fontWeight: "300",
+    margin: "0 0 16px 0",
   },
 });
 

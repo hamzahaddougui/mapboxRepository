@@ -19,8 +19,11 @@ const styles = theme => ({
       backgroundColor: "transparent",
     },
   },
-  heart: {
-    color: "white",
+  heartIcon: {
+    height: "24px",
+    width: "24px",
+    margin: "16px 15px 0 0",
+    cursor: "pointer"
   },
   title: {
     padding: "1em",
@@ -29,16 +32,17 @@ const styles = theme => ({
     color: "white",
     fontSize: 20,
     fontFamily: "Poppins",
-    fontWeight: "Bold",
+    fontWeight: "600",
+    textShadow: "0 2px 9px #303339",
     textAlign: "center",
     cursor: "pointer",
     whiteSpace: "nowrap",
   },
   scoreValue: {
-    color: "white",
+    color: "#FFF",
     fontSize: 12,
     fontFamily: "Poppins",
-    fontWeight: "Bold",
+    fontWeight: "600",
   },
   scoreContainer: {
     width: "35px",
@@ -49,7 +53,7 @@ const styles = theme => ({
     justifyContent: "center",
     backgroundColor: "#575ff9",
     opacity: 0.9,
-    boxShadow: "0px 3px 7px 0px rgba(148, 95, 233, 71)",
+    boxShadow: "0 3px 7px 0 rgba(148, 95, 233, 0.71)",
     margin: "12px",
   },
   scoreContainerFav: {
@@ -61,9 +65,11 @@ const styles = theme => ({
     justifyContent: "center",
     backgroundColor: "#ff0061",
     opacity: 0.9,
-    boxShadow: "0px 3px 7px 0px rgba(250, 2, 98, 70)",
+    boxShadow: "0 3px 7px 0 rgba(250, 2, 98, 0.7)",
     margin: "12px",
   },
+
+  //BACK SIDE CSS
   backSideRoot: {
     backgroundColor: "#ffffff",
     width: "257px",
@@ -84,7 +90,7 @@ const styles = theme => ({
   backSideTitle: {
     margin: "4px 27.8px 2px 27.3px",
     fontFamily: "Poppins",
-    fontSize: 14,
+    fontSize: 14.2,
     fontWeight: 600,
     fontStretch: "normal",
     fontStyle: "normal",
@@ -96,7 +102,7 @@ const styles = theme => ({
   backSideDesc: {
     margin: "2px 0 14px",
     fontFamily: "Poppins",
-    fontSize: 12,
+    fontSize: 12.7,
     fontWeight: 300,
     fontStretch: "normal",
     fontStyle: "normal",
@@ -108,7 +114,7 @@ const styles = theme => ({
   backSideDetail: {
     margin: "14px 0 9px",
     fontFamily: "Poppins",
-    fontSize: 12,
+    fontSize: 12.7,
     fontWeight: 600,
     fontStretch: "normal",
     fontStyle: "normal",

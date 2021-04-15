@@ -56,17 +56,19 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       onClick={() => {setIsFlipped(!isFlipped)}}
     >
       <Grid item container justify="flex-end" alignItems="center">
-        <IconButton
-          className={classes.heartContainer}
-          onClick={handleAddToFavorites}
-          aria-label={`Heart ${neighborhood.Neighborhood}`}
-        >
-          {favorites.includes(neighborhood) ? (
-            <Favorite style={{ color: "red" }} />
+        {favorites.includes(neighborhood) ? (
+            <img 
+              className={classes.heartIcon}
+              src="/heartOn.svg"
+              onClick={handleAddToFavorites}
+            />
           ) : (
-            <FavoriteBorderSharp className={classes.heart} />
-          )}
-        </IconButton>
+            <img 
+              className={classes.heartIcon}
+              src="/whiteHeartOff.svg"
+              onClick={handleAddToFavorites}
+            />
+        )}
       </Grid>
       <Grid item container justify="center" alignItems="center">
         <Typography
@@ -91,6 +93,8 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       </Grid>
     </Paper>
 
+
+    {/* Back Side */}
     <Paper
       className={classes.backSideRoot}
       onClick={() => {setIsFlipped(!isFlipped)}}

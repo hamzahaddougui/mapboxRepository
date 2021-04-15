@@ -39,6 +39,16 @@ const styles = (theme) => ({
         height: "20px",
         width: "12px",
         marginRight: "5px",
+    },
+    contentTxt: {
+        fontFamily: "Poppins",
+        fontSize: 14.2,
+        fontWeight: 500,
+        fontStretch: "normal",
+        fontStyle: "normal",
+        lineHeight: "normal",
+        letterSpacing: "normal",
+        // color: "#323643",
     }
 });
 

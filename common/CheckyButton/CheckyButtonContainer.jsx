@@ -29,7 +29,7 @@ const CheckyButtonContainer = ({ title, options, checkedValues, onClick, maxWidt
         </Grid>
         {!_.isEmpty(formattedOptions) &&
           formattedOptions.map((option, i) => (
-            <Grid key={`${option.title}${i}`} item style={{ margin: "0.6em 0.4em 0em 0.4em" }}>
+            <Grid key={`${option.title}${i}`} item style={{ margin: "0.6em 4px 0em 4px" }}>
               <CheckyButton
                 active={checkedValues && checkedValues.includes(option.name)}
                 option={option}

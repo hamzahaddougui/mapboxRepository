@@ -1,8 +1,9 @@
 const styles = theme => ({
   title: {
     fontFamily: "Poppins",
-    fontSize: 14.24,
-    fontWeight: "Light",
+    fontSize: 14.2,
+    fontWeight: "300",
+    color: "#323643",
     [theme.breakpoints.down("xs")]: {
       fontSize: 16,
     },
@@ -10,9 +11,10 @@ const styles = theme => ({
   checkyButton: {
     borderRadius: "32px",
     width: "216px",
-    fontSize: 16.02,
+    fontSize: 16,
     fontFamily: "Poppins",
-    fontWeight: "lighter",
+    fontWeight: "300",
+    color: "#323643",
     textTransform: "none",
     border: "1.2px solid #B2B3B4",
     [theme.breakpoints.down("xs")]: {
@@ -24,12 +26,12 @@ const styles = theme => ({
     border: "1.2px solid transparent",
     borderRadius: "32px",
     width: "216px",
-    fontSize: 16.02,
+    fontSize: 16,
     textTransform: "none",
     fontFamily: "Poppins",
     backgroundColor: "#323643",
     color: "white",
-    fontWeight: "bold",
+    fontWeight: "500",
     "&:hover": {
       backgroundColor: "#323643",
     },

@@ -19,11 +19,14 @@ const FilterFooter = ({ onClick }) => {
         Next
       </div>
 
-      <div style={{ position: "absolute", right: "4%", display: "flex", alignItems: "center" }}>
-        <Typography style={{ fontSize: "10px", color: "#323643", opacity: "57%" }}>
+      <div style={{ position: "absolute", right: "21px", display: "flex", alignItems: "center" }}>
+        <Typography className={classes.poweredBy}>
           Powered by
         </Typography>
-        <img className={classes.logo} src="/logo.svg" alt="logo" />
+        <Typography className={classes.brandName}>
+          Nomadville
+        </Typography>
+        {/* <img className={classes.logo} src="/logo.svg" alt="logo" /> */}
       </div>
     </div>
     </Slide>

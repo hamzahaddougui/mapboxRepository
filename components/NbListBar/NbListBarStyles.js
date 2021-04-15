@@ -10,7 +10,7 @@ const styles = theme => ({
     bottom: 0,
     width: "100%",
     zIndex: "2",
-    paddingBottom: "100px",
+    paddingBottom: "70px",
     "& .menu-wrapper": {
       width: "100% !important",
       overflowX: "scroll !important",

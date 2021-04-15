@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="29" height="29" viewBox="0 0 29 29">
+    <defs>
+        <filter id="hcvp22605a" width="120.2%" height="122.1%" x="-10.1%" y="-6.5%" filterUnits="objectBoundingBox">
+            <feMorphology in="SourceAlpha" operator="dilate" radius=".5" result="shadowSpreadOuter1"/>
+            <feOffset dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+            <feMorphology in="SourceAlpha" radius="1" result="shadowInner"/>
+            <feOffset dy="1" in="shadowInner" result="shadowInner"/>
+            <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.188235294 0 0 0 0 0.2 0 0 0 0 0.223529412 0 0 0 0.25 0"/>
+        </filter>
+        <path id="8x971lte1b" d="M14.5 26c23.759-15.711 7.747-28.889 0-20.273C6.753-2.889-9.259 10.29 14.5 26z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" opacity=".98">
+        <g>
+            <use fill="#000" filter="url(#hcvp22605a)" xlink:href="#8x971lte1b"/>
+            <use stroke="#FFF" xlink:href="#8x971lte1b"/>
+        </g>
+    </g>
+</svg>

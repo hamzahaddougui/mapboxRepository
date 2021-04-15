@@ -1,38 +1,38 @@
 const styles = (theme) => ({
     percentMatch:{
         fontFamily: "Poppins",
-        fontWeight: "Lighter",
+        fontWeight: "300",
         fontSize: 14.24,
         color: "#323643",
         margin: "16px 34px",
     },
     accordionTitle:{
         fontFamily: "Poppins",
-        fontWeight: "Bold",
+        fontWeight: "600",
         fontSize: 16,
-        color: "#303339",
+        color: "#323643",
     },
     CheckedValue:{
         fontFamily: "Poppins",
-        fontWeight: "Lighter",
+        fontWeight: "300",
         fontSize: 14.24,
-        color: "#303339",
+        color: "#323643",
         marginTop: "7px",
         cursor: "pointer"
     },
     CheckedValueActive:{
         fontFamily: "Poppins",
-        fontWeight: "bold",
+        fontWeight: "500",
         fontSize: 14.24,
-        color: "#303339",
+        color: "#323643",
         marginTop: "7px",
         cursor: "pointer"
     },
     filterGroupTitle:{
         fontFamily: "Poppins",
-        fontWeight: "Bold",
+        fontWeight: "300",
         fontSize: 14.24,
-        color: "#303339",
+        color: "#323643",
         opacity: 0.49,
     },
     filterGroupArray: {

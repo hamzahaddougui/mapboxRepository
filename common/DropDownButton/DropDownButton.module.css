@@ -2,8 +2,10 @@
   background-color: #323643;
   height: 40px;
   width: 200px;
-  display: inline-flex;
+  /* display: inline-flex; */
   cursor: pointer;
+  align-items: center;
+  padding: 0 20px;
 }
 
 .contentButton {
@@ -11,4 +13,9 @@
   margin-left: 12%;
   align-items: center;
   color: #fff;
+}
+
+.arrowIcon {
+  height: 12px;
+  width: 12px;
 }

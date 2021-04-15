@@ -59,11 +59,14 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
           </Button>
         </div>
       </div>
-      <div style={{ position: "absolute", right: "4%", display: "flex", alignItems: "center" }}>
-        <Typography style={{ fontSize: "10px", color: "#323643", opacity: "57%" }}>
+      <div style={{ position: "absolute", right: "21px", display: "flex", alignItems: "center" }}>
+        <Typography className={classes.poweredBy}>
           Powered by
         </Typography>
-        <img className={classes.logo} src="/logo.svg" alt="logo" />
+        <Typography className={classes.brandName}>
+          Nomadville
+        </Typography>
+        {/* <img className={classes.logo} src="/logo.svg" alt="logo" /> */}
       </div>
     </div>
   );
@@ -74,14 +77,19 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
         <div className={classes.thunder}>
           <img src="/thunder.svg" alt="thunder" />
         </div>
-        <Button className={classes.matchButton}>Start the Matcher</Button>
+        <Button className={classes.matchButton}>
+          <Typography className={classes.matchButtonTxt}>Start the Matcher</Typography>
+        </Button>
       </div>
 
-      <div style={{ position: "absolute", right: "4%", display: "flex", alignItems: "center" }}>
-        <Typography style={{ fontSize: "10px", color: "#323643", opacity: "57%" }}>
+      <div style={{ position: "absolute", right: "21px", display: "flex", alignItems: "center" }}>
+        <Typography className={classes.poweredBy}>
           Powered by
         </Typography>
-        <img className={classes.logo} src="/logo.svg" alt="logo" />
+        <Typography className={classes.brandName}>
+          Nomadville
+        </Typography>
+        {/* <img className={classes.logo} src="/logo.svg" alt="logo" /> */}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 const styles = theme => ({
   headerContainer: {
-    padding: "1em 2em 0em 2em",
+    padding: "17px 21px 0",
   },
 });
 

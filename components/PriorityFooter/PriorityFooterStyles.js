@@ -1,6 +1,6 @@
 const styles = () => ({
   root: {
-    height: "74px",
+    height: "65px",
     width: "100%",
     backgroundColor: "#fff",
     boxShadow:
@@ -31,20 +31,34 @@ const styles = () => ({
     transform: "translateX(-50%)",
   },
 
+  navigation: {
+    fontFamily: "Poppins", 
+    fontSize: 16.02, 
+    fontWeight: "300", 
+    color: "#323643",
+    cursor: "pointer",
+  },
+
   poweredByWrapper: {
     position: "absolute",
-    right: "4%",
+    right: "21px",
     display: "flex",
     alignItems: "center",
   },
-
-  poweredByTxt: {
-    fontSize: "10px",
+  poweredBy: {
+    fontFamily: "Poppins", 
+    fontSize: 11.3, 
+    fontWeight: "300", 
     color: "#323643",
-    opacity: "57%",
+    margin: "0 3px 0 0",
+    opacity: 0.57
   },
-  logo: {
-    marginLeft: "12px",
+  brandName: {
+    fontFamily: "Poppins",
+    fontSize: 11.3,
+    fontWeight: 500,
+    color: "#323643",
+    margin: "0 0 0 3px"
   },
 });
 

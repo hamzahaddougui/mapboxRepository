@@ -16,7 +16,7 @@ const styles = theme => ({
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     width: "100%",
-    height: "22%",
+    height: "150px",
     margin: "0 auto -16px",
     padding: "20px",
   },
@@ -29,18 +29,23 @@ const styles = theme => ({
   },
 
   title: {
-    fontSize: "25px",
+    fontFamily:"Poppins",
+    fontSize: 25,
     color: "#323643",
     fontWeight: "600",
-    margin: "24px 0 8px 0",
+    margin: "24px 0 14px 0",
+    letterSpacing: 0,
+    textAlign: "center",
+    lineHeight: 1.04,
   },
-
   subtitle: {
-    fontSize: "16.02px",
+    fontFamily:"Poppins",
+    fontSize: 16.02,
+    fontWeight: "300",
     color: "#323643",
-    fontWeight: "200",
     margin: "8px 0 24px 0 ",
-    letterSpacing: "0.01071em",
+    letterSpacing: "normal",
+    lineHeight: 1.44,
   },
   form: {
     overflow: "hidden",

@@ -30,25 +30,26 @@ const styles = theme => ({
 
   upperTitle: {
     fontFamily: "Poppins",
-    fontWeight: "Lighter",
+    fontWeight: "300",
     fontSize: 25,
     color: "#323643",
-    // fontWeight: "600",
     margin: "24px 0 8px 0",
+    textAlign: "center",
   },
 
   title: {
     fontFamily: "Poppins",
-    fontWeight: "Bold",
+    fontWeight: "600",
     fontSize: 25,
     color: "#323643",
     // fontWeight: "600",
     margin: "0 0 4px 0",
+    textAlign: "center",
   },
 
   subtitle: {
     fontFamily: "Poppins",
-    fontWeight: "Lighter",
+    fontWeight: "300",
     fontSize: 16.02,
     color: "#323643",
     margin: "0 0 24px 0 ",

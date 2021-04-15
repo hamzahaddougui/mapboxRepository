@@ -6,6 +6,7 @@ const styles = () => ({
     overflow: "hidden",
     backgroundColor: "transparent",
     width: "100vw",
+    marginLeft: "21px",
     "& .menu-item-wrapper": {
       verticalAlign: "top",
       marginTop: "1em",

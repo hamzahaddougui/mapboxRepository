@@ -8,12 +8,19 @@ const useStyles = makeStyles(theme => ({
   itemContainer: {
     marginBottom: "1em",
   },
+  priorityTxt: {
+    fontFamily: "Poppins",
+    fontWeight: "400",
+    fontSize: 16.02,
+    color: "#323643",
+  },
   priorityButton: {
     borderRadius: "32px",
     width: "127px",
     fontSize: 14,
     fontFamily: "Poppins",
-    fontWeight: "lighter",
+    fontWeight: "300",
+    color: "#323643",
     textTransform: "none",
     border: "1.2px solid #B2B3B4",
     [theme.breakpoints.down("xs")]: {
@@ -28,8 +35,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
     textTransform: "none",
     fontFamily: "Poppins",
+    fontWeight: "300",
     backgroundColor: "#323643",
-    color: "white",
+    color: "#FFF",
     "&:hover": {
       backgroundColor: "#323643",
     },

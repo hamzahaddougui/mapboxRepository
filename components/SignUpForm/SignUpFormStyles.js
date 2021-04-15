@@ -21,33 +21,45 @@ const styles = () => ({
   },
   input: {
     textAlign: "center",
+    '&::placeholder': {
+      fontFamily: "Poppins",
+      fontWeight: "300",
+      fontSize: 16.02,
+      color: '#323643',
+      opacity: 1,
+    }
   },
   helperWrapper: {
     marginTop: "16px",
   },
   helper: {
     color: "#323643",
-    opacity: 0.68,
+    opacity: 0.7,
+    fontFamily: "Poppins",
+    fontWeight: "300",
     fontSize: 14.24,
     textDecoration: "underline",
+    textAlign: "center",
   },
   titleOther: {
     fontFamily: "Poppins",
     color: "#323643",
     fontSize: 16.02,
-    fontWeight: "lighter",
-    marginTop: "59px",
+    fontWeight: "300",
+    marginTop: "48px",
   },
   authWrapper: {
     width: "600px",
     marginTop: "16px",
   },
   auth: {
-    width: "100%",
+    width: "296px",
     borderRadius: "24px !important",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    boxShadow: "none !important",
+    border: "1px solid rgba(50, 54, 67, 0.16) !important",
   },
 });
 
