@@ -18,7 +18,8 @@ import leave from "./polygon/polygonEvents/mouseleave";
 import layerClick from "./polygon/polygonEvents/click";
 import showPoi from "./poi";
 import showHouses from "./houses";
-import fetching from "./services/fetching";
+import scores from "./services/scores";
+import favourites from "./services/favourites";
 import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
 import NeighborhoodDetail from "../NbDetail/NbDetail";
 import {showCurrent} from "../../services/actions/neighborhood.actions";
@@ -32,7 +33,6 @@ mapboxgl.accessToken =
 class Map extends Component {
   state = {
     openCard: false,
-    highlightedElements: [],
     scores: [
       { id: "house 5", score: 100 },
       { id: "house 4", score: 80 },
@@ -202,13 +202,13 @@ class Map extends Component {
     const {mapObject, polygonsData}= this.state;
     
     if(prevProps.scores!= this.props.scores){
-      fetching.setScores(mapObject, this.props.scores, polygonsData); }
+      scores.setScores(mapObject, this.props.scores, polygonsData); }
 
     if(this.props.favourites.length> prevProps.favourites.length){
-      fetching.setFavourites(this.props.favourites, mapObject, polygonsData); }
+      favourites.setFavourites(this.props.favourites, mapObject, polygonsData); }
 
     if(this.props.favourites.length<= prevProps.favourites.length){
-     fetching.checkFavourites(this.props.favourites, mapObject, polygonsData); }
+     favourites.checkFavourites(this.props.favourites, mapObject, polygonsData); }
   }
   
   handlePopup = (e, key, id) => {

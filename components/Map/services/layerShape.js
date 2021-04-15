@@ -29,16 +29,34 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
         paint: {
           "icon-color": iconColor,
           "text-color": textColor,
-          "icon-opacity": [
-                            "case",
-                            ["<=", ["get", "score"], 0],
-                            0.1, 1          
-                          ],
-          "text-opacity": [
-                            "case",
-                            ["<=", ["get", "score"], 0],
-                            0.1, 1            
-                          ]
+          "icon-opacity": 
+                          [
+                              "interpolate",
+                              ["linear"],
+                              ["zoom"],
+                              5,
+                              ["case", ["<=", ["get", "position"], 20], 1, 0],
+                              7,
+                              ["case", ["<=", ["get", "position"], 40], 1, 0],
+                              9,
+                              ["case", ["<=", ["get", "position"], 60], 1, 0],
+                              12,
+                              ["case", ["<=", ["get", "position"], 100], 1, 0]
+                            ],
+          "text-opacity": 
+                            [
+                              "interpolate",
+                              ["linear"],
+                              ["zoom"],
+                              5,
+                              ["case", ["<=", ["get", "position"], 20], 1, 0],
+                              7,
+                              ["case", ["<=", ["get", "position"], 40], 1, 0],
+                              9,
+                              ["case", ["<=", ["get", "position"], 60], 1, 0],
+                              12,
+                              ["case", ["<=", ["get", "position"], 100], 1, 0]
+                            ]
         },
         filter
       }}

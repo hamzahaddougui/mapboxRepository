@@ -1,5 +1,4 @@
 import flyTo from '../../flyingTo';
-import fetchFeatures from '../fetchFeatures';
 import service from '../../services/fetching';
 import draw from '../draw';
 import fitBounds from '../../fitBounds';
@@ -13,7 +12,8 @@ module.exports.handleLayerClick= (
     }
     
     let features = [];
-    features = fetchFeatures.getPolygonFeatures(data, service.getFeatures(data.features, sourceLayer, from));
+    features = service.getFeatures(data.features, sourceLayer, from);
+
     draw.drawPolygon( 
       e.target, data, targetLayer, features
     );

@@ -1,6 +1,5 @@
 import service from "../services/fetching";
 import layerShape from "../services/layerShape";
-import fetchFeatures from './fetchFeatures';
 const score = "/map/pin.png";
 const favourite = "/map/pin.png";
 
@@ -15,10 +14,12 @@ module.exports.drawPolygon = (
       features
     };
     let {id, source, color, opacity, minZoom, maxZoom}= element;
+
     if (features == null) {
-      features = fetchFeatures.getPolygonFeatures(data, service.getFeatures(data.features, source));
+      features = service.getFeatures(data.features, source);
       geojson.features = features;
     }
+
     if (!map.getSource(id)) {
       map.addSource(id, {
         type: "geojson",
