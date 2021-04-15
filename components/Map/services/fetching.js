@@ -10,14 +10,6 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
       feature= allFeatures.filter(f => f.properties.id.split('-').length== 1);
       feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
       
-      let min= feature[0].properties.surface;
-      let max= min;
-      feature.forEach(f => {
-        if(f.properties.surface< min) min= f.properties.surface;
-        if(f.properties.surface> max) max= f.properties.surface;
-        })
-
-      feature.forEach(f =>  f.properties= {...f.properties, min, max})
       
         if(from!= null){
           feature= feature.filter(f => f.properties.id== from);
@@ -27,7 +19,16 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
     case 'county':
         feature= allFeatures.filter(f => f.properties.id.split('-').length== 2);
         feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
+        
+        let min= feature[0].properties.surface;
+        let max= min;
+        feature.forEach(f => {
+          if(f.properties.surface< min) min= f.properties.surface;
+          if(f.properties.surface> max) max= f.properties.surface;
+          })
 
+        feature.forEach(f =>  f.properties= {...f.properties, min, max})
+      
         if(from!= null){
           feature= feature.filter(f => f.properties.id.startsWith(from));
         }

@@ -27,7 +27,7 @@ module.exports.setFavourites= (favourites, map, data)=> {
         }
         else{
           neighborhood[0].properties.favourite= true;
-          fitBounds.fitBounds(map, neighborhood[0], 12000, 0.1,  "favourite");
+          fitBounds.fitBounds(map, neighborhood[0], 12000, 0.1, 15, "favourite");
 
           // let index= data.features.indexOf(neighborhood[0]);
           // let positionBefore= neighborhood[0].properties.position;

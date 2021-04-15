@@ -1,4 +1,4 @@
-module.exports.fitBounds= (map, feature, duration, speed, favourite= null)=> {
+module.exports.fitBounds= (map, feature, duration, speed, maxZoom, favourite= null)=> {
     let bounds= feature.properties.bounds;
     if(favourite== null){
         bounds= bounds.split(',');
@@ -13,6 +13,7 @@ module.exports.fitBounds= (map, feature, duration, speed, favourite= null)=> {
         // return t; }, 
         // offset:[8, 8], 
         duration,
-        speed
+        speed,
+        maxZoom
       });
 }

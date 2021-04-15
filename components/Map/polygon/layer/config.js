@@ -22,7 +22,7 @@ const REGION_HIGHLIGHTED= {
     minZoom: 3,
     maxZoom: 7,
     flyMinZoom: 7, 
-    flyMaxZoom: 7, 
+    flyMaxZoom: 8, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -62,7 +62,7 @@ const COUNTY_HIGHLIGHTED= {
     minZoom: 7,
     maxZoom: 9,
     flyMinZoom: 7, 
-    flyMaxZoom: 7, 
+    flyMaxZoom: 8.9, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
@@ -168,7 +168,7 @@ const NEIGHBORHOOD= {
     minZoom: 12,
     maxZoom: 24,
     flyMinZoom: 11, 
-    flyMaxZoom: 13, 
+    flyMaxZoom: 15, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }
