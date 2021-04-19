@@ -14,7 +14,7 @@ const DropDownButton = ({ onClick }) => {
     <Grid item>
       <img 
               className={styles.arrowIcon}
-              src="/arrow.svg"
+              src="/downArrow.svg"
               alt= "Down Arrow"
               // onClick={handleAddToFavorites}
       />

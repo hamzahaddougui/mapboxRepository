@@ -22,6 +22,7 @@ const slice = createSlice({
     page: 0,
     loading: false,
     lastFetch: null,
+    scrollPosition: 0,
   },
   reducers: {
     neighborhoodsRequested: (state, action) => {
@@ -39,16 +40,28 @@ const slice = createSlice({
     },
     getChunk: (state, action) => {
         console.log("Getting Chunk");
-        // state.page = state.page + 1;
-        state.chunk = state.chunk.concat((_.chunk(state.neighborhoods, 50))[state.page]);
         state.page = state.page + 1;
+        state.chunk = state.chunk.concat((_.chunk(state.neighborhoods, 50))[state.page]);
+        // state.page = state.page + 1;
+    },
+    loadChunk: (state, action) => {
+      console.log("Getting Chunk");
+      // state.page = state.page + 1;
+      state.chunk = _.chunk(state.neighborhoods, (state.page + 1) * 50)[0];
+      // state.page = state.page + 1;
     },
     clearChunk: (state, action) => {
         console.log("Clearing Chunk");
-        state.chunk = _.chunk(state.neighborhoods, 50)[0];
-        state.page = 1;
+        // state.chunk = _.chunk(state.neighborhoods, 50)[0];
+        // state.page = 1;
+
+        // state.page = state.page - 1;
         // state.chunk = _.chunk(state.neighborhoods, 50)[state.page];
-    }
+        // state.chunk = _.chunk(state.neighborhoods, 50)[state.page];
+    },
+    setScrollPosition: (state, action) => {
+      state.scrollPosition = action.payload;
+    },
   },
 });
 
@@ -57,7 +70,9 @@ export const {
   neighborhoodsRequestFailed,
   neighborhoodsReceived,
   getChunk,
-  clearChunk
+  loadChunk,
+  clearChunk,
+  setScrollPosition
 } = slice.actions;
 
 export default slice.reducer;

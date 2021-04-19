@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Third Party
@@ -20,7 +20,7 @@ import muiStyles from './GridViewStyles';
 import NeighborhoodCard from '../NbCard/NbCard';
 
 // Actions
-import { loadMatched, getChunk, clearChunk } from "../../services/actions/grid.actions";
+import { loadMatched, loadChunk, getChunk, clearChunk, setScrollPosition } from "../../services/actions/grid.actions";
 
 // Styles
 const useStyles = makeStyles(muiStyles);
@@ -38,19 +38,49 @@ const GridView = ({open, handleOpen, handleCard}) => {
 
   useEffect(() => {
     dispatch(loadMatched());
-    dispatch(getChunk());
+    dispatch(loadChunk());
+    // const cardContainer = document.getElementById('cardContainer');
+    // console.log(cardContainer);
   }, []);
+
+  const [scroll, setScroll] = useState(false);
 
   const neighborhoods = useSelector(state => state.modules.grid.neighborhoods);
   const chunk = useSelector(state => state.modules.grid.chunk);
   const page = useSelector(state => state.modules.grid.page);
+  const scrollPosition = useSelector(state => state.modules.grid.scrollPosition);
+
 
   // console.log("Chunk length : ",chunk.length, " and neighborhoods length : ", neighborhoods.length);
+
+  console.log(scroll);
   
   const handleClose = () => {
+    dispatch(setScrollPosition(document.getElementById('cardContainer').scrollTop));
     dispatch(clearChunk());
+    // setScroll(true);
     handleOpen();
+    // console.log(document.getElementById('cardContainer').scrollTop);
   };
+
+  // const cardsEndRef = useRef(null);
+
+  // const scrollToBottom = () => {
+  //   cardsEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  // }
+
+  // if(scrollPosition) {
+  //   const cardContainer = document.getElementById('cardContainer');
+  //   console.log(cardContainer);
+  // }
+
+  useEffect(() => {
+    // window.scrollTo(0, scrollPosition);
+    const cardContainer = document.getElementById('cardContainer');
+    console.log(cardContainer);
+    if(scrollPosition > 0 ) {cardContainer?.scrollTo(0, scrollPosition)}
+  });
+
 
   return (
     <div>
@@ -78,17 +108,18 @@ const GridView = ({open, handleOpen, handleCard}) => {
                 </p>
             }
         > */}
-            <Grid container justify="space-around" className={classes.wrapper}>
+            <Grid container justify="space-around" className={classes.wrapper} id="cardContainer">
             {
             // console.log("Chunk is : ", chunk),
             chunk?.map((neighborhood, i) => (
                 <Grid key={i}>
                     <NeighborhoodCard onClick={handleCard} neighborhood={neighborhood} />
+                    {/* <div ref={cardsEndRef} /> */}
                 </Grid>
             ))}
             </Grid>
-        { chunk.length <= neighborhoods.length && 
-        (<IconButton className={classes.showMoreIconContainer} aria-label="showMore" onClick={()=>{dispatch(getChunk())}}>
+        { chunk?.length <= neighborhoods?.length && 
+        (<IconButton className={classes.showMoreIconContainer} aria-label="showMore" onClick={()=>{dispatch(getChunk()), dispatch(setScrollPosition(0))}}>
             <ExpandMoreIcon />
         </IconButton>)}
         {/* </InfiniteScroll> */}

@@ -1,7 +1,7 @@
 // Third party
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, Paper, Typography } from "@material-ui/core";
 
 // Assets
 import muiStyles from "./AddNbCardStyles";
@@ -27,7 +27,8 @@ const AddNbCard = ({ onClick }) => {
       onClick={onClick}
     >
       <Grid item container className={classes.text}>
-        <span className={classes.symbol}>+ </span> Add a neighborhood
+        <span className={classes.symbol}>+ </span> 
+        <Typography className={classes.cardText}>Add a neighborhood</Typography>
       </Grid>
     </Paper>
   );

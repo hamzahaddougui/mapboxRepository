@@ -1,5 +1,7 @@
 const styles = theme => ({
-  root: {},
+  root: {
+    height: "100vh",
+  },
   jumbo: {
     width: "100%",
     height: "0px",

@@ -1,6 +1,6 @@
 const styles = () => ({
   root: {
-    height: "74px",
+    height: "65px",
     width: "100%",
     backgroundColor: "#fff",
     boxShadow:

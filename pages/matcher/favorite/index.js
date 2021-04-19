@@ -46,32 +46,63 @@ const Favorite = () => {
   };
 
   return (
-    <Grid container className={classes.root}>
-      <Grid
-        component={Box}
-        visibility={!open ? "visible" : "hidden"}
-        item
-        container
-        justify="center"
-        alignItems="center"
-      >
-        <GridList className={classes.wrapper}>
-          <SignUpForm data={data} handleChange={handleChange} />
-        </GridList>
-        <SignUpFooter onClick={handleSubmit} />
-      </Grid>
-      <Grid
-        component={Box}
-        visibility={!open ? "visible" : "hidden"}
-        id="jumboTag"
-        container
-        className={classes.jumbo}
-      >
-        <SignUpHeader />
-        <FavoriteListBar open={open} setOpen={setOpen} />
-      </Grid>
-      <AddNeighborhood open={open} setOpen={setOpen} />
-    </Grid>
+    <>
+    { open 
+        ? 
+          (<AddNeighborhood open={open} setOpen={setOpen} />) 
+        : 
+          (<Grid container className={classes.root}>
+            {/* 
+            <Grid
+              component={Box}
+              visibility={!open ? "visible" : "hidden"}
+              item
+              container
+              justify="center"
+              alignItems="center"
+            >
+              <GridList className={classes.wrapper}>
+                <SignUpForm data={data} handleChange={handleChange} />
+              </GridList>
+              <SignUpFooter onClick={handleSubmit} />
+            </Grid>
+            <Grid
+              component={Box}
+              visibility={!open ? "visible" : "hidden"}
+              id="jumboTag"
+              container
+              className={classes.jumbo}
+            >
+              <SignUpHeader />
+              <FavoriteListBar open={open} setOpen={setOpen} />
+            </Grid>
+            <AddNeighborhood open={open} setOpen={setOpen} />
+            */}
+
+            <Grid
+              id="jumboTag"
+              container
+              item
+              className={classes.jumbo}
+            >
+              <SignUpHeader />
+              <FavoriteListBar open={open} setOpen={setOpen} />
+            </Grid>
+            <Grid
+              item
+              container
+              justify="center"
+              alignItems="center"
+            >
+              <GridList className={classes.wrapper}>
+                <SignUpForm data={data} handleChange={handleChange} />
+              </GridList>
+              <SignUpFooter onClick={handleSubmit} />
+            </Grid>
+          </Grid>
+          )
+    }
+  </>
   );
 };
 

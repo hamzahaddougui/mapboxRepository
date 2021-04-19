@@ -8,7 +8,7 @@ import { Typography, Grid, IconButton, Paper } from "@material-ui/core";
 import ReactCardFlip from 'react-card-flip';
 
 // Actions
-import { addFavorite } from "../../services/actions/neighborhood.actions";
+import { addFavorite, flipCard } from "../../services/actions/neighborhood.actions";
 
 // Assets
 import muiStyles from "./NbCardStyles";
@@ -18,7 +18,7 @@ const useStyles = makeStyles(muiStyles);
 
 const NeighborhoodCard = ({ neighborhood, onClick }) => {
   
-  image = neighborhood.City.replace(/ /g,"_");
+  image = neighborhood?.City.replace(/ /g,"_");
 
   const classes = useStyles({ image });
   const [elevation, setElevation] = useState(2);
@@ -40,6 +40,12 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     onClick(e);
   };
 
+  const handleFlipping = e => {
+    e.stopPropagation();
+    setIsFlipped(!isFlipped);
+    dispatch(flipCard(neighborhood));
+  };
+
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
 
@@ -53,7 +59,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       direction="column"
       className={classes.root}
       // onClick={onClick}
-      onClick={() => {setIsFlipped(!isFlipped)}}
+      onClick={handleFlipping}
     >
       <Grid item container justify="flex-end" alignItems="center">
         {favorites.includes(neighborhood) ? (
@@ -97,7 +103,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     {/* Back Side */}
     <Paper
       className={classes.backSideRoot}
-      onClick={() => {setIsFlipped(!isFlipped)}}
+      onClick={handleFlipping}
       component={Grid}
       item
       container
