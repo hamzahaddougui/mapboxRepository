@@ -15,7 +15,9 @@ const styles = (theme) => ({
     },
     wrapper: {
         padding: "2em 0 1em 0", 
-        marginTop: "4em"
+        marginTop: "4em",
+        overflowY: "scroll",
+        scrollBehavior: "smooth",
     },
     showMoreIconContainer: {
         borderRadius: 0

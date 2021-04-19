@@ -35,6 +35,11 @@ const styles = theme => ({
     fontWeight: "bold",
     marginRight: "6px",
   },
+  cardText: {
+    fontFamily: "Poppins",
+    fontSize: 16.02,
+    fontWeight: "300"
+  }
 });
 
 export default styles;

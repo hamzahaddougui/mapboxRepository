@@ -111,7 +111,7 @@ const NbDetail = ({handleCloseNbDetails}) => {
           </div>
         </Grid>
 
-        <Grid container className={classes.navigation}>
+        <Grid item container className={classes.navigation}>
           <div className={classes.container}>
             <div style={{ paddingLeft: "6px" }} className={classes.navigationElement}>
               <span

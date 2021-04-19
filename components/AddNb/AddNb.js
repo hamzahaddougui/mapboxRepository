@@ -1,11 +1,12 @@
 // Third party
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, TextField } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { Autocomplete, createFilterOptions } from "@material-ui/lab";
+import Alert from '../../common/Alert/Alert';
 
 //Actions
 import { addFavorite } from "../../services/actions/neighborhood.actions";
@@ -21,8 +22,19 @@ const AddNeighborhood = ({ open, setOpen }) => {
   const classes = useStyles((open = { open }));
   const router = useRouter();
   const [value, setValue] = useState(null);
+  const [clicked, setClicked] = useState(false)
   const dispatch = useDispatch();
   const neighborhoods = useSelector(state => state.modules.neighborhood.matched);
+
+  console.log("value : ", value);
+
+  const handleAlertClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    // dispatch(resetErrors());
+    setClicked(false);
+  };
 
   return (
     <div className={classes.root} open={open}>
@@ -51,12 +63,14 @@ const AddNeighborhood = ({ open, setOpen }) => {
               setValue({
                 Neighborhood: newValue,
               });
-            } else if (newValue && newValue.inputValue) {
-              // Create a new value from the user input
-              setValue({
-                Neighborhood: newValue.inputValue,
-              });
-            } else {
+            } 
+            // else if (newValue && newValue.inputValue) {
+            //   // Create a new value from the user input
+            //   setValue({
+            //     Neighborhood: newValue.inputValue,
+            //   });
+            // } 
+            else {
               setValue(newValue);
             }
           }}
@@ -64,12 +78,12 @@ const AddNeighborhood = ({ open, setOpen }) => {
             const filtered = filter(options, params);
 
             // Suggest the creation of a new value
-            if (params.inputValue !== "") {
-              filtered.push({
-                inputValue: params.inputValue,
-                Neighborhood: `"${params.inputValue}" not found`,
-              });
-            }
+            // if (params.inputValue !== "") {
+            //   filtered.push({
+            //     inputValue: params.inputValue,
+            //     Neighborhood: `"${params.inputValue}" not found`,
+            //   });
+            // }
 
             return filtered;
           }}
@@ -88,15 +102,20 @@ const AddNeighborhood = ({ open, setOpen }) => {
               return option.inputValue;
             }
             // Regular option
-            return option.Neighborhood;
+            return (option.Neighborhood + ", "+ option.City);
           }}
-          renderOption={option => option.Neighborhood}
+          renderOption={(option) => ( 
+            <React.Fragment>
+            {option.Neighborhood}, {option.City}
+            </React.Fragment>
+          )}
           style={{ width: 600, height: 54 }}
           freeSolo
           renderInput={params => (
             <TextField
               {...params}
-              label="Type the name of a neighborhood"
+              // label="Type the name of a neighborhood"
+              placeholder="Type the name of a neighborhood"
               className={classes.addNeighborhoodInput}
               variant="outlined"
             />
@@ -104,13 +123,15 @@ const AddNeighborhood = ({ open, setOpen }) => {
         />
       </div>
 
+      <Alert open={!value && clicked} onClose={handleAlertClose} message="Neighborhood Not Found !" />
+
       <div className={classes.bottomBox}>
         <Button
           className={classes.navigation}
           onClick={() => {
             value
               ? (dispatch(addFavorite(value)), setOpen(!open), setValue(null))
-              : console.log("Value not found");
+              : (setClicked(true));
           }}
         >
           Confirm

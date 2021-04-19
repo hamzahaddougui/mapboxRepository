@@ -3,13 +3,15 @@ const styles = () => ({
   root: {
     backgroundColor: "#FFF",
     height: "100vh",
+    width: "100vw",
     position: "absolute",
-    top: "0px",
-    bottom: "0px",
-    right: "0px",
-    left: "0px",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
     zIndex: "1",
     display: props => (props.open ? "block" : "none"),
+    overFlow: "hidden",
   },
   close: {
     width: "27px",
@@ -19,14 +21,20 @@ const styles = () => ({
     top: "33px",
     cursor: "pointer",
   },
+  alert: {
+    height: "50px",
+    width: "50px",
+    position: "absolute",
+    bottom : "100px"
+  },
   bottomBox: {
-    height: "8%",
+    height: "65px",
     width: "100%",
     backgroundColor: "#fff",
     boxShadow:
       "0 6px 10px 0 rgba(14,31,53,0.12), 0 12px 18px 0 rgba(14,31,53,0.20), 0 20px 40px -1px rgba(14,31,53,0.12)",
     position: "fixed",
-    top: "92%",
+    bottom: 0,
     right: "0%",
     display: "flex",
     justifyContent: "center",
@@ -34,6 +42,8 @@ const styles = () => ({
   },
   navigation: {
     color: "#323643",
+    fontFamily: "Poppins",
+    fontWeight: "300",
     fontSize: 16.02,
     textTransform: "none",
     cursor: "pointer",
@@ -48,7 +58,7 @@ const styles = () => ({
   addNeighborhoodTxt: {
     fontFamily: "Poppins",
     fontSize: 25,
-    fontWeight: "bold",
+    fontWeight: "600",
     marginTop: "17px",
   },
   addNeighborhoodWrapper: {
@@ -64,6 +74,16 @@ const styles = () => ({
     marginTop: "32px",
     "& .MuiOutlinedInput-root": {
       borderRadius: "32px",
+    },
+    "& .MuiOutlinedInput-input": {
+      textAlign: "center",
+      '&::placeholder': {
+        fontFamily: "Poppins",
+        fontWeight: "300",
+        fontSize: 18.02,
+        color: '#323643',
+        opacity: 1,
+      }
     },
   },
 });
