@@ -35,6 +35,13 @@
     height: 200px;
 }
 
+.filter{
+    position: absolute;
+    z-index: 1;
+    top: 100px;
+    left: 5px;
+}
+
 
 
 

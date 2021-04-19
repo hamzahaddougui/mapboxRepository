@@ -24,7 +24,9 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
           "text-offset": textOffset,
           "text-anchor": textAnchor,
           "text-size": textSize,
-          "icon-allow-overlap": true
+          "icon-allow-overlap": true,
+          // "symbol-placement": "line-center"
+          // "symbol-z-order": "source"
         },
         paint: {
           "icon-color": iconColor,

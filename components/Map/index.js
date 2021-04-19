@@ -20,6 +20,7 @@ import showPoi from "./poi";
 import showHouses from "./houses";
 import scores from "./services/scores";
 import favourites from "./services/favourites";
+import filters from "./services/filters";
 import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
 import NeighborhoodDetail from "../NbDetail/NbDetail";
 import {showCurrent} from "../../services/actions/neighborhood.actions";
@@ -137,8 +138,8 @@ class Map extends Component {
     });
 
     map.on("click", "current-city-layer", e => {
-      layerClick.click(map, allInOneData.data, e, CURRENT_CITY_CLICKED, "neighborhood", e.features[0].properties.id,
-        CURRENT_NEIGHBORHOOD);
+      // layerClick.click(map, allInOneData.data, e, CURRENT_CITY_CLICKED, "neighborhood", e.features[0].properties.id,
+      //   CURRENT_NEIGHBORHOOD);
       layerClick.click(map, allInOneData.data, e, CURRENT_CITY_CLICKED, "city", e.features[0].properties.id,
         CITY_BORDERED);
     });
@@ -270,6 +271,11 @@ class Map extends Component {
     this.setState({ neighborhoodCard: { display: "none" } });
   };
 
+  handleFiltersClick= ()=> {
+    const {mapObject, polygonsData}= this.state;
+    filters.setFilters(mapObject, polygonsData);
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -288,6 +294,7 @@ class Map extends Component {
             onClick={this.handleNeighborhoodDetailClick}>
             <NeighborhoodDetail detail={this.state.neighborhoodCard}></NeighborhoodDetail>
           </div>
+          <button className={styles.filter} onClick={this.handleFiltersClick}>Set filters</button>
         </div>
       </React.Fragment>
     );

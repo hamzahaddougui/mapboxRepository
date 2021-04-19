@@ -2,7 +2,7 @@ import flyTo from '../../flyingTo';
 import service from '../../services/fetching';
 import draw from '../draw';
 import fitBounds from '../../fitBounds';
-import {COUNTY_HIGHLIGHTED, CITY_OTHER} from "./config";
+import {COUNTY_HIGHLIGHTED, CITY_OTHER, CURRENT_CITY_CLICKED} from "./config";
 
 module.exports.handleLayerClick= (
     map, data, e, flyToOptions, { sourceLayer, from }, targetLayer ) => {
@@ -26,6 +26,7 @@ module.exports.handleLayerClick= (
 
     }
 
+    
     features = service.getFeatures(data.features, sourceLayer, from);
     draw.drawPolygon( 
       e.target, data, targetLayer, features
