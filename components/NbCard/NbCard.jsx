@@ -25,6 +25,8 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
+  const flipped = useSelector(state => state.modules.neighborhood.flipped);
+
 
   const handleMouseOver = () => setElevation(6);
 
@@ -32,6 +34,9 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
 
   const handleAddToFavorites = e => {
     e.stopPropagation();
+    // if(favorites.includes(neighborhood) || flipped.includes(neighborhood)){
+    //   dispatch(flipCard(neighborhood));
+    // }
     dispatch(addFavorite(neighborhood));
   };
 
@@ -47,7 +52,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
   };
 
   return (
-    <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+    <ReactCardFlip isFlipped={ flipped === neighborhood ? true : false} flipDirection="vertical">
 
     <Paper
       onMouseOver={handleMouseOver}

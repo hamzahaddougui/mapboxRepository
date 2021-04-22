@@ -28,6 +28,9 @@ const styles = theme => ({
     transform: "translateX(-50%)",
   },
   restartMatcherButton: {
+    fontFamily: "Poppins",
+    fontWeight: "300",
+    fontSize: 16.02,
     color: "#323643",
     textTransform: "none",
     position: "relative",

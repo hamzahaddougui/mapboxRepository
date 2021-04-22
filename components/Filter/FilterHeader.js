@@ -22,9 +22,11 @@ const FilterFormHeader = ({ groups, selected, setSelected }) => {
             justify="center"
             alignItems="center"
             className={classes.elementContainer}
-            href={`#${selected}`}
+            // href={`#${selected}`}
             onClick={() => {
-              console.log(group), setSelected(group);
+              console.log(group), setSelected(group),document.getElementById(`${group}`).scrollIntoView({
+                behavior: 'smooth'
+              });
             }}
           >
             {selected === group ? (

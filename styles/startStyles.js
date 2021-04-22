@@ -2,13 +2,14 @@ const styles = theme => ({
   root: {
     backgroundColor: "#FFF",
     height: "100vh",
-    position: "absolute",
-    top: "0px",
-    bottom: "0px",
-    right: "0px",
-    left: "0px",
-    zIndex: "2",
-    overflowX: "hidden",
+    // position: "absolute",
+    // top: "0px",
+    // bottom: "0px",
+    // right: "0px",
+    // left: "0px",
+    // zIndex: "2",
+    // overflowX: "hidden",
+    overflow: "hidden",
     // display: props => (props.open ? "block" : "none"),
   },
   jumbo: {
@@ -48,9 +49,9 @@ const styles = theme => ({
     lineHeight: 1.44,
   },
   form: {
-    overflow: "hidden",
+    // overflow: "hidden",
     display: "flex",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
   },
 });

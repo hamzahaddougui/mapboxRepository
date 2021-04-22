@@ -20,10 +20,11 @@ const styles = (theme) => ({
         cursor: "pointer",
       },
       title: {
+        fontFamily: "Poppins",
         fontSize: 25,
         marginTop: "36px",
         textAlign: "center",
-        fontWeight: "bold",
+        fontWeight: "600",
       },
       favoriteIcon: {
         color: "#FF0061",
@@ -31,10 +32,11 @@ const styles = (theme) => ({
         top: "3px",
       },
       desc: {
+        fontFamily: "Poppins",
         fontSize: 18.02,
         marginTop: "23px",
         textAlign: "center",
-        fontWeight: "lighter",
+        fontWeight: "300",
       },
       buttonsWrapper: {
         width: "440px",
@@ -47,6 +49,9 @@ const styles = (theme) => ({
         border: "1px solid rgba(50,54,67,0.24)",
         borderRadius: "21px",
         textTransform: "none",
+        fontFamily: "Poppins",
+        fontSize: 16.02,
+        fontWeight: "300",
       },
 
       backContainer: {

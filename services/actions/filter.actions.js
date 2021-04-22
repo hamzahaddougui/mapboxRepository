@@ -11,6 +11,9 @@ const slice = createSlice({
     loading: false,
     checkedValues: [],
     priorities: [],
+    filtersData: [],
+    filtersDataLoading: false,
+    selectedFilter: null,
     lastFetch: null,
   },
   reducers: {
@@ -95,6 +98,28 @@ const slice = createSlice({
       state.checkedValues = [];
       state.priorities = [];
     },
+    selectFilter: (state, action) => {
+      state.selectedFilter = action.payload;
+    },
+    filtersDataRequested: (state, action) => {
+      console.log("Filters Data Requested ...");
+      state.filtersDataLoading = true;
+    },
+    filtersDataRequestFailed: (state, action) => {
+      console.log("Filters Data Request Failed.");
+      state.filtersDataLoading = false;
+      state.error = action.payload;
+    },
+    filtersDataReceived: (state, action) => {
+      console.log("Filters Data Received !");
+      if (typeof action.payload === String) {
+        state.filtersData = JSON.parse(action.payload);
+      } else {
+        state.filtersData = action.payload;
+      }
+
+      state.filtersDataLoading = false;
+    },
   },
 });
 
@@ -109,6 +134,10 @@ export const {
   checkValueAction,
   checkPriority,
   resetFilter,
+  selectFilter,
+  filtersDataRequested,
+  filtersDataRequestFailed,
+  filtersDataReceived,
 } = slice.actions;
 
 export default slice.reducer;
@@ -151,4 +180,19 @@ export const loadPriorities = () => {
       console.log(error);
     }
   };
+};
+
+export const loadFiltersData = () => (dispatch, getState) => {
+  // if (isCached(getState().modules.filters)) return;
+  console.log("load Filters Data ...");
+
+  dispatch(
+    apiCallBegan({
+      url: '/nbdata/static/all-filters-scores-from-db.json',
+      onStart: filtersDataRequested.type,
+      onSuccess: filtersDataReceived.type,
+      onError: filtersDataRequestFailed.type,
+      method: "GET",
+    }),
+  );
 };
