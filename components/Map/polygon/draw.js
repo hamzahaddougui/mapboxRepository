@@ -2,6 +2,7 @@ import service from "../services/fetching";
 import layerShape from "../services/layerShape";
 const score = "/map/pin.png";
 const favourite = "/map/pin.png";
+const flipped = "/map/pin.png";
 
 module.exports.drawPolygon = (
     map,
@@ -54,49 +55,96 @@ module.exports.drawPolygon = (
         );
         map.addLayer(fillLayer);
 
-        map.loadImage(favourite, (error, image) => {
-          if (error) throw error;
-          map.addImage("city_favourite_marker", image, { sdf: true });
-          let result = map.addLayer(
-            layerShape.symbolLayer(
-              "city_favourite_layer",
-              "city",
-              "city_favourite_marker",
-              0.1,
-              ["concat", ["get", "score"], ["get", "unity"]],
-              ["Open Sans Semibold", "Arial Unicode MS Bold"],
-              [0, -1],
-              "top",
-              12,
-              "#ff0061",
-              "white",
-              ["==", ["get", "favourite"], true]
-            ),
-          );
-      
-        });
-
-        map.loadImage(favourite, (error, image) => {
-          if (error) throw error;
-          map.addImage("neighborhood_favourite_marker", image, { sdf: true });
-          let result = map.addLayer(
-            layerShape.symbolLayer(
-              "neighborhood_favourite_layer",
-              "neighborhood",
-              "neighborhood_favourite_marker",
-              0.1,
-              ["concat", ["get", "score"], ["get", "unity"]],
-              ["Open Sans Semibold", "Arial Unicode MS Bold"],
-              [0, -1],
-              "top",
-              12,
-              "#ff0061",
-              "white",
-              ["==", ["get", "favourite"], true]
-            ),
-          );
-      
-        });
+        map.loadImage(flipped, (error, image) => {
+            if (error) throw error;
+            map.addImage("city_flipped_marker", image, { sdf: true });
+            let result = map.addLayer(
+              layerShape.symbolLayer(
+                "city_flipped_layer",
+                "city",
+                "city_flipped_marker",
+                0.15,
+                ["concat", ["get", "score"], ["get", "unity"]],
+                ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                [0, -1],
+                "top",
+                13,
+                "white",
+                "#575ff9",
+                
+                ["any", ["==", ["get", "flipped"], true], ["all", ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]]]
+              ),
+            );
+        
+          });
+  
+          map.loadImage(flipped, (error, image) => {
+            if (error) throw error;
+            map.addImage("neighborhood_flipped_marker", image, { sdf: true });
+            let result = map.addLayer(
+              layerShape.symbolLayer(
+                "neighborhood_flipped_layer",
+                "neighborhood",
+                "neighborhood_flipped_marker",
+                0.15,
+                ["concat", ["get", "score"], ["get", "unity"]],
+                ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                [0, -1],
+                "top",
+                13,
+                "white",
+                "#575ff9",
+                ["any", ["==", ["get", "flipped"], true], ["all", ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]]]
+              ),
+            );
+        
+          });
+  
+          map.loadImage(favourite, (error, image) => {
+            if (error) throw error;
+            map.addImage("city_favourite_marker", image, { sdf: true });
+            let result = map.addLayer(
+              layerShape.symbolLayer(
+                "city_favourite_layer",
+                "city",
+                "city_favourite_marker",
+                0.1,
+                ["concat", ["get", "score"], ["get", "unity"]],
+                ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                [0, -1],
+                "top",
+                12,
+                "#ff0061",
+                "white",
+                ["==", ["get", "favourite"], true]
+              ),
+            );
+        
+          });
+  
+          map.loadImage(favourite, (error, image) => {
+            if (error) throw error;
+            map.addImage("neighborhood_favourite_marker", image, { sdf: true });
+            let result = map.addLayer(
+              layerShape.symbolLayer(
+                "neighborhood_favourite_layer",
+                "neighborhood",
+                "neighborhood_favourite_marker",
+                0.1,
+                ["concat", ["get", "score"], ["get", "unity"]],
+                ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                [0, -1],
+                "top",
+                12,
+                "#ff0061",
+                "white",
+                ["==", ["get", "favourite"], true]
+              ),
+            );
+        
+          });
+        
+        
         
 
       } else {
@@ -205,7 +253,7 @@ module.exports.drawScores= (map, imageName, layerName, source)=> {
           "black",
         ],
         "white",
-        ["==", ["get", "favourite"], false]
+        ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false]]
       ),
     );
   });

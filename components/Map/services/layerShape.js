@@ -36,28 +36,16 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                               "interpolate",
                               ["linear"],
                               ["zoom"],
-                              5,
-                              ["case", ["<=", ["get", "position"], 20], 1, 0],
-                              7,
-                              ["case", ["<=", ["get", "position"], 40], 1, 0],
-                              9,
-                              ["case", ["<=", ["get", "position"], 60], 1, 0],
-                              12,
-                              ["case", ["<=", ["get", "position"], 100], 1, 0]
+                              1,
+                              ["case", ["==", ["get", "favourite"], true], 1, 1]
                             ],
           "text-opacity": 
                             [
                               "interpolate",
                               ["linear"],
                               ["zoom"],
-                              5,
-                              ["case", ["<=", ["get", "position"], 20], 1, 0],
-                              7,
-                              ["case", ["<=", ["get", "position"], 40], 1, 0],
-                              9,
-                              ["case", ["<=", ["get", "position"], 60], 1, 0],
-                              12,
-                              ["case", ["<=", ["get", "position"], 100], 1, 0]
+                              1,
+                              ["case", ["==", ["get", "favourite"], true], 1, 1]
                             ]
         },
         filter

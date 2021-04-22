@@ -20,6 +20,7 @@ import showPoi from "./poi";
 import showHouses from "./houses";
 import scores from "./services/scores";
 import favourites from "./services/favourites";
+import flipped from "./services/flipped";
 import filters from "./services/filters";
 import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
 import NeighborhoodDetail from "../NbDetail/NbDetail";
@@ -178,17 +179,17 @@ class Map extends Component {
       leave.mouseLeave(e, popup);
     });
 
-    this.handleFavouriteHover("mousemove", "city_favourite_layer", 
-     {iconSize: 0.15, textSize: 14, iconColor: "white", textColor: "#575ff9"});
+    // this.handleFavouriteHover("mousemove", "city_favourite_layer", 
+    //  {iconSize: 0.15, textSize: 14, iconColor: "white", textColor: "#575ff9"});
     
-    this.handleFavouriteHover("mousemove", "neighborhood_favourite_layer", 
-     {iconSize: 0.15, textSize: 14, iconColor: "white", textColor: "#575ff9"});
+    // this.handleFavouriteHover("mousemove", "neighborhood_favourite_layer", 
+    //  {iconSize: 0.15, textSize: 14, iconColor: "white", textColor: "#575ff9"});
 
-    this.handleFavouriteHover("mouseleave", "city_favourite_layer", 
-     {iconSize: 0.1, textSize: 12, iconColor: "#ff0061", textColor: "white"});
+    // this.handleFavouriteHover("mouseleave", "city_favourite_layer", 
+    //  {iconSize: 0.1, textSize: 12, iconColor: "#ff0061", textColor: "white"});
 
-    this.handleFavouriteHover("mouseleave", "neighborhood_favourite_layer", 
-     {iconSize: 0.1, textSize: 12, iconColor: "#ff0061", textColor: "white"});
+    // this.handleFavouriteHover("mouseleave", "neighborhood_favourite_layer", 
+    //  {iconSize: 0.1, textSize: 12, iconColor: "#ff0061", textColor: "white"});
 
     
     map.on("click", "points-layer", e => {
@@ -218,11 +219,19 @@ class Map extends Component {
     if(prevProps.scores!= this.props.scores){
       scores.setScores(mapObject, this.props.scores, polygonsData); }
 
+    if(this.props.flipped.length> prevProps.flipped.length){
+      flipped.setFlipped(this.props.flipped, mapObject, polygonsData); }
+
+    if(this.props.flipped.length<= prevProps.flipped.length){
+      flipped.checkFlipped(this.props.flipped, mapObject, polygonsData); }
+
     if(this.props.favourites.length> prevProps.favourites.length){
       favourites.setFavourites(this.props.favourites, mapObject, polygonsData); }
 
     if(this.props.favourites.length<= prevProps.favourites.length){
-     favourites.checkFavourites(this.props.favourites, mapObject, polygonsData); }
+      favourites.checkFavourites(this.props.favourites, mapObject, polygonsData); }
+
+    
   }
   
   handleFavouriteHover= (mouseEvent, layerName, properties)=> {
@@ -305,7 +314,8 @@ const mapStateToProps = function (state) {
   return {
     scores: state.modules.neighborhood.matched,
     map: state.modules.map.map,
-    favourites: state.modules.neighborhood.favorites
+    favourites: state.modules.neighborhood.favorites,
+    flipped: state.modules.neighborhood.flipped
   };
 };
 

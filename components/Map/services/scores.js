@@ -8,17 +8,17 @@ module.exports.setScores= (map, scores, data) => {
           if(neighborhood[0]== undefined){
             let city= scores.data.filter(s => s.City== feature.properties.City);
             if(city[0]== undefined){
-              feature.properties= {...feature.properties, score: 0, unity: "%", favourite: false}
+              feature.properties= {...feature.properties, score: 0, unity: "%", flipped: false, favourite: false}
   
             }
             else{
-              feature.properties= {...feature.properties, score: city[0].Score, unity: "%", favourite: false}
+              feature.properties= {...feature.properties, score: city[0].Score, unity: "%", flipped: false, favourite: false}
   
             }
           
           }
           else{
-           feature.properties= {...feature.properties, score: neighborhood[0].Score, unity: "%", favourite: false}
+           feature.properties= {...feature.properties, score: neighborhood[0].Score, unity: "%", flipped: false, favourite: false}
    
           }
        
