@@ -3,7 +3,8 @@ const styles = theme => ({
   root: {
     // height: "100%",
     height: "100vh",
-    width: "80vw",
+    // width: "80vw",
+    width: "65vw",
     position: "absolute",
     // justifyContent: "center",
     // alignItems: "center",
@@ -185,6 +186,7 @@ const styles = theme => ({
     fontSize: 14.24,
     fontWeight: 400,
     // maxWidth: "10em",
+    maxWidth: "50%",
   },
   iconsContainer: {
     // backgroundColor: "#FFF",

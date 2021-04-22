@@ -93,19 +93,19 @@ const NbDetail = ({handleCloseNbDetails}) => {
 
   //     </Grid>
 
-  // function LinearProgressWithLabel(props) {
-  //   return (
-  //     <div className={classes.progressContainer}>
-  //       <div className={classes.progressBar} style={{ width: `${props.value}%` }}>
+  function LinearProgressWithLabel(props) {
+    return (
+      <div className={classes.progressContainer}>
+        <div className={classes.progressBar} style={{ width: `${props.value}%` }}>
           
-  //       </div>
-  //       <Typography align="center" className={classes.progressTxt} variant="body2">{`${Math.round(
-  //           props.value,
-  //         )}%`}</Typography>
-  //     </div>
+        </div>
+        <Typography align="center" className={classes.progressTxt} variant="body2">{`${Math.round(
+            props.value,
+          )}%`}</Typography>
+      </div>
       
-  //   );
-  // }
+    );
+  }
 
   return (
       <Grid container direction="column" justify="center" alignItems="center" className={classes.root}>
@@ -167,11 +167,11 @@ const NbDetail = ({handleCloseNbDetails}) => {
                   </div>
                 ))}
               </div>
-              <div style={{backgroundColor: "#FFF", opacity: 0.9, width: "6%", height: "5%", position: "absolute", right: 0, display: "flex", alignItems: "center", justifyContent: "center"}}>
+              {/* <div style={{backgroundColor: "#FFF", opacity: 0.9, width: "6%", height: "5%", position: "absolute", right: 0, display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <img src="/back.svg" style={{height: "24px", width: "24px", cursor: "pointer"}}
                   onClick={()=>{console.log(document.getElementById('navigationScrollElement').scrollLeft)}}
                 />
-              </div>
+              </div> */}
 
             </Grid>
 
