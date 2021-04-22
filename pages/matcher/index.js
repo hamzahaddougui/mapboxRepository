@@ -7,7 +7,7 @@ import MatcherFooter from "components/MatcherFooter/MatcherFooter";
 import NeighborhoodListBar from "components/NbListBar/NbListBar";
 import MatcherRestart from "components/MatcherRestart/MatcherRestart";
 import NeighborhoodDetail from "components/NbDetail/NbDetail";
-import { Dialog } from "@material-ui/core";
+import { Dialog, Modal } from "@material-ui/core";
 
 import styles from "styles/matcherStyles";
 import BackdropLoader from "../../common/BackdropLoader/BackdropLoader";
@@ -25,6 +25,7 @@ const Matcher = ({ Map }) => {
   const [openRestartMatcher, setOpenRestartMatcher] = useState(false);
   const [openNbDetails, setOpenNbDetails] = useState(false);
   const mapLoading = useSelector(state => state.modules.map.loading);
+  const filtersDataLoading = useSelector(state => state.modules.filter.filtersDataLoading);
   const matched = useSelector(state => state.modules.neighborhood.matched);
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
   // const filters = useSelector(state => state.modules.filter.filters);
@@ -75,8 +76,8 @@ const Matcher = ({ Map }) => {
           onHomeMatcher={handleHomeMatcher}
         />
       </div>
-      <BackdropLoader open={mapLoading} />
-      <Dialog
+      <BackdropLoader open={mapLoading || filtersDataLoading} />
+      {/* <Dialog
         fullWidth
         maxWidth='md'
         PaperProps={{
@@ -92,7 +93,15 @@ const Matcher = ({ Map }) => {
         open={openNbDetails}
       >
         {openNbDetails && (<NeighborhoodDetail handleCloseNbDetails={handleCloseNbDetails} />)}
-      </Dialog>
+      </Dialog> */}
+      <Modal
+        open={openNbDetails}
+        onClose={handleCloseNbDetails}
+      >
+        <>
+        {openNbDetails && (<NeighborhoodDetail handleCloseNbDetails={handleCloseNbDetails} />)}
+        </>
+      </Modal>
     </div>
   );
 };

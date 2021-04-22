@@ -24,7 +24,7 @@ const slice = createSlice({
     // ]},
     matched: [],
     favorites: [],
-    flipped: [],
+    flipped: {},
     loading: false,
     lastFetch: null,
     error: null,
@@ -95,28 +95,39 @@ const slice = createSlice({
       // } else {state.favorites.push(value)}
     },
     flipCard: (state, action) => {
+      // console.log("Flipping Card!!");
+      // const value = action.payload;
+      // // console.log(value);
+
+      // let index = -1;
+      // state.flipped.forEach((element, i) => {
+      //   if (JSON.stringify(element) === JSON.stringify(value)) index = i;
+      // });
+
+      // if (index > -1) {
+      //   state.flipped.splice(index, 1);
+      //   // state.matched.data.push(value);
+      //   index = -1;
+      // } else {
+      //   // let matchIndex = -1;
+      //   // state.matched.data?.forEach((element, i) => {
+      //   //   if (JSON.stringify(element) === JSON.stringify(value)) matchIndex = i;
+      //   // });
+      //   // state.matched.data.splice(matchIndex, 1);
+      //   state.flipped.push(value);
+      //   index = -1;
+      //   // matchIndex = -1;
+      // }
+
       console.log("Flipping Card!!");
       const value = action.payload;
-      // console.log(value);
 
-      let index = -1;
-      state.flipped.forEach((element, i) => {
-        if (JSON.stringify(element) === JSON.stringify(value)) index = i;
-      });
-
-      if (index > -1) {
-        state.flipped.splice(index, 1);
-        // state.matched.data.push(value);
-        index = -1;
-      } else {
-        // let matchIndex = -1;
-        // state.matched.data?.forEach((element, i) => {
-        //   if (JSON.stringify(element) === JSON.stringify(value)) matchIndex = i;
-        // });
-        // state.matched.data.splice(matchIndex, 1);
-        state.flipped.push(value);
-        index = -1;
-        // matchIndex = -1;
+      console.log("value", value);
+      console.log("state", state.flipped);
+      if(JSON.stringify(state.flipped) === JSON.stringify(value)){
+        state.flipped = null;
+      }else{
+        state.flipped = value;
       }
     },
     setCurrentNB: (state, action) => {
@@ -190,3 +201,5 @@ export const detailNeighborhood = () => (dispatch, getState) => {
     }),
   ));
 };
+
+

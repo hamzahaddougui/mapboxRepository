@@ -7,6 +7,7 @@ import { makeStyles, Grid } from "@material-ui/core";
 // Components
 import CheckyButtonContainer from "../../common/CheckyButton/CheckyButtonContainer";
 import FilterFormHeader from "./FilterHeader";
+import FilterTitle from './FilterTitle';
 
 // Actions
 import { loadFilters, checkValueAction } from "../../services/actions/filter.actions";
@@ -20,7 +21,7 @@ const FilterForm = () => {
   const classes = useStyles();
 
   const [checked, setChecked] = useState(false);
-  const [selected, setSelected] = useState(null);
+  // const [selected, setSelected] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -40,12 +41,12 @@ const FilterForm = () => {
     })
     .value();
 
-  const groups = [];
-  filters.map(filter => {
-    if (groups.indexOf(filter.group) === -1) {
-      groups.push(filter.group);
-    }
-  });
+  // const groups = [];
+  // filters.map(filter => {
+  //   if (groups.indexOf(filter.group) === -1) {
+  //     groups.push(filter.group);
+  //   }
+  // });
 
   const handleClick = (e, option) => {
     e.preventDefault;
@@ -54,7 +55,10 @@ const FilterForm = () => {
 
   return (
     <div className={classes.root}>
+      {/* <div>
+      <FilterTitle />
       <FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} />
+      </div> */}
 
       {groupedFilters.map((option, i) => (
         <section key={`${option.category}${i}`} id={option[1][1][0].group} style={{scrollBehavior: "smooth"}}>

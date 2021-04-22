@@ -1,5 +1,5 @@
 // Third party
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, makeStyles, Typography } from "@material-ui/core";
@@ -9,7 +9,7 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import muiStyles from "./MatcherFooterStyle";
 
 // Services
-import { loadFilters } from "../../services/actions/filter.actions"
+import { loadFilters, loadFiltersData } from "../../services/actions/filter.actions";
 
 const useStyles = makeStyles(muiStyles);
 
@@ -22,10 +22,18 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
   const matched = useSelector(state => state.modules.neighborhood.matched.data);
   const hm = Boolean(favorites.length > 0);
   const filters = useSelector(state => state.modules.filter.filters);
+  const filtersData = useSelector(state => state.modules.filter.filtersData);
 
   if(filters.length === 0){
     dispatch(loadFilters());
   }
+
+  // if(filtersData.length === 0){
+  //   dispatch(loadFiltersData());
+  // }
+  useEffect(() => {
+    dispatch(loadFiltersData());
+  }, []);
 
   const handleHomeMatcher = e => {
     hm && onHomeMatcher(e);

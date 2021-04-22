@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import _ from "lodash";
 
 // Assets
@@ -74,11 +74,17 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails);
 
+// Styles
 const useStyles = makeStyles(muiStyles);
+
+// Actions
+import { selectFilter } from "../../services/actions/filter.actions"; 
 
 const CustomizedAccordions = () => {
     
-    const classes = useStyles();
+  const classes = useStyles();
+
+  const dispatch = useDispatch();
 
   const [expanded, setExpanded] = useState('panel1');
   const [chosen, setChosen] = useState(null);
@@ -93,6 +99,18 @@ const CustomizedAccordions = () => {
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
+  };
+
+  const handleCheckedValue = (e, value) => {
+    console.log(value);
+    setChosen(value);
+    dispatch(selectFilter(value));
+  };
+
+  const handleFilter = (e, value) => {
+    console.log(value);
+    setFilter(value);
+    dispatch(selectFilter(value));
   };
 
   return (
@@ -111,7 +129,8 @@ const CustomizedAccordions = () => {
                         className={ value===chosen ? classes.CheckedValueActive : classes.CheckedValue} 
                         variant="h6" 
                         key={i}
-                        onClick={()=>{console.log(value), setChosen(value)}}
+                        // onClick={()=>{console.log(value), setChosen(value)}}
+                        onClick={(e)=>{handleCheckedValue(e, value)}}
                     >
                       {value}
                     </Typography>
@@ -133,21 +152,22 @@ const CustomizedAccordions = () => {
         </AccordionSummary>
         <AccordionDetails>
             {Object.keys(groupedFilters)?.map((filterGroup, i) => (
-                    <div>
+                    <>
                         <Typography className={classes.filterGroupTitle} key={i}>{filterGroup}</Typography>
-                        <div className={classes.filterGroupArray}>
+                        <div className={classes.filterGroupArray} key={filterGroup}>
                         {groupedFilters[filterGroup]?.map((filtersArray, i) => (
                             <Typography 
                             className={ filtersArray.name===filter ? classes.CheckedValueActive : classes.CheckedValue} 
                             variant="h6" 
                             key={i}
-                            onClick={()=>{console.log(filtersArray.name), setFilter(filtersArray.name)}}
+                            // onClick={()=>{console.log(filtersArray.name), setFilter(filtersArray.name)}}
+                            onClick={(e)=>{handleFilter(e, filtersArray.name)}}
                             >
                             {filtersArray.name}
                             </Typography>
                         ))}
                         </div>
-                    </div>
+                    </>
             ))}
         </AccordionDetails>
       </Accordion>

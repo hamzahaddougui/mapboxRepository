@@ -1,7 +1,8 @@
 const styles = () => ({
   // FilterFormHeader Styles
   root: {
-    paddingBottom: "90px",
+    paddingBottom: "4em",
+    position: "absolute"
   },
 });
 

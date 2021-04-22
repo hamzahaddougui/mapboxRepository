@@ -73,22 +73,170 @@ const NbDetail = ({handleCloseNbDetails}) => {
     handleCloseNbDetails();
   };
   
+  // <div className={classes.progressContainer}>
+      //   <div className={classes.progressBar} style={{ width: `${props.value}%` }}>
+      //     <Typography align="center" className={classes.progressTxt} variant="body2">{`${Math.round(
+      //       props.value,
+      //     )}%`}</Typography>
+      //   </div>
+  // </div>
 
-  function LinearProgressWithLabel(props) {
-    return (
-      <div className={classes.progressContainer}>
-        <div className={classes.progressBar} style={{ width: `${props.value}%` }}>
-          <Typography align="center" className={classes.progressTxt} variant="body2">{`${Math.round(
-            props.value,
-          )}%`}</Typography>
-        </div>
-      </div>
-    );
-  }
+  // <Grid container direction="column" className={classes.progressContainer}>
+  //     <Grid item className={classes.progressBar} style={{ width: `${props.value}%` }}>
+        
+  //     </Grid>
+  //     {/* <Grid item container > */}
+  //         <Typography component="Grid" item className={classes.progressTxt} variant="body2">{`${Math.round(
+  //           props.value,
+  //         )}%`}</Typography>
+  //       {/* </Grid> */}
+
+  //     </Grid>
+
+  // function LinearProgressWithLabel(props) {
+  //   return (
+  //     <div className={classes.progressContainer}>
+  //       <div className={classes.progressBar} style={{ width: `${props.value}%` }}>
+          
+  //       </div>
+  //       <Typography align="center" className={classes.progressTxt} variant="body2">{`${Math.round(
+  //           props.value,
+  //         )}%`}</Typography>
+  //     </div>
+      
+  //   );
+  // }
 
   return (
-    <div className={classes.root}>
-      <Paper elevation={5} component={Grid} container className={classes.paper}>
+      <Grid container direction="column" justify="center" alignItems="center" className={classes.root}>
+
+        <Grid item container direction="column" className={classes.paper}>
+          <Grid item container direction="column" style={{height: "90%", borderRadius: "24px", overflow: "hidden"}}>
+            {/* Image and Title Section */}
+            <Grid
+              item
+              container
+              direction="column"
+              justify="space-between"
+              className={classes.imgSlider}
+            >
+              <Grid item container justify="center">
+                <div className={classes.title}>
+                  <Typography variant="h5" className={classes.titleTxt}>
+                    {detailNb && detailNb.Neighborhood}
+                  </Typography>
+                </div>
+              </Grid>
+
+              <div className={classes.scoreBall}>
+                <img src="/thunder.svg" className={classes.scoreBallIcon} />
+                <Typography variant="h5" className={classes.score}>
+                {currentNb && currentNb.Score}%
+                </Typography>
+              </div>
+            </Grid>
+
+            {/* Navigation Section */}
+            <Grid
+              item
+              container
+              direction="row"
+              className={classes.navigation}
+            >
+              <div className={classes.container} id="navigationScrollElement">
+                <div style={{ paddingLeft: "6px" }} className={classes.navigationElement}>
+                  <span
+                    className={active === "percent match" ? classes.categoryActive : classes.category}
+                    onClick={() => {
+                      setActive("percent match");
+                    }}
+                  >
+                    Percent match
+                  </span>
+                </div>
+                {groups?.map((group, i) => (
+                  <div className={classes.navigationElement} key={i}>
+                    <span
+                      className={active === group ? classes.categoryActive : classes.category}
+                      onClick={() => {
+                        setActive(group);
+                      }}
+                    >
+                      {group.toLowerCase()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div style={{backgroundColor: "#FFF", opacity: 0.9, width: "6%", height: "5%", position: "absolute", right: 0, display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <img src="/back.svg" style={{height: "24px", width: "24px", cursor: "pointer"}}
+                  onClick={()=>{console.log(document.getElementById('navigationScrollElement').scrollLeft)}}
+                />
+              </div>
+
+            </Grid>
+
+            {/* Dynamic Table Section */}
+            <Grid 
+              item 
+              container
+              className={classes.table}
+            >
+              <GridList cellHeight="auto" style={{width: "100%", height: "fit-content"}} >
+                {grouped?.map(
+                  (filter, i) =>
+                    filter.score && (
+                      <Grid
+                        className={classes.itemContainer}
+                        item
+                        container
+                        justify="space-between"
+                        alignItems="center"
+                        key={i}
+                      >
+                        <span className={classes.filterName}>{filter.name}</span>
+                        <LinearProgressWithLabel value={filter.score} />
+                      </Grid>
+                  ),
+                )}
+              </GridList>
+
+            </Grid>
+
+          </Grid>
+
+          <Grid item container justify="center" className={classes.iconsContainer} style={{height: "10%"}}>
+              <IconButton
+                className={classes.clearWrapper}
+                arial-label="Clear"
+                onClick={handleCloseNbDetails}
+              >
+                <Clear className={classes.bigIcon} />
+              </IconButton>
+
+              <IconButton
+                style={{ margin: "0em 2em 0em 2em" }}
+                className={classes.redoWrapper}
+                arial-label="Redo"
+                onClick={() => {
+                  console.log("Redo Action");
+                }}
+              >
+                <Replay className={classes.smallIcon} />
+              </IconButton>
+
+              <IconButton
+                className={classes.favoriteWrapper}
+                arial-label="Favorite"
+                onClick={handleAddToFavorites}
+              >
+                <Favorite className={classes.bigIcon} />
+              </IconButton>
+          </Grid>
+
+        </Grid>
+
+
+      {/* <Paper elevation={5} component={Grid} container className={classes.paper}>
         <Grid
           item
           container
@@ -137,7 +285,8 @@ const NbDetail = ({handleCloseNbDetails}) => {
             ))}
           </div>
         </Grid>
-
+        
+        <Grid item container>
         <GridList cellHeight="auto" className={classes.table}>
           {grouped?.map(
             (filter, i) =>
@@ -156,10 +305,12 @@ const NbDetail = ({handleCloseNbDetails}) => {
               ),
           )}
         </GridList>
-      </Paper>
+        
+        </Grid>
+      </Paper> */}
 
-      <Grid item container justify="center" className={classes.iconsContainer}>
-        <IconButton
+      {/* <Grid item container justify="center" className={classes.iconsContainer}> */}
+        {/* <IconButton
           className={classes.clearWrapper}
           arial-label="Clear"
           onClick={handleCloseNbDetails}
@@ -184,9 +335,10 @@ const NbDetail = ({handleCloseNbDetails}) => {
           onClick={handleAddToFavorites}
         >
           <Favorite className={classes.bigIcon} />
-        </IconButton>
+        </IconButton> */}
+      {/* </Grid> */}
+
       </Grid>
-    </div>
   );
 };
 

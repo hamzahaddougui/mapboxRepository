@@ -21,6 +21,7 @@ import NeighborhoodCard from '../NbCard/NbCard';
 
 // Actions
 import { loadMatched, loadChunk, getChunk, clearChunk, setScrollPosition } from "../../services/actions/grid.actions";
+import { setCurrentNB } from "../../services/actions/neighborhood.actions";
 
 // Styles
 const useStyles = makeStyles(muiStyles);
@@ -39,11 +40,7 @@ const GridView = ({open, handleOpen, handleCard}) => {
   useEffect(() => {
     dispatch(loadMatched());
     dispatch(loadChunk());
-    // const cardContainer = document.getElementById('cardContainer');
-    // console.log(cardContainer);
   }, []);
-
-  const [scroll, setScroll] = useState(false);
 
   const neighborhoods = useSelector(state => state.modules.grid.neighborhoods);
   const chunk = useSelector(state => state.modules.grid.chunk);
@@ -52,26 +49,24 @@ const GridView = ({open, handleOpen, handleCard}) => {
 
 
   // console.log("Chunk length : ",chunk.length, " and neighborhoods length : ", neighborhoods.length);
-
-  console.log(scroll);
   
   const handleClose = () => {
     dispatch(setScrollPosition(document.getElementById('cardContainer').scrollTop));
     dispatch(clearChunk());
-    // setScroll(true);
     handleOpen();
-    // console.log(document.getElementById('cardContainer').scrollTop);
+  };
+
+  const openCard = (e, option) => {
+    e.preventDefault();
+    dispatch(setCurrentNB(option));
+    handleCard();
+    // console.log('Card Clicked: ', option.id );
   };
 
   // const cardsEndRef = useRef(null);
 
   // const scrollToBottom = () => {
   //   cardsEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  // }
-
-  // if(scrollPosition) {
-  //   const cardContainer = document.getElementById('cardContainer');
-  //   console.log(cardContainer);
   // }
 
   useEffect(() => {
@@ -113,7 +108,7 @@ const GridView = ({open, handleOpen, handleCard}) => {
             // console.log("Chunk is : ", chunk),
             chunk?.map((neighborhood, i) => (
                 <Grid key={i}>
-                    <NeighborhoodCard onClick={handleCard} neighborhood={neighborhood} />
+                    <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} />
                     {/* <div ref={cardsEndRef} /> */}
                 </Grid>
             ))}

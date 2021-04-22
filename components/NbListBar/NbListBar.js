@@ -34,8 +34,8 @@ const NeighborhoodListBar = ({ onClick }) => {
 
   const openCard = (e, option) => {
     e.preventDefault();
-    onClick();
     dispatch(setCurrentNB(option));
+    onClick();
     // console.log('Card Clicked: ', option.id );
   };
 
