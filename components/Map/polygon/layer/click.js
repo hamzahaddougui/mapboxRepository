@@ -13,16 +13,16 @@ module.exports.handleLayerClick= (
     flyTo.handleFlyTo(map, flyMinZoom, flyMaxZoom, flyDuration, flySpeed, e, '');
     
     if(id.length== 1 || id.length== 4){
-      fitBounds.fitBounds(map, e.features[0], 5000, 0.5, flyMaxZoom)
+      fitBounds.fitBounds(map, e.features[0], 3000, 0.5, flyMaxZoom)
     }
 
     if(id.length== 2 && flyToOptions== COUNTY_HIGHLIGHTED){
-      fitBounds.fitBounds(map, e.features[0], 5000, 0.5, flyMaxZoom)
+      fitBounds.fitBounds(map, e.features[0], 3000, 0.5, flyMaxZoom)
 
     }
 
     if(id.length== 3 && flyToOptions== CITY_OTHER){
-      fitBounds.fitBounds(map, e.features[0], 5000, 0.5, flyMaxZoom)
+      fitBounds.fitBounds(map, e.features[0], 3000, 0.5, flyMaxZoom)
 
     }
 

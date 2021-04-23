@@ -93,7 +93,7 @@ const slice = createSlice({
     //   });
     // },
     resetFilter: (state, action) => {
-      console.log("Restarting Filters...");
+      // console.log("Restarting Filters...");
       state.filters = [];
       state.checkedValues = [];
       state.priorities = [];
@@ -102,16 +102,16 @@ const slice = createSlice({
       state.selectedFilter = action.payload;
     },
     filtersDataRequested: (state, action) => {
-      console.log("Filters Data Requested ...");
+      // console.log("Filters Data Requested ...");
       state.filtersDataLoading = true;
     },
     filtersDataRequestFailed: (state, action) => {
-      console.log("Filters Data Request Failed.");
+      // console.log("Filters Data Request Failed.");
       state.filtersDataLoading = false;
       state.error = action.payload;
     },
     filtersDataReceived: (state, action) => {
-      console.log("Filters Data Received !");
+      // console.log("Filters Data Received !");
       if (typeof action.payload === String) {
         state.filtersData = JSON.parse(action.payload);
       } else {
@@ -146,7 +146,7 @@ export default slice.reducer;
 
 export const loadFilters = () => (dispatch, getState) => {
   // if (isCached(getState().modules.filters)) return;
-  console.log("load Filters ...");
+  // console.log("load Filters ...");
   dispatch(
     apiCallBegan({
       url,
@@ -161,7 +161,7 @@ export const loadPriorities = () => {
   return async (dispatch, getState) => {
     dispatch(prioritiesRequested());
     try {
-      console.log("loading priorities ...");
+      // console.log("loading priorities ...");
       const currentPriorities = getState().modules.filter.priorities;
       dispatch(prioritiesEmpty());
       const data = getState().modules.filter.checkedValues;
@@ -184,7 +184,7 @@ export const loadPriorities = () => {
 
 export const loadFiltersData = () => (dispatch, getState) => {
   // if (isCached(getState().modules.filters)) return;
-  console.log("load Filters Data ...");
+  // console.log("load Filters Data ...");
 
   dispatch(
     apiCallBegan({

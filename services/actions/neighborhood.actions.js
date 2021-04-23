@@ -43,7 +43,7 @@ const slice = createSlice({
       } else {
         state.matched = action.payload;
       }
-      console.log(state.matched && `${state.matched.data?.length} Neighborhoods receiver`);
+      // console.log(state.matched && `${state.matched.data?.length} Neighborhoods receiver`);
 
       state.loading = false;
       state.lastFetch = Date.now();
@@ -61,7 +61,7 @@ const slice = createSlice({
       state.loading = false;
     },
     addFavorite: (state, action) => {
-      console.log("Favorite added!!");
+      // console.log("Favorite added!!");
       const value = action.payload;
       // console.log(value);
 
@@ -119,13 +119,13 @@ const slice = createSlice({
       //   // matchIndex = -1;
       // }
 
-      console.log("Flipping Card!!");
+      // console.log("Flipping Card!!");
       const value = action.payload;
 
-      console.log("value", value);
-      console.log("state", state.flipped);
+      // console.log("value", value);
+      // console.log("state", state.flipped);
       if(JSON.stringify(state.flipped) === JSON.stringify(value)){
-        state.flipped = null;
+        state.flipped = {};
       }else{
         state.flipped = value;
       }
@@ -166,7 +166,7 @@ export default slice.reducer;
 
 export const loadMatched = () => (dispatch, getState) => {
   // if (isCached(getState().modules.filters)) return;
-  console.log("load Filters ...");
+  // console.log("load Filters ...");
   const data = {};
 
   data.filters = getState().modules.filter.priorities;
@@ -185,7 +185,7 @@ export const loadMatched = () => (dispatch, getState) => {
 
 export const detailNeighborhood = () => (dispatch, getState) => {
   // if (isCached(getState().modules.filters)) return;
-  console.log("Getting Neighborhood ...");
+  // console.log("Getting Neighborhood ...");
 
   const data = getState().modules.neighborhood.currentNb;
   data && (console.log("Id : ", data.id));

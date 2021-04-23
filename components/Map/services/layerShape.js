@@ -37,7 +37,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                               ["linear"],
                               ["zoom"],
                               1,
-                              ["case", ["==", ["get", "favourite"], true], 1, 1]
+                              ["case", ["==", ["get", "score"], 0], 0, 1]
                             ],
           "text-opacity": 
                             [
@@ -45,7 +45,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                               ["linear"],
                               ["zoom"],
                               1,
-                              ["case", ["==", ["get", "favourite"], true], 1, 1]
+                              ["case", ["==", ["get", "score"], 0], 0, 1]
                             ]
         },
         filter

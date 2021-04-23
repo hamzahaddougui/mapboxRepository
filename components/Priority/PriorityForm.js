@@ -24,7 +24,7 @@ const PriorityForm = () => {
 
   const handlePriorityClick = (e, option) => {
     e.preventDefault();
-    console.log(e.currentTarget);
+    // console.log(e.currentTarget);
     const optionObject = {
       id: e.currentTarget.name,
       value: option,

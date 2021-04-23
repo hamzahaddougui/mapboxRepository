@@ -250,7 +250,7 @@ module.exports.drawScores= (map, imageName, layerName, source)=> {
           [">", ["get", "score"], 80],
           "#5D66FA",
 
-          "black",
+          "#5D66FA",
         ],
         "white",
         ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false]]
