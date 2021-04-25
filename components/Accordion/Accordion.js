@@ -3,76 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import _ from "lodash";
 
 // Assets
+import { makeStyles, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import { makeStyles, Typography } from '@material-ui/core';
+// Styles Importations
 import muiStyles from './AccordionStyles';
+import AccordionSummaryStyles from './AccordionSummaryStyles';
+import AccordionDetailsStyles from './AccordionDetailsStyles';
+import AccordionMuiStyles from './AccordionMuiStyles';
 
-const Accordion = withStyles({
-  root: {
-    // border: '1px solid #979797',
-    border: 'none',
-    // borderRadius: "28px",
-    marginBottom: "8px",
-    boxShadow: 'none',
-    '&:not(:last-child)': {
-      // border: '1px solid #979797',
-      border: 'none',
-      marginBottom: "8px",
-      borderRadius: "28px",
-    },
-    '&:last-child': {
-        // border: '1px solid #979797',
-        border: 'none',
-        marginBottom: "8px",
-        borderRadius: "28px",
-      },
-    '&:before': {
-      display: 'none',
-    },
-    '&$expanded': {
-      margin: 'auto',
-      border: 'none'
-    },
-  },
-  expanded: {},
-})(MuiAccordion);
+const Accordion = withStyles(AccordionMuiStyles, { withTheme: true })(MuiAccordion);
 
-const AccordionSummary = withStyles({
-  root: {
-    backgroundColor: 'transparent',
-    borderRadius: "28px",
-    border: "1px solid #979797",
-    // borderBottom: '1px solid rgba(0, 0, 0, .125)',
-    // marginBottom: -1,
-    minHeight: 42,
-    padding: "0px 34px",
-    '&$expanded': {
-      minHeight: 42,
-      border: "1px solid #979797",
-      borderRadius: "28px",
-    },
-  },
-  content: {
-    '&$expanded': {
-      margin: '12px 0',
-    },
-  },
-  expanded: {},
-})(MuiAccordionSummary);
+const AccordionSummary = withStyles(AccordionSummaryStyles, { withTheme: true })(MuiAccordionSummary);
 
-const AccordionDetails = withStyles((theme) => ({
-  root: {
-    padding: "16px 0",
-    display: "grid",
-    alignItems: "center",
-    marginLeft: "34px",
-  },
-}))(MuiAccordionDetails);
+const AccordionDetails = withStyles(AccordionDetailsStyles, { withTheme: true })(MuiAccordionDetails);
 
 // Styles
 const useStyles = makeStyles(muiStyles);

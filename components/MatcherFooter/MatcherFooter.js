@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, makeStyles, Typography } from "@material-ui/core";
+import { Button, makeStyles, Typography, Hidden } from "@material-ui/core";
 import ReplayIcon from '@material-ui/icons/Replay';
 
 // Assets
@@ -67,6 +67,7 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
           </Button>
         </div>
       </div>
+      <Hidden xsDown>
       <div style={{ position: "absolute", right: "21px", display: "flex", alignItems: "center" }}>
         <Typography className={classes.poweredBy}>
           Powered by
@@ -76,15 +77,16 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
         </Typography>
         {/* <img className={classes.logo} src="/logo.svg" alt="logo" /> */}
       </div>
+      </Hidden>
     </div>
   );
 
   const renderBeforeMatching = () => (
     <div className={classes.bottomBox}>
       <div onClick={onStartMatcher} style={{ cursor: "pointer" }}>
-        <div className={classes.thunder}>
-          <img src="/thunder.svg" alt="thunder" />
-        </div>
+        {/* <div className={classes.thunder}> */}
+          <img src="/thunder.svg" alt="thunder" className={classes.thunder} />
+        {/* </div> */}
         <Button className={classes.matchButton}>
           <Typography className={classes.matchButtonTxt}>Start the Matcher</Typography>
         </Button>

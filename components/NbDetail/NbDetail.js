@@ -142,6 +142,7 @@ const NbDetail = ({handleCloseNbDetails}) => {
               container
               direction="row"
               className={classes.navigation}
+              id="navigationScrollElementParent"
             >
               <div className={classes.container} id="navigationScrollElement">
                 <div style={{ paddingLeft: "6px" }} className={classes.navigationElement}>
@@ -167,10 +168,8 @@ const NbDetail = ({handleCloseNbDetails}) => {
                   </div>
                 ))}
               </div>
-              {/* <div style={{backgroundColor: "#FFF", opacity: 0.9, width: "6%", height: "5%", position: "absolute", right: 0, display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <img src="/back.svg" style={{height: "24px", width: "24px", cursor: "pointer"}}
-                  onClick={()=>{console.log(document.getElementById('navigationScrollElement').scrollLeft)}}
-                />
+              {/* <div className={classes.leftArrowContainer} onClick={()=>{console.log(document.getElementById('navigationScrollElement').scrollLeft)}}>
+                <img src="/back.svg" style={{height: "24px", width: "24px", cursor: "pointer"}}/>
               </div> */}
 
             </Grid>
@@ -205,6 +204,7 @@ const NbDetail = ({handleCloseNbDetails}) => {
           </Grid>
 
           <Grid item container justify="center" className={classes.iconsContainer} style={{height: "10%"}}>
+            <Grid item container justify="center" className={classes.iconsWrapper}>
               <IconButton
                 className={classes.clearWrapper}
                 arial-label="Clear"
@@ -231,6 +231,7 @@ const NbDetail = ({handleCloseNbDetails}) => {
               >
                 <Favorite className={classes.bigIcon} />
               </IconButton>
+              </Grid>
           </Grid>
 
         </Grid>

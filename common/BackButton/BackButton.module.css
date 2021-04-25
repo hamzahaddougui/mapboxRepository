@@ -1,6 +1,6 @@
 .backContainer {
   display: inline-flex;
-  margin: 8px;
+  margin: 0 8px;
   cursor: pointer;
 }
 

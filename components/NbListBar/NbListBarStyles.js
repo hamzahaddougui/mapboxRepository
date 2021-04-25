@@ -15,6 +15,9 @@ const styles = theme => ({
       width: "100% !important",
       overflowX: "scroll !important",
     },
+    [theme.breakpoints.down('xs')]: {
+      paddingBottom: "80px",
+    },
   },
 });
 

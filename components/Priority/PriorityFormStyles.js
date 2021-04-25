@@ -13,6 +13,21 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "400",
     fontSize: 16.02,
     color: "#323643",
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 13,
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      fontSize: 16.02,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 16.02,
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: 16.02,
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: 18,
+    },
   },
   priorityButton: {
     borderRadius: "32px",

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, GridList } from "@material-ui/core";
+import { Grid, GridList, Modal } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 
 // components
@@ -11,6 +11,7 @@ import AddNeighborhood from "components/AddNb/AddNb";
 import SignUpForm from "components/SignUpForm/SignUpForm";
 import SignUpHeader from "components/SignUpHeader/SignUpHeader";
 import SignUpFooter from "components/SignUpFooter/SignUpFooter";
+import NeighborhoodDetail from "components/NbDetail/NbDetail";
 
 // Actions
 import { SignUpAction } from "../../../services/actions/signup.actions";
@@ -27,6 +28,7 @@ const Favorite = () => {
 
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({ firstName: "", lastName: "", email: "" });
+  const [openNbDetails, setOpenNbDetails] = useState(false);
 
   const handleChange = ({ target }) => {
     setData({ ...data, [target.name]: target.value });
@@ -45,13 +47,21 @@ const Favorite = () => {
     }
   };
 
+  const handleNbClick = e => {
+    console.log("click");
+    setOpenNbDetails(true);
+  };
+  const handleCloseNbDetails = () => {
+    setOpenNbDetails(false);
+  };
+
   return (
     <>
     { open 
         ? 
           (<AddNeighborhood open={open} setOpen={setOpen} />) 
         : 
-          (<Grid container className={classes.root}>
+          (<Grid container direction="column" className={classes.root}>
             {/* 
             <Grid
               component={Box}
@@ -86,19 +96,28 @@ const Favorite = () => {
               className={classes.jumbo}
             >
               <SignUpHeader />
-              <FavoriteListBar open={open} setOpen={setOpen} />
+              <FavoriteListBar open={open} setOpen={setOpen} onClick={handleNbClick} />
             </Grid>
             <Grid
               item
               container
               justify="center"
               alignItems="center"
+              className={classes.signUpContent}
             >
               <GridList className={classes.wrapper}>
                 <SignUpForm data={data} handleChange={handleChange} />
               </GridList>
               <SignUpFooter onClick={handleSubmit} />
             </Grid>
+            <Modal
+              open={openNbDetails}
+              onClose={handleCloseNbDetails}
+            >
+              <>
+              {openNbDetails && (<NeighborhoodDetail handleCloseNbDetails={handleCloseNbDetails} />)}
+              </>
+            </Modal>
           </Grid>
           )
     }

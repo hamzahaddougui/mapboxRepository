@@ -22,7 +22,7 @@ const FilterFormHeader = ({ groups, selected, setSelected }) => {
             justify="center"
             alignItems="center"
             className={classes.elementContainer}
-            // href={`#${selected}`}
+            // href={`#${selected}`} 
             onClick={() => {
               console.log(group), setSelected(group),document.getElementById(`${group}`).scrollIntoView({
                 behavior: 'smooth'
@@ -31,11 +31,11 @@ const FilterFormHeader = ({ groups, selected, setSelected }) => {
           >
             {selected === group ? (
               <Grid item className={classes.selectedIconContainer}>
-                <img src="/whiteGlobe.svg" />
+                <img src="/whiteGlobe.svg" className={classes.selectedIcon} />
               </Grid>
             ) : (
               <Grid item className={classes.iconContainer}>
-                <img src="/globe.svg" />
+                <img src="/globe.svg" className={classes.icon}/>
               </Grid>
             )}
             <Grid item className={classes.textContainer}>

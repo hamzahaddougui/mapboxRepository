@@ -52,6 +52,7 @@ const SignUpForm = ({ data, handleChange }) => {
                 fullWidth
                 id="firstName"
                 inputProps={{ className: classes.input }}
+                className={classes.MuiInput}
                 name="firstName"
                 value={data.firstName}
                 onChange={handleChange}
@@ -66,6 +67,7 @@ const SignUpForm = ({ data, handleChange }) => {
                 fullWidth
                 id="lastName"
                 inputProps={{ className: classes.input }}
+                className={classes.MuiInput}
                 placeholder="Last name"
                 name="lastName"
                 value={data.lastName}
@@ -80,6 +82,7 @@ const SignUpForm = ({ data, handleChange }) => {
                 fullWidth
                 id="email"
                 inputProps={{ className: classes.input }}
+                className={classes.MuiInput}
                 placeholder="Email"
                 name="email"
                 value={data.email}
@@ -94,6 +97,7 @@ const SignUpForm = ({ data, handleChange }) => {
                 fullWidth
                 id="password"
                 inputProps={{ className: classes.input }}
+                className={classes.MuiInput}
                 placeholder="Password"
                 name="password"
                 type="password"
@@ -114,8 +118,8 @@ const SignUpForm = ({ data, handleChange }) => {
         <Typography className={classes.titleOther} variant="body2">
           Or continue with
         </Typography>
-        <Grid container spacing={2} className={classes.authWrapper}>
-          <Grid item xs={12} sm={6}>
+        <Grid container direction="row" justify="space-between" alignItems="center" className={classes.authWrapper}>
+          <Grid item xs={9} sm={6} justify="center" className={classes.authElement}>
             <GoogleLogin
               className={classes.auth}
               clientId={clientId}
@@ -125,7 +129,7 @@ const SignUpForm = ({ data, handleChange }) => {
               cookiePolicy={"single_host_origin"}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={9} sm={6} justify="center" className={classes.authElement}>
             <GoogleLogin
               className={classes.auth}
               clientId={clientId}

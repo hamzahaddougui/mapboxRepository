@@ -1,4 +1,4 @@
-const styles = () => ({
+const styles = (theme) => ({
 
     // FilterFooter Styles
     bottomBox: {
@@ -19,15 +19,55 @@ const styles = () => ({
         fontSize: 11.3, 
         fontWeight: "300", 
         color: "#323643",
-        margin: "0 3px 0 0",
-        opacity: 0.57
+        margin: "0 2px 0 0",
+        opacity: 0.57,
+        [theme.breakpoints.down('xs')]: {
+        fontSize: 9,
+        margin: "0 1px 0 0",
+        },
+        [theme.breakpoints.between('xs, sm')]: {
+        fontSize: 11.3,
+        margin: "0 2px 0 0",
+        },
+        [theme.breakpoints.up('md')]: {
+        fontSize: 11.3,
+        margin: "0 2px 0 0",
+        },
+        [theme.breakpoints.up('lg')]: {
+        fontSize: 11.3,
+        margin: "0 2px 0 0",
+        },
+        [theme.breakpoints.up('xl')]: {
+        fontSize: 13,
+        margin: "0 2px 0 0",
+        },
       },
       brandName: {
         fontFamily: "Poppins",
         fontSize: 11.3,
         fontWeight: 500,
         color: "#323643",
-        margin: "0 0 0 3px"
+        margin: "0 0 0 2px",
+        [theme.breakpoints.down('xs')]: {
+        fontSize: 9,
+        margin: "0 0 0 1px",
+        },
+        [theme.breakpoints.between('xs, sm')]: {
+        fontSize: 11.3,
+        margin: "0 0 0 2px",
+        },
+        [theme.breakpoints.up('md')]: {
+        fontSize: 11.3,
+        margin: "0 0 0 2px",
+        },
+        [theme.breakpoints.up('lg')]: {
+        fontSize: 11.3,
+        margin: "0 0 0 2px",
+        },
+        [theme.breakpoints.up('xl')]: {
+        fontSize: 13,
+        margin: "0 0 0 2px",
+        },
       },
     invisibleBottomBox: {
         height: "74px",
@@ -43,10 +83,28 @@ const styles = () => ({
         marginLeft: "12px",
     },
     navigation: {
+        fontFamily: "Poppins",
+        fontSize: 16.02,
+        fontWeight: 300,
         color: "#323643",
         textDecoration: "none",
         cursor: "pointer",
         padding: "8px 45px",
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 13,
+        },
+        [theme.breakpoints.between('xs, sm')]: {
+            fontSize: 16.02,
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: 16.02,
+        },
+        [theme.breakpoints.up('lg')]: {
+            fontSize: 16.02,
+        },
+        [theme.breakpoints.up('xl')]: {
+            fontSize: 18,
+        },
     },
 
 });

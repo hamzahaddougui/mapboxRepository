@@ -11,6 +11,22 @@ const styles = (theme) => ({
         opacity: "0.90 !important",
         overflowY: "scroll",
         overflowX: "hidden",
+        [theme.breakpoints.down('xs')]: {
+            maxWidth: "225px",
+            maxHeight: "calc(100vh - 225px)",
+        },
+        [theme.breakpoints.between('xs, sm')]: {
+            maxWidth: "300px",
+            maxHeight: "calc(100vh - 225px)",
+        },
+        [theme.breakpoints.up('md')]: {
+            maxWidth: "375px",
+            maxHeight: "calc(100vh - 225px)",
+        },
+        [theme.breakpoints.up('lg')]: {
+            maxWidth: "375px",
+            maxHeight: "calc(100vh - 225px)",
+        },
     },
 });
 
