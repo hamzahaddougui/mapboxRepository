@@ -3,9 +3,10 @@
     position: absolute;
     width: 100vw;
     height: calc(100vh - 65px);
-    left: 0%;
+    left: 0;
     top: 0;
 }
+
 .map{width: 100%; height: 100%; z-index: 1; }
 
 .card_div{
@@ -17,15 +18,16 @@
 
 
 .popup{
-    color:#575FF9;    
+    color: black; 
+    font: normal 300 12.7px Poppins;   
 }
 
-.mapboxgl-popup-content{
+/* .mapboxgl-popup-content{
     background-image: url('../../public/map/pin.png');
     display: block;
     position: absolute;
     z-index: 1;
-}
+} */
 
 .neighborhood_detail{
     position: absolute;

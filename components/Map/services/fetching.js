@@ -45,6 +45,7 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
         break;
       case 'neighborhood':
           feature= allFeatures.filter(f => f.properties.id.split('-').length== 4);
+          // console.log(feature);
           feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
           if(from!= null){
             feature= feature.filter(f => f.properties.id.startsWith(from));
@@ -77,6 +78,15 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
           // });
           // feature= feature.sort((a,b) => (a.score > b.score) ? 1 : ((b.score > a.score) ? -1 : 0));
           
+          
+        break;
+        case 'city_neighborhood':
+          feature= allFeatures.filter(f => f.properties.id.split('-').length== 3 || f.properties.id.split('-').length== 4);
+          feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
+
+          if(from!= null){
+            feature= feature.filter(f => f.properties.id.startsWith(from));
+          }
           
         break;
     default:

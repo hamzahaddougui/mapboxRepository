@@ -1,7 +1,7 @@
 import flyTo from "../flyingTo";
 import draw from "../polygon/draw";
 import fitBounds from "../fitBounds";
-import {CITY, NEIGHBORHOOD} from "../polygon/layer/config";
+import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../polygon/layer/config";
 
 module.exports.setFavourites= (favourites, map, data)=> {
     if(favourites.length> 0){
@@ -39,7 +39,9 @@ module.exports.setFavourites= (favourites, map, data)=> {
           draw.drawPolygon(map, data, NEIGHBORHOOD);
           
   }  
-      // console.log(data.features);   
+      // console.log(data.features);  
+          // draw.drawPolygon(map, data, CITY_NEIGHBORHOOD);
+
     }
    
   }
@@ -69,5 +71,6 @@ module.exports.checkFavourites= (favourites, map, data)=> {
       
       
     })
+          // draw.drawPolygon(map, data, CITY_NEIGHBORHOOD);
     
   }

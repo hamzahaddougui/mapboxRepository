@@ -1,7 +1,7 @@
 import flyTo from "../flyingTo";
 import draw from "../polygon/draw";
 import fitBounds from "../fitBounds";
-import {CITY, NEIGHBORHOOD} from "../polygon/layer/config";
+import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../polygon/layer/config";
 
 module.exports.setFlipped= (flipped, map, data)=> {
     let neighborhood= data.features.filter(f => f.properties.Neighborhood == flipped.Neighborhood);
@@ -19,7 +19,7 @@ module.exports.setFlipped= (flipped, map, data)=> {
   
       // data.features[0]= city[0];
       city[0].properties.position= 0;
-
+      // console.log(city[0])
       draw.drawPolygon(map, data, CITY);
       
     }
@@ -35,11 +35,12 @@ module.exports.setFlipped= (flipped, map, data)=> {
   
       // data.features[0]= neighborhood[0];
       neighborhood[0].properties.position= 0;
-
+      // console.log(neighborhood[0])
       draw.drawPolygon(map, data, NEIGHBORHOOD);
       
   }  
   // console.log(data.features);   
+          // draw.drawPolygon(map, data, CITY_NEIGHBORHOOD);
 
   }
         
@@ -63,6 +64,7 @@ module.exports.checkFlipped= (map, data)=> {
         
       }
       
+          // draw.drawPolygon(map, data, CITY_NEIGHBORHOOD);
       
     
   }

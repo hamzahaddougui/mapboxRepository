@@ -1,5 +1,5 @@
 import draw from "../polygon/draw";
-import {CITY, NEIGHBORHOOD} from "../polygon/layer/config";
+import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../polygon/layer/config";
 
 module.exports.setScores= (map, scores, data) => {
     if(scores.hasOwnProperty('data')){
@@ -48,5 +48,5 @@ module.exports.setScores= (map, scores, data) => {
         draw.drawPolygon(map, data, CITY);
         draw.drawPolygon(map, data, NEIGHBORHOOD);
       }
-    return true;
+    return data;
   }

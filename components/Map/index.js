@@ -22,12 +22,11 @@ import scores from "./services/scores";
 import favourites from "./services/favourites";
 import flipped from "./services/flipped";
 import filters from "./services/filters";
+import fetching from "./services/fetching";
 import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
-import NeighborhoodDetail from "../NbDetail/NbDetail";
-import {showCurrent} from "../../services/actions/neighborhood.actions";
+import {showCurrent, NeighborhoodOnMove} from "../../services/actions/neighborhood.actions";
 
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
-const score = "/map/pin.png";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFtemFoYWQiLCJhIjoiY2trY2YybmozMGo3bzJ1b2FpcTh4ZmdpeiJ9.urpUJIK3zKrxCaEKXNe9Rw";
@@ -35,19 +34,20 @@ mapboxgl.accessToken =
 class Map extends Component {
   state = {
     openCard: false,
-    scores: [
-      { id: "house 5", score: 100 },
-      { id: "house 4", score: 80 },
-      { id: "house 3", score: 60 },
-      { id: "house 2", score: 40 },
-      { id: "house 1", score: 20 },
-    ],
+    // scores: [
+    //   { id: "house 5", score: 100 },
+    //   { id: "house 4", score: 80 },
+    //   { id: "house 3", score: 60 },
+    //   { id: "house 2", score: 40 },
+    //   { id: "house 1", score: 20 },
+    // ],
     mapObject: "",
     image: "",
     cardObject: { name: "", county: "", city: "", adress: "", phone: "", type: "" },
-    popup: new mapboxgl.Popup({ closeButton: false, anchor: 'right', offset: 16 }),
+    popup: new mapboxgl.Popup({ closeButton: false, offset: 20 }),
     city_neighbPolygons: "",
-    neighborhoodCard: { display: "none", name: "" }
+    neighborhoodCard: { display: "none", name: "" },
+    polygonsScore: ""
   };
 
   handleClose = () => {
@@ -127,6 +127,15 @@ class Map extends Component {
       leave.mouseLeave(e, popup);
     });
 
+    map.on("move", "city-layer", e => {
+      let nbs= fetching.getFeatures(allInOneData.data.features, "neighborhood", e.features[0].properties.id);
+      if(nbs[0] && nbs[0].properties.hasOwnProperty('score')){
+        let nbProps= [];
+        nbs.forEach(f => nbProps.push(f.properties));
+        this.props.Nb_CityMove(nbProps);
+      }
+    })
+
     map.on("click", "city-other-layer", e => {
       let id = e.features[0].properties.id.split("-");
       layerClick.click(map, allInOneData.data, e, CITY_OTHER, "city", e.features[0].properties.id,
@@ -148,6 +157,10 @@ class Map extends Component {
       this.handlePopup(e, "Neighborhood", e.features[0].properties.id.split('-')[3]);
       });
 
+    map.on("move", "neighborhood-layer", e => {
+        this.props.Nb_CityMove(e.features[0].properties)
+      })
+
     map.on("click", "neighborhood-layer", e => {
       let id = e.features[0].properties.id.split("-");
       layerClick.click(map, allInOneData.data, e, NEIGHBORHOOD, "neighborhood", e.features[0].properties.id,
@@ -161,8 +174,7 @@ class Map extends Component {
       layerClick.click(map, allInOneData.data, e, NEIGHBORHOOD, "city", id[0] + "-" + id[1] + "-" + id[2],
         CITY_BORDERED);
       this.props.showCurrent(e.features[0].properties);
-      // this.setState({ neighborhoodCard: { display: "block", name: id[3] } });
-    });
+      });
 
     map.on("mouseleave", "neighborhood-layer", e => {
       draw.drawPolygon(e.target, allInOneData.data, NEIGHBORHOOD_HIGHLIGHTED, []);
@@ -194,16 +206,17 @@ class Map extends Component {
     });
   }
 
-  componentDidUpdate(prevProps){
-    const {mapObject, city_neighbPolygons}= this.state;
+  componentDidUpdate(prevProps, prevState){
+    const {mapObject, city_neighbPolygons, polygonsScore}= this.state;
     
     if(prevProps.scores!= this.props.scores){
-      scores.setScores(mapObject, this.props.scores, city_neighbPolygons); }
-
+      let data= scores.setScores(mapObject, this.props.scores, city_neighbPolygons); 
+      this.setState({polygonsScore: data})
+      }
+    
     if(prevProps.filter.selectedFilter!= this.props.filter.selectedFilter){
-      filters.setFilters(this.props.filter, mapObject, city_neighbPolygons);
-
-    }
+      filters.setFilters(this.props.filter, mapObject, polygonsScore);
+      }
     
     if(this.props.flipped && prevProps.flipped!= this.props.flipped && Object.keys(this.props.flipped).length > 0){
       flipped.setFlipped(this.props.flipped, mapObject, city_neighbPolygons); }
@@ -222,16 +235,21 @@ class Map extends Component {
   
   handlePopup = (e, key, id) => {
     const { popup } = this.state;
-    popup.setLngLat(e.lngLat).setHTML("<img class='popup_img'></img><h4 class='popup_heading'>"+key+"</h4>: "+id).addTo(e.target);
+    popup.setLngLat(e.lngLat).setHTML("<span class='popup_heading'>"+key+"</span> "+id).addTo(e.target);
     let popupTip= document.getElementsByClassName('mapboxgl-popup-tip');
     popupTip[0].style.display= "none";
     let popupContent= document.getElementsByClassName('mapboxgl-popup-content');
-    popupContent[0].style.borderRadius= "15px";
-    popupContent[0].style.padding= "8px 16px";
+    popupContent[0].style.borderRadius= "14px";
+    popupContent[0].style.padding= "6px 11px 5px 12px";
+    popupContent[0].style.backgroundColor= "#ffffff";
+    popupContent[0].style.boxShadow= "0 2px 4px 0 rgba(0, 0, 0, 0.1)";
     let popupHeading= document.getElementsByClassName('popup_heading');
-    popupHeading[0].style.color= "black";
-    popupHeading[0].style.display= "inline";
+    popupHeading[0].style.color= "#4346f7";
+    popupHeading[0].style.display= "block";
+    popupHeading[0].style.font= "normal 600 10px Poppins";
+    
     popup.addClassName(styles.popup);
+    
   }
 
   showHouses = e => {
@@ -248,11 +266,6 @@ class Map extends Component {
     return json;
   };
 
-  
-  handleNeighborhoodDetailClick = () => {
-    this.setState({ neighborhoodCard: { display: "none" } });
-  };
-
   render() {
     return (
       <React.Fragment>
@@ -264,12 +277,6 @@ class Map extends Component {
               open={this.state.openCard}
               handleClose={this.handleClose}
             ></PoiCard>
-          </div>
-          <div
-            style={{ display: this.state.neighborhoodCard.display }}
-            className={styles.neighborhood_detail}
-            onClick={this.handleNeighborhoodDetailClick}>
-            <NeighborhoodDetail detail={this.state.neighborhoodCard}></NeighborhoodDetail>
           </div>
         </div>
       </React.Fragment>
@@ -290,7 +297,8 @@ const mapStateToProps = function (state) {
 const mapActionsToProps = dispatch => ({
   loadStarted: () => dispatch(loadStarted()),
   LoadEnded: () => dispatch(LoadEnded()),
-  showCurrent: (currentNeighb) => dispatch(showCurrent(currentNeighb))
+  showCurrent: (currentNeighb) => dispatch(showCurrent(currentNeighb)),
+  Nb_CityMove: (nb_city) => dispatch(NeighborhoodOnMove(nb_city))
 });
 
 export default connect(mapStateToProps, mapActionsToProps)(Map);

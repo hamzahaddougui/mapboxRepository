@@ -5,7 +5,7 @@ return { id, type: "fill", source,
 
 module.exports.lineLayer = (id, source, lineColor, lineOpacity, lineWidth,  minzoom, maxzoom, filter) => {
 return { id, type: "line", source, 
-         paint: { "line-color": lineColor, "line-opacity": lineOpacity, "line-width": lineWidth },
+         paint: { "line-color": lineColor, "line-opacity": lineOpacity, "line-width": lineWidth},
          minzoom, maxzoom, filter }}
 
 

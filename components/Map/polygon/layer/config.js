@@ -1,5 +1,5 @@
 const INITIAL_COLOR= '#E2E3F0';
-const HIGHLIGHT_COLOR= 'rgba(87,95,249,0.17)';
+const HIGHLIGHT_COLOR= 'rgba(87, 95, 249, 0.13)';
 
 const REGION= {
     id: 'region',
@@ -199,10 +199,24 @@ const NEIGHBORHOOD_HIGHLIGHTED= {
     flySpeed: 0.5
 }
 
+const CITY_NEIGHBORHOOD= {
+    id: 'city_neighborhood',
+    source: 'city_neighborhood',
+    color: INITIAL_COLOR,
+    opacity: 0.2,
+    minZoom: 9,
+    maxZoom: 24,
+    flyMinZoom: null, 
+    flyMaxZoom: null, 
+    flyDuration: null, 
+    flySpeed: null
+}
+
 export {
     REGION, REGION_HIGHLIGHTED, REGION_CLICKED, 
     COUNTY, COUNTY_HIGHLIGHTED, COUNTY_CLICKED, COUNTY_BORDERED,
     CITY, CITY_OTHER, CURRENT_CITY, CURRENT_CITY_CLICKED, CITY_BORDERED,
-    NEIGHBORHOOD, NEIGHBORHOOD_HIGHLIGHTED, CURRENT_NEIGHBORHOOD
+    NEIGHBORHOOD, NEIGHBORHOOD_HIGHLIGHTED, CURRENT_NEIGHBORHOOD,
+    CITY_NEIGHBORHOOD
 }
 

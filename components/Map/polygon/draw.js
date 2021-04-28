@@ -1,6 +1,6 @@
 import service from "../services/fetching";
 import layerShape from "../services/layerShape";
-const score = "/map/pin.png";
+const score_marker = "/map/pin.png";
 const favourite = "/map/pin.png";
 const flipped = "/map/pin.png";
 
@@ -72,7 +72,7 @@ module.exports.drawPolygon = (
                 "white",
                 "#575ff9",
                 
-                ["any", ["==", ["get", "flipped"], true], ["all", ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]]]
+                ["==", ["get", "flipped"], true]
               ),
             );
         
@@ -94,7 +94,7 @@ module.exports.drawPolygon = (
                 13,
                 "white",
                 "#575ff9",
-                ["any", ["==", ["get", "flipped"], true], ["all", ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]]]
+                ["==", ["get", "flipped"], true]
               ),
             );
         
@@ -164,27 +164,36 @@ module.exports.drawPolygon = (
       let lineLayer = layerShape.lineLayer(
         id + "-layer-outline",
         id,
-        "#575FF9",
+        [
+          "case",
+          ["==", id, "region"],
+          "rgba(50, 54, 67, 0.27)",
+          ["==", id, "county"],
+          "rgba(50, 54, 67, 0.27)",
+          ["==", id, "city"],
+          "rgba(50, 54, 67, 0.27)",
+          ["==", id, "neighborhood"],
+          "rgba(50, 54, 67, 0.27)",
+          "#575ff9"
+        ],
         1,
         [
           "case",
           ["==", id, "region"],
-          2,
-          ["==", id, "region-highlighted"],
-          3,
-          ["==", id, "current-county"],
-          2,
-          ["==", id, "current-city"],
-          2,
-          ["==", id, "current-neighborhood"],
-          2,
+          1,
+          ["==", id, "county"],
+          1,
+          ["==", id, "city"],
+          1,
+          ["==", id, "neighborhood"],
+          1,
           ["==", id, "region-clicked"],
           4,
           ["==", id, "county-bordered"],
           4,
           ["==", id, "city-bordered"],
           4,
-          0.5
+          2
         ],
         minZoom,
         maxZoom,
@@ -223,7 +232,7 @@ module.exports.drawPolygon = (
 
 
 module.exports.drawScores= (map, imageName, layerName, source)=> {
-  map.loadImage(score, (error, image) => {
+  map.loadImage(score_marker, (error, image) => {
     if (error) throw error;
     map.addImage(imageName, image, { sdf: true });
     let result = map.addLayer(
@@ -234,7 +243,7 @@ module.exports.drawScores= (map, imageName, layerName, source)=> {
         0.1,
         ["concat", ["get", "score"], "%"],
         ["Open Sans Semibold", "Arial Unicode MS Bold"],
-        [0, -1],
+        [0, -0.5],
         "top",
         12,
         [
@@ -254,6 +263,8 @@ module.exports.drawScores= (map, imageName, layerName, source)=> {
         ],
         "white",
         ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false]]
+
+        
       ),
     );
   });
