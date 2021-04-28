@@ -36,7 +36,7 @@ const RestartMatcher = ({ onClose }) => {
           Are you sure you want to restart the Matcher?
         </Typography>
         <Grid container spacing={2} className={classes.buttonsWrapper}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={6}>
             <Button
               className={classes.customButton}
               onClick={() => {
@@ -47,7 +47,7 @@ const RestartMatcher = ({ onClose }) => {
               Yes, I am sure
             </Button>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={6}>
             <Button className={classes.customButton} onClick={onClose}>
               Cancel
             </Button>

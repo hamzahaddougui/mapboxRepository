@@ -1,19 +1,25 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, makeStyles } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import styles from "./DropDownButton.module.css";
+// import styles from "./DropDownButton.module.css";
+import muiStyles from './DropDownButtonStyles';
+
+const useStyles = makeStyles(muiStyles);
 
 const DropDownButton = ({ onClick }) => {
+
+  const classes = useStyles();
+
   return (
-    <Grid container justify="space-between" className={styles.dropDown} onClick={onClick}>
+    <Grid container justify="space-between" className={classes.dropDown} onClick={onClick}>
     {/* <div className={styles.dropDown} onClick={onClick}> */}
     <Grid item>
-      <Typography style={{color: "#FFF", fontSize : 14.2, marginRight: "32px"}}>Percent match</Typography>
+      <Typography className={classes.percentMatchTxt}>Percent match</Typography>
     </Grid>
     <Grid item>
       <img 
-              className={styles.arrowIcon}
+              className={classes.arrowIcon}
               src="/downArrow.svg"
               alt= "Down Arrow"
               // onClick={handleAddToFavorites}

@@ -12,6 +12,43 @@ const styles = theme => ({
     overflow: "hidden",
     // display: props => (props.open ? "block" : "none"),
   },
+
+  headerWrapper: {
+    height: "30%",
+  },
+  headerTitle: {
+    height: "50%",
+  },
+  headerGroups: {
+    height: "50%",
+    padding: "16px 0",
+    [theme.breakpoints.down('xs')]: {
+      padding: "4px 0",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      padding: "16px 0",
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: "16px 0",
+    },
+    [theme.breakpoints.up('lg')]: {
+      padding: "16px 0",
+    },
+  },
+  formWrapper: {
+    height: "66%", 
+    position: "relative", 
+    overflowY: "scroll",
+    display: "flex",
+    alignItems: "center",
+    [theme.breakpoints.down('xs')]: {
+      height: "62%",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      height: "66%",
+    },
+  },
+
   jumbo: {
     background: "url(/map_head.jpg)",
     backgroundSize: "cover",
@@ -50,9 +87,9 @@ const styles = theme => ({
   },
   form: {
     // overflow: "hidden",
-    display: "flex",
+    // display: "flex",
     // justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
   },
 });
 

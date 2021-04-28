@@ -57,17 +57,17 @@ const Start = () => {
   //     <div className={classes.form}>
   //       <FilterForm />
   //     </div>
-  //     </div>
+  //     </div> 
   //     <FilterFooter onClick={handleNext} />
   //   </div>
 
   return (
     <Grid container direction="column" justify="space-between" className={classes.root} open={true}>
-      <Grid item container direction="column" style={{height: "30%"}}>
-        <Grid item style={{height: "50%"}}><FilterTitle /></Grid>
-        <Grid item style={{height: "50%"}}><FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} /></Grid>
+      <Grid item container direction="column" className={classes.headerWrapper}>
+        <Grid item className={classes.headerTitle}><FilterTitle /></Grid>
+        <Grid item className={classes.headerGroups}><FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} /></Grid>
       </Grid>
-      <Grid item container direction="column" style={{height: "68%", position: "relative", overflowY: "scroll"}} className={classes.form}>
+      <Grid item container direction="column" className={classes.formWrapper}>
         <FilterForm />
       </Grid>
       <Grid item container direction="column" style={{height: "65px"}}>

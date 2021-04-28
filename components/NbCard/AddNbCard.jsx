@@ -23,9 +23,14 @@ const AddNbCard = ({ onClick }) => {
       item
       container
       direction="column"
+      justify="center"
+      alignItems="center"
       className={classes.root}
       onClick={onClick}
     >
+      <Grid item>
+        <img src="/addNeighborhood.svg" alt="Add Neighborhood" className={classes.addNbIcon}/>
+      </Grid>
       <Grid item container className={classes.text}>
         <span className={classes.symbol}>+ </span> 
         <Typography className={classes.cardText}>Add a neighborhood</Typography>

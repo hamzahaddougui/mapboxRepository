@@ -12,25 +12,85 @@ const styles = theme => ({
     "&:hover": {
       backgroundColor: "transparent",
     },
+    [theme.breakpoints.down('xs')]: {
+      height: "36px",
+      padding: "8px 26px",
+      borderRadius: "22.5px",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      height: "45px",
+      padding: "10px 40px",
+      borderRadius: "22.5px",
+    },
+    [theme.breakpoints.up('md')]: {
+      height: "45px",
+      padding: "10px 40px",
+      borderRadius: "22.5px",
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: "45px",
+      padding: "10px 40px",
+      borderRadius: "22.5px",
+    },
+    [theme.breakpoints.up('xl')]: {
+      height: "48px",
+      padding: "12px 46px",
+      borderRadius: "32px",
+    },
   },
   matchButtonTxt: {
     fontFamily: "Poppins",
     fontWeight: "300",
     fontSize: 16.02,
     color: "#323643",
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 13,
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      fontSize: 16.02,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 16.02,
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: 16.02,
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: 18,
+    },
   },
   nMatcher: {
-    height: "104px",
-    width: "70px",
+    height: "78px",
+    width: "58px",
     position: "absolute",
     bottom: "30px",
     left: "50%",
     transform: "translateX(-50%)",
+    [theme.breakpoints.down('xs')]: {
+      height: "68px",
+      width: "56px",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      height: "78px",
+      width: "58px",
+    },
+    [theme.breakpoints.up('md')]: {
+      height: "104px",
+      width: "70px",
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: "104px",
+      width: "70px",
+    },
+    [theme.breakpoints.up('xl')]: {
+      height: "104px",
+      width: "70px",
+    },
   },
   restartMatcherButton: {
     fontFamily: "Poppins",
     fontWeight: "300",
-    fontSize: 16.02,
+    fontSize: 14.2,
     color: "#323643",
     textTransform: "none",
     position: "relative",
@@ -38,21 +98,76 @@ const styles = theme => ({
     "&:hover": {
       backgroundColor: "transparent",
     },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 13,
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      fontSize: 14.2,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 16.02,
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: 16.02,
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: 18,
+    },
   },
   poweredBy: {
     fontFamily: "Poppins", 
     fontSize: 11.3, 
     fontWeight: "300", 
     color: "#323643",
-    margin: "0 3px 0 0",
-    opacity: 0.57
+    margin: "0 2px 0 0",
+    opacity: 0.57,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 9,
+      margin: "0 1px 0 0",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      fontSize: 11.3,
+      margin: "0 2px 0 0",
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 11.3,
+      margin: "0 2px 0 0",
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: 11.3,
+      margin: "0 2px 0 0",
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: 13,
+      margin: "0 2px 0 0",
+    },
   },
   brandName: {
     fontFamily: "Poppins",
     fontSize: 11.3,
     fontWeight: 500,
     color: "#323643",
-    margin: "0 0 0 3px"
+    margin: "0 0 0 2px",
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 9,
+      margin: "0 0 0 1px",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      fontSize: 11.3,
+      margin: "0 0 0 2px",
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 11.3,
+      margin: "0 0 0 2px",
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: 11.3,
+      margin: "0 0 0 2px",
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: 13,
+      margin: "0 0 0 2px",
+    },
   },
   rMatcherButtonIcon: {
     marginRight: "5px",
@@ -73,12 +188,37 @@ const styles = theme => ({
     zIndex: 4,
   },
   thunder: {
-    height: "32px",
-    width: "32px",
+    height: "74px",
+    width: "74px",
     position: "absolute",
-    bottom: "143%",
+    bottom: "80%",
     left: "50%",
     transform: "translateX(-50%)",
+    [theme.breakpoints.down('xs')]: {
+      height: "52px",
+      width: "52px",
+      bottom: "72%",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      height: "74px",
+      width: "74px",
+      bottom: "80%",
+    },
+    [theme.breakpoints.up('md')]: {
+      height: "74px",
+      width: "74px",
+      bottom: "80%",
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: "74px",
+      width: "74px",
+      bottom: "80%",
+    },
+    [theme.breakpoints.up('xl')]: {
+      height: "82px",
+      width: "82px",
+      bottom: "80%",
+    },
   },
   logo: {
     marginLeft: "12px",
@@ -187,46 +327,130 @@ const styles = theme => ({
     position: "absolute",
     display: "flex",
     flexDirection: "column",
-    left: "30%",
+    left: "25%",
     bottom: "20%",
     cursor: "pointer",
+    [theme.breakpoints.down('xs')]: {
+      left: "15%",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      left: "25%",
+    },
+    [theme.breakpoints.up('md')]: {
+      left: "30%",
+    },
+    [theme.breakpoints.up('lg')]: {
+      left: "30%",
+    },
+    [theme.breakpoints.up('xl')]: {
+      left: "40%",
+    },
   },
   homeMatcher: {
     position: "absolute",
     display: "flex",
     flexDirection: "column",
-    right: "30%",
+    right: "25%",
     bottom: "20%",
+    [theme.breakpoints.down('xs')]: {
+      right: "15%",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      right: "25%",
+    },
+    [theme.breakpoints.up('md')]: {
+      right: "30%",
+    },
+    [theme.breakpoints.up('lg')]: {
+      right: "30%",
+    },
+    [theme.breakpoints.up('xl')]: {
+      right: "40%",
+    },
   },
   homeMatcherActive: {
     position: "absolute",
     display: "flex",
     flexDirection: "column",
-    right: "30%",
+    right: "25%",
     bottom: "20%",
     cursor: "pointer",
+    [theme.breakpoints.down('xs')]: {
+      right: "15%",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      right: "25%",
+    },
+    [theme.breakpoints.up('md')]: {
+      right: "30%",
+    },
+    [theme.breakpoints.up('lg')]: {
+      right: "30%",
+    },
+    [theme.breakpoints.up('xl')]: {
+      right: "40%",
+    },
   },
   homeMatcherThunderActive: {
-    height: "76px",
-    width: "74px",
+    height: "66px",
+    width: "64px",
     position: "absolute",
     left: "50%",
     transform: "translate(-50%)",
     bottom: "30px",
     zIndex: 2,
     transition: "ease 0.5s",
+    [theme.breakpoints.down('xs')]: {
+      height: "58px",
+      width: "56px",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      height: "66px",
+      width: "64px",
+    },
+    [theme.breakpoints.up('md')]: {
+      height: "76px",
+      width: "74px",
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: "76px",
+      width: "74px",
+    },
+    [theme.breakpoints.up('xl')]: {
+      height: "76px",
+      width: "74px",
+    },
   },
   homeMatcherThunder: {
-    height: "62px",
-    width: "60px",
+    height: "60px",
+    width: "58px",
     position: "absolute",
     left: "50%",
     transform: "translate(-50%)",
     bottom: "30px",
     zIndex: 2,
     transition: "ease 0.25s",
+    [theme.breakpoints.down('xs')]: {
+      height: "48px",
+      width: "46px",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      height: "60px",
+      width: "58px",
+    },
+    [theme.breakpoints.up('md')]: {
+      height: "62px",
+      width: "60px",
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: "62px",
+      width: "60px",
+    },
+    [theme.breakpoints.up('xl')]: {
+      height: "62px",
+      width: "60px",
+    },
   }
-  
 });
 
 export default styles;

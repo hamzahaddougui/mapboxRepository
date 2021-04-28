@@ -1,5 +1,5 @@
 // Third party
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 // Components
@@ -10,13 +10,26 @@ import ScrollMenu from "../../common/scrollMenu/scrollMenu";
 // Assets
 import muiStyles from "./FavListBarStyles";
 
+// Actions
+import { setCurrentNB } from '../../services/actions/neighborhood.actions';
+
 const useStyles = makeStyles(muiStyles);
 
-const FavoriteListBar = ({ open, setOpen }) => {
+const FavoriteListBar = ({ open, setOpen, onClick }) => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
 
   const Items = [];
+
+  const openCard = (e, option) => {
+    e.preventDefault();
+    dispatch(setCurrentNB(option));
+    onClick();
+    // console.log('Card Clicked: ', option.id );
+  };
 
   const addNeighborhoodCard = (
     <div key={`addNb`}>
@@ -33,7 +46,7 @@ const FavoriteListBar = ({ open, setOpen }) => {
   favorites.forEach((neighborhood, i) =>
     Items.push(
       <div key={`${neighborhood.score}${i}`}>
-        <NeighborhoodCard neighborhood={neighborhood} />
+        <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood}/>
       </div>,
     ),
   );
