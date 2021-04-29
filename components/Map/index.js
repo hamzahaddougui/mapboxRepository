@@ -129,7 +129,7 @@ class Map extends Component {
 
     map.on("move", "city-layer", e => {
       let nbs= fetching.getFeatures(allInOneData.data.features, "neighborhood", e.features[0].properties.id);
-      if(nbs[0] && nbs[0].properties.hasOwnProperty('score')){
+      if(nbs[0] && nbs[0].properties.hasOwnProperty('Score')){
         let nbProps= [];
         nbs.forEach(f => nbProps.push(f.properties));
         this.props.Nb_CityMove(nbProps);

@@ -11,11 +11,11 @@ module.exports.setFilters= (filter, map, data)=> {
 
           if(neighborhood[0]== undefined){
             
-            feature.properties.score = (city[0]== undefined) ? 0 : parseInt(city[0].filters[filter.selectedFilter]);
+            feature.properties.Score = (city[0]== undefined) ? 0 : parseInt(city[0].filters[filter.selectedFilter]);
             
           }
           else{
-           feature.properties.score= parseInt(neighborhood[0].filters[filter.selectedFilter]) 
+           feature.properties.Score= parseInt(neighborhood[0].filters[filter.selectedFilter]) 
           
           }
        

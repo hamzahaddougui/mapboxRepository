@@ -8,23 +8,23 @@ module.exports.setScores= (map, scores, data) => {
           if(neighborhood[0]== undefined){
             let city= scores.data.filter(s => s.City== feature.properties.City);
             if(city[0]== undefined){
-              feature.properties= {...feature.properties, score: 0, unity: "%", flipped: false, favourite: false}
+              feature.properties= {...feature.properties, Score: 0, unity: "%", detailsId: 0, flipped: false, favourite: false}
   
             }
             else{
-              feature.properties= {...feature.properties, score: city[0].Score, unity: "%", flipped: false, favourite: false}
+              feature.properties= {...feature.properties, Score: city[0].Score, unity: "%", detailsId: city[0].id, flipped: false, favourite: false}
   
             }
           
           }
           else{
-           feature.properties= {...feature.properties, score: neighborhood[0].Score, unity: "%", flipped: false, favourite: false}
+           feature.properties= {...feature.properties, Score: neighborhood[0].Score, unity: "%", detailsId: neighborhood[0].id, flipped: false, favourite: false}
    
           }
        
      })
      
-     data.features.sort((a, b)=> b.properties.score - a.properties.score);
+     data.features.sort((a, b)=> b.properties.Score - a.properties.Score);
      let length= data.features.length;
      data.features.forEach(f => {
             let position= (data.features.indexOf(f)/ length)* 100;
@@ -39,11 +39,11 @@ module.exports.setScores= (map, scores, data) => {
      else{
         let cityFeatures= data.features.filter(f => f.properties.id.split('-').length== 3 && f.properties.favourite== false);
         cityFeatures.forEach(feature => {
-          feature.properties.score= 0;
+          feature.properties.Score= 0;
         })
         let neighbFeatures= data.features.filter(f => f.properties.id.split('-').length== 4 && f.properties.favourite== false);
         neighbFeatures.forEach(feature => {
-          feature.properties.score= 0;
+          feature.properties.Score= 0;
         })
         draw.drawPolygon(map, data, CITY);
         draw.drawPolygon(map, data, NEIGHBORHOOD);
