@@ -183,9 +183,11 @@ export const loadMatched = () => (dispatch, getState) => {
 export const detailNeighborhood = () => (dispatch, getState) => {
   // if (isCached(getState().modules.filters)) return;
   // console.log("Getting Neighborhood ...");
-
+  
   const data = getState().modules.neighborhood.currentNb;
   data && (console.log("Id : ", data.id));
+  // let id;
+  // data.detailsId ? id = data.detailsId : id = data.id;
   
   data && (
   dispatch(
@@ -197,6 +199,7 @@ export const detailNeighborhood = () => (dispatch, getState) => {
       method: "GET",
     }),
   ));
+  
 };
 
 

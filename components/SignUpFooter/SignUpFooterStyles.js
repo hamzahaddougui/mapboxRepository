@@ -6,8 +6,8 @@ const styles = (theme) => ({
     boxShadow:
       "0 6px 10px 0 rgba(14,31,53,0.12), 0 12px 18px 0 rgba(14,31,53,0.20), 0 20px 40px -1px rgba(14,31,53,0.12)",
     position: "fixed",
-    bottom: "0%",
-    right: "0%",
+    bottom: 0,
+    right: 0,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

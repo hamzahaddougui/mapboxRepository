@@ -1,25 +1,25 @@
 const styles = (theme) =>({
     jumbo: {
-        background: "url(/map_head.jpg)",
+        backgroundImage: "url(/map_head.jpg)",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        width: "100%",
-        // height: "150px",
-        height: "100%",
-        margin: "0 auto -16px",
-        padding: "20px",
-        [theme.breakpoints.down('xs')]: {
-          padding: "20px",
-        },
-        [theme.breakpoints.between('xs, sm')]: {
-          padding: "20px",
-        },
-        [theme.breakpoints.up('md')]: {
-          padding: "20px",
-        },
-        [theme.breakpoints.up('lg')]: {
-          padding: "20px",
-        },
+        // width: "100%",
+        // // height: "150px",
+        // height: "100%",
+        // margin: "0 auto -16px",
+        // padding: "20px",
+        // [theme.breakpoints.down('xs')]: {
+        //   padding: "20px",
+        // },
+        // [theme.breakpoints.between('xs, sm')]: {
+        //   padding: "20px",
+        // },
+        // [theme.breakpoints.up('md')]: {
+        //   padding: "20px",
+        // },
+        // [theme.breakpoints.up('lg')]: {
+        //   padding: "20px",
+        // },
       },
       header: {
         position: "absolute",

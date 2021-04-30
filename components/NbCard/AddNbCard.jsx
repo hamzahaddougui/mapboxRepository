@@ -28,7 +28,7 @@ const AddNbCard = ({ onClick }) => {
       className={classes.root}
       onClick={onClick}
     >
-      <Grid item>
+      <Grid item className={classes.imageContainer}>
         <img src="/addNeighborhood.svg" alt="Add Neighborhood" className={classes.addNbIcon}/>
       </Grid>
       <Grid item container className={classes.text}>

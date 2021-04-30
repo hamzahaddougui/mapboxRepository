@@ -1,8 +1,9 @@
 const styles = () => ({
   // FilterFormHeader Styles
   root: {
-    paddingBottom: "4em",
-    position: "absolute"
+    paddingBottom: "3em",
+    overflowY: "scroll"
+    // position: "absolute"
   },
 });
 

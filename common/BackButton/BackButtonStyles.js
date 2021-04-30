@@ -1,8 +1,11 @@
 const styles = (theme) => ({
     backContainer: {
         display: "inline-flex",
-        margin: "0 8px",
+        // margin: "0 8px",
         cursor: "pointer",
+        position: "absolute",
+        top: "24px",
+        left: "24px",
     },
     backIcon: {
         width: "22px",

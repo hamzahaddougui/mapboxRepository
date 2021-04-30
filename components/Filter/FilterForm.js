@@ -54,7 +54,9 @@ const FilterForm = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <Grid container direction="column" justify="center" alignItems="center" className={classes.root} id="filterForm">
+  
+    {/* <div className={classes.root}> */}
       {/* <div>
       <FilterTitle />
       <FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} />
@@ -65,6 +67,7 @@ const FilterForm = () => {
           {/* {console.log(option[1][1][0].group)} */}
           <Grid
             key={`${option.category}${i}`}
+            item
             container
             direction="column"
             alignItems="center"
@@ -79,7 +82,8 @@ const FilterForm = () => {
           </Grid>
         </section>
       ))}
-    </div>
+    {/* </div> */}
+    </Grid>
   );
 };
 

@@ -49,28 +49,28 @@ const styles = (theme) => ({
   headerTitle: {
     fontFamily: "Poppins",
     color: "#323643",
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: "600",
-    margin: "24px 0 8px 0",
+    margin: "24px 0 6px 0",
     [theme.breakpoints.down('xs')]: {
       fontSize: 20,
-      margin: "24px 0 6px 0",
+      margin: "24px 0 4px 0",
     },
     [theme.breakpoints.between('xs, sm')]: {
-      fontSize: 25,
-      margin: "24px 0 8px 0",
+      fontSize: 22,
+      margin: "24px 0 6px 0",
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: 25,
-      margin: "24px 0 8px 0",
+      fontSize: 22,
+      margin: "24px 0 6px 0",
     },
     [theme.breakpoints.up('lg')]: {
-      fontSize: 25,
-      margin: "24px 0 8px 0",
+      fontSize: 24,
+      margin: "24px 0 6px 0",
     },
     [theme.breakpoints.up('xl')]: {
-      fontSize: 28,
-      margin: "24px 0 12px 0",
+      fontSize: 26,
+      margin: "24px 0 8px 0",
     },
   },
   headerDesc: {
@@ -78,26 +78,26 @@ const styles = (theme) => ({
     color: "#323643",
     fontSize: 16.02,
     fontWeight: "300",
-    margin: "0 0 12px 0",
+    margin: "0 0 8px 0",
     [theme.breakpoints.down('xs')]: {
       fontSize: 13,
-      margin: "0 0 12px 0",
+      margin: "0 0 8px 0",
     },
     [theme.breakpoints.between('xs, sm')]: {
-      fontSize: 16.02,
-      margin: "0 0 12px 0",
+      fontSize: 14.2,
+      margin: "0 0 8px 0",
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: 16.02,
-      margin: "0 0 16px 0",
+      fontSize: 14.2,
+      margin: "0 0 12px 0",
     },
     [theme.breakpoints.up('lg')]: {
-      fontSize: 16.02,
-      margin: "0 0 16px 0",
+      fontSize: 14.2,
+      margin: "0 0 12px 0",
     },
     [theme.breakpoints.up('xl')]: {
-      fontSize: 18,
-      margin: "0 0 20px 0",
+      fontSize: 16.02,
+      margin: "0 0 16px 0",
     },
   },
 });
