@@ -8,17 +8,17 @@ module.exports.setScores= (map, scores, data) => {
           if(neighborhood[0]== undefined){
             let city= scores.data.filter(s => s.City== feature.properties.City);
             if(city[0]== undefined){
-              feature.properties= {...feature.properties, Score: 0, unity: "%", detailsId: 0, flipped: false, favourite: false}
+              feature.properties= {...feature.properties, Score: 0, unity: "%", id: 0, flipped: false, favourite: false}
   
             }
             else{
-              feature.properties= {...feature.properties, Score: city[0].Score, unity: "%", detailsId: city[0].id, flipped: false, favourite: false}
+              feature.properties= {...feature.properties, Score: city[0].Score, unity: "%", id: city[0].id, flipped: false, favourite: false}
   
             }
           
           }
           else{
-           feature.properties= {...feature.properties, Score: neighborhood[0].Score, unity: "%", detailsId: neighborhood[0].id, flipped: false, favourite: false}
+           feature.properties= {...feature.properties, Score: neighborhood[0].Score, unity: "%", id: neighborhood[0].id, flipped: false, favourite: false}
    
           }
        
@@ -37,11 +37,11 @@ module.exports.setScores= (map, scores, data) => {
      draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
       }
      else{
-        let cityFeatures= data.features.filter(f => f.properties.id.split('-').length== 3 && f.properties.favourite== false);
+        let cityFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 3 && f.properties.favourite== false);
         cityFeatures.forEach(feature => {
           feature.properties.Score= 0;
         })
-        let neighbFeatures= data.features.filter(f => f.properties.id.split('-').length== 4 && f.properties.favourite== false);
+        let neighbFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 4 && f.properties.favourite== false);
         neighbFeatures.forEach(feature => {
           feature.properties.Score= 0;
         })

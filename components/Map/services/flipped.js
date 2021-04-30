@@ -49,14 +49,14 @@ module.exports.setFlipped= (flipped, map, data)=> {
   
 module.exports.checkFlipped= (map, data)=> {
     let flippedFeature= data.features.filter(f => f.properties.flipped== true);
-    if(flippedFeature[0].properties.id.split('-').length== 3){
+    if(flippedFeature[0].properties.polygonId.split('_').length== 3){
           flippedFeature[0].properties.flipped= false;
           // flyTo.handleFlyTo(map, '', 14, 8000, 0.3, '', flippedFeature[0].properties.center.geometry.coordinates);
           draw.drawPolygon(map, data, CITY);
     
             
       }
-      if(flippedFeature[0].properties.id.split('-').length== 4){
+      if(flippedFeature[0].properties.polygonId.split('_').length== 4){
           flippedFeature[0].properties.flipped= false;
           // fitBounds.fitBounds(map, flippedFeature[0], "favourite");
           draw.drawPolygon(map, data, NEIGHBORHOOD);

@@ -8,7 +8,7 @@ module.exports.handleLayerClick= (
     map, data, e, flyToOptions, { sourceLayer, from }, targetLayer ) => {
     let features = [];
     let {flyMinZoom, flyMaxZoom, flyDuration, flySpeed, maxZoom}= flyToOptions;
-    let id= e.features[0].properties.id.split('-');
+    let id= e.features[0].properties.polygonId.split('_');
 
     flyTo.handleFlyTo(map, flyMinZoom, flyMaxZoom, flyDuration, flySpeed, e, '');
     

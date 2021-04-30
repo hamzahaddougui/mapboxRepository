@@ -50,7 +50,7 @@ module.exports.checkFavourites= (favourites, map, data)=> {
     let favFeatures= data.features.filter(f => f.properties.favourite== true);
     let element;
     favFeatures.forEach(feature => {
-      if(feature.properties.id.split('-').length== 3){
+      if(feature.properties.polygonId.split('_').length== 3){
         element= favourites.filter(fav => fav.City== feature.properties.City);
         if(element[0]== undefined){
           feature.properties.favourite= false;
@@ -59,7 +59,7 @@ module.exports.checkFavourites= (favourites, map, data)=> {
     
         }    
       }
-      if(feature.properties.id.split('-').length== 4){
+      if(feature.properties.polygonId.split('_').length== 4){
         element= favourites.filter(fav => fav.Neighborhood== feature.properties.Neighborhood);
         if(element[0]== undefined){
           feature.properties.favourite= false;

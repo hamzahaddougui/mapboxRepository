@@ -7,17 +7,17 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
   let feature;
   switch (source) {
     case 'region':
-      feature= allFeatures.filter(f => f.properties.id.split('-').length== 1);
+      feature= allFeatures.filter(f => f.properties.polygonId.split('_').length== 1);
       feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
       
       
         if(from!= null){
-          feature= feature.filter(f => f.properties.id== from);
+          feature= feature.filter(f => f.properties.polygonId== from);
         }
       
       break;
     case 'county':
-        feature= allFeatures.filter(f => f.properties.id.split('-').length== 2);
+        feature= allFeatures.filter(f => f.properties.polygonId.split('_').length== 2);
         feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
         
         let min= feature[0].properties.surface;
@@ -30,25 +30,25 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
         feature.forEach(f =>  f.properties= {...f.properties, min, max})
       
         if(from!= null){
-          feature= feature.filter(f => f.properties.id.startsWith(from));
+          feature= feature.filter(f => f.properties.polygonId.startsWith(from));
         }
 
         break;
       case 'city':
-          feature= allFeatures.filter(f => f.properties.id.split('-').length== 3);
+          feature= allFeatures.filter(f => f.properties.polygonId.split('_').length== 3);
           feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
 
           if(from!= null){
-            feature= feature.filter(f => f.properties.id.startsWith(from));
+            feature= feature.filter(f => f.properties.polygonId.startsWith(from));
           }
           
         break;
       case 'neighborhood':
-          feature= allFeatures.filter(f => f.properties.id.split('-').length== 4);
+          feature= allFeatures.filter(f => f.properties.polygonId.split('_').length== 4);
           // console.log(feature);
           feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
           if(from!= null){
-            feature= feature.filter(f => f.properties.id.startsWith(from));
+            feature= feature.filter(f => f.properties.polygonId.startsWith(from));
           }
           // let featureLength= feature.length;
           // feature.forEach(f => {
@@ -81,11 +81,11 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
           
         break;
         case 'city_neighborhood':
-          feature= allFeatures.filter(f => f.properties.id.split('-').length== 3 || f.properties.id.split('-').length== 4);
+          feature= allFeatures.filter(f => f.properties.polygonId.split('_').length== 3 || f.properties.polygonId.split('_').length== 4);
           feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
 
           if(from!= null){
-            feature= feature.filter(f => f.properties.id.startsWith(from));
+            feature= feature.filter(f => f.properties.polygonId.startsWith(from));
           }
           
         break;
