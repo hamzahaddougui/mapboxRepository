@@ -32,16 +32,14 @@ module.exports.setScores= (map, scores, data) => {
           })
     
      draw.drawPolygon(map, data, CITY);
-    //  draw.drawScores(map, "city_score_marker", "city_score_layer", "city");
      draw.drawPolygon(map, data, NEIGHBORHOOD);
-    //  draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
-      }
+    }
      else{
-        let cityFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 3 && f.properties.favourite== false);
+        let cityFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 3 && f.properties.favourite== false && f.properties.flipped== false);
         cityFeatures.forEach(feature => {
           feature.properties.Score= 0;
         })
-        let neighbFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 4 && f.properties.favourite== false);
+        let neighbFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 4 && f.properties.favourite== false && f.properties.flipped== false);
         neighbFeatures.forEach(feature => {
           feature.properties.Score= 0;
         })
