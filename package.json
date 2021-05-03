@@ -21,6 +21,7 @@
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
+    "image-sdf": "^1.0.4",
     "lodash": "^4.17.21",
     "mapbox-gl": "^2.1.1",
     "moment": "^2.29.1",

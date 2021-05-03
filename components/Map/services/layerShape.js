@@ -37,16 +37,72 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                               ["linear"],
                               ["zoom"],
                               1,
-                              ["case", ["==", ["get", "score"], 0], 0, 1]
+                              ["case", ["==", ["get", "favourite"], true], 1, 0],
+                              2,
+                              ["case", ["==", ["get", "flipped"], true], 1, 0],
+                              3,
+                              ["case", ["==", ["get", "Score"], 0], 0, 1],
+                              // 5,
+                              // ["case", 
+                              // ["case", [">=", ["get", "Score"], 80], 1, 0], 
+                              // ["case", ["==", ["get", "favourite"], false], 1, 0],
+                              // ["case", ["==", ["get", "flipped"], false], 1, 0]
+                              // ],
+                              // 7,
+                              // ["case", 
+                              // ["case", [">=", ["get", "Score"], 60], 1, 0], 
+                              // ["case", ["==", ["get", "favourite"], false], 1, 0],
+                              // ["case", ["==", ["get", "flipped"], false], 1, 0]
+                              // ],
+                              // 9,
+                              // ["case", 
+                              // ["case", [">=", ["get", "Score"], 40], 1, 0], 
+                              // ["case", ["==", ["get", "favourite"], false], 1, 0],
+                              // ["case", ["==", ["get", "flipped"], false], 1, 0]
+                              // ],
+                              // 12,
+                              // ["case", 
+                              // ["case", ["<", ["get", "Score"], 40], 1, 0], 
+                              // ["case", ["==", ["get", "favourite"], false], 1, 0],
+                              // ["case", ["==", ["get", "flipped"], false], 1, 0]
+                              // ]
                             ],
           "text-opacity": 
-                            [
-                              "interpolate",
-                              ["linear"],
-                              ["zoom"],
-                              1,
-                              ["case", ["==", ["get", "score"], 0], 0, 1]
-                            ]
+              [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                1,
+                ["case", ["==", ["get", "favourite"], true], 1, 0],
+                2,
+                ["case", ["==", ["get", "flipped"], true], 1, 0],
+                3,
+                ["case", ["==", ["get", "Score"], 0], 0, 1],
+                // 5,
+                // ["case", 
+                // ["case", [">=", ["get", "Score"], 80], 1, 0], 
+                // ["case", ["==", ["get", "favourite"], false], 1, 0],
+                // ["case", ["==", ["get", "flipped"], false], 1, 0]
+                // ],
+                // 7,
+                // ["case", 
+                // ["case", [">=", ["get", "Score"], 60], 1, 0], 
+                // ["case", ["==", ["get", "favourite"], false], 1, 0],
+                // ["case", ["==", ["get", "flipped"], false], 1, 0]
+                // ],
+                // 9,
+                // ["case", 
+                // ["case", [">=", ["get", "Score"], 40], 1, 0], 
+                // ["case", ["==", ["get", "favourite"], false], 1, 0],
+                // ["case", ["==", ["get", "flipped"], false], 1, 0]
+                // ],
+                // 12,
+                // ["case", 
+                // ["case", ["<", ["get", "Score"], 40], 1, 0], 
+                // ["case", ["==", ["get", "favourite"], false], 1, 0],
+                // ["case", ["==", ["get", "flipped"], false], 1, 0]
+                // ]
+              ]
         },
         filter
       }}

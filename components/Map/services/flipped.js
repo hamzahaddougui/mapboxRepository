@@ -7,7 +7,7 @@ module.exports.setFlipped= (flipped, map, data)=> {
     let neighborhood= data.features.filter(f => f.properties.Neighborhood == flipped.Neighborhood);
     if(neighborhood[0]== undefined){
       let city= data.features.filter(f => f.properties.City== flipped.City || f.properties.City.includes(flipped.City));
-      city[0].properties.score= flipped.Score;
+      city[0].properties.Score= flipped.Score;
       city[0].properties.flipped= true;
       
       flyTo.handleFlyTo(map, '', 11.9, 8000, 0.1, '', city[0].properties.center.geometry.coordinates);

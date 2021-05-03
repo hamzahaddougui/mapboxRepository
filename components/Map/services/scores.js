@@ -32,9 +32,9 @@ module.exports.setScores= (map, scores, data) => {
           })
     
      draw.drawPolygon(map, data, CITY);
-     draw.drawScores(map, "city_score_marker", "city_score_layer", "city");
+    //  draw.drawScores(map, "city_score_marker", "city_score_layer", "city");
      draw.drawPolygon(map, data, NEIGHBORHOOD);
-     draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
+    //  draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
       }
      else{
         let cityFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 3 && f.properties.favourite== false);

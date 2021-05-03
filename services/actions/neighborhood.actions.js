@@ -136,9 +136,11 @@ const slice = createSlice({
       state.error = null;
     },
     NeighborhoodOnMove: (state, action) => {
-      state.NbList= action.payload
-      state.NbList= JSON.parse(JSON.stringify(state.NbList))
+      let value= action.payload;
+      state.NbList= JSON.parse(JSON.stringify(value));
       // console.log(state.NbList)
+
+      
     }
   },
 });

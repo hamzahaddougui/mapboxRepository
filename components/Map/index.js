@@ -47,7 +47,6 @@ class Map extends Component {
     popup: new mapboxgl.Popup({ closeButton: false, offset: 20 }),
     city_neighbPolygons: "",
     neighborhoodCard: { display: "none", name: "" },
-    polygonsScore: "",
     loaderState: "none"
   };
 
@@ -64,6 +63,16 @@ class Map extends Component {
     });
     let { popup } = this.state;
     let allInOneData = await this.getAllInOne();
+
+    draw.drawPolygon(map, allInOneData.data, REGION);
+    draw.drawPolygon(map, allInOneData.data, COUNTY);
+    draw.drawPolygon(map, allInOneData.data, CITY);
+    draw.drawPolygon(map, allInOneData.data, NEIGHBORHOOD);
+    draw.drawScores(map, "city_score_marker", "city_score_layer", "city");
+    draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
+    draw.drawFlipped(map);
+    draw.drawFavourite(map);
+
     let features= allInOneData.data.features.filter(f => f.properties.hasOwnProperty('City') || f.properties.hasOwnProperty('Neighborhood'));
     let geojson = {
       type: "FeatureCollection",
@@ -77,10 +86,7 @@ class Map extends Component {
     //   // this.showHouses(e);
     // });
 
-      draw.drawPolygon(map, allInOneData.data, REGION);
-      draw.drawPolygon(map, allInOneData.data, COUNTY);
-      draw.drawPolygon(map, allInOneData.data, CITY);
-      draw.drawPolygon(map, allInOneData.data, NEIGHBORHOOD);
+      
 
     map.on("mousemove", "region-layer", e => {
       move.mouseMove(allInOneData.data, e, "region", REGION_HIGHLIGHTED);
@@ -128,14 +134,12 @@ class Map extends Component {
       leave.mouseLeave(e, popup);
     });
 
-    map.on("move", "city-layer", e => {
-      let lastFetch, neighbProps= [];
+    map.on("moveend", "city-layer", e => {
+      let neighbProps= [];
       let neighbs= fetching.getFeatures(allInOneData.data.features, "neighborhood", e.features[0].properties.polygonId);
-      if(neighbs[0] && neighbs[0].properties.hasOwnProperty('Score') && neighbs!= lastFetch){
-        neighbs.forEach(f => neighbProps.push(f.properties));
+      neighbs.forEach(f => neighbProps.push(f.properties));
+      if(neighbs[0] && neighbs[0].properties.hasOwnProperty('Score') && JSON.stringify(neighbProps)!= JSON.stringify(this.props.neighborhoods))
         this.props.Neighb_CityMove(neighbProps);
-      }
-      lastFetch= neighbs;
     })
 
     map.on("click", "city-other-layer", e => {
@@ -159,18 +163,16 @@ class Map extends Component {
       this.handlePopup(e, "Neighborhood", e.features[0].properties.polygonId.split('_')[3]);
       });
 
-    map.on("move", "neighborhood-layer", e => {
-        let neighbProps= [], lastFetch;
+    map.on("moveend", "neighborhood-layer", e => {
+        let neighbProps= [];
         let id= e.features[0].properties.polygonId.split('_');
         let cityId= id[0]+'_'+id[1]+'_'+id[2];
         let neighbs= fetching.getFeatures(allInOneData.data.features, 'neighborhood', cityId);
         neighbs.forEach(n => neighbProps.push(n.properties));
         neighbProps.sort((a, b)=> b.Score - a.Score);
-        if(neighbProps[0] && neighbProps[0].hasOwnProperty('Score') && neighbProps!= lastFetch){
+        if(neighbProps[0] && neighbProps[0].hasOwnProperty('Score') && JSON.stringify(neighbProps)!= JSON.stringify(this.props.neighborhoods))
           this.props.Neighb_CityMove(neighbProps);
-        }
-        lastFetch= neighbProps;
-      })
+    })
 
     map.on("click", "neighborhood-layer", e => {
       let id = e.features[0].properties.polygonId.split("_");
@@ -218,22 +220,21 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    const {mapObject, city_neighbPolygons, polygonsScore, loaderState}= this.state;
+    const {mapObject, city_neighbPolygons, polygonsScore, loaderState, neighborhoods}= this.state;
     
     if(prevProps.scores!= this.props.scores){
-      let data= scores.setScores(mapObject, this.props.scores, city_neighbPolygons); 
-      this.setState({polygonsScore: data})
-      }
+      scores.setScores(mapObject, this.props.scores, city_neighbPolygons); 
+    }
     
     if(prevProps.filter.selectedFilter!= this.props.filter.selectedFilter){
-      this.setState({loaderState: 'block'});
-      filters.setFilters(this.props.filter, mapObject, polygonsScore);
-      }
+      // this.setState({loaderState: 'block'});
+      filters.setFilters(this.props.filter, mapObject, city_neighbPolygons);
+    }
 
-    if(prevState.loaderState!= loaderState){
-        console.log("loader state changes");
-        this.setState({loaderState: 'none'});
-      }
+    // if(prevState.loaderState!= loaderState){
+    //     console.log("loader state changes");
+    //     this.setState({loaderState: 'none'});
+    //   }
     
     if(this.props.flipped && prevProps.flipped!= this.props.flipped && Object.keys(this.props.flipped).length > 0){
       flipped.setFlipped(this.props.flipped, mapObject, city_neighbPolygons); }
@@ -266,7 +267,6 @@ class Map extends Component {
     popupHeading[0].style.font= "normal 600 10px Poppins";
     
     popup.addClassName(styles.popup);
-    
   }
 
   showHouses = e => {
@@ -311,7 +311,8 @@ const mapStateToProps = function (state) {
     scores: state.modules.neighborhood.matched,
     filter: state.modules.filter,
     favourites: state.modules.neighborhood.favorites,
-    flipped: state.modules.neighborhood.flipped
+    flipped: state.modules.neighborhood.flipped,
+    neighborhoods: state.modules.neighborhood.NbList
   };
 };
 
