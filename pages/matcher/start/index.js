@@ -34,6 +34,7 @@ const Start = () => {
     router.push("/matcher/priority");
   };
 
+
   // <div className={classes.root} open={true}>
   //     {/* <div className={classes.jumbo}>
   //       <BackButton onClick={handleBack} />
@@ -61,19 +62,39 @@ const Start = () => {
   //     <FilterFooter onClick={handleNext} />
   //   </div>
 
-  return (
-    <Grid container direction="column" justify="space-between" className={classes.root} open={true}>
-      <Grid item container direction="column" className={classes.headerWrapper}>
-        <Grid item className={classes.headerTitle}><FilterTitle /></Grid>
-        <Grid item className={classes.headerGroups}><FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} /></Grid>
-      </Grid>
-      <Grid item container direction="column" className={classes.formWrapper}>
-        <FilterForm />
-      </Grid>
-      <Grid item container direction="column" style={{height: "65px"}}>
-        <FilterFooter onClick={handleNext} />
-      </Grid>
+    // <Grid item container direction="column" className={classes.headerWrapper}>
+    //     <Grid item className={classes.headerTitle}><FilterTitle /></Grid>
+    //     <Grid item className={classes.headerGroups}><FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} /></Grid>
+    //   </Grid>
+    //   <Grid item container direction="column" className={classes.formWrapper}>
+    //     <FilterForm />
+    //   </Grid>
+    //   <Grid item container direction="column" style={{height: "65px"}}>
+    //     <FilterFooter onClick={handleNext} />
+    //   </Grid>
 
+  return (
+    <Grid container direction="column" justify="center" alignItems="center" className={classes.root} open={true}>
+      <Grid item container direction="column" justify="center" alignItems="center" className={classes.contentContainer}>
+        <Grid item container direction="column" justify="center" alignItems="center" className={classes.headContainer}>
+          <Grid item className={classes.titleContainer}>
+            <FilterTitle />
+          </Grid>
+          <Grid item className={classes.groupsContainer}>
+            <FilterFormHeader groups={groups} selected={selected} setSelected={setSelected} />
+          </Grid>
+          <Grid item className={classes.formContainer}>
+          <FilterForm />
+        </Grid>
+        </Grid>
+        
+        
+
+
+      </Grid>
+      
+      <FilterFooter onClick={handleNext} />
+      
     </Grid>
   );
 };

@@ -37,15 +37,15 @@ const SignUpForm = ({ data, handleChange }) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Grid container justify="center" alignItems="center" className={classes.root}>
       <CssBaseline />
-      <div className={classes.paper}>
+      <Grid item container direction="column" justify="center" alignItems="center" className={classes.paper}>
         <Typography className={classes.title} component="h1" variant="h5">
           Create an account
         </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+        <Grid item container justify="center" alignItems="center" className={classes.form} noValidate>
+          <Grid item container direction="column">
+            <Grid item xs={12} className={classes.formElement}>
               <TextField
                 variant="outlined"
                 required
@@ -60,7 +60,7 @@ const SignUpForm = ({ data, handleChange }) => {
                 placeholder="First name"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.formElement}>
               <TextField
                 variant="outlined"
                 required
@@ -75,7 +75,7 @@ const SignUpForm = ({ data, handleChange }) => {
                 autoComplete="lname"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.formElement}>
               <TextField
                 variant="outlined"
                 required
@@ -90,7 +90,7 @@ const SignUpForm = ({ data, handleChange }) => {
                 autoComplete="email"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.formElement}>
               <TextField
                 variant="outlined"
                 required
@@ -107,19 +107,19 @@ const SignUpForm = ({ data, handleChange }) => {
               />
             </Grid>
           </Grid>
-          <Grid container justify="center" className={classes.helperWrapper}>
-            <Grid item>
+          <Grid container justify="center" alignItems="center" className={classes.helperWrapper}>
+            <Grid item className={classes.helperContainer}>
               <Link className={classes.helper} href="#" variant="body2">
                 Why create an account ?
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </Grid>
         <Typography className={classes.titleOther} variant="body2">
           Or continue with
         </Typography>
-        <Grid container direction="row" justify="space-between" alignItems="center" className={classes.authWrapper}>
-          <Grid item xs={9} sm={6} justify="center" className={classes.authElement}>
+        <Grid container direction="row" justify="center" alignItems="center" className={classes.authWrapper}>
+          <Grid item xs={9} sm={6} className={classes.authElement}>
             <GoogleLogin
               className={classes.auth}
               clientId={clientId}
@@ -129,7 +129,7 @@ const SignUpForm = ({ data, handleChange }) => {
               cookiePolicy={"single_host_origin"}
             />
           </Grid>
-          <Grid item xs={9} sm={6} justify="center" className={classes.authElement}>
+          <Grid item xs={9} sm={6} className={classes.authElement}>
             <GoogleLogin
               className={classes.auth}
               clientId={clientId}
@@ -140,8 +140,8 @@ const SignUpForm = ({ data, handleChange }) => {
             />
           </Grid>
         </Grid>
-      </div>
-    </Container>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -1,6 +1,7 @@
 // Third party
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter } from 'next/router'
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, GridList, Modal } from "@material-ui/core";
 import { Box } from "@material-ui/core";
@@ -24,6 +25,8 @@ const useStyles = makeStyles(muiStyles);
 const Favorite = () => {
   const classes = useStyles();
 
+  const router = useRouter();
+
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -38,6 +41,7 @@ const Favorite = () => {
     if (data.email && data.firstName && data.lastName) {
       try {
         console.log(data);
+        router.push("/matcher/home");
         // dispatch(SignUpAction(data));
         // const response = await instance.post("http://localhost:3001/api/users/signup", data);
         // console.log(response);
@@ -61,7 +65,8 @@ const Favorite = () => {
         ? 
           (<AddNeighborhood open={open} setOpen={setOpen} />) 
         : 
-          (<Grid container direction="column" className={classes.root}>
+          (<Grid container justify="center" alignItems="center" className={classes.root}>
+            <Grid item container direction="column" justify="center" alignItems="center" className={classes.contentContainer}>
             {/* 
             <Grid
               component={Box}
@@ -89,10 +94,12 @@ const Favorite = () => {
             <AddNeighborhood open={open} setOpen={setOpen} />
             */}
 
-            <Grid
+
+            {/* <Grid
               id="jumboTag"
               container
               item
+              direction="column"
               className={classes.jumbo}
             >
               <SignUpHeader />
@@ -101,6 +108,7 @@ const Favorite = () => {
             <Grid
               item
               container
+              direction="column"
               justify="center"
               alignItems="center"
               className={classes.signUpContent}
@@ -110,6 +118,28 @@ const Favorite = () => {
               </GridList>
               <SignUpFooter onClick={handleSubmit} />
             </Grid>
+            <Modal
+              open={openNbDetails}
+              onClose={handleCloseNbDetails}
+            >
+              <>
+              {openNbDetails && (<NeighborhoodDetail handleCloseNbDetails={handleCloseNbDetails} />)}
+              </>
+            </Modal> */}
+
+            <Grid item container direction="column" justify="center" alignItems="center" className={classes.contentWrapper}>
+              <Grid item className={classes.headerContainer}>
+              <SignUpHeader />
+              </Grid>
+              <Grid item className={classes.listContainer}>
+              <FavoriteListBar open={open} setOpen={setOpen} onClick={handleNbClick} />
+              </Grid>
+              <Grid item className={classes.formContainer}>
+              <SignUpForm data={data} handleChange={handleChange} />
+              </Grid>
+            </Grid>
+            </Grid>
+            <SignUpFooter onClick={handleSubmit} />
             <Modal
               open={openNbDetails}
               onClose={handleCloseNbDetails}

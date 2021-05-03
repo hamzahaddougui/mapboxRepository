@@ -6,8 +6,8 @@ const styles = theme => ({
     opacity: 0.9,
     borderRadius: "24px",
     margin: "0 4px",
-    width: "257px",
-    height: "171px",
+    width: "225px",
+    height: "150px",
     cursor: "pointer",
     marginBottom: "1em",
     justifyContent: "center",
@@ -16,16 +16,18 @@ const styles = theme => ({
       height: "126px",
     },
     [theme.breakpoints.between('xs, sm')]: {
-      width: "257px",
-      height: "171px",
+      width: "225px",
+      height: "150px",
     },
     [theme.breakpoints.up('md')]: {
-      width: "257px",
-      height: "171px",
+      width: "225px",
+      height: "150px",
     },
     [theme.breakpoints.up('lg')]: {
-      width: "257px",
-      height: "171px",
+      // width: "257px",
+      // height: "171px",
+      width: "225px",
+      height: "150px",
     },
     [theme.breakpoints.up('xl')]: {
       width: "325px",
@@ -37,7 +39,7 @@ const styles = theme => ({
   text: {
     fontFamily: "Poppins",
     color: "#FFF",
-    fontSize: 16.02,
+    fontSize: 14.2,
     fontWeight: "600",
     textAlign: "center",
     display: "flex",
@@ -47,13 +49,14 @@ const styles = theme => ({
       fontSize: 13,
     },
     [theme.breakpoints.between('xs, sm')]: {
-      fontSize: 16.02,
+      fontSize: 14.2,
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: 16.02,
+      fontSize: 14.2,
     },
     [theme.breakpoints.up('lg')]: {
-      fontSize: 16.02,
+      // fontSize: 16.02,
+      fontSize: 14.2,
     },
     [theme.breakpoints.up('xl')]: {
       fontSize: 18,

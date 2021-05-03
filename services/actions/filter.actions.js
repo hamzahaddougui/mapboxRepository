@@ -99,7 +99,11 @@ const slice = createSlice({
       state.priorities = [];
     },
     selectFilter: (state, action) => {
-      state.selectedFilter = action.payload;
+      if(JSON.stringify(state.selectedFilter) === JSON.stringify(action.payload)){
+        state.selectedFilter = null;
+      }else{
+        state.selectedFilter = action.payload;
+      }
     },
     filtersDataRequested: (state, action) => {
       // console.log("Filters Data Requested ...");

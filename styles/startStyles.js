@@ -2,6 +2,7 @@ const styles = theme => ({
   root: {
     backgroundColor: "#FFF",
     height: "100vh",
+    width: "100vw",
     // position: "absolute",
     // top: "0px",
     // bottom: "0px",
@@ -11,6 +12,45 @@ const styles = theme => ({
     // overflowX: "hidden",
     overflow: "hidden",
     // display: props => (props.open ? "block" : "none"),
+  },
+  contentContainer: {
+    height: "calc( 100% - 65px )",
+    width: "100%",
+    position: "absolute",
+    top: 0,
+  },
+  headContainer: {
+    position: "fixed",
+    top: 0
+  },
+  titleContainer: {
+    width: "100%",
+  },
+  groupsContainer: {
+    width: "100%",
+  },
+  formContainer: {
+    width: "100%",
+    overflow: "scroll",
+    // maxHeight: "200px",
+    maxHeight: "380px",
+    [theme.breakpoints.down('xs')]: {
+      maxHeight: "370px",
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      // maxHeight: "200px",
+      maxHeight: "380px",
+    },
+    [theme.breakpoints.up('md')]: {
+      // maxHeight: "250px",
+      maxHeight: "430px",
+    },
+    [theme.breakpoints.up('lg')]: {
+      maxHeight: "510px",
+    },
+    [theme.breakpoints.up('xl')]: {
+      maxHeight: "700px",
+    },
   },
 
   headerWrapper: {

@@ -27,6 +27,18 @@ const NeighborhoodListBar = ({ onClick }) => {
 
   const neighborhoods = useSelector(state => state.modules.neighborhood.matched.data);
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
+  const DynamicNb = useSelector(state => state.modules.neighborhood.NbList);
+  // const NbList = [];
+
+  // if(DynamicNb){
+  //   typeof DynamicNb === 'object'
+  //     ?
+  //     NbList.push(DynamicNb)
+  //     :
+  //     NbList = DynamicNb;
+  // }
+
+  // console.log(DynamicNb);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -54,6 +66,23 @@ const NeighborhoodListBar = ({ onClick }) => {
         <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} />
       </div>
     ));
+  
+    // const renderItems = () =>
+    // DynamicNb?.length > 0 ?
+    // (DynamicNb.map((neighborhood, i) => (
+    //   <div key={`${neighborhood.Neighborhood}${i}`}>
+    //     <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} />
+    //   </div>
+    // )))
+    // :
+    // (
+    //   neighborhoods?.length &&
+    //   (neighborhoods.slice(0, 50).map((neighborhood, i) => (
+    //     <div key={`${neighborhood.Neighborhood}${i}`}>
+    //       <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} />
+    //     </div>
+    //   )))
+    // );
 
   const renderSeeMore = () =>
       <div key={`SeeMore`}>

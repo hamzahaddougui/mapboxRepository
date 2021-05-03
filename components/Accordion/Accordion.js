@@ -51,13 +51,13 @@ const CustomizedAccordions = () => {
 
   const handleCheckedValue = (e, value) => {
     console.log(value);
-    setChosen(value);
+    value === chosen ? setChosen(null) : setChosen(value);
     dispatch(selectFilter(value));
   };
 
   const handleFilter = (e, value) => {
     console.log(value);
-    setFilter(value);
+    value === filter ? setFilter(null) : setFilter(value);
     dispatch(selectFilter(value));
   };
 
