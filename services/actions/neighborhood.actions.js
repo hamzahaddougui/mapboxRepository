@@ -138,7 +138,7 @@ const slice = createSlice({
     NeighborhoodOnMove: (state, action) => {
       let value= action.payload;
       state.NbList= JSON.parse(JSON.stringify(value));
-      // console.log(state.NbList)
+      console.log(state.NbList)
 
       
     }

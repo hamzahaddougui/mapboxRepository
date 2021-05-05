@@ -25,6 +25,8 @@ import filters from "./services/filters";
 import fetching from "./services/fetching";
 import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
 import {showCurrent, NeighborhoodOnMove} from "../../services/actions/neighborhood.actions";
+import flyTo from "./flyingTo";
+import fitBounds from "./fitBounds";
 import Loader from "./components/loader/loader";
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
@@ -47,7 +49,8 @@ class Map extends Component {
     popup: new mapboxgl.Popup({ closeButton: false, offset: 20 }),
     city_neighbPolygons: "",
     neighborhoodCard: { display: "none", name: "" },
-    loaderState: "none"
+    loaderState: "none",
+    cityProps: ""
   };
 
   handleClose = () => {
@@ -134,13 +137,13 @@ class Map extends Component {
       leave.mouseLeave(e, popup);
     });
 
-    map.on("moveend", "city-layer", e => {
-      let neighbProps= [];
-      let neighbs= fetching.getFeatures(allInOneData.data.features, "neighborhood", e.features[0].properties.polygonId);
-      neighbs.forEach(f => neighbProps.push(f.properties));
-      if(neighbs[0] && neighbs[0].properties.hasOwnProperty('Score') && JSON.stringify(neighbProps)!= JSON.stringify(this.props.neighborhoods))
-        this.props.Neighb_CityMove(neighbProps);
-    })
+    // map.on("moveend", "city-layer", e => {
+    //   let neighbProps= [];
+    //   let neighbs= fetching.getFeatures(allInOneData.data.features, "neighborhood", e.features[0].properties.polygonId);
+    //   neighbs.forEach(f => neighbProps.push(f.properties));
+    //   if(neighbs[0] && neighbs[0].properties.hasOwnProperty('Score') && JSON.stringify(neighbProps)!= JSON.stringify(this.props.neighborhoods))
+    //     this.props.Neighb_CityMove(neighbProps);
+    // })
 
     map.on("click", "city-other-layer", e => {
       let id = e.features[0].properties.polygonId.split("_");
@@ -163,16 +166,16 @@ class Map extends Component {
       this.handlePopup(e, "Neighborhood", e.features[0].properties.polygonId.split('_')[3]);
       });
 
-    map.on("moveend", "neighborhood-layer", e => {
-        let neighbProps= [];
-        let id= e.features[0].properties.polygonId.split('_');
-        let cityId= id[0]+'_'+id[1]+'_'+id[2];
-        let neighbs= fetching.getFeatures(allInOneData.data.features, 'neighborhood', cityId);
-        neighbs.forEach(n => neighbProps.push(n.properties));
-        neighbProps.sort((a, b)=> b.Score - a.Score);
-        if(neighbProps[0] && neighbProps[0].hasOwnProperty('Score') && JSON.stringify(neighbProps)!= JSON.stringify(this.props.neighborhoods))
-          this.props.Neighb_CityMove(neighbProps);
-    })
+    // map.on("moveend", "neighborhood-layer", e => {
+    //     let neighbProps= [];
+    //     let id= e.features[0].properties.polygonId.split('_');
+    //     let cityId= id[0]+'_'+id[1]+'_'+id[2];
+    //     let neighbs= fetching.getFeatures(allInOneData.data.features, 'neighborhood', cityId);
+    //     neighbs.forEach(n => neighbProps.push(n.properties));
+    //     neighbProps.sort((a, b)=> b.Score - a.Score);
+    //     if(neighbProps[0] && neighbProps[0].hasOwnProperty('Score') && JSON.stringify(neighbProps)!= JSON.stringify(this.props.neighborhoods))
+    //       this.props.Neighb_CityMove(neighbProps);
+    // })
 
     map.on("click", "neighborhood-layer", e => {
       let id = e.features[0].properties.polygonId.split("_");
@@ -197,6 +200,51 @@ class Map extends Component {
     map.on("mouseleave", "current-neighborhood-layer", e => {
       leave.mouseLeave(e, popup);
     });
+
+    map.on("zoomend", "city_score_layer", e =>{
+      let cities= [], cityProps= [];
+      if(e.target.getZoom()>= 7){
+        cities= fetching.getFeatures(allInOneData.data.features, "city");
+        cities= cities.filter(c => c.properties.Score>= 60 && c.properties.Score< 80);
+      }
+      if(e.target.getZoom()>= 9){
+        cities= fetching.getFeatures(allInOneData.data.features, "city");
+        cities= cities.filter(c => c.properties.Score>= 40 && c.properties.Score< 60);
+      }
+      if(e.target.getZoom()>= 12){
+        cities= fetching.getFeatures(allInOneData.data.features, "city");
+        cities= cities.filter(c => c.properties.Score< 40);
+      }
+      cities.forEach(c => cityProps.push(c.properties));
+      this.setState({cityProps});
+    })
+
+    map.on("zoomend", "neighborhood_score_layer", e =>{
+      let {cityProps}= this.state;
+      let neighbs= [], neighbProps= [];
+      if(e.target.getZoom()>= 7){
+        neighbs= fetching.getFeatures(allInOneData.data.features, "neighborhood");
+        neighbs= neighbs.filter(c => c.properties.Score>= 60 && c.properties.Score< 80);
+      }
+      if(e.target.getZoom()>= 9){
+        neighbs= fetching.getFeatures(allInOneData.data.features, "neighborhood");
+        neighbs= neighbs.filter(c => c.properties.Score>= 40 && c.properties.Score< 60);
+      }
+      if(e.target.getZoom()>= 12){
+        neighbs= fetching.getFeatures(allInOneData.data.features, "neighborhood");
+        neighbs= neighbs.filter(c => c.properties.Score< 40);
+      }
+      neighbs.forEach(c => neighbProps.push(c.properties));
+      cityProps.forEach(c => neighbProps.push(c));
+      neighbProps.sort((a, b)=> b.Score - a.Score);
+      if(neighbProps[0] && JSON.stringify(neighbProps)!= JSON.stringify(this.props.neighborhoods))
+        this.props.Neighb_CityMove(neighbProps);
+    })
+
+    this.handleFlipped_Favourite(map, "city_flipped_layer");
+    this.handleFlipped_Favourite(map, "city_favourite_layer");
+    this.handleFlipped_Favourite(map, "neighborhood_flipped_layer");
+    this.handleFlipped_Favourite(map, "neighborhood_favourite_layer");
 
     map.on("click", "points-layer", e => {
       const { mapObject } = this.state;
@@ -224,6 +272,8 @@ class Map extends Component {
     
     if(prevProps.scores!= this.props.scores){
       scores.setScores(mapObject, this.props.scores, city_neighbPolygons); 
+      this.getNeighborhoods();
+
     }
     
     if(prevProps.filter.selectedFilter!= this.props.filter.selectedFilter){
@@ -268,6 +318,30 @@ class Map extends Component {
     
     popup.addClassName(styles.popup);
   }
+
+  getNeighborhoods= ()=> {
+   let {city_neighbPolygons}= this.state;
+   let city_neighbProps= [];
+   let cities= fetching.getFeatures(city_neighbPolygons.features, "city");
+   let citiesFiltered= cities.filter(c => c.properties.Score>= 80);
+   citiesFiltered.forEach(c => city_neighbProps.push(c.properties));
+   let neighbs= fetching.getFeatures(city_neighbPolygons.features, "neighborhood");
+   let neighbsFiltered= neighbs.filter(n => n.properties.Score>= 80);
+   neighbsFiltered.forEach(n => city_neighbProps.push(n.properties));
+   city_neighbProps.sort((a, b)=> b.Score - a.Score);
+   this.props.Neighb_CityMove(city_neighbProps);
+     
+  }
+
+  handleFlipped_Favourite= (map, layerName)=> {
+    map.on("click", layerName, e => {
+      if(layerName== 'city_flipped_layer' || layerName== 'city_favourite_layer'){
+        flyTo.handleFlyTo(map, '', 11.9, 8000, 0.1, '', JSON.parse(e.features[0].properties.center).geometry.coordinates);
+       }
+      if(layerName== 'neighborhood_flipped_layer' || layerName== 'neighborhood_favourite_layer'){
+        fitBounds.fitBounds(map, e.features[0], 12000, 0.1, 15);
+      }
+    })}
 
   showHouses = e => {
     const { scores } = this.state;
