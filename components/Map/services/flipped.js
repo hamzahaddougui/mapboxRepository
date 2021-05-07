@@ -71,6 +71,15 @@ module.exports.checkFlipped= (map, data)=> {
       
     
   }
+
+  module.exports.handleFlipped= (map, layerName)=> {
+    map.on("click", layerName, e => {
+      if(layerName== 'city_flipped_layer' || layerName== 'city_favourite_layer'){
+        flyTo.handleFlyTo(map, '', 11.9, 8000, 0.1, '', JSON.parse(e.features[0].properties.center).geometry.coordinates);
+       }
+      
+    })
+  }
     
     
   

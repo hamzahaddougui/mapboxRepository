@@ -75,3 +75,11 @@ module.exports.checkFavourites= (favourites, map, data)=> {
           // draw.drawPolygon(map, data, CITY_NEIGHBORHOOD);
     
   }
+
+module.exports.handleFavourite= (map, layerName)=> {
+  map.on("click", layerName, e => {
+    if(layerName== 'neighborhood_flipped_layer' || layerName== 'neighborhood_favourite_layer'){
+      fitBounds.fitBounds(map, e.features[0], 12000, 0.1, 15);
+    }
+  })
+}
