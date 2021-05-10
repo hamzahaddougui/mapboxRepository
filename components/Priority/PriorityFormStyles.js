@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       fontSize: 13,
     },
+    [theme.breakpoints.down('415')]: {
+      fontSize: 10,
+    },
     [theme.breakpoints.between('xs, sm')]: {
       fontSize: 16.02,
     },
@@ -41,6 +44,15 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("xs")]: {
       fontSize: 9,
       minWidth: "5em",
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: "105px",
+      fontSize: 11,
+    },
+    [theme.breakpoints.down('415')]: {
+      width: "88px",
+      fontSize: 10,
+      padding: "2px",
     },
   },
   activePriorityButton: {

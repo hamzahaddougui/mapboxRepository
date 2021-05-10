@@ -49,10 +49,10 @@ const PriorityForm = () => {
           alignItems="center"
           className={classes.itemContainer}
         >
-          <Grid item container justify="flex-start" xs>
+          <Grid item container justify="flex-start" md={6} sm={6} xs={3}>
             <Typography className={classes.priorityTxt}>{option.name}</Typography>
           </Grid>
-          <Grid item container justify="flex-end" spacing={1} xs>
+          <Grid item container justify="flex-end" spacing={1} md={6} sm={6} xs={9}>
             <Grid item>
               <Button
                 // name="mustHave"

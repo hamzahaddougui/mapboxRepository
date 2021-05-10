@@ -1,11 +1,13 @@
 // Third party
 import { useState } from "react";
+import ReactCardFlip from 'react-card-flip';
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Favorite, FavoriteBorderSharp } from "@material-ui/icons";
-import { Typography, Grid, IconButton, Paper } from "@material-ui/core";
+import { Typography, Grid, IconButton, Paper, Modal, Slide } from "@material-ui/core";
 
-import ReactCardFlip from 'react-card-flip';
+// Components
+import ConfirmDeleteFav from "../confirmDeleteFav/confirmDeleteFav";
 
 // Actions
 import { addFavorite, flipCard } from "../../services/actions/neighborhood.actions";
@@ -23,14 +25,24 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
   const classes = useStyles({ image });
   const [elevation, setElevation] = useState(2);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [confirmed, setConfirmed] = useState(false)
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.modules.neighborhood.favorites);
   const flipped = useSelector(state => state.modules.neighborhood.flipped);
 
+  const [openConfirmation, setOpenConfirmation] = useState(false);
 
   const handleMouseOver = () => setElevation(6);
 
   const handleMouseOut = () => setElevation(2);
+
+  const handleShowConfirm = () => {
+    setOpenConfirmation(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setOpenConfirmation(false);
+  };
 
   const handleAddToFavorites = e => {
     e.stopPropagation();
@@ -39,6 +51,28 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     // }
     dispatch(addFavorite(neighborhood));
   };
+
+  // const handleAddToFavorites = e => {
+  //   e.stopPropagation();
+  //   if(favorites.includes(neighborhood)){
+  //     // !openConfirmation && handleShowConfirm();
+  //     // if(confirmed){
+  //     //   dispatch(addFavorite(neighborhood));
+  //     //   setConfirmed(false);
+  //     //   handleCloseConfirm();
+  //     // }
+  //     handleShowConfirm();
+  //   }else{
+  //     dispatch(addFavorite(neighborhood));
+  //   }
+  // };
+
+  const handleUnfavorite = (e) => {
+    e.stopPropagation();
+    setConfirmed(true);
+    dispatch(addFavorite(neighborhood));
+    handleCloseConfirm();
+  }
 
   const handleDetails = e => {
     e.stopPropagation();
@@ -51,7 +85,13 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     dispatch(flipCard(neighborhood));
   };
 
+  // const handleConfirmButton = e =>{
+  //   setConfirmed(true);
+  //   handleUnfavorite(e);
+  // }
+
   return (
+    <>
     <ReactCardFlip isFlipped={ flipped === neighborhood ? true : false} flipDirection="vertical">
 
     <Paper
@@ -62,6 +102,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       item
       container
       direction="column"
+      justify="space-between"
       className={classes.root}
       // onClick={onClick}
       onClick={handleFlipping}
@@ -137,6 +178,15 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     </Paper>
 
   </ReactCardFlip>
+  <Modal
+    open={openConfirmation}
+    onClose={handleCloseConfirm}
+  >
+      <>
+        <ConfirmDeleteFav handleCloseConfirm={handleCloseConfirm} neighborhood={neighborhood} handleConfirmButton={handleUnfavorite} />
+      </>
+  </Modal>
+  </>
   );
 };
 

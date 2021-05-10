@@ -19,6 +19,7 @@ const SignUpHeader = () => {
         className={classes.backContainer}
         onClick={() => {
           Router.push("/matcher");
+          console.log('Back');
         }}
       >
         <img className={classes.backIcon} src="/back.svg" alt="backButton"></img>

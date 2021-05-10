@@ -45,7 +45,8 @@ const SignUpForm = ({ data, handleChange }) => {
         </Typography>
         <Grid item container justify="center" alignItems="center" className={classes.form} noValidate>
           <Grid item container direction="column">
-            <Grid item xs={12} className={classes.formElement}>
+            <Grid item container>
+            <Grid item xs={6} sm={6} className={classes.formElement}>
               <TextField
                 variant="outlined"
                 required
@@ -60,7 +61,7 @@ const SignUpForm = ({ data, handleChange }) => {
                 placeholder="First name"
               />
             </Grid>
-            <Grid item xs={12} className={classes.formElement}>
+            <Grid item xs={6} sm={6} className={classes.formElement}>
               <TextField
                 variant="outlined"
                 required
@@ -74,6 +75,7 @@ const SignUpForm = ({ data, handleChange }) => {
                 onChange={handleChange}
                 autoComplete="lname"
               />
+            </Grid>
             </Grid>
             <Grid item xs={12} className={classes.formElement}>
               <TextField

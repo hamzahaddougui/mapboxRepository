@@ -343,7 +343,7 @@ const styles = theme => ({
       left: "30%",
     },
     [theme.breakpoints.up('xl')]: {
-      left: "40%",
+      left: "32%",
     },
   },
   homeMatcher: {
@@ -365,7 +365,7 @@ const styles = theme => ({
       right: "30%",
     },
     [theme.breakpoints.up('xl')]: {
-      right: "40%",
+      right: "32%",
     },
   },
   homeMatcherActive: {
@@ -388,7 +388,7 @@ const styles = theme => ({
       right: "30%",
     },
     [theme.breakpoints.up('xl')]: {
-      right: "40%",
+      right: "32%",
     },
   },
   homeMatcherThunderActive: {

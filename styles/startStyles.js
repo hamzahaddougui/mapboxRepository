@@ -32,24 +32,37 @@ const styles = theme => ({
   formContainer: {
     width: "100%",
     overflow: "scroll",
-    // maxHeight: "200px",
-    maxHeight: "380px",
+    // maxHeight: "380px",
+    maxHeight: "calc(100vh - 380px)",
     [theme.breakpoints.down('xs')]: {
-      maxHeight: "370px",
+      // maxHeight: "370px",
+      maxHeight: "calc(100vh - 305px)",
+    },
+    [theme.breakpoints.down('359')]: {
+      // maxHeight: "370px",
+      maxHeight: "calc(100vh - 390px)",
     },
     [theme.breakpoints.between('xs, sm')]: {
-      // maxHeight: "200px",
-      maxHeight: "380px",
+      // maxHeight: "380px",
+      maxHeight: "calc(100vh - 380px)",
+    },
+    [theme.breakpoints.up('732')]: {
+      // maxHeight: "250px",
+      // maxHeight: "430px",
+      maxHeight: "calc( 100vh - 280px )",
     },
     [theme.breakpoints.up('md')]: {
       // maxHeight: "250px",
-      maxHeight: "430px",
+      // maxHeight: "430px",
+      maxHeight: "calc( 100vh - 320px )",
     },
     [theme.breakpoints.up('lg')]: {
-      maxHeight: "510px",
+      // maxHeight: "510px",
+      maxHeight: "calc(100vh - 305px)",
     },
     [theme.breakpoints.up('xl')]: {
-      maxHeight: "700px",
+      // maxHeight: "700px",
+      maxHeight: "calc(100vh - 305px)",
     },
   },
 

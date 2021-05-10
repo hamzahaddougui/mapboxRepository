@@ -79,21 +79,21 @@ const styles = (theme) => ({
     },
   },
   formElement: {
-    padding: "5px",
+    padding: "5px 2px",
     [theme.breakpoints.down('xs')]: {
       padding: "4px",
     },
     [theme.breakpoints.between('xs, sm')]: {
-      padding: "5px",
+      padding: "5px 2px",
     },
     [theme.breakpoints.up('md')]: {
-      padding: "5px",
+      padding: "5px 2px",
     },
     [theme.breakpoints.up('lg')]: {
-      padding: "6px 8px",
+      padding: "6px 2px",
     },
     [theme.breakpoints.up('xl')]: {
-      padding: "8px",
+      padding: "8px 2px",
     },
   },
   input: {
@@ -101,43 +101,45 @@ const styles = (theme) => ({
     '&::placeholder': {
       fontFamily: "Poppins",
       fontWeight: "300",
-      fontSize: 14.2,
+      fontSize: 13,
       color: '#323643',
       opacity: 1,
       [theme.breakpoints.down('xs')]: {
-        fontSize: 13,
+        fontSize: 12,
       },
       [theme.breakpoints.between('xs, sm')]: {
-        fontSize: 14.2,
+        fontSize: 13,
       },
       [theme.breakpoints.up('md')]: {
-        fontSize: 14.2,
+        fontSize: 13,
       },
       [theme.breakpoints.up('lg')]: {
-        fontSize: 14.2,
+        // fontSize: 14.2,
+        fontSize: 13,
       },
       [theme.breakpoints.up('xl')]: {
-        fontSize: 16.02,
+        fontSize: 14.2,
       },
     },
   },
   MuiInput: {
     "& .MuiOutlinedInput-input": {
-      padding: "14px 6px",
+      padding: "12px 6px",
       [theme.breakpoints.down('xs')]: {
-        padding: "14px 6px",
+        padding: "12px 6px",
       },
       [theme.breakpoints.between('xs, sm')]: {
-        padding: "14px 6px",
+        padding: "12px 6px",
       },
       [theme.breakpoints.up('md')]: {
-        padding: "16px 8px",
+        padding: "13px 8px",
       },
       [theme.breakpoints.up('lg')]: {
-        padding: "16px 8px",
+        // padding: "16px 8px",
+        padding: "14px 8px",
       },
       [theme.breakpoints.up('xl')]: {
-        padding: "18.5px 14px",
+        padding: "16px 14px",
       },
     },
   },

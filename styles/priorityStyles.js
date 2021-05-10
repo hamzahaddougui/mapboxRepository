@@ -122,8 +122,12 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    padding: "0 2em",
     [theme.breakpoints.down('xs')]: {
-      padding: "2em",
+      padding: "0 2em",
+    },
+    [theme.breakpoints.down('443')]: {
+      padding: "4em 2em 2em 2em",
     },
   },
 });

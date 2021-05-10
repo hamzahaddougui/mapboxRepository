@@ -24,15 +24,16 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
   const filters = useSelector(state => state.modules.filter.filters);
   const filtersData = useSelector(state => state.modules.filter.filtersData);
 
-  if(filters.length === 0){
-    dispatch(loadFilters());
-  }
+  // if(filters.length === 0){
+  //   dispatch(loadFilters());
+  // }
 
   // if(filtersData.length === 0){
   //   dispatch(loadFiltersData());
   // }
   useEffect(() => {
     dispatch(loadFiltersData());
+    dispatch(loadFilters());
   }, []);
 
   const handleHomeMatcher = e => {

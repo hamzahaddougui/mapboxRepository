@@ -7,6 +7,8 @@ import MatcherFooter from "components/MatcherFooter/MatcherFooter";
 import NeighborhoodListBar from "components/NbListBar/NbListBar";
 import MatcherRestart from "components/MatcherRestart/MatcherRestart";
 import NeighborhoodDetail from "components/NbDetail/NbDetail";
+// import ConfirmDeleteFav from "components/confirmDeleteFav/confirmDeleteFav";
+import SignIn from "components/SignIn/SignIn";
 import { Dialog, Modal } from "@material-ui/core";
 
 import styles from "styles/matcherStyles";
@@ -20,10 +22,16 @@ const useStyles = makeStyles(styles);
 
 const Matcher = ({ Map }) => {
   const classes = useStyles();
+
   const router = useRouter();
   const dispatch = useDispatch();
+
   const [openRestartMatcher, setOpenRestartMatcher] = useState(false);
   const [openNbDetails, setOpenNbDetails] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState(true);
+  const [data, setData] = useState({ email: "", password: ""});
+  // const [openConfirmation, setOpenConfirmation] = useState(false);
+
   const mapLoading = useSelector(state => state.modules.map.loading);
   const filtersDataLoading = useSelector(state => state.modules.filter.filtersDataLoading);
   const matched = useSelector(state => state.modules.neighborhood.matched);
@@ -55,6 +63,22 @@ const Matcher = ({ Map }) => {
   const handleCloseNbDetails = () => {
     setOpenNbDetails(false);
   };
+  const handleCloseSignIn = () => {
+    setOpenSignIn(false);
+  };
+
+  const handleSignInChange = ({ target }) => {
+    setData({ ...data, [target.name]: target.value });
+  };
+
+  const handleSignInSubmit = () => {
+    console.log(data);
+    setOpenSignIn(false);
+  };
+
+  // const handleShowConfirm = () => {
+  //   setOpenConfirmation(true);
+  // };
 
   return (
     <div className={classes.root}>
@@ -66,7 +90,7 @@ const Matcher = ({ Map }) => {
       </div>
       { (matched.data || favorites) && (
       <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
-        <NeighborhoodListBar onClick={handleNbClick} />
+        <NeighborhoodListBar onClick={handleNbClick}  />
       </div>
       )}
       <div className={classes.matcherFooter}>
@@ -102,6 +126,27 @@ const Matcher = ({ Map }) => {
         {openNbDetails && (<NeighborhoodDetail handleCloseNbDetails={handleCloseNbDetails} />)}
         </>
       </Modal>
+      {
+        !matched.data?.length && 
+        (
+        <Modal
+          open={openSignIn}
+          onClose={setOpenSignIn}
+        >
+          <>
+          <SignIn handleCloseSignIn={handleCloseSignIn} data={data} handleSignInChange={handleSignInChange} handleSignInSubmit={handleSignInSubmit} />
+          </>
+        </Modal>
+        )
+      }
+      {/* <Modal
+        open={openConfirmation}
+        onClose={setOpenConfirmation}
+      >
+        <>
+        <ConfirmDeleteFav />
+        </>
+      </Modal> */}
     </div>
   );
 };

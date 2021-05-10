@@ -20,6 +20,7 @@ const styles = (theme) => ({
     margin: "8px",
     cursor: "pointer",
     padding: "1em",
+    zIndex: 2,
   },
   backIcon: {
     width: "24px",
