@@ -72,7 +72,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                                   ["==", ["get", "favourite"], true],
                                   ["==", ["get", "flipped"], true]
                                 ],
-                              1, 0
+                              1, 1
                               ],
                             ],
           "text-opacity": 
@@ -116,7 +116,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                               ["==", ["get", "favourite"], true],
                               ["==", ["get", "flipped"], true]
                             ],
-                          1, 0
+                          1, 1
                           ],
                         ]
         },
