@@ -9,6 +9,8 @@ const useStyles = makeStyles(muiStyles);
 const FilterFormHeader = ({ groups, selected, setSelected }) => {
   const classes = useStyles();
 
+  console.log("groups: ", groups);
+
   return (
     <Container className={classes.root}>
       <Grid container direction="row" justify="center" spacing={2}>
@@ -31,11 +33,13 @@ const FilterFormHeader = ({ groups, selected, setSelected }) => {
           >
             {selected === group ? (
               <Grid item className={classes.selectedIconContainer}>
-                <img src="/whiteGlobe.svg" className={classes.selectedIcon} />
+                {/* <img src="/whiteGlobe.svg" className={classes.selectedIcon} /> */}
+                <img src={`/${group.toLowerCase().replace(/ /g,"_")}OnIcon.svg`} className={classes.selectedIcon} />
               </Grid>
             ) : (
               <Grid item className={classes.iconContainer}>
-                <img src="/globe.svg" className={classes.icon}/>
+                {/* <img src="/globe.svg" className={classes.icon}/> */}
+                <img src={`/${group.toLowerCase().replace(/ /g,"_")}Icon.svg`} className={classes.icon} />
               </Grid>
             )}
             <Grid item className={classes.textContainer}>

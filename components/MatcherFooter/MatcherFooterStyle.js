@@ -2,6 +2,48 @@
 const styles = theme => ({
 
   // Matcher Footer Styles
+  signInButton: {
+    position: "relative",
+    bottom: "65px",
+    padding: "10px 22px",
+    margin: "0 0 18px 21px",
+    backgroundColor: "#FFF",
+    border: "solid 1px rgba(50, 54, 67, 0.16)",
+    borderRadius: "27px",
+    textTransform: "none",
+    fontFamily: "Poppins",
+    fontSize: 12,
+    fontWeight: 300,
+    color: "#323643",
+    "&:hover": {
+      backgroundColor: "#FFF",
+    },
+    [theme.breakpoints.down('xs')]: {
+      padding: "8px 18px",
+      margin: "0 0 18px 21px",
+      fontSize: 11,
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      padding: "10px 22px",
+      margin: "0 0 18px 21px",
+      fontSize: 12,
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: "11px 26px",
+      margin: "0 0 18px 21px",
+      fontSize: 13,
+    },
+    [theme.breakpoints.up('lg')]: {
+      padding: "12px 30px",
+      margin: "0 0 18px 21px",
+      fontSize: 13.5,
+    },
+    [theme.breakpoints.up('xl')]: {
+      padding: "12px 30px",
+      margin: "0 0 18px 21px",
+      fontSize: 14.3,
+    },
+  },
   matchButton: {
     height: "45px",
     border: "1px solid #979797",

@@ -13,7 +13,7 @@ import { loadFilters, loadFiltersData } from "../../services/actions/filter.acti
 
 const useStyles = makeStyles(muiStyles);
 
-const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
+const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher, handleOpenSignIn }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -83,6 +83,10 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
   );
 
   const renderBeforeMatching = () => (
+    <>
+    <Button className={classes.signInButton} onClick={handleOpenSignIn}>
+      Already have an account? Sign in
+    </Button>
     <div className={classes.bottomBox}>
       <div onClick={onStartMatcher} style={{ cursor: "pointer" }}>
         {/* <div className={classes.thunder}> */}
@@ -103,6 +107,7 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher }) => {
         {/* <img className={classes.logo} src="/logo.svg" alt="logo" /> */}
       </div>
     </div>
+    </>
   );
 
   return matched?.length ? renderAfterMatching() : renderBeforeMatching();

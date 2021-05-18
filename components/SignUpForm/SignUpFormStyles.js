@@ -159,6 +159,12 @@ const styles = (theme) => ({
     fontSize: 14.24,
     textDecoration: "underline",
     textAlign: "center",
+    textTransform: "none",
+    padding: 0,
+    "&:hover": {
+      backgroundColor: "transparent",
+      textDecoration: "underline",
+    },
     [theme.breakpoints.down('xs')]: {
       fontSize: 12,
     },

@@ -59,30 +59,30 @@ const NeighborhoodListBar = ({ onClick, handleShowConfirm }) => {
       </div>
     ));
 
-  // const renderItems = () =>
-  //   neighborhoods?.length &&
-  //   neighborhoods.slice(0, 50).map((neighborhood, i) => (
-  //     <div key={`${neighborhood.Neighborhood}${i}`}>
-  //       <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} />
-  //     </div>
-  //   ));
-  
-    const renderItems = () =>
-    DynamicNb?.length > 0 ?
-    (DynamicNb.map((neighborhood, i) => (
+  const renderItems = () =>
+    neighborhoods?.length &&
+    neighborhoods.slice(0, 50).map((neighborhood, i) => (
       <div key={`${neighborhood.Neighborhood}${i}`}>
-        <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} handleShowConfirm={handleShowConfirm} />
+        <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} />
       </div>
-    )))
-    :
-    (
-      neighborhoods?.length &&
-      (neighborhoods.slice(0, 50).map((neighborhood, i) => (
-        <div key={`${neighborhood.Neighborhood}${i}`}>
-          <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} handleShowConfirm={handleShowConfirm} />
-        </div>
-      )))
-    );
+    ));
+  
+    // const renderItems = () =>
+    // DynamicNb?.length > 0 ?
+    // (DynamicNb.map((neighborhood, i) => (
+    //   <div key={`${neighborhood.Neighborhood}${i}`}>
+    //     <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} handleShowConfirm={handleShowConfirm} />
+    //   </div>
+    // )))
+    // :
+    // (
+    //   neighborhoods?.length &&
+    //   (neighborhoods.slice(0, 50).map((neighborhood, i) => (
+    //     <div key={`${neighborhood.Neighborhood}${i}`}>
+    //       <NeighborhoodCard onClick={(e) => {openCard(e, neighborhood)}} neighborhood={neighborhood} handleShowConfirm={handleShowConfirm} />
+    //     </div>
+    //   )))
+    // );
 
   const renderSeeMore = () =>
       <div key={`SeeMore`}>

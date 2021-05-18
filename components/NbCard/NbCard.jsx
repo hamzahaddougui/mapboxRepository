@@ -46,26 +46,18 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
 
   const handleAddToFavorites = e => {
     e.stopPropagation();
-    // if(favorites.includes(neighborhood) || flipped.includes(neighborhood)){
-    //   dispatch(flipCard(neighborhood));
-    // }
-    dispatch(addFavorite(neighborhood));
+    if(favorites.includes(neighborhood)){
+      // !openConfirmation && handleShowConfirm();
+      // if(confirmed){
+      //   dispatch(addFavorite(neighborhood));
+      //   setConfirmed(false);
+      //   handleCloseConfirm();
+      // }
+      handleShowConfirm();
+    }else{
+      dispatch(addFavorite(neighborhood));
+    }
   };
-
-  // const handleAddToFavorites = e => {
-  //   e.stopPropagation();
-  //   if(favorites.includes(neighborhood)){
-  //     // !openConfirmation && handleShowConfirm();
-  //     // if(confirmed){
-  //     //   dispatch(addFavorite(neighborhood));
-  //     //   setConfirmed(false);
-  //     //   handleCloseConfirm();
-  //     // }
-  //     handleShowConfirm();
-  //   }else{
-  //     dispatch(addFavorite(neighborhood));
-  //   }
-  // };
 
   const handleUnfavorite = (e) => {
     e.stopPropagation();

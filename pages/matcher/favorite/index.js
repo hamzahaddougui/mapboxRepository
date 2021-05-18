@@ -32,6 +32,7 @@ const Favorite = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({ firstName: "", lastName: "", email: "" });
   const [openNbDetails, setOpenNbDetails] = useState(false);
+  const [openWhyCreateAcc, setOpenWhyCreateAcc] = useState(false)
 
   const handleChange = ({ target }) => {
     setData({ ...data, [target.name]: target.value });
@@ -57,6 +58,10 @@ const Favorite = () => {
   };
   const handleCloseNbDetails = () => {
     setOpenNbDetails(false);
+  };
+
+  const handleWhyCreateAcc = () => {
+    setOpenWhyCreateAcc(!openWhyCreateAcc);
   };
 
   return (
@@ -135,7 +140,7 @@ const Favorite = () => {
               <FavoriteListBar open={open} setOpen={setOpen} onClick={handleNbClick} />
               </Grid>
               <Grid item className={classes.formContainer}>
-              <SignUpForm data={data} handleChange={handleChange} />
+              <SignUpForm data={data} handleChange={handleChange} openWhyCreateAcc={openWhyCreateAcc} handleWhyCreateAcc={handleWhyCreateAcc} />
               </Grid>
             </Grid>
             </Grid>

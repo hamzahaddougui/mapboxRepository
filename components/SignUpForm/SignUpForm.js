@@ -1,7 +1,7 @@
 // Third party
 import GoogleLogin from "react-google-login";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, CssBaseline, TextField, Link, Grid, Typography } from "@material-ui/core";
+import { Container, CssBaseline, TextField, Link, Grid, Typography, Button } from "@material-ui/core";
 import axios from "axios";
 
 // Actions
@@ -13,6 +13,9 @@ import axios from "axios";
 // Assets
 import muiStyles from "./SignUpFormStyles";
 
+// Components
+import WhyCreateAcc from '../WhyCreateAcc/WhyCreateAcc';
+
 const instance = axios.create({
   withCredentials: true,
 });
@@ -20,7 +23,7 @@ const useStyles = makeStyles(muiStyles);
 
 const clientId = "79328369707-8da82odrau1iut7pol5linujatbgm9tm.apps.googleusercontent.com";
 
-const SignUpForm = ({ data, handleChange }) => {
+const SignUpForm = ({ data, handleChange, openWhyCreateAcc, handleWhyCreateAcc }) => {
   const classes = useStyles();
 
   const responseSuccessGoogle = async response => {
@@ -111,9 +114,12 @@ const SignUpForm = ({ data, handleChange }) => {
           </Grid>
           <Grid container justify="center" alignItems="center" className={classes.helperWrapper}>
             <Grid item className={classes.helperContainer}>
-              <Link className={classes.helper} href="#" variant="body2">
+              {/* <Link className={classes.helper} href="#" variant="body2">
                 Why create an account ?
-              </Link>
+              </Link> */}
+              <Button className={classes.helper} onClick={handleWhyCreateAcc}>
+                Why create an account ?
+              </Button>
             </Grid>
           </Grid>
         </Grid>
@@ -142,6 +148,7 @@ const SignUpForm = ({ data, handleChange }) => {
             />
           </Grid>
         </Grid>
+        <WhyCreateAcc openWhyCreateAcc={openWhyCreateAcc} handleWhyCreateAcc={handleWhyCreateAcc} />
       </Grid>
     </Grid>
   );

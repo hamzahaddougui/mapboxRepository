@@ -28,7 +28,7 @@ const Matcher = ({ Map }) => {
 
   const [openRestartMatcher, setOpenRestartMatcher] = useState(false);
   const [openNbDetails, setOpenNbDetails] = useState(false);
-  const [openSignIn, setOpenSignIn] = useState(true);
+  const [openSignIn, setOpenSignIn] = useState(false);
   const [data, setData] = useState({ email: "", password: ""});
   // const [openConfirmation, setOpenConfirmation] = useState(false);
 
@@ -62,6 +62,9 @@ const Matcher = ({ Map }) => {
   };
   const handleCloseNbDetails = () => {
     setOpenNbDetails(false);
+  };
+  const handleOpenSignIn = () => {
+    setOpenSignIn(true);
   };
   const handleCloseSignIn = () => {
     setOpenSignIn(false);
@@ -98,6 +101,7 @@ const Matcher = ({ Map }) => {
           onStartMatcher={handleStartMatcher}
           onRestartMatcher={handleRestartMatcher}
           onHomeMatcher={handleHomeMatcher}
+          handleOpenSignIn={handleOpenSignIn}
         />
       </div>
       <BackdropLoader open={mapLoading || filtersDataLoading} />
