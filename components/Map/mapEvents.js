@@ -13,11 +13,14 @@ import fetching from "./services/fetching";
 import flipped from "./services/flipped";
 import favourite from "./services/favourites";
 import neighborhood from "./services/neighborhood";
+import mapillarySrvc from "./services/mapillaryService";
+import {Viewer} from "mapillary-js";
+const marker = "/map/marker_one.png";
 
-module.exports.events= (map, data, popup, props, polygons)=> {
+module.exports.events= (map, data, popup, props, polygons, clientId, viewer)=> {
     let cityProperties= [], lastNeighborhoods= [], regionZoom= false, valuesSet= true;
     
-    map.on("mousemove", "region-layer", e => {
+      map.on("mousemove", "region-layer", e => {
         move.mouseMove(data, e, "region", REGION_HIGHLIGHTED);
         mapPopup.handlePopup(popup, e, "Region", e.features[0].properties.polygonId);
         
@@ -103,12 +106,62 @@ module.exports.events= (map, data, popup, props, polygons)=> {
       //       this.props.Neighb_CityMove(neighbProps);
       // })
   
-      map.on("click", "neighborhood-layer", e => {
+      map.on("click", "neighborhood-layer", async (e) => {
         let id = e.features[0].properties.polygonId.split("_");
         layerClick.click(map, data, e, NEIGHBORHOOD, "neighborhood", e.features[0].properties.polygonId,
           CURRENT_NEIGHBORHOOD);
         layerClick.click(map, data, e, NEIGHBORHOOD, "city", id[0] + "_" + id[1] + "_" + id[2],
           CITY_BORDERED);
+        let json= await mapillarySrvc.getImageKey(clientId, e.features[0]);
+        let feature= json.data.features[0];
+        if (feature){
+          let key= feature.properties.key;
+          viewer.moveToKey(key);
+          
+          let lnglat= e.lngLat;
+          let markerSource = {
+            type: 'geojson',
+            data: {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [lnglat.lng, lnglat.lat]
+                }
+                }};
+                if(!map.getSource('markers')){
+                  map.addSource('markers', markerSource);
+                  map.loadImage(marker, (error, image) => {
+                    if (error) throw error;
+                    map.addImage("mapillary_marker", image);
+                    map.addLayer(
+                      {
+                        id: 'markers_layer',
+                        type: 'symbol',
+                        source: 'markers',
+                        layout: {
+                            'icon-image': "mapillary_marker",
+                            'icon-size': 0.06
+                        }
+                    });
+                  });
+                }
+          
+            if(map.getSource('markers')){
+            viewer.on(Viewer.nodechanged, function(node){
+              let lngLat = [node.latLon.lon, node.latLon.lat];
+  
+              let data = {
+                type: 'Feature',
+                geometry: {
+                           type: 'Point',
+                           coordinates: lngLat}
+              };
+  
+            map.getSource('markers').setData(data);
+            map.flyTo({ center: lngLat });
+            })
+          }
+       }  
       });
   
       map.on("click", "current-neighborhood-layer", e => {
@@ -135,15 +188,15 @@ module.exports.events= (map, data, popup, props, polygons)=> {
         // }
         if(e.target.getZoom()>= 7){
           cities= fetching.getFeatures(data.features, "city");
-          cities= cities.filter(c => c.properties.Score>= 60 && c.properties.Score< 80);
+          cities= cities.filter(c => c.properties.Score>= 50 && c.properties.Score< 70);
         }
         if(e.target.getZoom()>= 9){
           cities= fetching.getFeatures(data.features, "city");
-          cities= cities.filter(c => c.properties.Score>= 40 && c.properties.Score< 60);
+          cities= cities.filter(c => c.properties.Score>= 30 && c.properties.Score< 50);
         }
         if(e.target.getZoom()>= 12){
           cities= fetching.getFeatures(data.features, "city");
-          cities= cities.filter(c => c.properties.Score< 40);
+          cities= cities.filter(c => c.properties.Score< 30);
         }
         cities.forEach(c => cityProps.push(c.properties));
         // this.setState({cityProps});
@@ -163,17 +216,17 @@ module.exports.events= (map, data, popup, props, polygons)=> {
           regionZoom= false;
           valuesSet= false;
           neighbs= fetching.getFeatures(data.features, "neighborhood");
-          neighbs= neighbs.filter(c => c.properties.Score>= 60 && c.properties.Score< 80);
+          neighbs= neighbs.filter(c => c.properties.Score>= 50 && c.properties.Score< 70);
         }
         if(e.target.getZoom()>= 9){
           regionZoom= false;
           neighbs= fetching.getFeatures(data.features, "neighborhood");
-          neighbs= neighbs.filter(c => c.properties.Score>= 40 && c.properties.Score< 60);
+          neighbs= neighbs.filter(c => c.properties.Score>= 30 && c.properties.Score< 50);
         }
         if(e.target.getZoom()>= 12){
           regionZoom= false;
           neighbs= fetching.getFeatures(data.features, "neighborhood");
-          neighbs= neighbs.filter(c => c.properties.Score< 40);
+          neighbs= neighbs.filter(c => c.properties.Score< 50);
         }
         if(regionZoom== false){
             neighbs.forEach(c => neighbProps.push(c.properties));

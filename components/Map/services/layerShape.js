@@ -41,7 +41,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                               5,
                                ["case",
                                 ['any', 
-                                  ['all', ['>=', ['get', 'Score'], 80], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
+                                  ['all', ['>=', ['get', 'Score'], 70], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
                                   ["==", ["get", "favourite"], true],
                                   ["==", ["get", "flipped"], true]
                                 ],
@@ -50,7 +50,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                               7,
                               ["case",
                                 ['any', 
-                                  ['all', ['>=', ['get', 'Score'], 60], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
+                                  ['all', ['>=', ['get', 'Score'], 50], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
                                   ["==", ["get", "favourite"], true],
                                   ["==", ["get", "flipped"], true]
                                 ],
@@ -59,7 +59,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                               9,
                               ["case",
                                 ['any', 
-                                  ['all', ['>=', ['get', 'Score'], 40], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
+                                  ['all', ['>=', ['get', 'Score'], 30], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
                                   ["==", ["get", "favourite"], true],
                                   ["==", ["get", "flipped"], true]
                                 ],
@@ -68,7 +68,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                               12,
                               ["case",
                                 ['any', 
-                                  ['all', ['<', ['get', 'Score'], 40], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
+                                  ['all', ['<', ['get', 'Score'], 30], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
                                   ["==", ["get", "favourite"], true],
                                   ["==", ["get", "flipped"], true]
                                 ],
@@ -85,7 +85,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                           5,
                           ["case",
                             ['any', 
-                              ['all', ['>=', ['get', 'Score'], 80], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
+                              ['all', ['>=', ['get', 'Score'], 70], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
                               ["==", ["get", "favourite"], true],
                               ["==", ["get", "flipped"], true]
                             ],
@@ -94,7 +94,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                           7,
                           ["case",
                             ['any', 
-                              ['all', ['>=', ['get', 'Score'], 60], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
+                              ['all', ['>=', ['get', 'Score'], 50], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
                               ["==", ["get", "favourite"], true],
                               ["==", ["get", "flipped"], true]
                             ],
@@ -103,7 +103,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                           9,
                           ["case",
                             ['any', 
-                              ['all', ['>=', ['get', 'Score'], 40], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
+                              ['all', ['>=', ['get', 'Score'], 30], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
                               ["==", ["get", "favourite"], true],
                               ["==", ["get", "flipped"], true]
                             ],
@@ -112,7 +112,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
                           12,
                           ["case",
                             ['any', 
-                              ['all', ['<', ['get', 'Score'], 40], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
+                              ['all', ['<', ['get', 'Score'], 30], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
                               ["==", ["get", "favourite"], true],
                               ["==", ["get", "flipped"], true]
                             ],

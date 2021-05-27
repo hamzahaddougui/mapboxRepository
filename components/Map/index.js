@@ -18,6 +18,8 @@ import {showCurrent, NeighborhoodOnMove} from "../../services/actions/neighborho
 import Loader from "./components/loader/loader";
 import mapEvents from "./mapEvents";
 import neighborhood from "./services/neighborhood";
+import "mapillary-js/dist/mapillary.min.css";
+import {Viewer} from "mapillary-js";
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 
 mapboxgl.accessToken =
@@ -41,7 +43,7 @@ class Map extends Component {
     neighborhoodCard: { display: "none", name: "" },
     loaderState: "none",
     cityProps: "",
-    neighborhoods: ""
+    neighborhoods: "",
   };
 
   handleClose = () => {
@@ -52,9 +54,19 @@ class Map extends Component {
     let map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/hamzahad/ckm6lqb38f5ev17ljx1v8jxgp", // style URL
-      center: [-84.13814338407742, 26.573880643027238], // starting position [lng, lat]
-      zoom: 5, // starting zoom
+      center: [-85.80603438080203, 26.471118388804214], // starting position [lng, lat]
+      zoom: 5.3028243761363125, // starting zoom
     });
+
+    let clientId= "aXRBSzN4MGlhbnZEcDBXNk1LTkFicDo2YjZmZGQyZmZiZmJlMWFj";
+
+    const viewer = new Viewer({
+      apiClient: clientId,
+      container: "mly",
+      imageKey: "ftYOspJRzEUZ63otES5R7O",
+      component: { cover: false }
+    });
+
     let { popup} = this.state;
     let allInOneData = await this.getAllInOne();
 
@@ -72,8 +84,8 @@ class Map extends Component {
       type: "FeatureCollection",
       features
     };
-
-    this.setState({ mapObject: map, city_neighbPolygons: geojson });
+   
+    this.setState({ mapObject: map, city_neighbPolygons: geojson});
     
     // map.on("load", e => {
     //   // showPoi.showPoi(e);
@@ -81,10 +93,8 @@ class Map extends Component {
     // });
 
     let {city_neighbPolygons}= this.state;
-    mapEvents.events(map, allInOneData.data, popup, this.props, city_neighbPolygons);  
-
-    
-  }
+    mapEvents.events(map, allInOneData.data, popup, this.props, city_neighbPolygons, clientId, viewer);  
+}
 
   componentDidUpdate(prevProps, prevState){
     const {mapObject, city_neighbPolygons, polygonsScore, loaderState, neighborhoods}= this.state;
@@ -152,6 +162,7 @@ class Map extends Component {
           <div className={styles.loader} style={{display: loaderState}}>
             <Loader></Loader>
           </div>
+          <div className={styles.viewer} id="mly"/>
         </div>
       </React.Fragment>
     );

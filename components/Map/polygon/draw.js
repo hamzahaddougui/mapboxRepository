@@ -1,7 +1,7 @@
 import service from "../services/fetching";
 import layerShape from "../services/layerShape";
-const score_marker = "/map/pin.png";
-const favourite = "/map/pin.png";
+const score_marker = "/map/score.png";
+const favourite = "/map/favorite.png";
 const flipped = "/map/pin.png";
 
 module.exports.drawPolygon = (
@@ -142,7 +142,7 @@ module.exports.drawPolygon = (
 module.exports.drawScores= (map, imageName, layerName, source)=> {
   map.loadImage(score_marker, (error, image) => {
     if (error) throw error;
-    map.addImage(imageName, image, { sdf: true });
+    map.addImage(imageName, image);
     let result = map.addLayer(
       layerShape.symbolLayer(
         layerName,
@@ -154,21 +154,22 @@ module.exports.drawScores= (map, imageName, layerName, source)=> {
         [0, -1],
         "top",
         11,
-        [
-          "case",
-          ["<=", ["get", "Score"], 20],
-          "#C8CAF2",
-          ["<=", ["get", "Score"], 40],
-          "#B2B6F5",
-          ["<=", ["get", "Score"], 60],
-          "#969CF6",
-          ["<=", ["get", "Score"], 80],
-          "#777EFA",
-          [">", ["get", "Score"], 80],
-          "#5D66FA",
+        // [
+        //   "case",
+        //   ["<=", ["get", "Score"], 20],
+        //   "#C8CAF2",
+        //   ["<=", ["get", "Score"], 40],
+        //   "#B2B6F5",
+        //   ["<=", ["get", "Score"], 60],
+        //   "#969CF6",
+        //   ["<=", ["get", "Score"], 80],
+        //   "#777EFA",
+        //   [">", ["get", "Score"], 80],
+        //   "#5D66FA",
 
-          "#5D66FA",
-        ],
+        //   "#5D66FA",
+        // ],
+        "#5D66FA",
         "white",
         ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false]]
 
@@ -232,7 +233,7 @@ module.exports.drawFavourite= (map)=> {
   // city level
   map.loadImage(favourite, (error, image) => {
     if (error) throw error;
-    map.addImage("city_favourite_marker", image, { sdf: true });
+    map.addImage("city_favourite_marker", image);
     let result = map.addLayer(
       layerShape.symbolLayer(
         "city_favourite_layer",
@@ -255,7 +256,7 @@ module.exports.drawFavourite= (map)=> {
   // neighborhood level
   map.loadImage(favourite, (error, image) => {
     if (error) throw error;
-    map.addImage("neighborhood_favourite_marker", image, { sdf: true });
+    map.addImage("neighborhood_favourite_marker", image);
     let result = map.addLayer(
       layerShape.symbolLayer(
         "neighborhood_favourite_layer",
