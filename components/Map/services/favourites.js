@@ -44,7 +44,7 @@ module.exports.setFavourites= (favourites, map, data)=> {
           // draw.drawPolygon(map, data, CITY_NEIGHBORHOOD);
 
     }
-   
+   console.log("favorite")
   }
   
 module.exports.checkFavourites= (favourites, map, data)=> {
@@ -73,7 +73,7 @@ module.exports.checkFavourites= (favourites, map, data)=> {
       
     })
           // draw.drawPolygon(map, data, CITY_NEIGHBORHOOD);
-    
+    console.log("unfavorite")
   }
 
 module.exports.handleFavourite= (map, layerName)=> {

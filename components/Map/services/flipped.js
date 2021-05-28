@@ -44,7 +44,7 @@ module.exports.setFlipped= (flipped, map, data)=> {
   }  
   // console.log(data.features);   
           // draw.drawPolygon(map, data, CITY_NEIGHBORHOOD);
-
+  console.log("flipped")
   }
         
    
@@ -69,7 +69,7 @@ module.exports.checkFlipped= (map, data)=> {
       
           // draw.drawPolygon(map, data, CITY_NEIGHBORHOOD);
       
-    
+    console.log("unflipped")
   }
 
   module.exports.handleFlipped= (map, layerName)=> {

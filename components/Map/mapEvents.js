@@ -112,20 +112,22 @@ module.exports.events= (map, data, popup, props, polygons, clientId, viewer)=> {
           CURRENT_NEIGHBORHOOD);
         layerClick.click(map, data, e, NEIGHBORHOOD, "city", id[0] + "_" + id[1] + "_" + id[2],
           CITY_BORDERED);
+        // let center= JSON.parse(e.features[0].properties.center);
+        // let coordinates= center.geometry.coordinates;
+        let lngLat= e.lngLat;
         let json= await mapillarySrvc.getImageKey(clientId, e.features[0]);
         let feature= json.data.features[0];
         if (feature){
           let key= feature.properties.key;
           viewer.moveToKey(key);
           
-          let lnglat= e.lngLat;
           let markerSource = {
             type: 'geojson',
             data: {
                 type: 'Feature',
                 geometry: {
                     type: 'Point',
-                    coordinates: [lnglat.lng, lnglat.lat]
+                    coordinates: [lngLat.lng, lngLat.lat]
                 }
                 }};
                 if(!map.getSource('markers')){
