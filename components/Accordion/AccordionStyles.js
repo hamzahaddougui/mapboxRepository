@@ -149,6 +149,7 @@ const styles = (theme) => ({
         [theme.breakpoints.up('xl')]: {
             padding: "0 36px",
         },
+        
     }
 });
 
