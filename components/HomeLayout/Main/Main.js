@@ -7,11 +7,11 @@ import muiStyles from './MainStyles';
 
 const useStyles = makeStyles(muiStyles);
 
-const Main = ({children}) => {
-    const classes = useStyles();
+const Main = ({children, openSideBar, noPadding}) => {
+    const classes = useStyles(( noPadding= {noPadding} ));
 
     return (
-        <main className={classes.rootContainer}>
+        <main className={ openSideBar ? classes.rootContainerOpen : classes.rootContainerClosed }>
             {children}
         </main>
     )

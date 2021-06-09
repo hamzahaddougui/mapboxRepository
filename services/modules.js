@@ -4,6 +4,7 @@ import NeighborhoodReducer from "./actions/neighborhood.actions";
 import AuthenticationReducer from "./actions/signup.actions";
 import MapReducer from "./actions/map.actions";
 import GridReducer from "./actions/grid.actions";
+import HomeMatcher from './actions/home.actions';
 
 export default combineReducers({
   filter: FilterReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   authentication: AuthenticationReducer,
   map: MapReducer,
   grid: GridReducer,
+  home: HomeMatcher,
 });

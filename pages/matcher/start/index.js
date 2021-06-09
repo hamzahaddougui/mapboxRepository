@@ -16,7 +16,7 @@ const Start = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState('TERRITORY');
 
   const filters = useSelector(state => state.modules.filter.filters);
 

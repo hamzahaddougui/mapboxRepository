@@ -80,7 +80,7 @@ export default class MyScrollMenu extends Component {
 
     return (
       <ScrollContainer className="hideScrollBar" hideScrollbars={false} >
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", paddingLeft: "21px" }}>
         { Favorites && (<div style={{ display: "flex" }}>{Favorites}</div>)}
         { Items && (<div style={{ display: "flex" }}>{Items}</div>)}
         { (SeeMore && Items)  && (<div style={{ display: "flex" }}>{SeeMore}</div>)}

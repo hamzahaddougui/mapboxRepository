@@ -7,7 +7,7 @@ const styles = () => ({
     backgroundColor: "transparent",
     width: "100vw",
     // marginLeft: "21px",
-    paddingLeft: "21px",
+    // paddingLeft: "21px",
     "& .menu-item-wrapper": {
       verticalAlign: "top",
       marginTop: "1em",

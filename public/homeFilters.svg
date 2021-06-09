@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" viewBox="0 0 35 35">
+    <defs>
+        <filter id="9q0h1pjxma" width="140%" height="140%" x="-20%" y="-14.3%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.196078431 0 0 0 0 0.211764706 0 0 0 0 0.262745098 0 0 0 0.0477218094 0"/>
+        </filter>
+        <filter id="uxc3oeyguc">
+            <feColorMatrix in="SourceGraphic" values="0 0 0 0 0.196078 0 0 0 0 0.211765 0 0 0 0 0.262745 0 0 0 1.000000 0"/>
+        </filter>
+        <circle id="yem8o4jylb" cx="17.5" cy="17.5" r="17.5"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <use fill="#000" filter="url(#9q0h1pjxma)" xlink:href="#yem8o4jylb"/>
+                <circle cx="17.5" cy="17.5" r="17" fill="#FFF" stroke="#F2F4F4" stroke-linejoin="square"/>
+            </g>
+            <g filter="url(#uxc3oeyguc)">
+                <g>
+                    <path fill="#000" fill-rule="nonzero" d="M16.423 1.999h-5.414C10.746.856 9.722 0 8.499 0 7.28 0 6.255.856 5.992 1.999H.577c-.318 0-.577.258-.577.577 0 .319.259.577.577.577h5.414c.263 1.144 1.287 2 2.509 2s2.245-.856 2.509-2h5.414c.318 0 .577-.258.577-.577 0-.319-.258-.577-.577-.577zm-7.923 2c-.784 0-1.422-.639-1.422-1.424 0-.783.638-1.42 1.422-1.42.76 0 1.377.6 1.415 1.35-.003.023-.007.046-.007.071 0 .024.004.047.007.071-.038.75-.655 1.351-1.415 1.351zM16.423 12.964h-1.205c-.263-1.143-1.287-1.999-2.51-1.999-1.222 0-2.246.856-2.509 2H.577c-.318 0-.577.258-.577.576 0 .319.259.577.577.577H10.2c.263 1.144 1.287 2 2.509 2 1.221 0 2.245-.856 2.508-2h1.206c.318 0 .577-.258.577-.577 0-.318-.258-.577-.577-.577zm-3.714 2c-.785 0-1.423-.639-1.423-1.423s.638-1.422 1.423-1.422c.784 0 1.422.638 1.422 1.422 0 .784-.638 1.422-1.422 1.422zM16.423 7.482H6.8c-.263-1.143-1.287-2-2.51-2-1.222 0-2.246.857-2.509 2H.577C.26 7.482 0 7.74 0 8.059c0 .318.259.577.577.577h1.206c.263 1.143 1.287 2 2.508 2 1.222 0 2.246-.857 2.51-2h9.622c.318 0 .577-.259.577-.577 0-.319-.258-.577-.577-.577zM4.29 9.48c-.784 0-1.422-.638-1.422-1.423 0-.784.638-1.421 1.422-1.421.785 0 1.423.637 1.423 1.421 0 .785-.638 1.423-1.423 1.423z" transform="translate(9 9)"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

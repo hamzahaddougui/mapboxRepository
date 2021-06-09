@@ -5,7 +5,7 @@ const styles = theme => ({
     backgroundColor: "#323643",
     opacity: 0.9,
     borderRadius: "24px",
-    margin: "0 4px",
+    margin: "0 5px",
     width: "225px",
     height: "150px",
     cursor: "pointer",

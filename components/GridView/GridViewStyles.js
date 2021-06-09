@@ -9,7 +9,7 @@ const styles = (theme) => ({
     },
     title: {
         fontFamily: "Poppins",
-        FontWeight: "Lighter",
+        FontWeight: 300,
         marginLeft: theme.spacing(2),
         flex: 1,
     },

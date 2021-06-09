@@ -8,7 +8,7 @@ const styles = theme => ({
     // backgroundRepeat: "no-repeat",
     // backgroundPosition: "50%  35%",
     borderRadius: "24px",
-    margin: "0 4px",
+    margin: "0 5px",
     // minWidth: "257px",
     width: "225px",
     height: "150px",
