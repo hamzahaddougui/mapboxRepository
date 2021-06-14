@@ -42,16 +42,33 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher, handle
 
   const renderAfterMatching = () => (
     <div className={classes.bottomBox}>
+
+      <Typography 
+        className={classes.exitMatcher}
+        onClick={() => {console.log("Exit the matcher")}}
+      >
+        Exit the Matcher
+      </Typography>
+
       <div className={classes.bottomNavigationButtons}>
+
+        {/* Neighborhood Matcher */}
         <div className={classes.restartMatcher} onClick={onRestartMatcher}>
           <img className={classes.nMatcher} src="/N_Matcher.svg" alt="Neighborhood Matcher Icon" />
           <Button className={classes.restartMatcherButton}>
-            <img src="/Restart.svg" alt="Restart Icon" className={classes.rMatcherButtonIcon} />
-            Restart the Matcher
+            {/* <img src="/Restart.svg" alt="Restart Icon" className={classes.rMatcherButtonIcon} /> */}
+            Neighborhood Matcher
           </Button>
         </div>
+
+        <div className={ hm ? classes.line : classes.lineDisabled }>
+
+        </div>
+
+        {/* Home Matcher */}
         <div
           className={hm ? classes.homeMatcherActive : classes.homeMatcher}
+          style={{ transition: "ease 1.5s" }}
           onClick={handleHomeMatcher}
         >
           <img
@@ -61,7 +78,7 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher, handle
           />
           <Button
             disabled={!hm}
-            style={{ transition: "ease 0.5s" }}
+            style={{ transition: "ease 1.5s" }}
             className={classes.restartMatcherButton}
           >
             Home Matcher
@@ -69,7 +86,7 @@ const MatcherFooter = ({ onStartMatcher, onRestartMatcher, onHomeMatcher, handle
         </div>
       </div>
       <Hidden xsDown>
-      <div style={{ position: "absolute", right: "21px", display: "flex", alignItems: "center" }}>
+      <div style={{ position: "absolute", right: "21px", display: "flex", alignItems: "center", bottom: "16px" }}>
         <Typography className={classes.poweredBy}>
           Powered by
         </Typography>
