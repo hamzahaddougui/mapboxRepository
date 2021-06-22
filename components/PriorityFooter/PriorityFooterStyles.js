@@ -13,6 +13,33 @@ const styles = (theme) => ({
     alignItems: "center",
     zIndex: 3,
   },
+  exitMatcher: {
+    fontFamily: "Poppins",
+    fontWeight: 300,
+    fontSize: 11.3,
+    textDecoration: "underline",
+    textTransform: "none",
+    color: "#323643",
+    position: "absolute",
+    bottom: "16px",
+    left: "21px",
+    cursor: "pointer",
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 9,
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      fontSize: 11.3,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 11.3,
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: 11.3,
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: 13,
+    },
+  },
   clickWrapper: {
     cursor: "pointer",
   },
@@ -84,6 +111,7 @@ const styles = (theme) => ({
     right: "21px",
     display: "flex",
     alignItems: "center",
+    bottom: "16px",
   },
   poweredBy: {
     fontFamily: "Poppins", 

@@ -12,6 +12,13 @@ const PriorityFooter = ({ onClick }) => {
 
   return (
     <div className={classes.root}>
+      <Typography 
+        className={classes.exitMatcher}
+        onClick={() => {console.log("Exit the matcher")}}
+      >
+        Exit the Matcher
+      </Typography>
+      
       <div className={classes.clickWrapper} onClick={onClick}>
         <img
           className={classes.nMatcherIcon}

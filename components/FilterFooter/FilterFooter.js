@@ -15,11 +15,18 @@ const FilterFooter = ({ onClick }) => {
   return checked.length > 0 ? (
     <Slide direction="up" in={checked.length > 0 ? true : false} mountOnEnter unmountOnExit>
     <div className={classes.bottomBox}>
+      <Typography 
+        className={classes.exitMatcher}
+        onClick={() => {console.log("Exit the matcher")}}
+      >
+        Exit the Matcher
+      </Typography>
+
       <div className={classes.navigation} onClick={onClick}>
         Next
       </div>
 
-      <div style={{ position: "absolute", right: "21px", display: "flex", alignItems: "center" }}>
+      <div style={{ position: "absolute", right: "21px", display: "flex", alignItems: "center", bottom: "16px" }}>
         <Typography className={classes.poweredBy}>
           Powered by
         </Typography>
@@ -31,7 +38,15 @@ const FilterFooter = ({ onClick }) => {
     </div>
     </Slide>
   ) : (
-    <div className={classes.invisibleBottomBox}></div>
+    <div className={classes.invisibleBottomBox}>
+      <Typography 
+        className={classes.exitMatcher}
+        // style={{opacity: "0.57"}}
+        onClick={() => {console.log("Exit the matcher")}}
+      >
+        Exit the Matcher
+      </Typography>
+    </div>
   );
 };
 

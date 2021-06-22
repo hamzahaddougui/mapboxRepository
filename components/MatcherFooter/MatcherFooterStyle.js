@@ -108,6 +108,7 @@ const styles = theme => ({
     bottom: "30px",
     left: "50%",
     transform: "translateX(-50%)",
+    zIndex: 2,
     [theme.breakpoints.down('xs')]: {
       height: "68px",
       width: "56px",
@@ -156,6 +157,173 @@ const styles = theme => ({
       fontSize: 18,
     },
   },
+
+  exitMatcher: {
+    fontFamily: "Poppins",
+    fontWeight: 300,
+    fontSize: 11.3,
+    textDecoration: "underline",
+    textTransform: "none",
+    color: "#323643",
+    position: "absolute",
+    bottom: "16px",
+    left: "21px",
+    cursor: "pointer",
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 9,
+    },
+    [theme.breakpoints.between('xs, sm')]: {
+      fontSize: 11.3,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 11.3,
+    },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: 11.3,
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: 13,
+    },
+  },
+
+  line: {
+    transition: "ease 1.5s",
+    height: "3px",
+    width: "25%",
+    backgroundImage: "linear-gradient(90deg, rgba(67,70,247,1) 14%, rgba(166,78,254,1) 74%, rgba(255,0,97,1) 100%)",
+    position: "absolute",
+    bottom: "65px",
+    left: "51%",
+    transform: "translate(-50%)",
+    [theme.breakpoints.down('326')]: {
+      width: "22%",
+      left: "54%",
+    },
+    [theme.breakpoints.between('326', '405')]: {
+      width: "31%",
+      left: "53%",
+    },
+    [theme.breakpoints.between('405', '490')]: {
+      width: "38%",
+      left: "52%",
+    },
+    [theme.breakpoints.between('490', 'xs')]: {
+      width: "44%",
+      left: "52%",
+    },
+    [theme.breakpoints.between('xs, 650')]: {
+      width: "25%",
+    },
+    [theme.breakpoints.up('650')]: {
+      width: "27%",
+    },
+    [theme.breakpoints.up('706')]: {
+      width: "29%",
+    },
+    [theme.breakpoints.up('772')]: {
+      width: "31%",
+    },
+    [theme.breakpoints.up('850')]: {
+      width: "33%",
+    },
+    [theme.breakpoints.up('md')]: {
+      width: "22%",
+    },
+    [theme.breakpoints.up('1010')]: {
+      width: "23%",
+    },
+    [theme.breakpoints.up('1110')]: {
+      width: "25%",
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: "27%",
+    },
+    [theme.breakpoints.up('1412')]: {
+      width: "28%",
+    },
+    [theme.breakpoints.up('1500')]: {
+      width: "29%",
+    },
+    [theme.breakpoints.up('1620')]: {
+      width: "30%",
+    },
+    [theme.breakpoints.up('1775')]: {
+      width: "31%",
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: "27%",
+    },
+  },
+
+  lineDisabled: {
+    transition: "ease 1.5s",
+    height: "3px",
+    width: "25%",
+    backgroundImage: "linear-gradient(90deg, rgba(67,70,247,1) 6%, rgba(166,78,254,1) 49%, rgba(246,0,255,0.052258403361344574) 78%)",
+    position: "absolute",
+    bottom: "65px",
+    left: "51%",
+    transform: "translate(-50%)",
+    [theme.breakpoints.down('326')]: {
+      width: "22%",
+      left: "54%",
+    },
+    [theme.breakpoints.between('326', '405')]: {
+      width: "31%",
+      left: "53%",
+    },
+    [theme.breakpoints.between('405', '490')]: {
+      width: "38%",
+      left: "52%",
+    },
+    [theme.breakpoints.between('490', 'xs')]: {
+      width: "44%",
+      left: "52%",
+    },
+    [theme.breakpoints.between('xs, 650')]: {
+      width: "25%",
+    },
+    [theme.breakpoints.up('650')]: {
+      width: "27%",
+    },
+    [theme.breakpoints.up('706')]: {
+      width: "29%",
+    },
+    [theme.breakpoints.up('772')]: {
+      width: "31%",
+    },
+    [theme.breakpoints.up('850')]: {
+      width: "33%",
+    },
+    [theme.breakpoints.up('md')]: {
+      width: "22%",
+    },
+    [theme.breakpoints.up('1010')]: {
+      width: "23%",
+    },
+    [theme.breakpoints.up('1110')]: {
+      width: "25%",
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: "27%",
+    },
+    [theme.breakpoints.up('1412')]: {
+      width: "28%",
+    },
+    [theme.breakpoints.up('1500')]: {
+      width: "29%",
+    },
+    [theme.breakpoints.up('1620')]: {
+      width: "30%",
+    },
+    [theme.breakpoints.up('1775')]: {
+      width: "31%",
+    },
+    [theme.breakpoints.up('xl')]: {
+      width: "27%",
+    },
+  },
+
   poweredBy: {
     fontFamily: "Poppins", 
     fontSize: 11.3, 
@@ -441,7 +609,7 @@ const styles = theme => ({
     transform: "translate(-50%)",
     bottom: "30px",
     zIndex: 2,
-    transition: "ease 0.5s",
+    transition: "ease 1.5s",
     [theme.breakpoints.down('xs')]: {
       height: "58px",
       width: "56px",
@@ -471,7 +639,7 @@ const styles = theme => ({
     transform: "translate(-50%)",
     bottom: "30px",
     zIndex: 2,
-    transition: "ease 0.25s",
+    transition: "ease 0.5s",
     [theme.breakpoints.down('xs')]: {
       height: "48px",
       width: "46px",
