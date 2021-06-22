@@ -22,40 +22,27 @@ module.exports.drawPolygon = (
     }
 
     if (!map.getSource(id)) {
-      map.addSource(id, {
-        type: "geojson",
-        data: geojson
-      });
+       map.addSource(id, {
+          type: "geojson",
+          data: geojson
+        });
+      
+      
 
       let fillLayer = {};
-      if (id == "neighborhood") {
-        fillLayer = layerShape.fillLayer(
-          id + "-layer",
-          id,
-          "#E2E3F0",
-          // [
-          //   "interpolate",
-          //   ["linear"],
-          //   ["zoom"],
-          //   11,
-          //   ["case", ["<=", ["get", "position"], 20], 0.4, 0],
-          //   11.2,
-          //   ["case", ["<=", ["get", "position"], 40], 0.4, 0],
-          //   11.4,
-          //   ["case", ["<=", ["get", "position"], 60], 0.4, 0],
-          //   11.6,
-          //   ["case", ["<=", ["get", "score"], 80], 0.4, 0],
-          //   11.8,
-          //   ["case", ["<=", ["get", "score"], 100], 0.4, 0],
-          // ],
-          0.4,
-          minZoom,
-          maxZoom,
-          ["==", "$type", "Polygon"],
-        );
-        map.addLayer(fillLayer);
+      // if (id == "neighborhood") {
+      //   fillLayer = layerShape.fillLayer(
+      //     id + "-layer",
+      //     id,
+      //     "#E2E3F0",
+      //     0.4,
+      //     minZoom,
+      //     maxZoom,
+      //     ["==", "$type", "Polygon"],
+      //   );
+      //   map.addLayer(fillLayer);
 
-      } else {
+      // } else {
         fillLayer = layerShape.fillLayer(
           id + "-layer",
           id,
@@ -66,35 +53,16 @@ module.exports.drawPolygon = (
           ["==", "$type", "Polygon"],
         );
         map.addLayer(fillLayer);
-      }
+      // }
 
 
       let lineLayer = layerShape.lineLayer(
         id + "-layer-outline",
         id,
-        [
-          "case",
-          ["==", id, "region"],
-          "rgba(50, 54, 67, 0.27)",
-          ["==", id, "county"],
-          "rgba(50, 54, 67, 0.27)",
-          ["==", id, "city"],
-          "rgba(50, 54, 67, 0.27)",
-          ["==", id, "neighborhood"],
-          "rgba(50, 54, 67, 0.27)",
-          "#575ff9"
-        ],
+        "#575ff9",
         1,
         [
           "case",
-          ["==", id, "region"],
-          1,
-          ["==", id, "county"],
-          1,
-          ["==", id, "city"],
-          1,
-          ["==", id, "neighborhood"],
-          1,
           ["==", id, "region-clicked"],
           4,
           ["==", id, "county-bordered"],
@@ -140,6 +108,10 @@ module.exports.drawPolygon = (
 
 
 module.exports.drawScores= (map, imageName, layerName, source)=> {
+  let sourceLayer;
+  if(source== 'city') sourceLayer= 'city-dhmtj5';
+  if(source== 'neighborhood') sourceLayer= 'neighb-9sq7jo';
+
   map.loadImage(score_marker, (error, image) => {
     if (error) throw error;
     map.addImage(imageName, image);
@@ -147,6 +119,7 @@ module.exports.drawScores= (map, imageName, layerName, source)=> {
       layerShape.symbolLayer(
         layerName,
         source,
+        sourceLayer,
         imageName,
         0.068,
         ["concat", ["get", "Score"], "%"],
@@ -154,27 +127,12 @@ module.exports.drawScores= (map, imageName, layerName, source)=> {
         [0, -1],
         "top",
         11,
-        // [
-        //   "case",
-        //   ["<=", ["get", "Score"], 20],
-        //   "#C8CAF2",
-        //   ["<=", ["get", "Score"], 40],
-        //   "#B2B6F5",
-        //   ["<=", ["get", "Score"], 60],
-        //   "#969CF6",
-        //   ["<=", ["get", "Score"], 80],
-        //   "#777EFA",
-        //   [">", ["get", "Score"], 80],
-        //   "#5D66FA",
-
-        //   "#5D66FA",
-        // ],
         "#5D66FA",
         "white",
         ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false]]
 
         
-      ),
+      )
     );
   });
 }
@@ -189,6 +147,7 @@ module.exports.drawFlipped= (map)=> {
       layerShape.symbolLayer(
         "city_flipped_layer",
         "city",
+        'city-dhmtj5',
         "city_flipped_marker",
         0.1,
         ["concat", ["get", "Score"], ["get", "unity"]],
@@ -213,6 +172,7 @@ module.exports.drawFlipped= (map)=> {
       layerShape.symbolLayer(
         "neighborhood_flipped_layer",
         "neighborhood",
+        'neighb-9sq7jo',
         "neighborhood_flipped_marker",
         0.1,
         ["concat", ["get", "Score"], ["get", "unity"]],
@@ -238,6 +198,7 @@ module.exports.drawFavourite= (map)=> {
       layerShape.symbolLayer(
         "city_favourite_layer",
         "city",
+        'city-dhmtj5',
         "city_favourite_marker",
         0.068,
         ["concat", ["get", "Score"], ["get", "unity"]],
@@ -261,6 +222,7 @@ module.exports.drawFavourite= (map)=> {
       layerShape.symbolLayer(
         "neighborhood_favourite_layer",
         "neighborhood",
+        'neighb-9sq7jo',
         "neighborhood_favourite_marker",
         0.068,
         ["concat", ["get", "Score"], ["get", "unity"]],

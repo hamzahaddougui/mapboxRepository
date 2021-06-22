@@ -9,6 +9,12 @@ module.exports.handleLayerClick= (
     let features = [];
     let {flyMinZoom, flyMaxZoom, flyDuration, flySpeed, maxZoom}= flyToOptions;
     let id= e.features[0].properties.polygonId.split('_');
+    
+    features = service.getFeatures(data.features, sourceLayer, from);
+    
+    draw.drawPolygon( 
+      e.target, data, targetLayer, features
+    );  
 
     flyTo.handleFlyTo(map, flyMinZoom, flyMaxZoom, flyDuration, flySpeed, e, '');
     
@@ -18,7 +24,6 @@ module.exports.handleLayerClick= (
 
     if(id.length== 2 && flyToOptions== COUNTY_HIGHLIGHTED){
       fitBounds.fitBounds(map, e.features[0], 3000, 0.5, flyMaxZoom)
-
     }
 
     if(id.length== 3 && flyToOptions== CITY_OTHER){
@@ -27,9 +32,6 @@ module.exports.handleLayerClick= (
     }
 
     
-    features = service.getFeatures(data.features, sourceLayer, from);
-    draw.drawPolygon( 
-      e.target, data, targetLayer, features
-    );
+    
 
   };

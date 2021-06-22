@@ -31,8 +31,13 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
   const flipped = useSelector(state => state.modules.neighborhood.flipped);
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
-
-  const handleMouseOver = () => setElevation(6);
+  
+  const handleMouseOver = () => {
+    setElevation(6);
+    if(JSON.stringify(flipped)!= JSON.stringify(neighborhood)){
+      dispatch(flipCard(neighborhood));
+    }
+  }
 
   const handleMouseOut = () => setElevation(2);
 
@@ -98,7 +103,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
       className={classes.root}
       // onClick={onClick}
       onClick={handleFlipping}
-    >
+      >
       <Grid item container justify="flex-end" alignItems="center">
         {favorites.includes(neighborhood) ? (
             <img 
