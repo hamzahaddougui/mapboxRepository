@@ -13,7 +13,7 @@ properties.propArr.forEach(property => {
         let {shortName}= property;
         
         if(!selectedFilter) return;
-        
+
         let filterElem= properties.propArr.filter(p => p.longName.toUpperCase()== selectedFilter.toUpperCase());
         
         if(!filterElem[0]) return;
@@ -29,6 +29,10 @@ properties.propArr.forEach(property => {
     
         if(currentZoom>=9 && currentZoom<12){
             layerName= 'city';
+        }
+
+        if(currentZoom>=12){
+            layerName= 'neighborhood';
         }
 
         map.setLayoutProperty(`${name}-${shortName}`, 'visibility', 'none');
