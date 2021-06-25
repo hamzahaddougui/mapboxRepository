@@ -206,7 +206,8 @@ class Map extends Component {
     // }
     
     
-    if(prevProps.filter.selectedFilter!= this.props.filter.selectedFilter || (prevState.currentZoom!= currentZoom && filterClicked== true)){
+    if(prevProps.filter.selectedFilter!= this.props.filter.selectedFilter || 
+      (prevState.currentZoom!= currentZoom && filterClicked== true)){
       // filters.setFilters(this.props.filter, mapObject, city_neighbPolygons);
       filters_update.setFilters(mapObject, currentZoom, this.props.filter);
       this.setState({filterClicked: true});

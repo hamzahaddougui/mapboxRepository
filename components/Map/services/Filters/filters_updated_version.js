@@ -1,54 +1,45 @@
 import properties from './properties';
+import layers from './layers';
 
 module.exports.setFilters= (map, currentZoom, filter) => {
 
-let name;
+let layerName;
 let {selectedFilter}= filter;
 
 
 properties.propArr.forEach(property => {
-    let {shortName}= property;
-    let filterElem= properties.propArr.filter(p => p.longName.toUpperCase()== selectedFilter.toUpperCase());
+    layers.layerArr.forEach(layer => {
+        let {name}= layer;
+        let {shortName}= property;
+        
+        if(!selectedFilter) return;
+        
+        let filterElem= properties.propArr.filter(p => p.longName.toUpperCase()== selectedFilter.toUpperCase());
+        
+        if(!filterElem[0]) return;
     
+        
+        if(currentZoom>=1 && currentZoom<7){
+            layerName= 'region';
+        }
     
-    if(currentZoom>=1 && currentZoom<7){
-        name= 'region';
-        // map.setLayoutProperty(`${name}-${shortName}`, 'visibility', 'none');
-        // map.setLayoutProperty(`${name}-${shortName}-marker`, 'visibility', 'none')
-        map.setLayoutProperty(`county-${filterElem[0].shortName}`, 'visibility', 'none');
-        map.setLayoutProperty(`county-${filterElem[0].shortName}-marker`, 'visibility', 'none')
-        map.setLayoutProperty(`city-${filterElem[0].shortName}`, 'visibility', 'none');
-        map.setLayoutProperty(`city-${filterElem[0].shortName}-marker`, 'visibility', 'none')
-        
-        map.setLayoutProperty(`${name}-${filterElem[0].shortName}`, 'visibility', 'visible');
-        map.setLayoutProperty(`${name}-${filterElem[0].shortName}-marker`, 'visibility', 'visible')
-    }
+        if(currentZoom>=7 && currentZoom<9){
+            layerName= 'county';
+        }
+    
+        if(currentZoom>=9 && currentZoom<12){
+            layerName= 'city';
+        }
 
-    if(currentZoom>=7 && currentZoom<9){
-        name= 'county';
-        // map.setLayoutProperty(`${name}-${shortName}`, 'visibility', 'none');
-        // map.setLayoutProperty(`${name}-${shortName}-marker`, 'visibility', 'none')
-        map.setLayoutProperty(`region-${filterElem[0].shortName}`, 'visibility', 'none');
-        map.setLayoutProperty(`region-${filterElem[0].shortName}-marker`, 'visibility', 'none')
-        map.setLayoutProperty(`city-${filterElem[0].shortName}`, 'visibility', 'none');
-        map.setLayoutProperty(`city-${filterElem[0].shortName}-marker`, 'visibility', 'none')
-        
-        map.setLayoutProperty(`${name}-${filterElem[0].shortName}`, 'visibility', 'visible');
-        map.setLayoutProperty(`${name}-${filterElem[0].shortName}-marker`, 'visibility', 'visible')
-    }
+        map.setLayoutProperty(`${name}-${shortName}`, 'visibility', 'none');
+        map.setLayoutProperty(`${name}-${shortName}-marker`, 'visibility', 'none')
 
-    if(currentZoom>=9 && currentZoom<12){
-        name= 'city';
-        // map.setLayoutProperty(`${name}-${shortName}`, 'visibility', 'none');
-        // map.setLayoutProperty(`${name}-${shortName}-marker`, 'visibility', 'none')
-        map.setLayoutProperty(`region-${filterElem[0].shortName}`, 'visibility', 'none');
-        map.setLayoutProperty(`region-${filterElem[0].shortName}-marker`, 'visibility', 'none')
-        map.setLayoutProperty(`county-${filterElem[0].shortName}`, 'visibility', 'none');
-        map.setLayoutProperty(`county-${filterElem[0].shortName}-marker`, 'visibility', 'none')
-        
-        map.setLayoutProperty(`${name}-${filterElem[0].shortName}`, 'visibility', 'visible');
-        map.setLayoutProperty(`${name}-${filterElem[0].shortName}-marker`, 'visibility', 'visible')
-    }
+        if(shortName== filterElem[0].shortName){
+            map.setLayoutProperty(`${layerName}-${filterElem[0].shortName}`, 'visibility', 'visible');
+            map.setLayoutProperty(`${layerName}-${filterElem[0].shortName}-marker`, 'visibility', 'visible')
+        }
+    })
+    
 })
     
 }
