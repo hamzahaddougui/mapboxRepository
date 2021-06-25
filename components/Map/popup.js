@@ -14,6 +14,8 @@ module.exports.handlePopup = (popup, e, key, id) => {
     popupHeading[0].style.color= "#4346f7";
     popupHeading[0].style.display= "block";
     popupHeading[0].style.font= "normal 600 10px Poppins";
+    popupHeading[0].style.margin= "-14px 0px 3.5px 2px";
+
     
     popup.addClassName(styles.popup);
   }

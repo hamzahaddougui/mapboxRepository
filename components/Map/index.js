@@ -12,7 +12,8 @@ import showHouses from "./houses";
 import scores from "./services/scores";
 import favourites from "./services/favourites";
 import flipped from "./services/flipped";
-import filters from "./services/filters";
+import filters from "./services/Filters/filters";
+import filters_update from "./services/Filters/filters_updated_version";
 import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
 import {showCurrent, NeighborhoodOnMove, flipCard} from "../../services/actions/neighborhood.actions";
 import mapEvents from "./mapEvents";
@@ -22,9 +23,10 @@ import {Viewer} from "mapillary-js";
 import mapillarySrvc from "./services/mapillaryService";
 import layerClick from "./polygon/polygonEvents/click";
 import basics from "./polygon/draw_basic_polygons";
+import drawFilters from "./services/Filters/draw";
 // import tileDecorator from '@mapbox/tile-decorator';
 // const VectorTile= require('ol/source/VectorTile');
-// // import VectorTile from 'ol/source/VectorTile';
+// import VectorTile from 'ol/source/VectorTile';
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 const marker = "/map/marker_one.png";
 
@@ -47,7 +49,9 @@ class Map extends Component {
     popup: new mapboxgl.Popup({ closeButton: false, offset: 20 }),
     city_neighbPolygons: "",
     neighborhoodCard: { display: "none", name: "" },
-    cityProps: ""
+    cityProps: "",
+    currentZoom: 5.3028243761363125,
+    filterClicked: false
     };
 
   handleClose = () => {
@@ -62,12 +66,10 @@ class Map extends Component {
       zoom: 5.3028243761363125, // starting zoom
     });
    
-    console.log(mapboxgl)
-
     return map;
   }
 
-  async componentDidMount() {
+  async componentDidMount(prevProps) {
     let map= this.getMapObject();
 
     let clientId= "aXRBSzN4MGlhbnZEcDBXNk1LTkFicDo2YjZmZGQyZmZiZmJlMWFj";
@@ -86,27 +88,26 @@ class Map extends Component {
     basics.drawBasics(map, COUNTY);
     basics.drawBasics(map, CITY);
     basics.drawBasics(map, NEIGHBORHOOD);
+    drawFilters.drawFilterLayers(map);
     // draw.drawScores(map, "city_score_marker", "city_score_layer", "city");
     // draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
     // draw.drawFlipped(map);
     // draw.drawFavourite(map);
 
-    // new VectorTile({
-    //   tileLoadFunction: async function(){
-    //     const response= await fetch('mapbox://hamzahad.3yut0uak');
-    //     const data= await response.json();
-    //     console.log(data);
-    //   }
-    // })
+    let vectorTile= (await import('ol/source/VectorTile')).default;
+    let mvtFormat= (await import('ol/format/MVT')).default;
+    let test= new vectorTile({
+      url: 'mapbox://hamzahad.a0j93o6v',
+      format: new mvtFormat(),
+      tileLoadFunction: async function(tile, url){
+        const response= await fetch(url);
+        const data= await response.json();
+        console.log(data);
+      }
+    })
 
-    // console.log(map.getLayer('city-layer').keys)
+    console.log(test)
 
-    // console.log(map.getSource('region'))
-    // console.log(map.getSource('county'))
-    // console.log(map.getSource('city'))
-    // console.log(map.getSource('neighborhood'))
-    // console.log(tileDecorator.getLayerValues(map.getLayer('city-layer'), 0))
-    
     let features= allInOneData.data.features.filter(f => f.properties.hasOwnProperty('City') || f.properties.hasOwnProperty('Neighborhood'));
     let geojson = {
       type: "FeatureCollection",
@@ -186,24 +187,30 @@ class Map extends Component {
      }  
     });
 
+    map.on('zoom', e => {
+      this.setState({currentZoom: e.target.getZoom()})
+    })
+
     this.setState({ mapObject: map, city_neighbPolygons: geojson });
 
   }
 
   componentDidUpdate(prevProps, prevState){
-    const {mapObject, city_neighbPolygons}= this.state;
+    const {mapObject, city_neighbPolygons, currentZoom, filterClicked}= this.state;
     
-    if(prevProps.scores!= this.props.scores){
-      scores.setScores(mapObject, this.props.scores, city_neighbPolygons); 
-      let properties= neighborhood.getNeighborhoods(city_neighbPolygons);
-      this.props.Neighb_CityMove(properties);
+    // if(prevProps.scores!= this.props.scores){
+    //   scores.setScores(mapObject, this.props.scores, city_neighbPolygons); 
+    //   let properties= neighborhood.getNeighborhoods(city_neighbPolygons);
+    //   this.props.Neighb_CityMove(properties);
 
-    }
+    // }
     
-    if(prevProps.filter.selectedFilter!= this.props.filter.selectedFilter){
-      filters.setFilters(this.props.filter, mapObject, city_neighbPolygons);
+    
+    if(prevProps.filter.selectedFilter!= this.props.filter.selectedFilter || (prevState.currentZoom!= currentZoom && filterClicked== true)){
+      // filters.setFilters(this.props.filter, mapObject, city_neighbPolygons);
+      filters_update.setFilters(mapObject, currentZoom, this.props.filter);
+      this.setState({filterClicked: true});
     }
-
     
     // if(this.props.flipped && prevProps.flipped!= this.props.flipped && Object.keys(this.props.flipped).length > 0){
     //   flipped.setFlipped(this.props.flipped, mapObject, city_neighbPolygons); }
@@ -212,11 +219,11 @@ class Map extends Component {
     //   Object.keys(this.props.flipped).length === 0 && this.props.flipped.constructor === Object){
     //   flipped.checkFlipped(mapObject, city_neighbPolygons); }
 
-    if(prevProps.favourites!= this.props.favourites && this.props.favourites.length> prevProps.favourites.length){
-      favourites.setFavourites(this.props.favourites, mapObject, city_neighbPolygons); }
+    // if(prevProps.favourites!= this.props.favourites && this.props.favourites.length> prevProps.favourites.length){
+    //   favourites.setFavourites(this.props.favourites, mapObject, city_neighbPolygons); }
 
-    if(prevProps.favourites!= this.props.favourites && this.props.favourites.length<= prevProps.favourites.length){
-      favourites.checkFavourites(this.props.favourites, mapObject, city_neighbPolygons); }
+    // if(prevProps.favourites!= this.props.favourites && this.props.favourites.length<= prevProps.favourites.length){
+    //   favourites.checkFavourites(this.props.favourites, mapObject, city_neighbPolygons); }
  
   }
   
