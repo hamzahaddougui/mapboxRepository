@@ -89,11 +89,13 @@ class Map extends Component {
     basics.drawBasics(map, CITY);
     basics.drawBasics(map, NEIGHBORHOOD);
     drawFilters.drawFilterLayers(map);
-    // draw.drawScores(map, "city_score_marker", "city_score_layer", "city");
-    // draw.drawScores(map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
-    // draw.drawFlipped(map);
-    // draw.drawFavourite(map);
+    
+    draw.drawScores(allInOneData.data, map, "city_score_marker", "city_score_layer", "city");
+    draw.drawScores(allInOneData.data, map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
+    draw.drawFlipped(map);
+    draw.drawFavourite(map);
 
+    
     let vectorTile= (await import('ol/source/VectorTile')).default;
     let mvtFormat= (await import('ol/format/MVT')).default;
     let test= new vectorTile({
@@ -106,7 +108,7 @@ class Map extends Component {
       }
     })
 
-    console.log(test)
+    // console.log(test)
 
     let features= allInOneData.data.features.filter(f => f.properties.hasOwnProperty('City') || f.properties.hasOwnProperty('Neighborhood'));
     let geojson = {
@@ -198,33 +200,33 @@ class Map extends Component {
   componentDidUpdate(prevProps, prevState){
     const {mapObject, city_neighbPolygons, currentZoom, filterClicked}= this.state;
     
-    // if(prevProps.scores!= this.props.scores){
-    //   scores.setScores(mapObject, this.props.scores, city_neighbPolygons); 
-    //   let properties= neighborhood.getNeighborhoods(city_neighbPolygons);
-    //   this.props.Neighb_CityMove(properties);
+    if(prevProps.scores!= this.props.scores){
+      scores.setScores(mapObject, this.props.scores, city_neighbPolygons); 
+      let properties= neighborhood.getNeighborhoods(city_neighbPolygons);
+      this.props.Neighb_CityMove(properties);
 
-    // }
-    
+    }
+
     
     if(prevProps.filter.selectedFilter!= this.props.filter.selectedFilter || 
       (prevState.currentZoom!= currentZoom && filterClicked== true)){
       // filters.setFilters(this.props.filter, mapObject, city_neighbPolygons);
+      this.setState({filterClicked: true });
       filters_update.setFilters(mapObject, currentZoom, this.props.filter);
-      this.setState({filterClicked: true});
     }
     
-    // if(this.props.flipped && prevProps.flipped!= this.props.flipped && Object.keys(this.props.flipped).length > 0){
-    //   flipped.setFlipped(this.props.flipped, mapObject, city_neighbPolygons); }
+    if(this.props.flipped && prevProps.flipped!= this.props.flipped && Object.keys(this.props.flipped).length > 0){
+      flipped.setFlipped(this.props.flipped, mapObject, city_neighbPolygons); }
 
-    // if(this.props.flipped && prevProps.flipped!= this.props.flipped &&
-    //   Object.keys(this.props.flipped).length === 0 && this.props.flipped.constructor === Object){
-    //   flipped.checkFlipped(mapObject, city_neighbPolygons); }
+    if(this.props.flipped && prevProps.flipped!= this.props.flipped &&
+      Object.keys(this.props.flipped).length === 0 && this.props.flipped.constructor === Object){
+      flipped.checkFlipped(mapObject, city_neighbPolygons); }
 
-    // if(prevProps.favourites!= this.props.favourites && this.props.favourites.length> prevProps.favourites.length){
-    //   favourites.setFavourites(this.props.favourites, mapObject, city_neighbPolygons); }
+    if(prevProps.favourites!= this.props.favourites && this.props.favourites.length> prevProps.favourites.length){
+      favourites.setFavourites(this.props.favourites, mapObject, city_neighbPolygons); }
 
-    // if(prevProps.favourites!= this.props.favourites && this.props.favourites.length<= prevProps.favourites.length){
-    //   favourites.checkFavourites(this.props.favourites, mapObject, city_neighbPolygons); }
+    if(prevProps.favourites!= this.props.favourites && this.props.favourites.length<= prevProps.favourites.length){
+      favourites.checkFavourites(this.props.favourites, mapObject, city_neighbPolygons); }
  
   }
   
@@ -249,7 +251,6 @@ class Map extends Component {
   }
 
   render() {
-    const {loaderState}= this.state;
     return (
       <React.Fragment>
         <div className={styles.container} id="container">

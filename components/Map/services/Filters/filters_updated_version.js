@@ -3,6 +3,8 @@ import layers from './layers';
 
 module.exports.setFilters= (map, currentZoom, filter) => {
 
+console.log("filter enter")
+
 let layerName;
 let {selectedFilter}= filter;
 
@@ -12,7 +14,24 @@ properties.propArr.forEach(property => {
         let {name}= layer;
         let {shortName}= property;
         
-        if(!selectedFilter) return;
+        if(!selectedFilter){
+            map.setLayoutProperty(`${name}-${shortName}`, 'visibility', 'none');
+            map.setLayoutProperty(`${name}-${shortName}-marker`, 'visibility', 'none')
+            map.setLayoutProperty('city_score_layer', 'visibility', 'visible')
+            map.setLayoutProperty('neighborhood_score_layer', 'visibility', 'visible')
+            map.setLayoutProperty('city_flipped_layer', 'visibility', 'visible')
+            map.setLayoutProperty('neighborhood_flipped_layer', 'visibility', 'visible')
+            map.setLayoutProperty('city_favourite_layer', 'visibility', 'visible')
+            map.setLayoutProperty('neighborhood_favourite_layer', 'visibility', 'visible')
+            return;
+        }
+        
+        map.setLayoutProperty('city_score_layer', 'visibility', 'none')
+        map.setLayoutProperty('neighborhood_score_layer', 'visibility', 'none')
+        map.setLayoutProperty('city_flipped_layer', 'visibility', 'none')
+        map.setLayoutProperty('neighborhood_flipped_layer', 'visibility', 'none')
+        map.setLayoutProperty('city_favourite_layer', 'visibility', 'none')
+        map.setLayoutProperty('neighborhood_favourite_layer', 'visibility', 'none')
 
         let filterElem= properties.propArr.filter(p => p.longName.toUpperCase()== selectedFilter.toUpperCase());
         

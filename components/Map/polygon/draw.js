@@ -107,19 +107,33 @@ module.exports.drawPolygon = (
 };
 
 
-module.exports.drawScores= (map, imageName, layerName, source)=> {
-  let sourceLayer;
-  if(source== 'city') sourceLayer= 'city-dhmtj5';
-  if(source== 'neighborhood') sourceLayer= 'neighb-9sq7jo';
+module.exports.drawScores= (data, map, imageName, layerName, source)=> {
+  // let sourceLayer;
+  // if(source== 'city') sourceLayer= 'city-dhmtj5';
+  // if(source== 'neighborhood') sourceLayer= 'neighb-9sq7jo';
 
+  let geojson= {
+    type: "FeatureCollection",
+    features
+  }
+
+  let features= service.getFeatures(data.features, source);
+  geojson.features= features;
+
+  if(map.addSource(source+'_bis',{
+    type: "geojson",
+    data: geojson
+  }))
+
+  
   map.loadImage(score_marker, (error, image) => {
     if (error) throw error;
     map.addImage(imageName, image);
-    let result = map.addLayer(
+    map.addLayer(
       layerShape.symbolLayer(
         layerName,
-        source,
-        sourceLayer,
+        source+'_bis',
+        // sourceLayer,
         imageName,
         0.068,
         ["concat", ["get", "Score"], "%"],
@@ -146,8 +160,8 @@ module.exports.drawFlipped= (map)=> {
     let result = map.addLayer(
       layerShape.symbolLayer(
         "city_flipped_layer",
-        "city",
-        'city-dhmtj5',
+        "city_bis",
+        // 'city-dhmtj5',
         "city_flipped_marker",
         0.1,
         ["concat", ["get", "Score"], ["get", "unity"]],
@@ -171,8 +185,8 @@ module.exports.drawFlipped= (map)=> {
     let result = map.addLayer(
       layerShape.symbolLayer(
         "neighborhood_flipped_layer",
-        "neighborhood",
-        'neighb-9sq7jo',
+        "neighborhood_bis",
+        // 'neighb-9sq7jo',
         "neighborhood_flipped_marker",
         0.1,
         ["concat", ["get", "Score"], ["get", "unity"]],
@@ -197,8 +211,8 @@ module.exports.drawFavourite= (map)=> {
     let result = map.addLayer(
       layerShape.symbolLayer(
         "city_favourite_layer",
-        "city",
-        'city-dhmtj5',
+        "city_bis",
+        // 'city-dhmtj5',
         "city_favourite_marker",
         0.068,
         ["concat", ["get", "Score"], ["get", "unity"]],
@@ -221,8 +235,8 @@ module.exports.drawFavourite= (map)=> {
     let result = map.addLayer(
       layerShape.symbolLayer(
         "neighborhood_favourite_layer",
-        "neighborhood",
-        'neighb-9sq7jo',
+        "neighborhood_bis",
+        // 'neighb-9sq7jo',
         "neighborhood_favourite_marker",
         0.068,
         ["concat", ["get", "Score"], ["get", "unity"]],

@@ -20,6 +20,8 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
         feature= allFeatures.filter(f => f.properties.polygonId.split('_').length== 2);
         feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
         
+
+
         if(from!= null){
           feature= feature.filter(f => f.properties.polygonId.startsWith(from));
         }
@@ -30,6 +32,7 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
           feature= allFeatures.filter(f => f.properties.polygonId.split('_').length== 3);
           feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
 
+          
           if(from!= null){
             feature= feature.filter(f => f.properties.polygonId.startsWith(from));
           }

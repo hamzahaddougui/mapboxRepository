@@ -9,13 +9,13 @@ return { id, type: "line", source,
          minzoom, maxzoom, filter }}
 
 
-module.exports.symbolLayer= (id, source, sourceLayer, iconImage= null, iconSize= null, textField= null, textFont= null, textOffset= null,
+module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textField= null, textFont= null, textOffset= null,
     textAnchor= null, textSize= null, iconColor= null, textColor= null, filter ) => {
     return {
         id,
         type: "symbol",
         source,
-        'source-layer': sourceLayer,
+        // 'source-layer': sourceLayer,
         layout: {
           "icon-image": iconImage,
           "icon-size": iconSize,
