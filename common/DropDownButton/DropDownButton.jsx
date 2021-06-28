@@ -18,13 +18,13 @@ const DropDownButton = ({ onClick }) => {
       <Typography className={classes.percentMatchTxt}>Percent match</Typography>
     </Grid>
     <Grid item>
-      <img 
+      {/* <img 
               className={classes.arrowIcon}
               src="/downArrow.svg"
               alt= "Down Arrow"
               // onClick={handleAddToFavorites}
-      />
-      {/* <ExpandMoreIcon style={{color: "#FFF"}} /> */}
+      /> */}
+      <ExpandMoreIcon className={classes.arrowIcon} style={{color: "#FFF", height: "18px", width: "18px", display: "flex", alignItems: "center"}} />
     </Grid>
       {/* <p className={styles.contentButton}>Percent match</p> */}
     {/* </div> */}

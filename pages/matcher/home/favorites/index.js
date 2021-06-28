@@ -9,6 +9,7 @@ import muiStyles from 'styles/homeFavoritesStyles';
 import HomeLayout from 'components/HomeLayout/HomeLayout';
 import HomeFavoriteHeader from 'components/HomeFavorite/HomeFavoriteHeader/HomeFavoriteHeader';
 import HomeFavoriteBody from 'components/HomeFavorite/HomeFavoriteBody/HomeFavoriteBody';
+import HomeHeader from 'common/HomeHeader/HomeHeader';
 
 const useStyles = makeStyles(muiStyles);
 
@@ -19,7 +20,8 @@ const HomeFavorite = () => {
         <HomeLayout noPadding={true}>
             <Grid container direction="column">
                 <Grid item>
-                    <HomeFavoriteHeader />
+                    {/* <HomeFavoriteHeader /> */}
+                    <HomeHeader title="Favorites" />
                 </Grid>
                 <Divider className={classes.favoriteDivider} />
                 <Grid item>

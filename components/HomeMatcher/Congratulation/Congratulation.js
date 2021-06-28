@@ -5,6 +5,7 @@ import { makeStyles, Grid, Typography, Button, ButtonBase } from "@material-ui/c
 
 // Assets
 import muiStyles from './CongratulationStyles';
+import HomeHeader from 'common/HomeHeader/HomeHeader';
 
 const useStyles = makeStyles(muiStyles);
 
@@ -21,12 +22,15 @@ const Congratulation = ({ open, setOpen }) => {
 
     return (
        <Grid container direction="column" justify="center" alignItems="center">
-           <Grid item container direction="row" justify="center" alignItems="center" className={classes.accountContainer}>
+           {/* <Grid item container direction="row" justify="center" alignItems="center" className={classes.accountContainer}>
                     <ButtonBase className={classes.thumbnail}>
                         <img src="/avatar.svg" alt="Nomadville avatar" className={classes.thumbnailImage} />
                     </ButtonBase>
                     <img src="/accountCtl.svg" alt="Account controller icon" className={classes.accountClt} />
-            </Grid>
+            </Grid> */}
+
+            <HomeHeader noPadding={true} />
+
            <Grid item container direction="column" justify="center" alignItems="center" className={classes.wrapper}>
                 <img src="/congratulations.png" alt="Congratulations Icon" className={classes.icon} />
                 <Typography className={classes.title}>Congratulations</Typography>
