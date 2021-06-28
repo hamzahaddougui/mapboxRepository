@@ -1,5 +1,5 @@
-import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../polygon/layer/config";
-import draw from "../polygon/draw";
+import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../../polygon/layer/config";
+import draw from "../../polygon/draw";
 
 module.exports.setFilters= (filter, map, data)=> {
 

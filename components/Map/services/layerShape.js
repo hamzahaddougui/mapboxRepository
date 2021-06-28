@@ -15,6 +15,7 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
         id,
         type: "symbol",
         source,
+        // 'source-layer': sourceLayer,
         layout: {
           "icon-image": iconImage,
           "icon-size": iconSize,
