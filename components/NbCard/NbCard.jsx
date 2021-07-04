@@ -21,6 +21,7 @@ const useStyles = makeStyles(muiStyles);
 const NeighborhoodCard = ({ neighborhood, onClick }) => {
   
   image = neighborhood?.City.replace(/ /g,"_");
+  // image = "/NeighborhoodMiniCardImg.png";
 
   const classes = useStyles({ image });
   const [elevation, setElevation] = useState(2);
