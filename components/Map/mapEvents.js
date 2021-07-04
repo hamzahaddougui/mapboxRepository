@@ -14,10 +14,12 @@ import flipped from "./services/flipped";
 import favourite from "./services/favourites";
 import neighborhood from "./services/neighborhood";
 
+import turf_distance from "@turf/distance";
 
 module.exports.events= (map, data, popup, props, polygons)=> {
     let cityProperties= [], lastNeighborhoods= [], regionZoom= false, valuesSet= true;
     
+      
       map.on("mousemove", "region-layer", e => {
         move.mouseMove(data, e, "region", REGION_HIGHLIGHTED);
         mapPopup.handlePopup(popup, e, "Region", e.features[0].properties.polygonId);
@@ -45,12 +47,26 @@ module.exports.events= (map, data, popup, props, polygons)=> {
         move.mouseMove(data, e, "county", COUNTY_HIGHLIGHTED);
         mapPopup.handlePopup(popup, e, "County", e.features[0].properties.polygonId.split('_')[1]);
         });
-  
+
+      
       map.on("click", "county-layer", e => {
-        let result = e.features[0].properties.polygonId.split("_");
-        layerClick.click(map, data, e, COUNTY, "region", result[0], REGION_CLICKED);
-        layerClick.click(map, data, e, COUNTY_HIGHLIGHTED, "county", e.features[0].properties.polygonId,
-          COUNTY_CLICKED)
+        // let result = e.features[0].properties.polygonId.split("_");
+        // layerClick.click(map, data, e, COUNTY, "region", result[0], REGION_CLICKED);
+        // layerClick.click(map, data, e, COUNTY_HIGHLIGHTED, "county", e.features[0].properties.polygonId,
+        //   COUNTY_CLICKED)
+
+        let bounds= JSON.parse(e.features[0].properties.bounds);
+        let distance= turf_distance([bounds[0], bounds[1]], [bounds[2], bounds[3]])
+
+        let {flyMaxZoom}= COUNTY_CLICKED;
+        
+        if(distance<120) flyMaxZoom= 9;
+        else flyMaxZoom= 8.8;
+
+        COUNTY_CLICKED.flyMaxZoom= flyMaxZoom;
+
+        layerClick.click(map, data, e, COUNTY_CLICKED, "county", e.features[0].properties.polygonId,
+          COUNTY_BORDERED);
 
         });
   
@@ -59,12 +75,17 @@ module.exports.events= (map, data, popup, props, polygons)=> {
         leave.mouseLeave(e, popup);
       });
   
-      map.on("click", "county-clicked-layer", e => {
-        layerClick.click(map, data, e, COUNTY_CLICKED, "county", e.features[0].properties.polygonId,
-          COUNTY_BORDERED);
-        });
+      // map.on("click", "county-clicked-layer", e => {
+      //   layerClick.click(map, data, e, COUNTY_CLICKED, "county", e.features[0].properties.polygonId,
+      //     COUNTY_BORDERED);
+      //   });
   
+
+      
+
       map.on("mousemove", "city-layer", e => {
+        // console.log(e.features[0].properties.polygonId)
+        // console.log(e.features[0])
         move.mouseMove(data, e, "city", CITY_OTHER);
         mapPopup.handlePopup(popup, e, "City", e.features[0].properties.polygonId.split('_')[2]);
         });
@@ -83,26 +104,44 @@ module.exports.events= (map, data, popup, props, polygons)=> {
       // })
   
       map.on("click", "city-other-layer", e => {
-        let id = e.features[0].properties.polygonId.split("_");
-        layerClick.click(map, data, e, CITY_OTHER, "city", e.features[0].properties.polygonId,
-          CURRENT_CITY);
-        layerClick.click(map, data, e, CITY_OTHER, "county", id[0] + "_" + id[1], COUNTY_BORDERED);
+        // let id = e.features[0].properties.polygonId.split("_");
+        // layerClick.click(map, data, e, CITY_OTHER, "city", e.features[0].properties.polygonId,
+        //   CURRENT_CITY);
+        // layerClick.click(map, data, e, CITY_OTHER, "county", id[0] + "_" + id[1], COUNTY_BORDERED);
+        
+
+        let bounds= JSON.parse(e.features[0].properties.bounds);
+        let distance= turf_distance([bounds[0], bounds[1]], [bounds[2], bounds[3]])
+
+        let {flyMaxZoom}= CURRENT_CITY_CLICKED;
+
+        if(distance<=10) flyMaxZoom= 12;
+        else flyMaxZoom= 10;
+
+        CURRENT_CITY_CLICKED.flyMaxZoom= flyMaxZoom;
+        
+        layerClick.click(map, data, e, CURRENT_CITY_CLICKED, "city", e.features[0].properties.polygonId,
+        CITY_BORDERED);
+
+        
       });
   
-      map.on("click", "current-city-layer", e => {
-        layerClick.click(map, data, e, CURRENT_CITY_CLICKED, "city", e.features[0].properties.polygonId,
-          CITY_BORDERED);
-      });
+      // map.on("click", "current-city-layer", e => {
+      //   layerClick.click(map, data, e, CURRENT_CITY_CLICKED, "city", e.features[0].properties.polygonId,
+      //     CITY_BORDERED);
+      // });
   
       map.on("mouseleave", "current-city-layer", e => {
         leave.mouseLeave(e, popup);
       });
-  
+
+      
       map.on("mousemove", "neighborhood-layer", e => {
         move.mouseMove(data, e, "neighborhood", NEIGHBORHOOD_HIGHLIGHTED);
         mapPopup.handlePopup(popup, e, "Neighborhood", e.features[0].properties.polygonId.split('_')[3]);
         });
-  
+
+      
       // map.on("moveend", "neighborhood-layer", e => {
       //     let neighbProps= [];
       //     let id= e.features[0].properties.polygonId.split('_');

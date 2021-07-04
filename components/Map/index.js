@@ -30,6 +30,7 @@ import drawFilters from "./services/Filters/draw";
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 const marker = "/map/marker_one.png";
 
+
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFtemFoYWQiLCJhIjoiY2trY2YybmozMGo3bzJ1b2FpcTh4ZmdpeiJ9.urpUJIK3zKrxCaEKXNe9Rw";
 
@@ -58,18 +59,25 @@ class Map extends Component {
     this.setState({ ...this.state, openCard: false });
   };
 
+  // center: [-83.7771064868452, 28.128946183899473], // starting position [lng, lat]
+  // zoom: 6, // starting zoom
+    
+  
   getMapObject= () => {
     let map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/hamzahad/ckm6lqb38f5ev17ljx1v8jxgp", // style URL
       center: [-85.80603438080203, 26.471118388804214], // starting position [lng, lat]
       zoom: 5.3028243761363125, // starting zoom
+  
     });
    
     return map;
   }
 
   async componentDidMount(prevProps) {
+
+    
     let map= this.getMapObject();
 
     let clientId= "aXRBSzN4MGlhbnZEcDBXNk1LTkFicDo2YjZmZGQyZmZiZmJlMWFj";
@@ -90,8 +98,7 @@ class Map extends Component {
     basics.drawBasics(map, NEIGHBORHOOD);
     drawFilters.drawFilterLayers(map);
     
-    draw.drawScores(allInOneData.data, map, "city_score_marker", "city_score_layer", "city");
-    draw.drawScores(allInOneData.data, map, "neighborhood_score_marker", "neighborhood_score_layer", "neighborhood");
+    draw.drawScores(allInOneData.data, map);
     draw.drawFlipped(map);
     draw.drawFavourite(map);
 

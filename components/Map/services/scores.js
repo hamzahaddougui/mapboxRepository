@@ -57,16 +57,25 @@ module.exports.setScores= (map, scores, data) => {
     }
      
     else{
+        let geojson= {
+          type: "FeatureCollection",
+          features: ""
+        }
         let cityFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 3 && f.properties.favourite== false && f.properties.flipped== false);
         cityFeatures.forEach(feature => {
           feature.properties.Score= 0;
         })
+
+        geojson.features= cityFeatures
+        map.getSource('city_bis').setData(geojson);
+
         let neighbFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 4 && f.properties.favourite== false && f.properties.flipped== false);
         neighbFeatures.forEach(feature => {
           feature.properties.Score= 0;
         })
-        draw.drawPolygon(map, data, CITY);
-        draw.drawPolygon(map, data, NEIGHBORHOOD);
+        geojson.features= neighbFeatures;
+        map.getSource('neighborhood_bis').setData(geojson);
+
       }
     return data;
   }

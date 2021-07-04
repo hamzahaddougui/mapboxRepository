@@ -32,12 +32,12 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
   
-  const handleMouseOver = () => {
-    setElevation(6);
-    if(JSON.stringify(flipped)!= JSON.stringify(neighborhood)){
-      dispatch(flipCard(neighborhood));
-    }
-  }
+  // const handleMouseOver = () => {
+  //   setElevation(6);
+  //   if(JSON.stringify(flipped)!= JSON.stringify(neighborhood)){
+  //     dispatch(flipCard(neighborhood));
+  //   }
+  // }
 
   const handleMouseOut = () => setElevation(2);
 
@@ -92,7 +92,7 @@ const NeighborhoodCard = ({ neighborhood, onClick }) => {
     <ReactCardFlip isFlipped={ flipped === neighborhood ? true : false} flipDirection="vertical">
 
     <Paper
-      onMouseOver={handleMouseOver}
+      // onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       component={Grid}
       elevation={elevation}

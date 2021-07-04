@@ -21,6 +21,29 @@ module.exports.drawPolygon = (
       geojson.features = features;
     }
 
+    let symbolLayertextField, polygonId;
+    if(features && features[0]){
+      polygonId= features[0].properties.polygonId.split('_');
+      switch (polygonId.length) {
+        case 1:
+          symbolLayertextField= polygonId[0];
+          break;
+        case 2:
+          symbolLayertextField= polygonId[1];
+          break;
+        case 3:
+          symbolLayertextField= polygonId[2];
+          break;
+        case 4:
+          symbolLayertextField= polygonId[3];
+          break;
+      
+        default:
+          break;
+      }
+    }
+    
+
     if (!map.getSource(id)) {
        map.addSource(id, {
           type: "geojson",
@@ -64,18 +87,51 @@ module.exports.drawPolygon = (
         [
           "case",
           ["==", id, "region-clicked"],
-          4,
+          1.5,
           ["==", id, "county-bordered"],
-          4,
+          1.5,
           ["==", id, "city-bordered"],
-          4,
-          2
+          1.5,
+          1
         ],
         minZoom,
         maxZoom,
         ["==", "$type", "Polygon"],
       );
       map.addLayer(lineLayer);
+
+      map.addLayer({
+        id: id+"_layer_outline_name",
+        type: "symbol",
+        source: id,
+        layout:{
+          "symbol-placement": "line",
+          "symbol-spacing": 2,
+          "text-field": symbolLayertextField,
+          "text-anchor": "center",
+          "text-rotation-alignment": "map",
+          "text-keep-upright": true,
+          "text-size": 22
+        }
+        ,
+        paint: {
+          "text-opacity":[
+                           "interpolate",
+                              ["linear"],
+                              ["zoom"],
+                              7,
+                              ["case", ["==", polygonId.length, 1], 1, 0],
+                              9,
+                              ["case", ["==", polygonId.length, 2], 1, 0],
+                              12,
+                              ["case", ["==", polygonId.length, 3], 1, 0],
+                              13,
+                              ["case", ["==", polygonId.length, 4], 1, 0]
+                              
+                              
+                          ]
+        }
+      })
       
       if(map.getLayer("city_score_layer")){
         map.moveLayer(id + "-layer", "city_score_layer");
@@ -102,53 +158,92 @@ module.exports.drawPolygon = (
     } else {
       geojson.features = features;
       map.getSource(id).setData(geojson);
+      map.setLayoutProperty(id+"_layer_outline_name", "text-field", symbolLayertextField)
     }
     
 };
 
 
-module.exports.drawScores= (data, map, imageName, layerName, source)=> {
+module.exports.drawScores= (data, map)=> {
   // let sourceLayer;
   // if(source== 'city') sourceLayer= 'city-dhmtj5';
   // if(source== 'neighborhood') sourceLayer= 'neighb-9sq7jo';
 
-  let geojson= {
-    type: "FeatureCollection",
-    features
-  }
+  let scoresOptions= [
+    {imageName: "city_70_marker", layerName: "city_70_layer", source: 'city', range: 100,
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 70]]},
+    {imageName: "city_50_marker", layerName: "city_50_layer", source: 'city', range: 70,
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 50]]},
+    {imageName: "city_30_marker", layerName: "city_30_layer", source: 'city', range: 50,
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 30]]},
+    {imageName: "city_last_marker", layerName: "city_last_layer", source: 'city', range: 30,
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], ["<", ["get", "Score"], 30]]},
+    {imageName: "neighborhood_70_marker", layerName: "neighborhood_70_layer", source: 'neighborhood', range: 100,
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 70]]},
+    {imageName: "neighborhood_50_marker", layerName: "neighborhood_50_layer", source: 'neighborhood', range: 70,
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 50]]},
+    {imageName: "neighborhood_30_marker", layerName: "neighborhood_30_layer", source: 'neighborhood', range: 50,
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 30]]},
+    {imageName: "neighborhood_last_marker", layerName: "neighborhood_last_layer", source: 'neighborhood', range: 30,
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], ["<", ["get", "Score"], 30]]}
+  ];
 
-  let features= service.getFeatures(data.features, source);
-  geojson.features= features;
-
-  if(map.addSource(source+'_bis',{
-    type: "geojson",
-    data: geojson
-  }))
-
+  let sources= [
+    {source: 'city'},
+    {source: 'neighborhood'}];
   
-  map.loadImage(score_marker, (error, image) => {
-    if (error) throw error;
-    map.addImage(imageName, image);
-    map.addLayer(
-      layerShape.symbolLayer(
-        layerName,
-        source+'_bis',
-        // sourceLayer,
-        imageName,
-        0.068,
-        ["concat", ["get", "Score"], "%"],
-        ["Open Sans Semibold", "Arial Unicode MS Bold"],
-        [0, -1],
-        "top",
-        11,
-        "#5D66FA",
-        "white",
-        ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false]]
+  sources.forEach(s => {
+    let geojson= {
+      type: "FeatureCollection",
+      features
+    }
+  
+    let features= service.getFeatures(data.features, s.source);
+    geojson.features= features;
+  
+    
+    if(!map.getSource(s.source+'_bis')){
+      map.addSource(s.source+'_bis',{
+        type: "geojson",
+        data: geojson
+      })
+    }
+    
+  })  
+  
 
-        
-      )
-    );
-  });
+  scoresOptions.forEach(option => {
+    let {imageName, layerName, source, filter, range}= option;
+
+    
+  
+    
+    map.loadImage(score_marker, (error, image) => {
+      if (error) throw error;
+      map.addImage(imageName, image);
+      map.addLayer(
+        layerShape.symbolLayer(
+          layerName,
+          source+'_bis',
+          // sourceLayer,
+          imageName,
+          0.068,
+          ["concat", ["get", "Score"], "%"],
+          ["Open Sans Semibold", "Arial Unicode MS Bold"],
+          [0, -1],
+          "top",
+          11,
+          "#5D66FA",
+          "white",
+          filter
+  
+          
+        )
+      );
+    });
+  })
+  
+
 }
 
 

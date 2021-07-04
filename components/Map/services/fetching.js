@@ -23,7 +23,7 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
 
 
         if(from!= null){
-          feature= feature.filter(f => f.properties.polygonId.startsWith(from));
+          feature= feature.filter(f => f.properties.polygonId== from);
         }
 
         
@@ -34,7 +34,7 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
 
           
           if(from!= null){
-            feature= feature.filter(f => f.properties.polygonId.startsWith(from));
+            feature= feature.filter(f => f.properties.polygonId== from);
           }
           
         break;
@@ -43,7 +43,7 @@ module.exports.getFeatures = (allFeatures, source, from=null) => {
           
           feature.forEach(f => f.properties= {...f.properties, surface: area(f), center: center(f), bounds: bbox(f)});
           if(from!= null){
-            feature= feature.filter(f => f.properties.polygonId.startsWith(from));
+            feature= feature.filter(f => f.properties.polygonId== from);
           }
           
         break;

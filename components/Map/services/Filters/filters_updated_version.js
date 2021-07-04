@@ -14,24 +14,35 @@ properties.propArr.forEach(property => {
         let {name}= layer;
         let {shortName}= property;
         
+        let otherLayers= [
+            {layerName: 'city_70_layer'},
+            {layerName: 'city_50_layer'},
+            {layerName: 'city_30_layer'},
+            {layerName: 'city_last_layer'},
+            {layerName: 'neighborhood_70_layer'},
+            {layerName: 'neighborhood_50_layer'},
+            {layerName: 'neighborhood_30_layer'},
+            {layerName: 'neighborhood_last_layer'},
+            {layerName: 'city_flipped_layer'},
+            {layerName: 'city_favourite_layer'},
+            {layerName: 'neighborhood_flipped_layer'},
+            {layerName: 'neighborhood_favourite_layer'}
+        ]
+
         if(!selectedFilter){
             map.setLayoutProperty(`${name}-${shortName}`, 'visibility', 'none');
             map.setLayoutProperty(`${name}-${shortName}-marker`, 'visibility', 'none')
-            map.setLayoutProperty('city_score_layer', 'visibility', 'visible')
-            map.setLayoutProperty('neighborhood_score_layer', 'visibility', 'visible')
-            map.setLayoutProperty('city_flipped_layer', 'visibility', 'visible')
-            map.setLayoutProperty('neighborhood_flipped_layer', 'visibility', 'visible')
-            map.setLayoutProperty('city_favourite_layer', 'visibility', 'visible')
-            map.setLayoutProperty('neighborhood_favourite_layer', 'visibility', 'visible')
+            otherLayers.forEach(other => {
+             map.setLayoutProperty(other.layerName, 'visibility', 'visible')
+
+            })
             return;
         }
         
-        map.setLayoutProperty('city_score_layer', 'visibility', 'none')
-        map.setLayoutProperty('neighborhood_score_layer', 'visibility', 'none')
-        map.setLayoutProperty('city_flipped_layer', 'visibility', 'none')
-        map.setLayoutProperty('neighborhood_flipped_layer', 'visibility', 'none')
-        map.setLayoutProperty('city_favourite_layer', 'visibility', 'none')
-        map.setLayoutProperty('neighborhood_favourite_layer', 'visibility', 'none')
+        otherLayers.forEach(other => {
+            map.setLayoutProperty(other.layerName, 'visibility', 'none')
+
+           })
 
         let filterElem= properties.propArr.filter(p => p.longName.toUpperCase()== selectedFilter.toUpperCase());
         
