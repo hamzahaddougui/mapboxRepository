@@ -168,7 +168,7 @@ const NEIGHBORHOOD= {
     minZoom: 10,
     maxZoom: 24,
     flyMinZoom: 11, 
-    flyMaxZoom: 15, 
+    flyMaxZoom: 14, 
     flyDuration: 5000, 
     flySpeed: 0.5
 }

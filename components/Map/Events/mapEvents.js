@@ -1,37 +1,71 @@
-import move from "./polygon/polygonEvents/mousemove";
-import mapPopup from "./popup";
-import draw from "./polygon/draw";
-import leave from "./polygon/polygonEvents/mouseleave";
-import layerClick from "./polygon/polygonEvents/click";
+import move from "../polygon/events/mousemove";
+import mapPopup from "../Popup/popup";
+import draw from "../polygon/draw";
+import leave from "../polygon/events/mouseleave";
+import layerClick from "../polygon/events/click";
 import {
     REGION_HIGHLIGHTED, REGION_CLICKED,
     COUNTY, COUNTY_HIGHLIGHTED, COUNTY_CLICKED, COUNTY_BORDERED,
     CITY_OTHER, CURRENT_CITY, CURRENT_CITY_CLICKED, CITY_BORDERED,
     NEIGHBORHOOD, NEIGHBORHOOD_HIGHLIGHTED, CURRENT_NEIGHBORHOOD
-  } from "./polygon/layer/config";
-import fetching from "./services/fetching";
-import flipped from "./services/flipped";
-import favourite from "./services/favourites";
-import neighborhood from "./services/neighborhood";
+  } from "../polygon/layer/config";
+import fetching from "../services/fetching";
+import flipped from "../services/Flipped/flipped";
+import favourite from "../services/Favorites/favourites";
+import neighborhood from "../services/NeighborhoodService/neighborhood";
+import symbol from "../layers/symbol/list";
 
 import turf_distance from "@turf/distance";
+import arrayTools from "array-tools";
 
 module.exports.events= (map, data, popup, props, polygons)=> {
-    let cityProperties= [], lastNeighborhoods= [], regionZoom= false, valuesSet= true;
+  let cityProperties= [], lastNeighborhoods= [], regionZoom= false, valuesSet= true, symbolLayersFiltered=[], visibleLayers= [], help=[];
     
+      symbolLayersFiltered= arrayTools.without(symbol.symbolLayers, 
+        [{"layerName": "city_flipped_layer"}, {"layerName": "city_favourite_layer"},
+         {"layerName": "neighborhood_flipped_layer"}, {"layerName": "neighborhood_favourite_layer"}]);
+      
+      map.on("zoom", e => {
+        let currentZoom= e.target.getZoom();
+        
+        
+         
+
+        
+        if(currentZoom>= 1 && currentZoom< 7){
+          visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 1);
+        
+        }
+
+        if(currentZoom>= 7 && currentZoom< 8.8){
+          visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 2);
+          
+        }
+
+        if(currentZoom>= 8.8 && currentZoom< 10){
+          visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 3);
+
+        }
+
+        if(currentZoom>= 10){
+          visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 4);
+          
+        }
+
+        if(help.length!= visibleLayers.length){
+          symbolLayersFiltered.forEach(layer => {
+            map.setLayoutProperty(layer.layerName, "visibility", "none");
+          })
+          visibleLayers.forEach(visible => map.setLayoutProperty(visible.layerName, "visibility", "visible"));
+          help= visibleLayers;
+        }
+        
+        
+      })
       
       map.on("mousemove", "region-layer", e => {
         move.mouseMove(data, e, "region", REGION_HIGHLIGHTED);
         mapPopup.handlePopup(popup, e, "Region", e.features[0].properties.polygonId);
-        
-        // console.log(e.features[0].properties.id)
-        // let feature = map.getFeatureState({
-        //   source: 'region',
-        //   sourceLayer: 'region-9xlonc',
-        //   id: e.features[0].properties.id
-        //   });
-
-        // console.log(feature);
       });
   
       map.on("mouseleave", "region-layer", e => {
@@ -84,8 +118,6 @@ module.exports.events= (map, data, popup, props, polygons)=> {
       
 
       map.on("mousemove", "city-layer", e => {
-        // console.log(e.features[0].properties.polygonId)
-        // console.log(e.features[0])
         move.mouseMove(data, e, "city", CITY_OTHER);
         mapPopup.handlePopup(popup, e, "City", e.features[0].properties.polygonId.split('_')[2]);
         });
@@ -113,10 +145,12 @@ module.exports.events= (map, data, popup, props, polygons)=> {
         let bounds= JSON.parse(e.features[0].properties.bounds);
         let distance= turf_distance([bounds[0], bounds[1]], [bounds[2], bounds[3]])
 
+        
         let {flyMaxZoom}= CURRENT_CITY_CLICKED;
 
         if(distance<=10) flyMaxZoom= 12;
-        else flyMaxZoom= 10;
+        if(distance>10 && distance<=60) flyMaxZoom= 11;
+        if(distance>60) flyMaxZoom= 10;
 
         CURRENT_CITY_CLICKED.flyMaxZoom= flyMaxZoom;
         
@@ -157,6 +191,7 @@ module.exports.events= (map, data, popup, props, polygons)=> {
   
       map.on("click", "current-neighborhood-layer", e => {
         let id = e.features[0].properties.polygonId.split("_");
+        
         layerClick.click(map, data, e, NEIGHBORHOOD, "city", id[0] + "_" + id[1] + "_" + id[2],
           CITY_BORDERED);
         props.showCurrent(e.features[0].properties);

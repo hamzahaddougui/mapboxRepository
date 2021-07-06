@@ -1,7 +1,7 @@
-import flyTo from '../../flyingTo';
+import flyTo from '../../FlyTo/flyingTo';
 import service from '../../services/fetching';
 import draw from '../draw';
-import fitBounds from '../../fitBounds';
+import fitBounds from '../../FitBounds/fitBounds';
 import {COUNTY_HIGHLIGHTED, CITY_OTHER, CURRENT_CITY_CLICKED} from "./config";
 
 module.exports.handleLayerClick= (

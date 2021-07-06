@@ -1,4 +1,4 @@
-import styles from "./map.module.css";
+import styles from "../map.module.css";
 
 module.exports.handlePopup = (popup, e, key, id) => {
     // const { popup } = this.state;

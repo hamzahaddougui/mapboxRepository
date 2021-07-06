@@ -1,4 +1,4 @@
-import fetching from "./fetching";
+import fetching from "../fetching";
 
 module.exports.getNeighborhoods= (polygons)=> {
 //    let {city_neighbPolygons}= this.state;

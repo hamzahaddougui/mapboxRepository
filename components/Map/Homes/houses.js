@@ -1,4 +1,4 @@
-import layerShape from './services/layerShape';
+import layerShape from '../services/layerShape';
 
 module.exports.houses= (e, features) => {
     e.target.addSource("houses", {

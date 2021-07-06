@@ -1,4 +1,4 @@
-import layers from './layers';
+import layers from '../../layers/filters/list';
 import properties from './properties';
 
 module.exports.drawFilterLayers= (map) => {

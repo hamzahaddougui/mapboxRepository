@@ -10,7 +10,7 @@ return { id, type: "line", source,
 
 
 module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textField= null, textFont= null, textOffset= null,
-    textAnchor= null, textSize= null, iconColor= null, textColor= null, filter ) => {
+    textAnchor= null, textSize= null, iconColor= null, textColor= null, filter, visibility= "visible" ) => {
     return {
         id,
         type: "symbol",
@@ -26,103 +26,26 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
           "text-anchor": textAnchor,
           "text-size": textSize,
           "icon-allow-overlap": true,
+          "visibility": visibility
           // "symbol-placement": "line-center"
           // "symbol-z-order": "source"
         },
         paint: {
           "icon-color": iconColor,
           "text-color": textColor,
-          "icon-opacity": 
-                          [
-                              "interpolate",
-                              ["linear"],
-                              ["zoom"],
-                              1,
-                               ["case", ["==", ["get", "Score"], 0], 0, 1],
-                              5,
-                               ["case",
-                                ['any', 
-                                  ['all', ['>=', ['get', 'Score'], 70], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
-                                  ["==", ["get", "favourite"], true],
-                                  ["==", ["get", "flipped"], true]
-                                ],
-                                1, 0
-                               ],
-                              7,
-                              ["case",
-                                ['any', 
-                                  ['all', ['>=', ['get', 'Score'], 50], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
-                                  ["==", ["get", "favourite"], true],
-                                  ["==", ["get", "flipped"], true]
-                                ],
-                              1, 0
-                              ],
-                              9,
-                              ["case",
-                                ['any', 
-                                  ['all', ['>=', ['get', 'Score'], 30], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
-                                  ["==", ["get", "favourite"], true],
-                                  ["==", ["get", "flipped"], true]
-                                ],
-                              1, 0
-                              ],
-                              12,
-                              ["case",
-                                ['any', 
-                                  ['all', ['<', ['get', 'Score'], 30], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
-                                  ["==", ["get", "favourite"], true],
-                                  ["==", ["get", "flipped"], true]
-                                ],
-                              1, 1
-                              ],
-                            ],
+          "icon-opacity": [
+            "case",
+            ["==", ["get", "Score"], 0], 0, 1
+          ]
+                          ,
           "text-opacity": 
-                        [
-                          "interpolate",
-                          ["linear"],
-                          ["zoom"],
-                          1,
-                          ["case", ["==", ["get", "Score"], 0], 0, 1],
-                          5,
-                          ["case",
-                            ['any', 
-                              ['all', ['>=', ['get', 'Score'], 70], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
-                              ["==", ["get", "favourite"], true],
-                              ["==", ["get", "flipped"], true]
-                            ],
-                            1, 0
-                          ],
-                          7,
-                          ["case",
-                            ['any', 
-                              ['all', ['>=', ['get', 'Score'], 50], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
-                              ["==", ["get", "favourite"], true],
-                              ["==", ["get", "flipped"], true]
-                            ],
-                          1, 0
-                          ],
-                          9,
-                          ["case",
-                            ['any', 
-                              ['all', ['>=', ['get', 'Score'], 30], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
-                              ["==", ["get", "favourite"], true],
-                              ["==", ["get", "flipped"], true]
-                            ],
-                          1, 0
-                          ],
-                          12,
-                          ["case",
-                            ['any', 
-                              ['all', ['<', ['get', 'Score'], 30], ['==', ['get', 'favourite'], false], ['==', ['get', 'flipped'], false]],
-                              ["==", ["get", "favourite"], true],
-                              ["==", ["get", "flipped"], true]
-                            ],
-                          1, 1
-                          ],
-                        ]
+          [
+            "case",
+            ["==", ["get", "Score"], 0], 0, 1
+          ]
         },
-        filter
-      }}
+        filter,
+        }}
 
 module.exports.circleLayer= (id, source, circleColor, circleRadius, circleOpacity) => {
     return {

@@ -1,7 +1,7 @@
-import flyTo from "../flyingTo";
-import draw from "../polygon/draw";
-import fitBounds from "../fitBounds";
-import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../polygon/layer/config";
+import flyTo from "../../FlyTo/flyingTo";
+import draw from "../../polygon/draw";
+import fitBounds from "../../FitBounds/fitBounds";
+import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../../polygon/layer/config";
 
 module.exports.setFavourites= (favourites, map, data)=> {
   let cityFeatures, neighbFeatures;

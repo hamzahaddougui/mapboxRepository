@@ -21,6 +21,7 @@
     "@types/node": "^14.14.35",
     "@types/react": "^17.0.3",
     "@zeit/next-css": "^1.0.1",
+    "array-tools": "^2.0.9",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "image-sdf": "^1.0.4",

@@ -1,7 +1,8 @@
-import draw from "../polygon/draw";
-import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../polygon/layer/config";
+import draw from "../../polygon/draw";
+import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../../polygon/layer/config";
 
 module.exports.setScores= (map, scores, data) => {
+    
     let cityFeatures, neighbFeatures;
     if(scores.hasOwnProperty('data')){
       data.features.forEach(feature => {
@@ -77,5 +78,8 @@ module.exports.setScores= (map, scores, data) => {
         map.getSource('neighborhood_bis').setData(geojson);
 
       }
+
+
+      
     return data;
   }

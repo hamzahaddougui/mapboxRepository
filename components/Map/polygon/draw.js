@@ -106,7 +106,7 @@ module.exports.drawPolygon = (
         source: id,
         layout:{
           "symbol-placement": "line",
-          "symbol-spacing": 2,
+          "symbol-spacing": 80,
           "text-field": symbolLayertextField,
           "text-anchor": "center",
           "text-rotation-alignment": "map",
@@ -121,11 +121,11 @@ module.exports.drawPolygon = (
                               ["zoom"],
                               7,
                               ["case", ["==", polygonId.length, 1], 1, 0],
-                              9,
+                              8.8,
                               ["case", ["==", polygonId.length, 2], 1, 0],
-                              12,
+                              10,
                               ["case", ["==", polygonId.length, 3], 1, 0],
-                              13,
+                              11,
                               ["case", ["==", polygonId.length, 4], 1, 0]
                               
                               
@@ -170,23 +170,25 @@ module.exports.drawScores= (data, map)=> {
   // if(source== 'neighborhood') sourceLayer= 'neighb-9sq7jo';
 
   let scoresOptions= [
-    {imageName: "city_70_marker", layerName: "city_70_layer", source: 'city', range: 100,
-     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 70]]},
-    {imageName: "city_50_marker", layerName: "city_50_layer", source: 'city', range: 70,
-     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 50]]},
-    {imageName: "city_30_marker", layerName: "city_30_layer", source: 'city', range: 50,
-     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 30]]},
-    {imageName: "city_last_marker", layerName: "city_last_layer", source: 'city', range: 30,
+    {imageName: "city_last_marker", layerName: "city_last_layer", source: 'city', visibility: 'none',
      filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], ["<", ["get", "Score"], 30]]},
-    {imageName: "neighborhood_70_marker", layerName: "neighborhood_70_layer", source: 'neighborhood', range: 100,
-     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 70]]},
-    {imageName: "neighborhood_50_marker", layerName: "neighborhood_50_layer", source: 'neighborhood', range: 70,
-     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 50]]},
-    {imageName: "neighborhood_30_marker", layerName: "neighborhood_30_layer", source: 'neighborhood', range: 50,
+    {imageName: "city_30_marker", layerName: "city_30_layer", source: 'city', visibility: 'none',
      filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 30]]},
-    {imageName: "neighborhood_last_marker", layerName: "neighborhood_last_layer", source: 'neighborhood', range: 30,
-     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], ["<", ["get", "Score"], 30]]}
-  ];
+    {imageName: "city_50_marker", layerName: "city_50_layer", source: 'city', visibility: 'none',
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 50]]},
+    {imageName: "city_70_marker", layerName: "city_70_layer", source: 'city', visibility: 'visible',
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 70]]},
+    
+    {imageName: "neighborhood_last_marker", layerName: "neighborhood_last_layer", source: 'neighborhood', visibility: 'none',
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], ["<", ["get", "Score"], 30]]},
+    {imageName: "neighborhood_30_marker", layerName: "neighborhood_30_layer", source: 'neighborhood', visibility: 'none',
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 30]]},
+    {imageName: "neighborhood_50_marker", layerName: "neighborhood_50_layer", source: 'neighborhood', visibility: 'none',
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 50]]},
+    {imageName: "neighborhood_70_marker", layerName: "neighborhood_70_layer", source: 'neighborhood', visibility: 'visible',
+     filter: ["all", ["==", ["get", "favourite"], false], ["==", ["get", "flipped"], false], [">=", ["get", "Score"], 70]]},
+    
+    ];
 
   let sources= [
     {source: 'city'},
@@ -213,7 +215,7 @@ module.exports.drawScores= (data, map)=> {
   
 
   scoresOptions.forEach(option => {
-    let {imageName, layerName, source, filter, range}= option;
+    let {imageName, layerName, source, filter, visibility}= option;
 
     
   
@@ -235,11 +237,10 @@ module.exports.drawScores= (data, map)=> {
           11,
           "#5D66FA",
           "white",
-          filter
-  
-          
+          filter,
+          visibility
         )
-      );
+        );
     });
   })
   

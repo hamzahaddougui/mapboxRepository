@@ -5,28 +5,26 @@ import styles from "./map.module.css";
 import HouseData from "./data/houses.json";
 import PoiCard from "./components/card/card";
 import axios from "axios";
-import {REGION, COUNTY, CITY, NEIGHBORHOOD, CITY_BORDERED, CURRENT_NEIGHBORHOOD} from "./polygon/layer/config";
+import {NEIGHBORHOOD, CITY_BORDERED, CURRENT_NEIGHBORHOOD} from "./polygon/layer/config";
 import draw from "./polygon/draw";
 import showPoi from "./poi";
-import showHouses from "./houses";
-import scores from "./services/scores";
-import favourites from "./services/favourites";
-import flipped from "./services/flipped";
+import showHouses from "./Homes/houses";
+import scores from "./services/Scores/scores";
+import favourites from "./services/Favorites/favourites";
+import flipped from "./services/Flipped/flipped";
 import filters from "./services/Filters/filters";
 import filters_update from "./services/Filters/filters_updated_version";
 import { loadStarted, LoadEnded } from "../../services/actions/map.actions";
 import {showCurrent, NeighborhoodOnMove, flipCard} from "../../services/actions/neighborhood.actions";
-import mapEvents from "./mapEvents";
-import neighborhood from "./services/neighborhood";
+import mapEvents from "./Events/mapEvents";
+import neighborhood from "./services/NeighborhoodService/neighborhood";
 import "mapillary-js/dist/mapillary.min.css";
 import {Viewer} from "mapillary-js";
-import mapillarySrvc from "./services/mapillaryService";
-import layerClick from "./polygon/polygonEvents/click";
-import basics from "./polygon/draw_basic_polygons";
+import mapillarySrvc from "./services/Mapillary/mapillaryService";
+import layerClick from "./polygon/events/click";
+import basics from "./polygon/drawBasics";
 import drawFilters from "./services/Filters/draw";
-// import tileDecorator from '@mapbox/tile-decorator';
-// const VectorTile= require('ol/source/VectorTile');
-// import VectorTile from 'ol/source/VectorTile';
+
 const mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 const marker = "/map/marker_one.png";
 
@@ -80,43 +78,24 @@ class Map extends Component {
     
     let map= this.getMapObject();
 
-    let clientId= "aXRBSzN4MGlhbnZEcDBXNk1LTkFicDo2YjZmZGQyZmZiZmJlMWFj";
+    // let clientId= "aXRBSzN4MGlhbnZEcDBXNk1LTkFicDo2YjZmZGQyZmZiZmJlMWFj";
 
-    const viewer = new Viewer({
-      apiClient: clientId,
-      container: "mly",
-      imageKey: "ftYOspJRzEUZ63otES5R7O",
-      component: { cover: false }
-    });
+    // const viewer = new Viewer({
+    //   apiClient: clientId,
+    //   container: "mly",
+    //   imageKey: "ftYOspJRzEUZ63otES5R7O",
+    //   component: { cover: false }
+    // });
 
     let { popup} = this.state;
     let allInOneData = await this.getAllInOne();
     
-    basics.drawBasics(map, REGION);
-    basics.drawBasics(map, COUNTY);
-    basics.drawBasics(map, CITY);
-    basics.drawBasics(map, NEIGHBORHOOD);
-    drawFilters.drawFilterLayers(map);
-    
+    basics.drawBasics(map);
     draw.drawScores(allInOneData.data, map);
     draw.drawFlipped(map);
     draw.drawFavourite(map);
-
+    drawFilters.drawFilterLayers(map);
     
-    let vectorTile= (await import('ol/source/VectorTile')).default;
-    let mvtFormat= (await import('ol/format/MVT')).default;
-    let test= new vectorTile({
-      url: 'mapbox://hamzahad.a0j93o6v',
-      format: new mvtFormat(),
-      tileLoadFunction: async function(tile, url){
-        const response= await fetch(url);
-        const data= await response.json();
-        console.log(data);
-      }
-    })
-
-    // console.log(test)
-
     let features= allInOneData.data.features.filter(f => f.properties.hasOwnProperty('City') || f.properties.hasOwnProperty('Neighborhood'));
     let geojson = {
       type: "FeatureCollection",
@@ -129,7 +108,8 @@ class Map extends Component {
     //   // this.showHouses(e);
     // });
 
-    mapEvents.events(map, allInOneData.data, popup, this.props, geojson);  
+    mapEvents.events(map, allInOneData.data, popup, this.props, geojson);
+    
     
     map.on("click", "neighborhood-layer", async (e) => {
       let neighb= e.features[0].properties;
@@ -138,62 +118,67 @@ class Map extends Component {
 
       }
       let id = e.features[0].properties.polygonId.split("_");
+      
+      if(id[2]== "Jacksonville") NEIGHBORHOOD.flyMaxZoom= 13.5;
+      else NEIGHBORHOOD.flyMaxZoom= 14;
+
       layerClick.click(map, allInOneData.data, e, NEIGHBORHOOD, "neighborhood", e.features[0].properties.polygonId,
         CURRENT_NEIGHBORHOOD);
       layerClick.click(map, allInOneData.data, e, NEIGHBORHOOD, "city", id[0] + "_" + id[1] + "_" + id[2],
         CITY_BORDERED);
       // let center= JSON.parse(e.features[0].properties.center);
       // let coordinates= center.geometry.coordinates;
-      let lngLat= e.lngLat;
-      let json= await mapillarySrvc.getImageKey(clientId, e.features[0]);
-      let feature= json.data.features[0];
-      if (feature){
-        let key= feature.properties.key;
-        viewer.moveToKey(key);
+    //   let lngLat= e.lngLat;
+    //   let json= await mapillarySrvc.getImageKey(clientId, e.features[0]);
+    //   let feature= json.data.features[0];
+    //   if (feature){
+    //     let key= feature.properties.key;
+    //     viewer.moveToKey(key);
         
-        let markerSource = {
-          type: 'geojson',
-          data: {
-              type: 'Feature',
-              geometry: {
-                  type: 'Point',
-                  coordinates: [lngLat.lng, lngLat.lat]
-              }
-              }};
-              if(!map.getSource('markers')){
-                map.addSource('markers', markerSource);
-                map.loadImage(marker, (error, image) => {
-                  if (error) throw error;
-                  map.addImage("mapillary_marker", image);
-                  map.addLayer(
-                    {
-                      id: 'markers_layer',
-                      type: 'symbol',
-                      source: 'markers',
-                      layout: {
-                          'icon-image': "mapillary_marker",
-                          'icon-size': 0.06
-                      }
-                  });
-                });
-              }
+    //     let markerSource = {
+    //       type: 'geojson',
+    //       data: {
+    //           type: 'Feature',
+    //           geometry: {
+    //               type: 'Point',
+    //               coordinates: [lngLat.lng, lngLat.lat]
+    //           }
+    //           }};
+    //           if(!map.getSource('markers')){
+    //             map.addSource('markers', markerSource);
+    //             map.loadImage(marker, (error, image) => {
+    //               if (error) throw error;
+    //               map.addImage("mapillary_marker", image);
+    //               map.addLayer(
+    //                 {
+    //                   id: 'markers_layer',
+    //                   type: 'symbol',
+    //                   source: 'markers',
+    //                   layout: {
+    //                       'icon-image': "mapillary_marker",
+    //                       'icon-size': 0.06
+    //                   }
+    //               });
+    //             });
+    //           }
         
-          if(map.getSource('markers')){
-          viewer.on(Viewer.nodechanged, function(node){
-            let lngLat = [node.latLon.lon, node.latLon.lat];
+    //       if(map.getSource('markers')){
+    //       viewer.on(Viewer.nodechanged, function(node){
+    //         let lngLat = [node.latLon.lon, node.latLon.lat];
 
-            let data = {
-              type: 'Feature',
-              geometry: {
-                         type: 'Point',
-                         coordinates: lngLat}
-            };
+    //         let data = {
+    //           type: 'Feature',
+    //           geometry: {
+    //                      type: 'Point',
+    //                      coordinates: lngLat}
+    //         };
 
-          map.getSource('markers').setData(data);
-          map.flyTo({ center: lngLat });
-          })
-        }
-     }  
+    //       map.getSource('markers').setData(data);
+    //       map.flyTo({ center: lngLat });
+    //       })
+    //     }
+    //  }  
+    
     });
 
     map.on('zoom', e => {
