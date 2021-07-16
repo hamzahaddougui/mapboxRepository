@@ -26,23 +26,70 @@ module.exports.symbolLayer= (id, source, iconImage= null, iconSize= null, textFi
           "text-anchor": textAnchor,
           "text-size": textSize,
           "icon-allow-overlap": true,
-          "visibility": visibility
-          // "symbol-placement": "line-center"
+          "text-allow-overlap": true,
+          "visibility": visibility,
+          "symbol-placement": "point"
           // "symbol-z-order": "source"
         },
         paint: {
           "icon-color": iconColor,
           "text-color": textColor,
           "icon-opacity": [
-            "case",
-            ["==", ["get", "Score"], 0], 0, 1
-          ]
+            'interpolate', ['linear'], ['zoom'],
+              1,
+                ["case",
+                  ["any",
+                    [">=", ["get", "Score"], 80], ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]
+                  ],1, 0
+                ],
+              7,
+                ["case",
+                  ["any",
+                    [">=", ["get", "Score"], 60], ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]
+                  ],1, 0
+                ],
+              8.8,
+                ["case",
+                  ["any",
+                    [">=", ["get", "Score"], 40], ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]
+                  ],1, 0
+                ],
+              10,
+                ["case",
+                  ["any",
+                    [">", ["get", "Score"], 0], ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]
+                  ],1, 0
+                ],
+            ]
                           ,
           "text-opacity": 
           [
-            "case",
-            ["==", ["get", "Score"], 0], 0, 1
-          ]
+            'interpolate', ['linear'], ['zoom'],
+              1,
+                ["case",
+                  ["any",
+                    [">=", ["get", "Score"], 80], ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]
+                  ],1, 0
+                ],
+              7,
+                ["case",
+                  ["any",
+                    [">=", ["get", "Score"], 60], ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]
+                  ],1, 0
+                ],
+              8.8,
+                ["case",
+                  ["any",
+                    [">=", ["get", "Score"], 40], ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]
+                  ],1, 0
+                ],
+              10,
+                ["case",
+                  ["any",
+                    [">", ["get", "Score"], 0], ["==", ["get", "flipped"], true], ["==", ["get", "favourite"], true]
+                  ],1, 0
+                ],
+            ]
         },
         filter,
         }}

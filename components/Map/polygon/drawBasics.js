@@ -11,23 +11,23 @@ module.exports.drawBasics= (map) => {
         const {id, color, opacity, minZoom, maxZoom}= e.element;
         let sourceUrl, sourceLayer;
         if(id== 'region'){
-            sourceUrl= 'mapbox://hamzahad.a0j93o6v';
-            sourceLayer= 'region-9xlonc';
+            sourceUrl= 'mapbox://hamzahad.a4ljajby';
+            sourceLayer= 'region-0uo691';
         }
         
         if(id== 'county'){
-            sourceUrl= 'mapbox://hamzahad.5775wvmg';
-            sourceLayer= 'county-3dm9l0';
+            sourceUrl= 'mapbox://hamzahad.aqg4cnur';
+            sourceLayer= 'county-5l8ccs';
         }
     
         if(id== 'city'){
-            sourceUrl= 'mapbox://hamzahad.3yut0uak';
-            sourceLayer= 'city-dhmtj5';
+            sourceUrl= 'mapbox://hamzahad.16aufph0';
+            sourceLayer= 'city-09lt06';
         }
     
         if(id== 'neighborhood'){
-            sourceUrl= 'mapbox://hamzahad.bu9r9sxz';
-            sourceLayer= 'neighb-9sq7jo';
+            sourceUrl= 'mapbox://hamzahad.9p6ca8ah';
+            sourceLayer= 'neighb-2gkskn';
         }
             
         if(!map.getSource(id)){

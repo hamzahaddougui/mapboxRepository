@@ -1,9 +1,6 @@
-import draw from "../../polygon/draw";
-import {CITY, NEIGHBORHOOD, CITY_NEIGHBORHOOD} from "../../polygon/layer/config";
 
 module.exports.setScores= (map, scores, data) => {
     
-    let cityFeatures, neighbFeatures;
     if(scores.hasOwnProperty('data')){
       data.features.forEach(feature => {
           
@@ -24,58 +21,29 @@ module.exports.setScores= (map, scores, data) => {
             feature.properties= {...feature.properties, Score: neighborhood[0].Score, unity: "%", id: neighborhood[0].id, flipped: false, favourite: false}
 
           }
-            
-              
-          
-       
-     
-     
-    //  data.features.sort((a, b)=> b.properties.Score - a.properties.Score);
-    //  let length= data.features.length;
-    //  data.features.forEach(f => {
-    //         let position= (data.features.indexOf(f)/ length)* 100;
-    //         f.properties= {...f.properties, position}
-    //       })
-    
-     
-        })
-        cityFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 3);
-        let cityGeojson= {
+      })
+        let cityNeighbFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 3 || f.properties.polygonId.split('_').length== 4);
+        let cityNeighbGeojson= {
           type: "FeatureCollection",
-          features: cityFeatures
+          features: cityNeighbFeatures
         }
 
-        neighbFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 4);
-        let neighbGeojson= {
-          type: "FeatureCollection",
-          features: neighbFeatures
-        }
-
-        map.getSource('city_bis').setData(cityGeojson);
-        map.getSource('neighborhood_bis').setData(neighbGeojson);
-        // draw.drawPolygon(map, data, CITY);
-        // draw.drawPolygon(map, data, NEIGHBORHOOD);
-    }
+        map.getSource('cityNeighb_bis').setData(cityNeighbGeojson);
+      }
      
     else{
         let geojson= {
           type: "FeatureCollection",
           features: ""
         }
-        let cityFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 3 && f.properties.favourite== false && f.properties.flipped== false);
-        cityFeatures.forEach(feature => {
+        
+        let cityNeighbFeatures= data.features.filter(f => (f.properties.polygonId.split('_').length== 4 ||
+        f.properties.polygonId.split('_').length== 3) && f.properties.favourite== false && f.properties.flipped== false);
+        cityNeighbFeatures.forEach(feature => {
           feature.properties.Score= 0;
         })
-
-        geojson.features= cityFeatures
-        map.getSource('city_bis').setData(geojson);
-
-        let neighbFeatures= data.features.filter(f => f.properties.polygonId.split('_').length== 4 && f.properties.favourite== false && f.properties.flipped== false);
-        neighbFeatures.forEach(feature => {
-          feature.properties.Score= 0;
-        })
-        geojson.features= neighbFeatures;
-        map.getSource('neighborhood_bis').setData(geojson);
+        geojson.features= cityNeighbFeatures;
+        map.getSource('cityNeighb_bis').setData(geojson);
 
       }
 

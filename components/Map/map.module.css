@@ -60,6 +60,39 @@
 }
 
 
+.homeFilters{
+    position: absolute;
+    z-index: 2;
+    top: 30%;
+    left: 10%;
+}
+
+.homeFilters button{
+    margin: 0 2px;
+}
+
+
+.poiDiv {
+    /* src: url('../../public/map/POI/Speed&way.png'); */
+    /* background-image: url('../../public/map/POI/Speed&way.png'); */
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 30%;
+
+    
+}
+
+
+.pitch{
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 30%;
+
+}
+
+
 
 
 

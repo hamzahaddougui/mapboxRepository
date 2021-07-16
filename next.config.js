@@ -25,4 +25,7 @@ module.exports = {
       },
     ];
   },
+  // images: {
+  //   domains: ["https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg"]
+  // }
 };

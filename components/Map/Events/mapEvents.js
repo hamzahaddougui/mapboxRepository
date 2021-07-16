@@ -17,51 +17,56 @@ import symbol from "../layers/symbol/list";
 
 import turf_distance from "@turf/distance";
 import arrayTools from "array-tools";
+import homesEvents from "../Homes/Events/events";
+import layers from "../POI/layers/list";
 
 module.exports.events= (map, data, popup, props, polygons)=> {
   let cityProperties= [], lastNeighborhoods= [], regionZoom= false, valuesSet= true, symbolLayersFiltered=[], visibleLayers= [], help=[];
     
       symbolLayersFiltered= arrayTools.without(symbol.symbolLayers, 
-        [{"layerName": "city_flipped_layer"}, {"layerName": "city_favourite_layer"},
-         {"layerName": "neighborhood_flipped_layer"}, {"layerName": "neighborhood_favourite_layer"}]);
+        [{"layerName": "flipped_layer"}, {"layerName": "favourite_layer"}]);
       
       map.on("zoom", e => {
         let currentZoom= e.target.getZoom();
         
         
-         
-
+        // if(currentZoom>= 1 && currentZoom< 7){
+        //   visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 1);
         
-        if(currentZoom>= 1 && currentZoom< 7){
-          visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 1);
-        
-        }
+        // }
 
-        if(currentZoom>= 7 && currentZoom< 8.8){
-          visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 2);
+        // if(currentZoom>= 7 && currentZoom< 8.8){
+        //   visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 2);
+        
+        // }
+
+        // if(currentZoom>= 8.8 && currentZoom< 10){
+        //   visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 3);
           
-        }
+        // }
 
-        if(currentZoom>= 8.8 && currentZoom< 10){
-          visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 3);
+        // // if(currentZoom>= 8.8 && currentZoom< 10){
+        // //   visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 4);
 
-        }
+        // // }
 
-        if(currentZoom>= 10){
-          visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 4);
+        // if(currentZoom>= 10){
+        //   visibleLayers= symbolLayersFiltered.filter(layer => layer.zoomLevel<= 4);
           
-        }
+        // }
 
-        if(help.length!= visibleLayers.length){
-          symbolLayersFiltered.forEach(layer => {
-            map.setLayoutProperty(layer.layerName, "visibility", "none");
-          })
-          visibleLayers.forEach(visible => map.setLayoutProperty(visible.layerName, "visibility", "visible"));
-          help= visibleLayers;
-        }
+        // if(help.length!= visibleLayers.length){
+        //   symbolLayersFiltered.forEach(layer => {
+        //     map.setLayoutProperty(layer.layerName, "visibility", "none");
+        //   })
+        //   visibleLayers.forEach(visible => map.setLayoutProperty(visible.layerName, "visibility", "visible"));
+        //   help= visibleLayers;
+        // }
         
-        
+        if(currentZoom>=14 && currentZoom<18) layers.poiLayers.forEach(layer => map.setLayoutProperty(layer.layerName, "visibility", "visible"))
+        if(currentZoom<14) layers.poiLayers.forEach(layer => map.setLayoutProperty(layer.layerName, "visibility", "none"))
       })
+
       
       map.on("mousemove", "region-layer", e => {
         move.mouseMove(data, e, "region", REGION_HIGHLIGHTED);
@@ -190,6 +195,7 @@ module.exports.events= (map, data, popup, props, polygons)=> {
       
   
       map.on("click", "current-neighborhood-layer", e => {
+        console.log(e.features[0].properties.polygonId)
         let id = e.features[0].properties.polygonId.split("_");
         
         layerClick.click(map, data, e, NEIGHBORHOOD, "city", id[0] + "_" + id[1] + "_" + id[2],
@@ -279,16 +285,10 @@ module.exports.events= (map, data, popup, props, polygons)=> {
         this.setState({ openCard: true, cardObject: { name, county, city, address, phone, type } });
       });
   
-      map.on("mouseover", "houses-layer", e => {
-        let { name } = e.features[0].properties;
-        this.setState({
-          openCard: true,
-          cardObject: {name, county: "test", city: "test", address: "test", phone: "test", type: "house" }});
-      });
-  
-      map.on("mouseleave", "houses-layer", e => {
-        map.getCanvas().style.cursor = "";
-        this.setState({ openCard: false });
-      });
+
+      homesEvents.handleMouseOnHome("mousemove", "homes_layer", map, popup)
+      homesEvents.handleMouseOnHome("mouseleave", "homes_layer", map, popup)
+      homesEvents.handleMouseOnHome("mousemove", "homes_filter_layer", map, popup)
+      homesEvents.handleMouseOnHome("mouseleave", "homes_filter_layer", map, popup)
 
 }
