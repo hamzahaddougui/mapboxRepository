@@ -273,7 +273,7 @@ class Map extends Component {
             <button onClick={this.withoutFilter}>without filter</button>
           </div>
           <div className={styles.pitch}>
-            <button onClick={this.setPitch}>set Pitch</button>
+            <button onClick={this.setPitch}>3D</button>
           </div>
           </div>
       </React.Fragment>

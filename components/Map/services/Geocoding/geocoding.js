@@ -24,9 +24,11 @@ module.exports.getCenter= async (map, City) => {
 
     let valueFiltered= value.filter(elem => elem.City== City);
 
+    console.log(valueFiltered.length)
+
     if(valueFiltered.length== 0) return;
 
-    console.log(valueFiltered.length)
+    
 
     for(let elem= 0; elem< valueFiltered.length; elem++){
 

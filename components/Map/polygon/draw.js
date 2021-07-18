@@ -93,7 +93,7 @@ module.exports.drawPolygon = (
         source: id,
         layout:{
           "symbol-placement": "line",
-          "symbol-spacing": 80,
+          "symbol-spacing": 300,
           "text-field": symbolLayertextField,
           "text-anchor": "center",
           "text-rotation-alignment": "map",
@@ -110,7 +110,7 @@ module.exports.drawPolygon = (
                               ["case", ["==", polygonId.length, 1], 1, 0],
                               8.8,
                               ["case", ["==", polygonId.length, 2], 1, 0],
-                              10,
+                              9.5,
                               ["case", ["==", polygonId.length, 3], 1, 0],
                               11,
                               ["case", ["==", polygonId.length, 4], 1, 0]
